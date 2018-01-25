@@ -1,5 +1,3 @@
-using System;
-
 namespace Arkitektum.Orden.Models
 {
     public class ErrorViewModel
