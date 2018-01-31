@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Arkitektum.Orden.Models
 {
@@ -14,6 +15,8 @@ namespace Arkitektum.Orden.Models
 
         public List<Sector> Sectors { get; set; }
 
-        public List<ApplicationUser> Users { get; set; }
+        public List<OrganizationApplicationUser> Users { get; set; }
+
+        
     }
 }

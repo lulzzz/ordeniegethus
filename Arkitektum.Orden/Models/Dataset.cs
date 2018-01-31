@@ -67,6 +67,6 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Applikasjoner
         /// </summary>
-        public List<Application> Applications { get; set; }
+        public List<ApplicationDataset> ApplicationDatasets { get; set; }
     }
 }

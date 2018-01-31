@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace Arkitektum.Orden.Models
 {
@@ -6,5 +7,9 @@ namespace Arkitektum.Orden.Models
     public class ApplicationUser : IdentityUser
     {
         public Person Person { get; set; }
+
+         
+        public List<OrganizationApplicationUser> Organizations { get; set; }
+
     }
 }
