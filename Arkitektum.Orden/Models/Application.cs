@@ -31,7 +31,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Støtter disse felleskomponentene (svarUt, Id-port)
         /// </summary>
-        public List<SharedService> SuppportedSharedServices { get; set; }
+        //public List<SharedService> SuppportedSharedServices { get; set; }
 
         /// <summary>
         ///     Tilgjengelig integrasjonsmuligheter (API)
