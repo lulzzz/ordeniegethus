@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Arkitektum.Orden.Models
 {
@@ -24,17 +26,17 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Støtter disse standardene
         /// </summary>
-        public List<Standard> Standards { get; set; }
+        public List<ApplicationStandard> ApplicationStandards { get; set; }
 
         /// <summary>
         ///     Støtter disse felleskomponentene (svarUt, Id-port)
         /// </summary>
-        public List<SharedService> SuppportedSharedServices { get; set; }
+        //public List<SharedService> SuppportedSharedServices { get; set; }
 
         /// <summary>
         ///     Tilgjengelig integrasjonsmuligheter (API)
         /// </summary>
-        public List<Integration> SupportedIntegrations { get; set; }
+        public List<ApplicationSupportedIntegration> ApplicationSupportedIntegrations { get; set; }
 
         /// <summary>
         ///     Årlig kostnad
@@ -81,20 +83,22 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Tjenesteområder
         /// </summary>
-        public List<Sector> Sectors { get; set; }
+        public List<SectorApplication> SectorApplications { get; set; }
 
         /// <summary>
         ///     Datasett
         /// </summary>
-        public List<Dataset> Datasets { get; set; }
+        public List<ApplicationDataset> ApplicationDatasets { get; set; }
 
         /// <summary>
         ///     Felleskomponenter
         /// </summary>
-        public List<SharedService> SharedServices { get; set; }
+        public List<ApplicationSharedService> ApplicationSharedServices { get; set; }
+       
+        public int? OrganizationId { get; set; }
+        public Organization Organization { get; set; }
 
-
-        public int OrganizationId { get; set; }
-        public virtual Organization Organization { get; set; }
+        public int? VendorId { get; set; }
+     
     }
 }

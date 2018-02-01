@@ -18,11 +18,13 @@ namespace Arkitektum.Orden.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<Organization>().HasMany(o => o.Sectors).WithOne(s => s.Organization)
-                .HasForeignKey(s => s.OrganizationId).OnDelete(DeleteBehavior.Cascade);
-
-
+                
+            builder.Entity<ApplicationDataset>().HasKey("ApplicationId", "DatasetId");
+            builder.Entity<ApplicationSharedService>().HasKey("ApplicationId", "SharedServiceId");
+            builder.Entity<ApplicationStandard>().HasKey("ApplicationId", "StandardId");
+            builder.Entity<ApplicationSupportedIntegration>().HasKey("ApplicationId", "SupportedIntegrationId");
+            builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId");
+            builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
         }
     }
 }

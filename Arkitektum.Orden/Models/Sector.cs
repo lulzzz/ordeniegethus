@@ -14,9 +14,11 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Lovpålagt tjeneste, referanse til hjemmel/forskrift
         /// </summary>
-        public List<LawReference> LawReferences { get; set; } // Sjekke opp bool/string eller egen klasse
+        public List<LawReference> LawReferences { get; set; } 
 
         public int OrganizationId { get; set; }
         public virtual Organization Organization { get; set; }
+
+        public List<SectorApplication> SectorApplications { get; set; }
     }
 }

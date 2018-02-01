@@ -11,5 +11,9 @@
         public bool IsPersonalData { get; set; }
 
         public bool IsSensitivePersonalData { get; set; }
+
+        public Dataset Dataset { get; set; }
+
+        public int? DatasetId { get; set; }
     }
 }
