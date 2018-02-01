@@ -1,12 +1,11 @@
 ﻿@model Arkitektum.Orden.Models.Organization
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Ny organisasjon";
 }
 
-<h2>Create</h2>
+<h2>Ny organisasjon</h2>
 
-<h4>Organization</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,14 +22,14 @@
                 <span asp-validation-for="OrganizationNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Lagre" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Tilbake til liste</a>
 </div>
 
 @section Scripts {
