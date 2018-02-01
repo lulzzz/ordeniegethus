@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        bat 'dotnet build --configuration "Release" /property:Version=${env.BUILD_NUMBER}'
+        bat 'dotnet build --configuration "Release" /property:Version=${env.BUILD_ID}'
       }
     }
     stage('Test') {
