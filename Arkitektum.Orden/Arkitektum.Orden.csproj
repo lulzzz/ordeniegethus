@@ -24,12 +24,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ModelsResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Models\UIResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UIResource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Models\ModelsResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ModelsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Models\UIResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UIResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

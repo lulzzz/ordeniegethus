@@ -33,8 +33,10 @@ namespace Arkitektum.Orden
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc()
-                .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));
-
+                .AddDataAnnotationsLocalization(options => {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(ModelsResource));
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,3 +66,5 @@ namespace Arkitektum.Orden
         }
     }
 }
+
+                .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));
