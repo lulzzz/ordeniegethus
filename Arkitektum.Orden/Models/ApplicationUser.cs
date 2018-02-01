@@ -11,5 +11,7 @@ namespace Arkitektum.Orden.Models
          
         public List<OrganizationApplicationUser> Organizations { get; set; }
 
+        public List<OrganizationAdministrators> OrganizationAdministrators { get; set; }
+
     }
 }
