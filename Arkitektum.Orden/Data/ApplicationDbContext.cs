@@ -26,5 +26,7 @@ namespace Arkitektum.Orden.Data
             builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
         }
+
+        public DbSet<Arkitektum.Orden.Models.Organization> Organization { get; set; }
     }
 }
