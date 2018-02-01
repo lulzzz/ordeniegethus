@@ -92,6 +92,20 @@ namespace Arkitektum.Orden.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SharedService",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ApplicationId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SharedService", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Standard",
                 columns: table => new
                 {
@@ -102,19 +116,6 @@ namespace Arkitektum.Orden.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Standard", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Vendor",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Vendor", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -136,6 +137,39 @@ namespace Arkitektum.Orden.Data.Migrations
                         name: "FK_Field_Dataset_DatasetId",
                         column: x => x.DatasetId,
                         principalTable: "Dataset",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Application",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AnnnualFee = table.Column<decimal>(nullable: false),
+                    HostingLocation = table.Column<string>(nullable: true),
+                    InitialCost = table.Column<decimal>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    NumberOfUsers = table.Column<int>(nullable: false),
+                    OrganizationId = table.Column<int>(nullable: true),
+                    SystemOwnerId = table.Column<string>(nullable: true),
+                    VendorId = table.Column<int>(nullable: true),
+                    Version = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Application", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Application_Organization_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "Organization",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Application_AspNetUsers_SystemOwnerId",
+                        column: x => x.SystemOwnerId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -185,80 +219,6 @@ namespace Arkitektum.Orden.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Application",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AnnnualFee = table.Column<decimal>(nullable: false),
-                    HostingLocation = table.Column<string>(nullable: true),
-                    HostingVendorId = table.Column<int>(nullable: true),
-                    InitialCost = table.Column<decimal>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    NumberOfUsers = table.Column<int>(nullable: false),
-                    OrganizationId = table.Column<int>(nullable: true),
-                    SystemOwnerId = table.Column<string>(nullable: true),
-                    VendorId = table.Column<int>(nullable: true),
-                    Version = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Application", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Application_Vendor_HostingVendorId",
-                        column: x => x.HostingVendorId,
-                        principalTable: "Vendor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Application_Organization_OrganizationId",
-                        column: x => x.OrganizationId,
-                        principalTable: "Organization",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Application_AspNetUsers_SystemOwnerId",
-                        column: x => x.SystemOwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Application_Vendor_VendorId",
-                        column: x => x.VendorId,
-                        principalTable: "Vendor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LawReference",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DatasetId = table.Column<int>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    SectorId = table.Column<int>(nullable: true),
-                    Url = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LawReference", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_LawReference_Dataset_DatasetId",
-                        column: x => x.DatasetId,
-                        principalTable: "Dataset",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_LawReference_Sector_SectorId",
-                        column: x => x.SectorId,
-                        principalTable: "Sector",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ApplicationDataset",
                 columns: table => new
                 {
@@ -278,6 +238,30 @@ namespace Arkitektum.Orden.Data.Migrations
                         name: "FK_ApplicationDataset_Dataset_DatasetId",
                         column: x => x.DatasetId,
                         principalTable: "Dataset",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationSharedService",
+                columns: table => new
+                {
+                    ApplicationId = table.Column<int>(nullable: false),
+                    SharedServiceId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationSharedService", x => new { x.ApplicationId, x.SharedServiceId });
+                    table.ForeignKey(
+                        name: "FK_ApplicationSharedService_Application_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Application",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationSharedService_SharedService_SharedServiceId",
+                        column: x => x.SharedServiceId,
+                        principalTable: "SharedService",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -359,6 +343,34 @@ namespace Arkitektum.Orden.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LawReference",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DatasetId = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    SectorId = table.Column<int>(nullable: true),
+                    Url = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LawReference", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LawReference_Dataset_DatasetId",
+                        column: x => x.DatasetId,
+                        principalTable: "Dataset",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_LawReference_Sector_SectorId",
+                        column: x => x.SectorId,
+                        principalTable: "Sector",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SectorApplication",
                 columns: table => new
                 {
@@ -378,50 +390,6 @@ namespace Arkitektum.Orden.Data.Migrations
                         name: "FK_SectorApplication_Sector_SectorId",
                         column: x => x.SectorId,
                         principalTable: "Sector",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SharedService",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ApplicationId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SharedService", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SharedService_Application_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "Application",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ApplicationSharedService",
-                columns: table => new
-                {
-                    ApplicationId = table.Column<int>(nullable: false),
-                    SharedServiceId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationSharedService", x => new { x.ApplicationId, x.SharedServiceId });
-                    table.ForeignKey(
-                        name: "FK_ApplicationSharedService_Application_ApplicationId",
-                        column: x => x.ApplicationId,
-                        principalTable: "Application",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ApplicationSharedService_SharedService_SharedServiceId",
-                        column: x => x.SharedServiceId,
-                        principalTable: "SharedService",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -451,11 +419,6 @@ namespace Arkitektum.Orden.Data.Migrations
                 filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Application_HostingVendorId",
-                table: "Application",
-                column: "HostingVendorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Application_OrganizationId",
                 table: "Application",
                 column: "OrganizationId");
@@ -464,11 +427,6 @@ namespace Arkitektum.Orden.Data.Migrations
                 name: "IX_Application_SystemOwnerId",
                 table: "Application",
                 column: "SystemOwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Application_VendorId",
-                table: "Application",
-                column: "VendorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationDataset_DatasetId",
@@ -528,11 +486,6 @@ namespace Arkitektum.Orden.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_SectorApplication_ApplicationId",
                 table: "SectorApplication",
-                column: "ApplicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SharedService_ApplicationId",
-                table: "SharedService",
                 column: "ApplicationId");
 
             migrationBuilder.AddForeignKey(
@@ -617,13 +570,10 @@ namespace Arkitektum.Orden.Data.Migrations
                 name: "Dataset");
 
             migrationBuilder.DropTable(
-                name: "Sector");
-
-            migrationBuilder.DropTable(
                 name: "Application");
 
             migrationBuilder.DropTable(
-                name: "Vendor");
+                name: "Sector");
 
             migrationBuilder.DropTable(
                 name: "Organization");

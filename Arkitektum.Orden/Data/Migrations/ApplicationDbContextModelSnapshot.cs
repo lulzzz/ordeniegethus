@@ -29,8 +29,6 @@ namespace Arkitektum.Orden.Data.Migrations
 
                     b.Property<string>("HostingLocation");
 
-                    b.Property<int?>("HostingVendorId");
-
                     b.Property<decimal>("InitialCost");
 
                     b.Property<string>("Name");
@@ -47,13 +45,9 @@ namespace Arkitektum.Orden.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HostingVendorId");
-
                     b.HasIndex("OrganizationId");
 
                     b.HasIndex("SystemOwnerId");
-
-                    b.HasIndex("VendorId");
 
                     b.ToTable("Application");
                 });
@@ -352,8 +346,6 @@ namespace Arkitektum.Orden.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationId");
-
                     b.ToTable("SharedService");
                 });
 
@@ -367,18 +359,6 @@ namespace Arkitektum.Orden.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Standard");
-                });
-
-            modelBuilder.Entity("Arkitektum.Orden.Models.Vendor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vendor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -491,23 +471,13 @@ namespace Arkitektum.Orden.Data.Migrations
 
             modelBuilder.Entity("Arkitektum.Orden.Models.Application", b =>
                 {
-                    b.HasOne("Arkitektum.Orden.Models.Vendor", "HostingVendor")
-                        .WithMany()
-                        .HasForeignKey("HostingVendorId");
-
                     b.HasOne("Arkitektum.Orden.Models.Organization", "Organization")
                         .WithMany("Applications")
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrganizationId");
 
                     b.HasOne("Arkitektum.Orden.Models.ApplicationUser", "SystemOwner")
                         .WithMany()
                         .HasForeignKey("SystemOwnerId");
-
-                    b.HasOne("Arkitektum.Orden.Models.Vendor", "Vendor")
-                        .WithMany("Applications")
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.ApplicationDataset", b =>
@@ -575,7 +545,7 @@ namespace Arkitektum.Orden.Data.Migrations
 
             modelBuilder.Entity("Arkitektum.Orden.Models.Field", b =>
                 {
-                    b.HasOne("Arkitektum.Orden.Models.Dataset")
+                    b.HasOne("Arkitektum.Orden.Models.Dataset", "Dataset")
                         .WithMany("Fields")
                         .HasForeignKey("DatasetId");
                 });
@@ -633,14 +603,6 @@ namespace Arkitektum.Orden.Data.Migrations
                     b.HasOne("Arkitektum.Orden.Models.Sector", "Sector")
                         .WithMany("SectorApplications")
                         .HasForeignKey("SectorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Arkitektum.Orden.Models.SharedService", b =>
-                {
-                    b.HasOne("Arkitektum.Orden.Models.Application")
-                        .WithMany("SuppportedSharedServices")
-                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
