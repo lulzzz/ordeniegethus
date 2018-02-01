@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -37,10 +33,8 @@ namespace Arkitektum.Orden
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc()
-                .AddDataAnnotationsLocalization(options => {
-                    options.DataAnnotationLocalizerProvider = (type, factory) =>
-                        factory.Create(typeof(ModelsResource));
-                });
+                .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
