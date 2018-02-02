@@ -18,7 +18,7 @@ pipeline {
     stage('Publish') {
         steps {
         bat 'dotnet publish --configuration "Release" Arkitektum.Orden/Arkitektum.Orden.csproj  --output output-app'
-        bat "octo pack --id OrdenIEgetHus --version ${VERSION_NUMBER} --basePath output-app"
+        bat "octo pack --id OrdenIEgetHus --version ${VERSION_NUMBER} --basePath Arkitektum.Orden\\output-app\\"
       }
     }
   }
