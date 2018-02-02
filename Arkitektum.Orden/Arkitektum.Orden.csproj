@@ -5,6 +5,12 @@
     <UserSecretsId>aspnet-Arkitektum.Orden-32C8A4CB-9A29-4C57-A085-29FAF2AE50F0</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="ClienApp\app\app.ts" />
+    <None Remove="ClienApp\boot.ts" />
+    <None Remove="ClienApp\dummycomponent\dummycomponent.vue" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
@@ -40,6 +46,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UIResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClienApp\app\app.ts" />
+    <TypeScriptCompile Include="ClienApp\boot.ts" />
+    <TypeScriptCompile Include="ClienApp\dummycomponent\dummycomponent.vue" />
   </ItemGroup>
 
 </Project>
