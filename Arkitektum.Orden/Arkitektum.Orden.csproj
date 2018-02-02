@@ -6,9 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="ClienApp\app\app.ts" />
-    <None Remove="ClienApp\boot.ts" />
-    <None Remove="ClienApp\dummycomponent\dummycomponent.vue" />
+    <Compile Remove="ClienApp\**" />
+    <Content Remove="ClienApp\**" />
+    <EmbeddedResource Remove="ClienApp\**" />
+    <None Remove="ClienApp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="vue-module.d.ts" />
   </ItemGroup>
 
 
@@ -49,9 +54,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClienApp\app\app.ts" />
-    <TypeScriptCompile Include="ClienApp\boot.ts" />
-    <TypeScriptCompile Include="ClienApp\dummycomponent\dummycomponent.vue" />
+    <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="vue-module.d.ts" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,9 @@
 ﻿import './css/site.css';
-import 'bootstrap';
 import Vue from 'vue';
+import App from './components/app/app.vue';
+
 
 new Vue({
     el: '#app-root',
-    render: h => h(require('./components/app/app.vue.html'))
+    render: h => h(App)
 });

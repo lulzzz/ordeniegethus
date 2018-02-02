@@ -1,9 +1,11 @@
 ﻿import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 
+import DummyComponent from '../dummycomponent/dummycomponent.vue';
+
 @Component({
     components: {
-        DummyComponent: require('../dummycomponent/dummycomponent.vue')
+        DummyComponent
     }
 })
 export default class AppComponent extends Vue {
