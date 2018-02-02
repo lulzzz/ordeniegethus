@@ -39,5 +39,7 @@ namespace Arkitektum.Orden.Data
         }
 
         public DbSet<Arkitektum.Orden.Models.Organization> Organization { get; set; }
+
+        public DbSet<Arkitektum.Orden.Models.Application> Application { get; set; }
     }
 }

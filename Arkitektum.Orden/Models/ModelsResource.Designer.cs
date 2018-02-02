@@ -61,6 +61,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Årlig kostnad.
+        /// </summary>
+        public static string AnnualFee {
+            get {
+                return ResourceManager.GetString("AnnualFee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Epost.
         /// </summary>
         public static string Email {

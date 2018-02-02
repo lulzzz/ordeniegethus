@@ -1,0 +1,66 @@
+﻿@model Arkitektum.Orden.Models.Application
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Application</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Version)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Version)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AnnnualFee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AnnnualFee)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InitialCost)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InitialCost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HostingLocation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HostingLocation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfUsers)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfUsers)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VendorId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VendorId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Organization)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Organization.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
