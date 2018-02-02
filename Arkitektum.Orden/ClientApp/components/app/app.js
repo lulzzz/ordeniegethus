@@ -16,6 +16,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import DummyComponent from '../dummycomponent/dummycomponent.vue';
 var AppComponent = /** @class */ (function (_super) {
     __extends(AppComponent, _super);
     function AppComponent() {
@@ -24,7 +25,7 @@ var AppComponent = /** @class */ (function (_super) {
     AppComponent = __decorate([
         Component({
             components: {
-                DummyComponent: require('../dummycomponent/dummycomponent.vue')
+                DummyComponent: DummyComponent
             }
         })
     ], AppComponent);
