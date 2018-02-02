@@ -2,7 +2,7 @@ pipeline {
   agent any
   environment {
     VERSION_SUFFIX = "0.1."
-    VERSION_NUMBER = "${VERSION_SUFFIX} ${currentBuild.getNumber()}"
+    VERSION_NUMBER = "${VERSION_SUFFIX}${currentBuild.getNumber()}"
   }
   stages {
     stage('Build') {
