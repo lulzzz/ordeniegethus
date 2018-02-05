@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace Arkitektum.Orden
@@ -23,6 +24,9 @@ namespace Arkitektum.Orden
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAntiforgery(opts => opts.Cookie.Name = "AntiForgery.OrdenIEgetHus");
+            services.AddDataProtection().SetApplicationName("OrdenIEgetHus");
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
