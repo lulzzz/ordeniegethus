@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Arkitektum.Orden.Controllers
 {
+    [Authorize]
     public class ApplicationsController : Controller
     {
         private readonly ApplicationDbContext _context;
