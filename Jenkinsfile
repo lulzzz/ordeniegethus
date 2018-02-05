@@ -33,7 +33,9 @@ pipeline {
   }
   post {
     always {
-      deleteDir("Arkitektum.Orden\\output-app")
+      dir("Arkitektum.Orden\\output-app") {
+        deleteDir()
+      }
     }
   }
 }
