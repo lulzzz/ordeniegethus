@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 
@@ -52,6 +53,8 @@ namespace Arkitektum.Orden
         {
             if (env.IsDevelopment())
             {
+                TelemetryConfiguration.Active.DisableTelemetry = true;
+
                 app.UseDeveloperExceptionPage();
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
