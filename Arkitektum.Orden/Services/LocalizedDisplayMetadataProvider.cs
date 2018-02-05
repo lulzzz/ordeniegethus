@@ -11,14 +11,17 @@ namespace Arkitektum.Orden.Services
             var modelMetadata = context.DisplayMetadata;
             var propertyName = context.Key.Name;
 
-            var localizedPropertyName = ModelsResource.ResourceManager.GetString(propertyName);
-            if (string.IsNullOrWhiteSpace(localizedPropertyName))
+            if (!string.IsNullOrWhiteSpace(propertyName))
             {
-                Trace.WriteLine("Property name" + propertyName + " not found in localized resource file.");
-                localizedPropertyName = propertyName;
-            }
+                var localizedPropertyName = ModelsResource.ResourceManager.GetString(propertyName);
+                if (string.IsNullOrWhiteSpace(localizedPropertyName))
+                {
+                    Trace.WriteLine("Property name" + propertyName + " not found in localized resource file.");
+                    localizedPropertyName = propertyName;
+                }
 
-            modelMetadata.DisplayName = () => localizedPropertyName;
+                modelMetadata.DisplayName = () => localizedPropertyName;
+            }
         }
     }
 }
