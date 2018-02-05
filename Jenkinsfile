@@ -30,6 +30,9 @@ pipeline {
           }
       }
     }
+    stage('octopus relase and deploy') {
+      bat "octo create-release --project ${PACKAGE_NAME} --version ${VERSION_NUMBER} --packageversion ${VERSION_NUMBER} --server http://localhost:8081/ --apiKey ${OCTOPUS_API_KEY} --releaseNotes \"Jenkins build [${VERSION_NUMBER}](https://ci.arkitektum.no/blue/organizations/jenkins/ordeniegethus/detail/master/${currentBuild.getNumber()}/pipeline/\" --deployto=Dev --progress"
+    }
   }
   post {
     always {
