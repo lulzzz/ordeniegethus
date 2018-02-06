@@ -76,7 +76,7 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public List<ApplicationDataset> ApplicationDatasets { get; set; }
 
-       
+        public Category Category { get; set; }
         
     }
 }

@@ -27,7 +27,7 @@ namespace Arkitektum.Orden.Models
         /// å gjøre katalogen tilgjengelig. Bør være autoritativ URI 
         /// for enhet, sekundært organisasjonsnummer.
         /// </summary>
-        public static Publisher Publisher { get; set; }
+        public static Agent Publisher { get; set; }
 
         /// <summary>
         /// Kobler katalogen til datasett som er en del av katalogen
@@ -67,6 +67,9 @@ namespace Arkitektum.Orden.Models
         /// Dato for siste oppdatering/endring av katalogen
         /// </summary>
         public static DateTime ? Modified { get; set; } 
+
+
+        public static List<CategorySchema> CategorySchemaes { get; set; }
         
         
     }
