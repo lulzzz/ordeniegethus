@@ -58,6 +58,13 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public DateTime? PublishedToSharedDataCatalog { get; set; }
 
+        ///<summary>
+        /// Referanse til en enhet (organisasjon) som er ansvarlig for
+        ///  å gjøre datasettet tilgjengelig. Bør være autoritativ URI 
+        /// for enhet, sekundært organisasjonsnummer
+        /// </summary>
+        public Agent Publisher { get; set; }
+
         /// <summary>
         ///     Informasjonselementer i datasettet
         /// </summary>
@@ -65,8 +72,11 @@ namespace Arkitektum.Orden.Models
 
 
         /// <summary>
-        ///     Applikasjoner
+        /// Applikasjoner
         /// </summary>
         public List<ApplicationDataset> ApplicationDatasets { get; set; }
+
+       
+        
     }
 }
