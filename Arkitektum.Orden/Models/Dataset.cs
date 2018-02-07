@@ -22,6 +22,31 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public string Purpose { get; set; }
 
+        ///<summary>
+        /// Inneholder emneord (eller tag) som beskriver datasettet
+        /// </summary>
+        public List<String> Keywords { get; set; }
+
+        /// <summary>
+        /// Dette feltet angir i hvilken grad datasettet kan bli gjort
+        /// tilgjengelig for allmennheten, uten hensyn til om det er
+        /// publisert eller ikke. Et kontrollert vokabular med tre
+        /// verdier (:public, :restricted og :non-public) vil bli 
+        /// opprettet og forvaltet av EUs Publication Office. Ved bruk
+        /// av verdiene ":restricted" og ":non-public" er egenskapen 
+        /// skjermingshjemmel anbefalt.
+        /// </summary>
+        public AccessRight AccessRight { get; set; }
+
+        /// <summary>
+        /// Referanse til hjemmel (kilde for påstand) i offentlighetsloven,
+        ///  sikkerhetsloven, beskyttelsesinstruksen eller annet lovverk
+        ///  som ligger til grunn for vurdering av tilgangsnivå. Egenskapen
+        ///  er anbefalt dersom «tilgangsnivå» har verdiene «restricted»
+        ///  eller «non-public»
+        /// </summary>
+        public List<String> AccessRightComments { get; set; }
+
         /// <summary>
         ///     Personopplysninger
         /// </summary>
@@ -50,19 +75,20 @@ namespace Arkitektum.Orden.Models
         /// og internasjonale vokabular kan brukes om de oppfyller denne
         /// standardens krav til kontrollerte vokabular.
         /// </summary>
-        public static List<String> Concepts { get; set; }
+        public List<String> Concepts { get; set; }
 
         ///<summary>
         /// Referanse til kontaktpunktsobjekt med kontaktopplysninger. 
         /// Disse kan brukes til å sende kommentarer om datasettet.
         /// </summary>
-        public static List<ResourceLink> ContactPoints { get; set; }
+        public List<ResourceLink> ContactPoints { get; set; }
 
 
         /// <summary>
         /// Lenker til eksterne ressurser
         /// </summary>
         public List<ResourceLink> ResourceLinks { get; set; }
+
 
         /// <summary>
         ///     Lovhjemmel/forskrift for forvaltning
@@ -92,10 +118,34 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public List<ApplicationDataset> ApplicationDatasets { get; set; }
 
+        /// <summary>
+        /// Et emne for et datasett
+        /// </summary>
         public Category Category { get; set; }
 
+        /// <summary>
+        /// En katalog eller repository som inneholder beskrivelsene 
+        /// av datasettene som er beskrevet.
+        /// </summary>
+        public Catalog Catalog { get; set; }
+
+        /// <summary>
+        /// Koblingen mellom datasettet og en tilgjengelig distribusjon
+        /// </summary>
         public List<Distribution> Distributions {get; set; }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum AccessRight
+        {
+            PublicData,
+            RestrictedData,
+            NonPublicData
+        }
+
+
+
     }
-}
