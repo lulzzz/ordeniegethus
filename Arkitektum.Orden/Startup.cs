@@ -49,7 +49,8 @@ namespace Arkitektum.Orden
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<ApplicationUser> userManager, 
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -78,6 +79,14 @@ namespace Arkitektum.Orden
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();       
+                context.Database.Migrate();
+                context.EnsureSeedData(app);
+            }
         }
     }
 }
