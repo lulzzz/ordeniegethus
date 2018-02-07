@@ -20,7 +20,7 @@ namespace Arkitektum.Orden.Models
         /// Fritekst-beskrivelse av innholdet i katalogen. Egenskapen
         ///  kan bli gjentatt for parallelle språkversjoner av beskrivelsen.
         /// </summary>
-        public List<String> Descriptions { get; set; }
+        public String Description { get; set; }
         
         /// <summary>
         /// Nettside som fungerer som hovedside for katalogen
@@ -42,7 +42,7 @@ namespace Arkitektum.Orden.Models
         /// Refererer til et kunnskapsorganiseringssystem (KOS) som er brukt
         /// for å klassifisere katalogens datasett
         /// </summary>
-        public List<String> ThemeTaxonomy { get; set; }
+        public List<String> ThemesTaxonomy { get; set; }
 
         ///<summary>
         /// Dato for siste oppdatering/endring av katalogen

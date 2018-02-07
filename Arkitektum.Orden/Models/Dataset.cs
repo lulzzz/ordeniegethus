@@ -13,7 +13,7 @@ namespace Arkitektum.Orden.Models
         public string Name { get; set; }
 
         /// <summary>
-        ///     Beskrivelse (Modenhetsmodellen)
+        /// Beskrivelse (Modenhetsmodellen)
         /// </summary>
         public string Description { get; set; }
 
@@ -26,6 +26,12 @@ namespace Arkitektum.Orden.Models
         /// Inneholder emneord (eller tag) som beskriver datasettet
         /// </summary>
         public List<String> Keywords { get; set; }
+
+        /// <summary>
+        /// Hovedidentifikator for datasettet, for eksempel en URI 
+        /// eller annen identifikator som er stabil og globalt unik
+        /// </summary>
+        public List<Guid> Identifiers { get; set; }
 
         /// <summary>
         /// Dette feltet angir i hvilken grad datasettet kan bli gjort

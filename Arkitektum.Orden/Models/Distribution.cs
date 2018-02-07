@@ -21,7 +21,7 @@ namespace Arkitektum.Orden.Models
         /// Fritekstbeskrivelse av distribusjonen. Kan repeteres for 
         /// parallelle språkversjoner
         /// </summary>
-        public List<String> Descriptions { get; set; }
+        public String Description { get; set; }
 
         /// <summary>
         /// Opplysing om til distribusjonens filformat. Kan gjentas
