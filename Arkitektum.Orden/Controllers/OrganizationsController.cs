@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Roles.Admin)]
     public class OrganizationsController : Controller
     {
         private readonly ApplicationDbContext _context;

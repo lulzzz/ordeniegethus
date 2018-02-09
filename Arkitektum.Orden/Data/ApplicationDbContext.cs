@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Arkitektum.Orden.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Arkitektum.Orden.Models;
 
 namespace Arkitektum.Orden.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Application> Application { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<Organization> Organization { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -37,9 +37,5 @@ namespace Arkitektum.Orden.Data
             builder.Entity<OrganizationAdministrators>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
         }
-
-        public DbSet<Arkitektum.Orden.Models.Organization> Organization { get; set; }
-
-        public DbSet<Arkitektum.Orden.Models.Application> Application { get; set; }
     }
 }
