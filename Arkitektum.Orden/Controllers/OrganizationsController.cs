@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -30,17 +27,11 @@ namespace Arkitektum.Orden.Controllers
         // GET: Organizations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var organization = await _context.Organization
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (organization == null)
-            {
-                return NotFound();
-            }
+            if (organization == null) return NotFound();
 
             return View(organization);
         }
@@ -64,22 +55,17 @@ namespace Arkitektum.Orden.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(organization);
         }
 
         // GET: Organizations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var organization = await _context.Organization.SingleOrDefaultAsync(m => m.Id == id);
-            if (organization == null)
-            {
-                return NotFound();
-            }
+            if (organization == null) return NotFound();
             return View(organization);
         }
 
@@ -90,10 +76,7 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,OrganizationNumber")] Organization organization)
         {
-            if (id != organization.Id)
-            {
-                return NotFound();
-            }
+            if (id != organization.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -105,39 +88,31 @@ namespace Arkitektum.Orden.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!OrganizationExists(organization.Id))
-                    {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(organization);
         }
 
         // GET: Organizations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var organization = await _context.Organization
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (organization == null)
-            {
-                return NotFound();
-            }
+            if (organization == null) return NotFound();
 
             return View(organization);
         }
 
         // POST: Organizations/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
