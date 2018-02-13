@@ -23,5 +23,9 @@
     "vue-template-compiler": "^2.2.2",
     "webpack": "^3.10.0",
     "webpack-hot-middleware": "^2.12.2"
+  },
+  "dependencies": {
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6"
   }
 }
