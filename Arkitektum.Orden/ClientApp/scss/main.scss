@@ -7,3 +7,30 @@
 .testklasse {
     color: green;
 }
+
+.dashboard-box {
+    width: 200px;
+
+    span {
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+        border-color: black;
+        color: white;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 1.3em;
+    }
+}
+
+.dashboard-box-red {
+    span {
+        background-color: darkred;
+    }
+}
+.dashboard-box-green {
+    span {
+        background-color: darkgreen;
+    }
+}
