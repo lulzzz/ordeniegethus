@@ -1,34 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Arkitektum.Orden.Models
+﻿namespace Arkitektum.Orden.Models
 {
     public class Agent
     {
-        public static int Id { get; set; }
+        public int Id { get; set; }
 
         ///<summary>
-        /// Navn på enheten. Denne egenskapen kan gjentas for
-        ///  ulike versjoner av navnet (som navnet på forskjellige språk)
+        /// Navn på enheten.
         /// </summary>
-        public  static List<String> Names { get; set; }
+        public string Name { get; set; }
 
         ///<summary>
         /// Refererer til type for enheten som gjør katalogen eller datasett 
         /// tilgjengelig
         /// </summary>
-        public static String Type { get; set; }
+        public string Type { get; set; }
 
         ///<summary>
         /// Egenskap som angir organisasjonens identifikasjonsnummer, for 
         /// eksempel i henhold til Enhetsregisterets organisasjonsnummer
         /// </summary>
-        public static String OrganizationNumber { get; set; }///Identifier ????
+        public string OrganizationNumber { get; set; }///Identifier ????
 
-        public static Dataset Dataset { get; set; }
+        public Dataset Dataset { get; set; }
 
-        public static Catalog Catalog { get; set; }
+        public Catalog Catalog { get; set; }
     }
 }

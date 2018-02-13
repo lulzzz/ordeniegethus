@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Arkitektum.Orden.Models
+﻿namespace Arkitektum.Orden.Models
 {
+    /// <summary>
+    ///     Many-to-many relation between Application and SharedService
+    /// </summary>
     public class ApplicationSharedService
     {
         public int ApplicationId { get; set; }

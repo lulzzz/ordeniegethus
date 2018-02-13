@@ -50,13 +50,13 @@ namespace Arkitektum.Orden.Models
         /// og internasjonale vokabular kan brukes om de oppfyller denne
         /// standardens krav til kontrollerte vokabular.
         /// </summary>
-        public static List<String> Concepts { get; set; }
+        public List<DcatConcept> Concepts { get; set; }
 
         ///<summary>
         /// Referanse til kontaktpunktsobjekt med kontaktopplysninger. 
         /// Disse kan brukes til å sende kommentarer om datasettet.
         /// </summary>
-        public static List<ResourceLink> ContactPoints { get; set; }
+        public List<ResourceLink> ContactPoints { get; set; }
 
 
         /// <summary>
