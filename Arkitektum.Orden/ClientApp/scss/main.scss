@@ -1,16 +1,9 @@
 ﻿body {
-    .test{
-        color: red;
-    }
-}
-
-.testklasse {
-    color: green;
+    padding-top: 80px;
+    padding-bottom: 20px;
 }
 
 .dashboard-box {
-    width: 200px;
-
     span {
         -moz-border-radius: 20px;
         border-radius: 20px;
@@ -20,17 +13,13 @@
         padding-right: 15px;
         padding-top: 10px;
         padding-bottom: 10px;
-        font-size: 1.3em;
+        font-size: 1em;
+        &.blue {
+            background-color: cornflowerblue;
+        }
+        &.green {
+            background-color: lightseagreen
+        }
     }
 }
 
-.dashboard-box-red {
-    span {
-        background-color: darkred;
-    }
-}
-.dashboard-box-green {
-    span {
-        background-color: darkgreen;
-    }
-}
