@@ -13,6 +13,9 @@ module.exports = (env) => {
             vendor: [
                 'event-source-polyfill',
                 'isomorphic-fetch',
+                'bootstrap',
+                'bootstrap/dist/css/bootstrap.css',
+                'jquery',
                 'vue'
             ],
         },
