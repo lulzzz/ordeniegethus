@@ -4,4 +4,4 @@
     </div>
 </template>
 
-<style src="./dummycomponent.css" />
+<style src="./dummycomponent.scss" />

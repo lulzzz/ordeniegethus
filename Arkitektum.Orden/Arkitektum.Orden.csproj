@@ -59,4 +59,9 @@
     <TypeScriptCompile Include="vue-module.d.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\css\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿import './css/site.css';
+﻿import './scss/main.scss';
 import Vue from 'vue';
 import App from './components/app/app.vue';
 
