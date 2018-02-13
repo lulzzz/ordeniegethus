@@ -10,13 +10,14 @@ module.exports = (env) => {
     return [{
         stats: { modules: false },
         context: __dirname,
-        resolve: { extensions: ['.js', '.ts', '.vue'] },
+        resolve: { extensions: ['.js', '.ts', '.vue', '.scss'] },
         entry: { 'main': './ClientApp/boot.ts' },
         module: {
             rules: [
                 { test: /\.vue$/, include: /ClientApp/, loader: 'vue-loader', options: { loaders: { js: 'awesome-typescript-loader?silent=true' } } },
                 { test: /\.ts$/, include: /ClientApp/, use: 'awesome-typescript-loader?silent=true'},
-                { test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },
+                /*{ test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },*/
+                { test: /\.scss$/, use: isDevBuild ? ['style-loader', 'css-loader', 'sass-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize!sass-loader' }) }, // TODO: Fix ExtractText to file from Sass-Loader
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
