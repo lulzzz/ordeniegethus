@@ -29,6 +29,8 @@ namespace Arkitektum.Orden.Data
                 .HasForeignKey(oa => oa.OrganizationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<Organization>().HasOne(o => o.DcatCatalog).WithOne(cat => cat.Organization).HasForeignKey<DcatCatalog>(cat => cat.OrganizationId);
+
             builder.Entity<ApplicationDataset>().HasKey("ApplicationId", "DatasetId");
             builder.Entity<ApplicationSharedService>().HasKey("ApplicationId", "SharedServiceId");
             builder.Entity<ApplicationStandard>().HasKey("ApplicationId", "StandardId");
@@ -36,6 +38,7 @@ namespace Arkitektum.Orden.Data
             builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<OrganizationAdministrators>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
+            
         }
     }
 }

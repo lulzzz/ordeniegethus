@@ -1,37 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Arkitektum.Orden.Models
 {
     public class DcatCatalog
     {
-        public static int Id { get; set; }
+        
+        public int Id { get; set; }
 
         ///<summary>
         /// Inneholder navnet på katalogen. Egenskapen kan bli gjentatt
         ///  for parallelle språkversjoner av navnet.
         /// </summary>
-        public String Title { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
         /// Fritekst-beskrivelse av innholdet i katalogen. Egenskapen
         ///  kan bli gjentatt for parallelle språkversjoner av beskrivelsen.
         /// </summary>
-        public String Description { get; set; }
-        
+        public string Description { get; set; }
+
+        /// <summary>
+        ///     Kobler katalogen til datasett som er en del av katalogen
+        /// </summary>
+        public List<Dataset> Datasets { get; set; }
+
         /// <summary>
         /// Nettside som fungerer som hovedside for katalogen
         /// </summary>
-        public String Homepage { get; set; }
+        public string Homepage { get; set; }
+
+        /// <summary>
+        ///     Viser til et språk som brukes i tekstlige metadata som beskriver
+        ///     titler, beskrivelser, osv av datasettene i katalogen. Egenskapen
+        ///     kan gjentas hvis metadata er gitt i flere språk.
+        /// </summary>
+        public string Language { get; set; }
 
         ///<summary>
         /// Viser til lisens for datakatalogen som beskriver hvordan den 
         /// kan viderebrukes.
         /// </summary>
-        public String License { get; set; }
+        public string License { get; set; }
 
         /// <summary>
         /// Dato for formell utgivelse (publisering) av katalogen.
@@ -42,14 +57,15 @@ namespace Arkitektum.Orden.Models
         /// Refererer til et kunnskapsorganiseringssystem (KOS) som er brukt
         /// for å klassifisere katalogens datasett
         /// </summary>
-        public List<String> ThemesTaxonomy { get; set; }
+        public string ThemesTaxonomy { get; set; }
 
         ///<summary>
         /// Dato for siste oppdatering/endring av katalogen
         /// </summary>
-        public DateTime? Modified { get; set; } 
+        public DateTime? Modified { get; set; }
 
-        public Organization Organization { get; set; }
+        public int OrganizationId { get; set; }
+        public virtual Organization Organization { get; set; }
         
     }
 }

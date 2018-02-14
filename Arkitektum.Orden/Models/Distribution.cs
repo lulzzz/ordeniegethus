@@ -27,7 +27,7 @@ namespace Arkitektum.Orden.Models
         /// for API-er og sluttbrukerapplikasjoner som leverer data 
         /// i flere formater.
         /// </summary>
-     //   public List<String> Format { get; set; }
+        public List<Format> Formats { get; set; }
      // TODO FIX THIS
        
 
@@ -36,6 +36,8 @@ namespace Arkitektum.Orden.Models
         /// under. Bør oppgis som URI
         /// </summary>
         public LicenseDocument License { get; set; } //sjekke hvorsdan data ser ut for eventuelle endringer
+
+        public Dataset Dataset { get; set; }
 
     }
 }

@@ -18,6 +18,6 @@ namespace Arkitektum.Orden.Models
 
         public List<OrganizationAdministrators> OrganizationAdministrators { get; set; }
 
-        public DcatCatalog DcatCatalog { get; set; }
+        public virtual DcatCatalog DcatCatalog { get; set; }
     }
 }

@@ -25,13 +25,13 @@ namespace Arkitektum.Orden.Models
         ///<summary>
         /// Inneholder emneord (eller tag) som beskriver datasettet
         /// </summary>
-        public List<String> Keywords { get; set; }
+        public List<Keyword> Keywords { get; set; }
 
         /// <summary>
         /// Hovedidentifikator for datasettet, for eksempel en URI 
         /// eller annen identifikator som er stabil og globalt unik
         /// </summary>
-        public List<Guid> Identifiers { get; set; }
+        public List<Identifier> Identifiers { get; set; }
 
         /// <summary>
         /// Dette feltet angir i hvilken grad datasettet kan bli gjort
@@ -51,7 +51,7 @@ namespace Arkitektum.Orden.Models
         ///  er anbefalt dersom «tilgangsnivå» har verdiene «restricted»
         ///  eller «non-public»
         /// </summary>
-        public List<String> AccessRightComments { get; set; }
+        public List<AccessRightComment> AccessRightComments { get; set; }
 
         /// <summary>
         ///     Personopplysninger
