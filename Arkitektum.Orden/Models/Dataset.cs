@@ -13,7 +13,7 @@ namespace Arkitektum.Orden.Models
         public string Name { get; set; }
 
         /// <summary>
-        ///     Beskrivelse (Modenhetsmodellen)
+        /// Beskrivelse (Modenhetsmodellen)
         /// </summary>
         public string Description { get; set; }
 
@@ -21,6 +21,37 @@ namespace Arkitektum.Orden.Models
         ///     Formål
         /// </summary>
         public string Purpose { get; set; }
+
+        ///<summary>
+        /// Inneholder emneord (eller tag) som beskriver datasettet
+        /// </summary>
+        public List<String> Keywords { get; set; }
+
+        /// <summary>
+        /// Hovedidentifikator for datasettet, for eksempel en URI 
+        /// eller annen identifikator som er stabil og globalt unik
+        /// </summary>
+        public List<Guid> Identifiers { get; set; }
+
+        /// <summary>
+        /// Dette feltet angir i hvilken grad datasettet kan bli gjort
+        /// tilgjengelig for allmennheten, uten hensyn til om det er
+        /// publisert eller ikke. Et kontrollert vokabular med tre
+        /// verdier (:public, :restricted og :non-public) vil bli 
+        /// opprettet og forvaltet av EUs Publication Office. Ved bruk
+        /// av verdiene ":restricted" og ":non-public" er egenskapen 
+        /// skjermingshjemmel anbefalt.
+        /// </summary>
+        public AccessRight AccessRight { get; set; }
+
+        /// <summary>
+        /// Referanse til hjemmel (kilde for påstand) i offentlighetsloven,
+        ///  sikkerhetsloven, beskyttelsesinstruksen eller annet lovverk
+        ///  som ligger til grunn for vurdering av tilgangsnivå. Egenskapen
+        ///  er anbefalt dersom «tilgangsnivå» har verdiene «restricted»
+        ///  eller «non-public»
+        /// </summary>
+        public List<String> AccessRightComments { get; set; }
 
         /// <summary>
         ///     Personopplysninger
@@ -64,6 +95,7 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public List<ResourceLink> ResourceLinks { get; set; }
 
+
         /// <summary>
         ///     Lovhjemmel/forskrift for forvaltning
         /// </summary>
@@ -74,13 +106,7 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public DateTime? PublishedToSharedDataCatalog { get; set; }
 
-        ///<summary>
-        /// Referanse til en enhet (organisasjon) som er ansvarlig for
-        ///  å gjøre datasettet tilgjengelig. Bør være autoritativ URI 
-        /// for enhet, sekundært organisasjonsnummer
-        /// </summary>
-        public Agent Publisher { get; set; }
-
+    
         /// <summary>
         /// Informasjonselementer i datasettet
         /// </summary>
@@ -92,9 +118,30 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public List<ApplicationDataset> ApplicationDatasets { get; set; }
 
-        public Category Category { get; set; }
+      
+        /// <summary>
+        /// En katalog eller repository som inneholder beskrivelsene 
+        /// av datasettene som er beskrevet.
+        /// </summary>
+        public DcatCatalog DcatCatalog { get; set; }
 
+        /// <summary>
+        /// Koblingen mellom datasettet og en tilgjengelig distribusjon
+        /// </summary>
         public List<Distribution> Distributions {get; set; }
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum AccessRight
+        {
+            PublicData,
+            RestrictedData,
+            NonPublicData
+        }
+
+
 
     }
