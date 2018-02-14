@@ -95,5 +95,23 @@ namespace Arkitektum.Orden.Models {
                 return ResourceManager.GetString("OrganizationNumber", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passord.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Husk pålogging.
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
     }
 }

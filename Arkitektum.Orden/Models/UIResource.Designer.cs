@@ -22,7 +22,7 @@ namespace Arkitektum.Orden.Models {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class UIResource {
+    public class UIResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Arkitektum.Orden.Models {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Arkitektum.Orden.Models.UIResource", typeof(UIResource).Assembly);
@@ -51,12 +51,66 @@ namespace Arkitektum.Orden.Models {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send inn.
+        /// </summary>
+        public static string ButtonSubmit {
+            get {
+                return ResourceManager.GetString("ButtonSubmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glemt passord?.
+        /// </summary>
+        public static string ForgotPasswordHeader {
+            get {
+                return ResourceManager.GetString("ForgotPasswordHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skriv inn din epostadresse for å sette et nytt passord. Du vil motta en epost med instruksjoner for å lage et nytt passord..
+        /// </summary>
+        public static string ForgotPasswordHelpText {
+            get {
+                return ResourceManager.GetString("ForgotPasswordHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logg inn.
+        /// </summary>
+        public static string LoginButton {
+            get {
+                return ResourceManager.GetString("LoginButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glemt passord?.
+        /// </summary>
+        public static string LoginForgotPasswordLink {
+            get {
+                return ResourceManager.GetString("LoginForgotPasswordLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logg inn.
+        /// </summary>
+        public static string LoginHeader {
+            get {
+                return ResourceManager.GetString("LoginHeader", resourceCulture);
             }
         }
     }

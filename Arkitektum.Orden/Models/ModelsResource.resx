@@ -129,4 +129,10 @@
   <data name="OrganizationNumber" xml:space="preserve">
     <value>Organisasjonsnummer</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Passord</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Husk pålogging</value>
+  </data>
 </root>
