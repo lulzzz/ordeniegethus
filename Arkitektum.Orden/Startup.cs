@@ -47,6 +47,7 @@ namespace Arkitektum.Orden
                 provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IOrganizationService, OrganizationService>();
             services.AddScoped<ISecurityService, SecurityService>();
 
             services.AddMvc()

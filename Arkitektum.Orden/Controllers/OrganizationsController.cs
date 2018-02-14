@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Arkitektum.Orden.Data;
+﻿using System.Threading.Tasks;
 using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Models.ViewModels;
+using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,17 +11,18 @@ namespace Arkitektum.Orden.Controllers
     [Authorize(Roles = Roles.Admin)]
     public class OrganizationsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IOrganizationService _organizationService;
 
-        public OrganizationsController(ApplicationDbContext context)
+        public OrganizationsController(IOrganizationService organizationService)
         {
-            _context = context;
+            _organizationService = organizationService;
         }
 
         // GET: Organizations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Organization.ToListAsync());
+            var organizations = await _organizationService.GetOrganizations();
+            return View(new OrganizationViewModel().MapToEnumerable(organizations));
         }
 
         // GET: Organizations/Details/5
@@ -29,11 +30,10 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
 
-            var organization = await _context.Organization
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var organization = await _organizationService.GetOrganization(id.Value);
             if (organization == null) return NotFound();
 
-            return View(organization);
+            return View(new OrganizationViewModel().Map(organization));
         }
 
         // GET: Organizations/Create
@@ -47,12 +47,12 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,OrganizationNumber")] Organization organization)
+        public async Task<IActionResult> Create([Bind("Id,Name,OrganizationNumber")] OrganizationViewModel organization)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(organization);
-                await _context.SaveChangesAsync();
+                var createOrganization =
+                    await _organizationService.CreateOrganization(new OrganizationViewModel().Map(organization));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -64,38 +64,40 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
 
-            var organization = await _context.Organization.SingleOrDefaultAsync(m => m.Id == id);
+            var organization = await _organizationService.GetOrganization(id.Value);
             if (organization == null) return NotFound();
-            return View(organization);
+            return View(new OrganizationViewModel().Map(organization));
         }
 
         // POST: Organizations/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,OrganizationNumber")] Organization organization)
+        public async Task<IActionResult> EditPost(int? id)
         {
-            if (id != organization.Id) return NotFound();
+            if (id == null) return NotFound();
 
-            if (ModelState.IsValid)
-            {
+            var organizationToUpdate = await _organizationService.GetOrganization(id.Value);
+            if (await TryUpdateModelAsync(
+                organizationToUpdate,
+                "",
+                s => s.Name, s => s.OrganizationNumber))
                 try
                 {
-                    _context.Update(organization);
-                    await _context.SaveChangesAsync();
+                    await _organizationService.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException /* ex */)
                 {
-                    if (!OrganizationExists(organization.Id))
-                        return NotFound();
-                    throw;
+                    //Log the error (uncomment ex variable name and write a log.)
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                                                 "Try again, and if the problem persists, " +
+                                                 "see your system administrator.");
                 }
 
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(organization);
+            return View(new OrganizationViewModel().Map(organizationToUpdate));
         }
 
         // GET: Organizations/Delete/5
@@ -103,8 +105,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
 
-            var organization = await _context.Organization
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var organization = await _organizationService.GetOrganization(id.Value);
             if (organization == null) return NotFound();
 
             return View(organization);
@@ -116,15 +117,8 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var organization = await _context.Organization.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Organization.Remove(organization);
-            await _context.SaveChangesAsync();
+            await _organizationService.Delete(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool OrganizationExists(int id)
-        {
-            return _context.Organization.Any(e => e.Id == id);
         }
     }
 }
