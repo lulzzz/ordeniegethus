@@ -21,7 +21,7 @@ namespace Arkitektum.Orden.Controllers
         // GET: Organizations
         public async Task<IActionResult> Index()
         {
-            var organizations = await _organizationService.GetOrganizations();
+            var organizations = await _organizationService.GetAll();
             return View(new OrganizationViewModel().MapToEnumerable(organizations));
         }
 
@@ -30,7 +30,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
 
-            var organization = await _organizationService.GetOrganization(id.Value);
+            var organization = await _organizationService.Get(id.Value);
             if (organization == null) return NotFound();
 
             return View(new OrganizationViewModel().Map(organization));
@@ -52,7 +52,7 @@ namespace Arkitektum.Orden.Controllers
             if (ModelState.IsValid)
             {
                 var createOrganization =
-                    await _organizationService.CreateOrganization(new OrganizationViewModel().Map(organization));
+                    await _organizationService.Create(new OrganizationViewModel().Map(organization));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -64,7 +64,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
 
-            var organization = await _organizationService.GetOrganization(id.Value);
+            var organization = await _organizationService.Get(id.Value);
             if (organization == null) return NotFound();
             return View(new OrganizationViewModel().Map(organization));
         }
@@ -79,7 +79,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
 
-            var organizationToUpdate = await _organizationService.GetOrganization(id.Value);
+            var organizationToUpdate = await _organizationService.Get(id.Value);
             if (await TryUpdateModelAsync(
                 organizationToUpdate,
                 "",
@@ -105,7 +105,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
 
-            var organization = await _organizationService.GetOrganization(id.Value);
+            var organization = await _organizationService.Get(id.Value);
             if (organization == null) return NotFound();
 
             return View(organization);

@@ -8,10 +8,9 @@ namespace Arkitektum.Orden.Services
 {
     public interface IOrganizationService
     {
-        Task<Organization> GetOrganization(int id);
-        Task<IEnumerable<Organization>> GetOrganizations();
-        Task<Organization> CreateOrganization(Organization organization);
-        Task<Organization> UpdateOrganization(Organization organization);
+        Task<Organization> Get(int id);
+        Task<IEnumerable<Organization>> GetAll();
+        Task<Organization> Create(Organization organization);
         Task SaveChangesAsync();
         Task Delete(int id);
     }
@@ -33,7 +32,7 @@ namespace Arkitektum.Orden.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Organization> GetOrganization(int id)
+        public async Task<Organization> Get(int id)
         {
             return await _context.Organization.SingleOrDefaultAsync(m => m.Id == id);
         }
@@ -42,7 +41,7 @@ namespace Arkitektum.Orden.Services
         ///     Retrieve all organizations
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Organization>> GetOrganizations()
+        public async Task<IEnumerable<Organization>> GetAll()
         {
             return await _context.Organization.ToListAsync();
         }
@@ -52,21 +51,9 @@ namespace Arkitektum.Orden.Services
         /// </summary>
         /// <param name="organization"></param>
         /// <returns></returns>
-        public async Task<Organization> CreateOrganization(Organization organization)
+        public async Task<Organization> Create(Organization organization)
         {
             _context.Add(organization);
-            await SaveChangesAsync();
-            return organization;
-        }
-
-        /// <summary>
-        /// Updates an organization. All 
-        /// </summary>
-        /// <param name="organization"></param>
-        /// <returns></returns>
-        public async Task<Organization> UpdateOrganization(Organization organization)
-        {
-            _context.Update(organization);
             await SaveChangesAsync();
             return organization;
         }
