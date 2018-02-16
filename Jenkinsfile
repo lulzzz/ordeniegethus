@@ -10,6 +10,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        dir("Arkitektum.Orden") {
+          bat 'npm install'
+        }
         bat "dotnet build --configuration \"Release\" /property:Version=${VERSION_NUMBER}"
       }
     }
