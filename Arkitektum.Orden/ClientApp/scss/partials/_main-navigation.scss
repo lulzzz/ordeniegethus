@@ -2,27 +2,34 @@
     background-color: $primary-color;
     color: #FFF;
 
-    ul {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        border-top: 1px solid rgba(0,0,0,.05);
+    .main-navigation-content {
+        ul {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(0,0,0,.05);
 
-        &:first-child {
-            border-top: none;
-        }
-
-        &:last-child {
-            border-bottom: none;
-        }
-
-        li {
-            padding: 0.25rem 1rem;
-
-            &:hover {
-                background-color: rgba(255,255,255,.05);
+            &:first-child {
+                border-top: none;
             }
 
-            a {
-                color: #FFF;
+            &:last-child {
+                border-bottom: none;
+            }
+
+            li {
+                padding: 0.25rem 1rem;
+
+                &:hover {
+                    background-color: rgba(255,255,255,.05);
+                }
+
+                a {
+                    color: #FFF;
+                    display: block;
+                    padding: 8px 0;
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
             }
         }
     }
@@ -30,29 +37,35 @@
 
 @media (min-width: $screen-sm) {
     .main-navigation {
-        background-color: #fbfcfd;
         padding: 0;
-        position: fixed;
-        height: 100% !important;
         width: 245px;
-        left: -245px;
-        @include box-shadow(2px 3px 5px 0 rgba(0, 0, 0, .26));
-        @include transition(left .2s ease-in-out);
+        height: 1px;
+        left: 0;
+        display: block;
+        float: left;
 
-        &.show {
-            left: 0;
-        }
+        .main-navigation-content {
+            height: 100% !important;
+            width: 245px;
+            position: absolute;
+            background-color: #fbfcfd;
+            @include box-shadow(2px 3px 5px 0 rgba(0, 0, 0, .26));
 
-        ul {
+            &.show {
+                left: 0;
+            }
+
+            ul {
 
 
-            li {
-                &:hover {
-                    background-color: rgba(0,0,0,.05);
-                }
+                li {
+                    &:hover {
+                        background-color: rgba(0,0,0,.05);
+                    }
 
-                a {
-                    color: #333;
+                    a {
+                        color: #333;
+                    }
                 }
             }
         }

@@ -1,0 +1,10 @@
+﻿.body-content {
+    padding: 24px 32px;
+}
+
+@media (min-width: $screen-sm) {
+    .body-content {
+        width: calc(100% - 245px);
+        float: left;
+    }
+}

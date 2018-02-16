@@ -19,3 +19,10 @@
     }
 }
 
+@media (min-width: $screen-sm) {
+    .navbar {
+        .navbar-toggler {
+            display: none;
+        }
+    }
+}
