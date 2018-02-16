@@ -81,6 +81,15 @@ namespace Arkitektum.Orden.Models {
         /// <summary>
         ///   Looks up a localized string similar to Navn.
         /// </summary>
+        public static string FullName {
+            get {
+                return ResourceManager.GetString("FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Navn.
+        /// </summary>
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
@@ -93,6 +102,15 @@ namespace Arkitektum.Orden.Models {
         public static string OrganizationNumber {
             get {
                 return ResourceManager.GetString("OrganizationNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organisasjoner.
+        /// </summary>
+        public static string Organizations {
+            get {
+                return ResourceManager.GetString("Organizations", resourceCulture);
             }
         }
         

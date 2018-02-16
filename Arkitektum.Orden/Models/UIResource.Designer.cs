@@ -152,5 +152,14 @@ namespace Arkitektum.Orden.Models {
                 return ResourceManager.GetString("UserHeaderCreateNew", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brukere.
+        /// </summary>
+        public static string UsersHeaderList {
+            get {
+                return ResourceManager.GetString("UsersHeaderList", resourceCulture);
+            }
+        }
     }
 }

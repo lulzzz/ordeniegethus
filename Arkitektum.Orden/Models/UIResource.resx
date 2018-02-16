@@ -150,4 +150,7 @@
   <data name="UserHeaderCreateNew" xml:space="preserve">
     <value>Opprett ny bruker</value>
   </data>
+  <data name="UsersHeaderList" xml:space="preserve">
+    <value>Brukere</value>
+  </data>
 </root>
