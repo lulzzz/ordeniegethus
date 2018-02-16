@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Arkitektum.Orden.Services;
+using Arkitektum.Orden.Models;
 
 namespace Arkitektum.Orden.Services
 {
@@ -11,8 +8,10 @@ namespace Arkitektum.Orden.Services
     {
         public static Task SendEmailConfirmationAsync(this IEmailSender emailSender, string email, string link)
         {
-            return emailSender.SendEmailAsync(email, "Confirm your email",
-                $"Please confirm your account by clicking this link: <a href='{HtmlEncoder.Default.Encode(link)}'>link</a>");
+            var subject = UIResource.EmailConfirmationSubject;
+            var body = string.Format(UIResource.EmailConfirmationBody, HtmlEncoder.Default.Encode(link));
+
+            return emailSender.SendEmailAsync(email, subject, body);
         }
     }
 }

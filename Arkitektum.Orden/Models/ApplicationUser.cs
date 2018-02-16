@@ -9,9 +9,9 @@ namespace Arkitektum.Orden.Models
     public class ApplicationUser : IdentityUser
     {
         /// <summary>
-        ///     Personal details
+        /// Full name of the user
         /// </summary>
-        public Person Person { get; set; }
+        public string FullName { get; set; }
 
         /// <summary>
         ///     The organizations this users is a part of.

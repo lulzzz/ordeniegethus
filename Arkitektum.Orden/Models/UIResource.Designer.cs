@@ -70,6 +70,27 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;h4&gt;Du kan nå logge på Orden i eget hus&lt;/h4&gt;
+        ///&lt;p&gt;For å komme igang må du &lt;a href=&quot;&quot;&quot; + callbackUrl + @&quot;&quot;&quot;&gt;aktivere&lt;/a&gt; kontoen din.&lt;/p&gt;
+        ///&lt;p&gt;Følg lenken for å aktivere kontoen og registrere et nytt passord&lt;/p&gt;
+        ///&lt;p&gt;Kontoen må aktiveres innen 24 timer fra du mottok denne eposten.&lt;/p&gt;.
+        /// </summary>
+        public static string EmailConfirmationBody {
+            get {
+                return ResourceManager.GetString("EmailConfirmationBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Din brukerkonto hos Orden i eget hus er nå opprettet.
+        /// </summary>
+        public static string EmailConfirmationSubject {
+            get {
+                return ResourceManager.GetString("EmailConfirmationSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Glemt passord?.
         /// </summary>
         public static string ForgotPasswordHeader {
@@ -111,6 +132,24 @@ namespace Arkitektum.Orden.Models {
         public static string LoginHeader {
             get {
                 return ResourceManager.GetString("LoginHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brukeren ble opprettet og epost med aktiveringslenke er sendt..
+        /// </summary>
+        public static string UserControllerStatusMessageCreatedUser {
+            get {
+                return ResourceManager.GetString("UserControllerStatusMessageCreatedUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opprett ny bruker.
+        /// </summary>
+        public static string UserHeaderCreateNew {
+            get {
+                return ResourceManager.GetString("UserHeaderCreateNew", resourceCulture);
             }
         }
     }

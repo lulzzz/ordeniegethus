@@ -7,7 +7,8 @@ namespace Arkitektum.Orden.Models.ViewModels
     {
         public string Id { get; set; }
         public string Email { get; set; }
-
+        public string FullName { get; set; }
+        
         public IEnumerable<OrganizationViewModel> Organizations { get; set; }
 
         public override IEnumerable<UserViewModel> MapToEnumerable(IEnumerable<ApplicationUser> inputs)
@@ -33,8 +34,19 @@ namespace Arkitektum.Orden.Models.ViewModels
             {
                 Id = applicationUser.Id,
                 Email = applicationUser.Email,
+                FullName = applicationUser.FullName,
                 Organizations = organizations
                     
+            };
+        }
+
+        public ApplicationUser Map(UserViewModel viewModel)
+        {
+            return new ApplicationUser()
+            {
+                Id = viewModel.Id,
+                Email = viewModel.Email,
+                FullName = viewModel.FullName
             };
         }
     }

@@ -138,6 +138,8 @@ namespace Arkitektum.Orden.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FullName");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
@@ -149,8 +151,6 @@ namespace Arkitektum.Orden.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash");
-
-                    b.Property<int?>("PersonId");
 
                     b.Property<string>("PhoneNumber");
 
@@ -174,8 +174,6 @@ namespace Arkitektum.Orden.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("PersonId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -431,20 +429,6 @@ namespace Arkitektum.Orden.Data.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("OrganizationApplicationUser");
-                });
-
-            modelBuilder.Entity("Arkitektum.Orden.Models.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Person");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.ResourceLink", b =>
@@ -715,10 +699,6 @@ namespace Arkitektum.Orden.Data.Migrations
                     b.HasOne("Arkitektum.Orden.Models.Application")
                         .WithMany("SuperUsers")
                         .HasForeignKey("ApplicationId");
-
-                    b.HasOne("Arkitektum.Orden.Models.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.Dataset", b =>

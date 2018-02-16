@@ -22,8 +22,8 @@ namespace Arkitektum.Orden.Test.Controllers
                 new ApplicationUser() { UserName = "john@doe.com" },
                 new ApplicationUser() { UserName = "mary@ann.com" },
             };
-            userServiceMock.Setup(u => u.GetUsers()).ReturnsAsync(listOfUsers);
-            var controller = new UsersController(userServiceMock.Object);
+            userServiceMock.Setup(u => u.GetAll()).ReturnsAsync(listOfUsers);
+            var controller = new UsersController(userServiceMock.Object, null, null);
 
             IActionResult result = await controller.Index();
 

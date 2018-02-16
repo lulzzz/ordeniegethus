@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Arkitektum.Orden.Services
 {
-    // This class is used by the application to send email for account confirmation and password reset.
-    // For more details see https://go.microsoft.com/fwlink/?LinkID=532713
+    /// <summary>
+    ///     All emails is sent through this class. Emails are sent with Sendgrid.
+    /// </summary>
     public class EmailSender : IEmailSender
     {
-        public Task SendEmailAsync(string email, string subject, string message)
+        private readonly AppSettings _appSettings;
+
+        public EmailSender(AppSettings appSettings)
         {
-            return Task.CompletedTask;
+            _appSettings = appSettings;
+        }
+
+        public async Task SendEmailAsync(string email, string subject, string message)
+        {
+            var client = new SendGridClient(_appSettings.EmailSettings.SendgridApiKey);
+            var from = new EmailAddress(_appSettings.EmailSettings.FromAddress);
+            var to = new EmailAddress(email);
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, message, message);
+            await client.SendEmailAsync(msg);
         }
     }
 }

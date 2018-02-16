@@ -41,6 +41,10 @@ namespace Arkitektum.Orden
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            // get configuration from appsettings.json - use as singleton
+            // AppSettings appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
+            //services.AddSingleton(appSettings);
+
             // Add application services.
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(
