@@ -4,10 +4,38 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Users</h2>
-<ul>
+<h2>@UIResource.UsersHeaderList</h2>
+<p>
+    <a asp-action="Create">@UIResource.UserHeaderCreateNew</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Organizations)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
     @foreach (var user in Model)
     {
-        <li>@user.Email</li>
+        <tr>
+            <td>@user.FullName</td>
+            <td>@user.Email</td>
+            <td>
+                @foreach (var org in user.Organizations)
+                {
+                    <text>@org.Name</text>
+                }
+            </td>
+        </tr>
     }
-</ul>
+    </tbody>
+</table>
+

@@ -23,7 +23,7 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public override UserViewModel Map(ApplicationUser applicationUser)
         {
-            IEnumerable<OrganizationViewModel> organizations = null;
+            IEnumerable<OrganizationViewModel> organizations = new List<OrganizationViewModel>();
             if (applicationUser.Organizations != null)
             {
                 organizations = new OrganizationViewModel().MapToEnumerable(

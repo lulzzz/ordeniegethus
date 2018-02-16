@@ -126,6 +126,9 @@
   <data name="Email" xml:space="preserve">
     <value>Epost</value>
   </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Navn</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Navn</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="OrganizationNumber" xml:space="preserve">
     <value>Organisasjonsnummer</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organisasjoner</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Passord</value>
