@@ -34,7 +34,10 @@ namespace Arkitektum.Orden.Data
                         var result = userManager.CreateAsync(adminUser, "Test123").Result;
 
                         if (result.Succeeded)
-                            await userManager.AddToRoleAsync(adminUser, Roles.Admin);
+                        {
+                            await userManager.AddToRolesAsync(adminUser, Roles.All);
+                        }
+                            
                     }
                 }
             }

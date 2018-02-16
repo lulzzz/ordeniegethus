@@ -49,6 +49,7 @@ namespace Arkitektum.Orden.Controllers
         public IActionResult Create()
         {
             ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id");
+            
             return View();
         }
 
@@ -57,7 +58,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Version,AnnnualFee,InitialCost,HostingLocation,NumberOfUsers,OrganizationId,VendorId")] Application application)
+        public async Task<IActionResult> Create([Bind("Name,AnnualFee,OrganizationId,VendorId, SuperUsers")] Application application)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +92,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnnualFee,InitialCost,HostingLocation,NumberOfUsers,OrganizationId,VendorId")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers,OrganizationId,VendorId")] Application application)
         {
             if (id != application.Id)
             {

@@ -120,11 +120,20 @@
   <data name="AnnualFee" xml:space="preserve">
     <value>Årlig kostnad</value>
   </data>
+  <data name="Application" xml:space="preserve">
+    <value>Applikasjon</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Epost</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Navn</value>
+  </data>
+  <data name="NumberOfUsers" xml:space="preserve">
+    <value>Antall brukere</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>Organisasjon</value>
   </data>
   <data name="OrganizationNumber" xml:space="preserve">
     <value>Organisasjonsnummer</value>
@@ -134,5 +143,8 @@
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Husk pålogging</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versjon</value>
   </data>
 </root>

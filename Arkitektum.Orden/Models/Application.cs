@@ -41,7 +41,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Årlig kostnad
         /// </summary>
-        public decimal AnnnualFee { get; set; }
+        public decimal AnnualFee { get; set; }
 
         /// <summary>
         ///     Innkjøpskostnad

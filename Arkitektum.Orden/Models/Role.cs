@@ -12,5 +12,6 @@ namespace Arkitektum.Orden.Models
         public const string Reader = "Reader";
 
         public static IEnumerable<string> All => ListOfRoles;
-    }
+
+        }
 }
