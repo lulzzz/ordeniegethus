@@ -22,7 +22,7 @@ namespace Arkitektum.Orden.Controllers
         // GET: Applications
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Application.Include(a => a.Organization);
+            var applicationDbContext = _context.Application.Include(a => a.Organization).Include(a => a.Vendor);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,6 +49,9 @@ namespace Arkitektum.Orden.Controllers
         public IActionResult Create()
         {
             ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id");
+            ViewData["SuperUsers"] =
+                new SelectList(_context.ApplicationUser, "Id", "Person.FirstName " + "Person.SecondName");
+            ViewData["VendorId"] = new SelectList(_context.Application, "Vendor.Id", "Vendor.Name");
             
             return View();
         }
@@ -67,6 +70,10 @@ namespace Arkitektum.Orden.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id", application.OrganizationId);
+            ViewData["SuperUsers"] =
+                new SelectList(_context.ApplicationUser, "Id", "Person.FirstName " + "Person.SecondName", application.SuperUsers);
+            ViewData["VendorId"] = new SelectList(_context.Vendor, "Vendor.Id", "Vendor.Name", application.Vendor);
+
             return View(application);
         }
 

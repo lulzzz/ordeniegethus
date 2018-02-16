@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Applikasjoner</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Lag ny applikasjon</a>
 </p>
 <table class="table">
     <thead>
@@ -22,20 +22,12 @@
                     @Html.DisplayNameFor(model => model.AnnualFee)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.InitialCost)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HostingLocation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NumberOfUsers)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VendorId)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Organization)
+                @Html.DisplayNameFor(model => model.Vendor)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SuperUsers)
+            </th>
+          
             <th></th>
         </tr>
     </thead>
@@ -52,20 +44,12 @@
                 @Html.DisplayFor(modelItem => item.AnnualFee)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InitialCost)
+                @Html.DisplayFor(modelItem => item.Vendor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HostingLocation)
+                @Html.DisplayFor(modelItem => item.SuperUsers)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfUsers)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VendorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Organization.Id)
-            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

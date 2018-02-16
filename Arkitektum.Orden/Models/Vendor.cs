@@ -8,6 +8,6 @@ namespace Arkitektum.Orden.Models
 
         public string Name { get; set; }
 
-        public List<Application> Applications { get; set; }
+       
     }
 }

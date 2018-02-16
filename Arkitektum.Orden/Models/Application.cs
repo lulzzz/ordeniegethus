@@ -99,6 +99,7 @@ namespace Arkitektum.Orden.Models
         public Organization Organization { get; set; }
 
         public int? VendorId { get; set; }
+        public int? HostingVendorId { get; set; }
      
     }
 }
