@@ -160,6 +160,24 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Systemansvarlig.
+        /// </summary>
+        public static string SuperUsers {
+            get {
+                return ResourceManager.GetString("SuperUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leverandør.
+        /// </summary>
+        public static string Vendor {
+            get {
+                return ResourceManager.GetString("Vendor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Versjon.
         /// </summary>
         public static string Version {

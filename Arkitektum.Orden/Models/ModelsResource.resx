@@ -150,6 +150,12 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Husk pålogging</value>
   </data>
+  <data name="SuperUsers" xml:space="preserve">
+    <value>Systemansvarlig</value>
+  </data>
+  <data name="Vendor" xml:space="preserve">
+    <value>Leverandør</value>
+  </data>
   <data name="Version" xml:space="preserve">
     <value>Versjon</value>
   </data>
