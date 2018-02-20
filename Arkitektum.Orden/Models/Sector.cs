@@ -2,6 +2,9 @@
 
 namespace Arkitektum.Orden.Models
 {
+    /// <summary>
+    /// Tjenesteområde, e.g. Arealplanlegging
+    /// </summary>
     public class Sector
     {
         public int Id { get; set; }

@@ -2,6 +2,9 @@
 
 namespace Arkitektum.Orden.Models
 {
+    /// <summary>
+    /// Felleskomponent e.g. Matrikkel, Id-porten
+    /// </summary>
     public class SharedService
     {
         public int Id { get; set; }
