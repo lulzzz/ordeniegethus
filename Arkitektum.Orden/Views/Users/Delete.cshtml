@@ -1,0 +1,41 @@
+﻿@model Arkitektum.Orden.Models.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = UIResource.UserHeaderDelete;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>Er du sikker på at du vil fjerne brukeren @Html.DisplayFor(model => model.FullName)?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Organizations)
+        </dt>
+        <dd>
+            <ul>
+            @foreach (var org in Model.Organizations)
+            {
+                <li>@org.Name</li>
+            }
+            </ul>
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="@UIResource.UserHeaderDelete" class="btn btn-default" /> |
+    </form>
+</div>

@@ -71,7 +71,7 @@ namespace Arkitektum.Orden.Models {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;h4&gt;Du kan nå logge på Orden i eget hus&lt;/h4&gt;
-        ///&lt;p&gt;For å komme igang må du &lt;a href=&quot;&quot;&quot; + callbackUrl + @&quot;&quot;&quot;&gt;aktivere&lt;/a&gt; kontoen din.&lt;/p&gt;
+        ///&lt;p&gt;For å komme igang må du &lt;a href=&quot;{0}&quot;&gt;aktivere&lt;/a&gt; kontoen din.&lt;/p&gt;
         ///&lt;p&gt;Følg lenken for å aktivere kontoen og registrere et nytt passord&lt;/p&gt;
         ///&lt;p&gt;Kontoen må aktiveres innen 24 timer fra du mottok denne eposten.&lt;/p&gt;.
         /// </summary>
@@ -154,11 +154,20 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slett bruker.
+        /// </summary>
+        public static string UserHeaderDelete {
+            get {
+                return ResourceManager.GetString("UserHeaderDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brukere.
         /// </summary>
-        public static string UsersHeaderList {
+        public static string UserHeaderList {
             get {
-                return ResourceManager.GetString("UsersHeaderList", resourceCulture);
+                return ResourceManager.GetString("UserHeaderList", resourceCulture);
             }
         }
     }

@@ -92,7 +92,7 @@ namespace Arkitektum.Orden.Controllers
 
             return View(new UserViewModel().Map(user));
         }
-
+*/
         
         
         // GET: Users/Delete/5
@@ -100,10 +100,10 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
 
-            var user = await _userService.Get(id);
+            ApplicationUser user = await _userService.Get(id);
             if (user == null) return NotFound();
 
-            return View(user);
+            return View(new UserViewModel().Map(user));
         }
 
         // POST: Users/Delete/5
@@ -112,9 +112,14 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            await _userService.Delete(id);
+            if (id == null) return NotFound();
+
+            ApplicationUser user = await _userService.Get(id);
+            if (user == null) return NotFound();
+
+            await _userManager.DeleteAsync(user);
+
             return RedirectToAction(nameof(Index));
         }
-        */
     }
 }

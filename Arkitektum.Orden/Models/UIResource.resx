@@ -122,9 +122,10 @@
   </data>
   <data name="EmailConfirmationBody" xml:space="preserve">
     <value>&lt;h4&gt;Du kan nå logge på Orden i eget hus&lt;/h4&gt;
-&lt;p&gt;For å komme igang må du &lt;a href=""" + callbackUrl + @"""&gt;aktivere&lt;/a&gt; kontoen din.&lt;/p&gt;
+&lt;p&gt;For å komme igang må du &lt;a href="{0}"&gt;aktivere&lt;/a&gt; kontoen din.&lt;/p&gt;
 &lt;p&gt;Følg lenken for å aktivere kontoen og registrere et nytt passord&lt;/p&gt;
 &lt;p&gt;Kontoen må aktiveres innen 24 timer fra du mottok denne eposten.&lt;/p&gt;</value>
+    <comment>0 = Url to activation page</comment>
   </data>
   <data name="EmailConfirmationSubject" xml:space="preserve">
     <value>Din brukerkonto hos Orden i eget hus er nå opprettet</value>
@@ -150,7 +151,10 @@
   <data name="UserHeaderCreateNew" xml:space="preserve">
     <value>Opprett ny bruker</value>
   </data>
-  <data name="UsersHeaderList" xml:space="preserve">
+  <data name="UserHeaderDelete" xml:space="preserve">
+    <value>Slett bruker</value>
+  </data>
+  <data name="UserHeaderList" xml:space="preserve">
     <value>Brukere</value>
   </data>
 </root>

@@ -42,8 +42,8 @@ namespace Arkitektum.Orden
                 .AddDefaultTokenProviders();
 
             // get configuration from appsettings.json - use as singleton
-            // AppSettings appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
-            //services.AddSingleton(appSettings);
+            AppSettings appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
+            services.AddSingleton(appSettings);
 
             // Add application services.
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
