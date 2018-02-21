@@ -10,7 +10,8 @@ namespace Arkitektum.Orden.Data
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Organization> Organization { get; set; }
         public DbSet<Vendor> Vendor { get; set; }
-  
+        public DbSet<SharedService> SharedService { get; set; }
+   
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
