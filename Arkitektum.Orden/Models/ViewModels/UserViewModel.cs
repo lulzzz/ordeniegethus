@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Arkitektum.Orden.Models.ViewModels
 {
@@ -9,6 +10,11 @@ namespace Arkitektum.Orden.Models.ViewModels
         public string Email { get; set; }
         public string FullName { get; set; }
         
+        public List<CheckboxRole> Roles { get; set; }
+
+        public List<SelectListItem> AllRoles { get; set; }
+
+
         public IEnumerable<OrganizationViewModel> Organizations { get; set; }
 
         public override IEnumerable<UserViewModel> MapToEnumerable(IEnumerable<ApplicationUser> inputs)
@@ -49,5 +55,11 @@ namespace Arkitektum.Orden.Models.ViewModels
                 FullName = viewModel.FullName
             };
         }
+    }
+
+    public class CheckboxRole
+    {
+        public string Name { get; set; }
+        public bool Selected { get;set; }
     }
 }

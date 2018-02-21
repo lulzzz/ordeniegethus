@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -14,17 +17,19 @@ namespace Arkitektum.Orden.Controllers
         private readonly IUserService _userService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly ISecurityService _securityService;
 
         [TempData]
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public string StatusMessage { get; set; }
 
-        public UsersController(IUserService userService, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public UsersController(IUserService userService, UserManager<ApplicationUser> userManager, IEmailSender emailSender, ISecurityService securityService)
         {
             _userService = userService;
             _userManager = userManager;
             _emailSender = emailSender;
+            _securityService = securityService;
         }
 
         public async Task<IActionResult> Index()
@@ -36,13 +41,20 @@ namespace Arkitektum.Orden.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new UserViewModel();
+            List<string> delegateableRoles = _securityService.GetDelegateableRoles();
+            model.Roles = new List<CheckboxRole>();
+            foreach (var role in delegateableRoles)
+            {
+                model.Roles.Add(new CheckboxRole() { Name = role }); // TODO add localized names
+            }
+            return View(model);
         }
 
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Email,FullName")] UserViewModel model)
+        public async Task<IActionResult> Create([Bind("Email,FullName,Roles")] UserViewModel model)
         {
             if(ModelState.IsValid)
             {
@@ -53,14 +65,22 @@ namespace Arkitektum.Orden.Controllers
                     EmailConfirmed = true,
                     FullName = model.FullName
                 };
-
+                
                 var result = await _userManager.CreateAsync(user); // Create without password.
                 if(result.Succeeded)
                 {
+                    List<string> delegateableRoles = _securityService.GetDelegateableRoles();
+
+                    foreach (var role in model.Roles)
+                    {
+                        if (role.Selected && delegateableRoles.Contains(role.Name))
+                            await _userManager.AddToRoleAsync(user, role.Name);
+                    }
                     await SendActivationMail(user);
                     StatusMessage = UIResource.UserControllerStatusMessageCreatedUser;
                     return RedirectToAction(nameof(Index));
                 }
+                
                 foreach(var error in result.Errors)
                 {
                     ModelState.AddModelError(error.Code, error.Description);
@@ -81,7 +101,6 @@ namespace Arkitektum.Orden.Controllers
             await _emailSender.SendEmailConfirmationAsync(user.Email, callbackUrl);
         }
 
-/*
         // GET: Users/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -90,10 +109,15 @@ namespace Arkitektum.Orden.Controllers
             var user = await _userService.Get(id);
             if (user == null) return NotFound();
 
-            return View(new UserViewModel().Map(user));
+            var userViewModel = new UserViewModel().Map(user);
+            IList<string> roles = await _userManager.GetRolesAsync(user);
+            userViewModel.Roles = new List<CheckboxRole>();
+            foreach (var role in roles)
+            {
+                userViewModel.Roles.Add(new CheckboxRole() {Name = role});
+            }
+            return View(userViewModel);
         }
-*/
-        
         
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(string id)

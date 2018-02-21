@@ -47,12 +47,11 @@ namespace Arkitektum.Orden
 
             // Add application services.
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IPrincipal>(
-                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+            services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOrganizationService, OrganizationService>();
-            services.AddScoped<ISecurityService, SecurityService>();
+            services.AddTransient<ISecurityService, SecurityService>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));

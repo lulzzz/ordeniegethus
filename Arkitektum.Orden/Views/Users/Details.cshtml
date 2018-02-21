@@ -1,0 +1,37 @@
+﻿@model Arkitektum.Orden.Models.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = Model.FullName;
+}
+
+<h2>@Html.DisplayFor(model => model.FullName)</h2>
+
+<div>
+    <h4>Bruker</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Roles)
+        </dt>
+        <dd>
+            <ul>
+                @foreach (var role in Model.Roles)
+                {
+                    <li>@role.Name</li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>
