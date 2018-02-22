@@ -136,6 +136,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Systemansvarlig.
+        /// </summary>
+        public static string SuperUser {
+            get {
+                return ResourceManager.GetString("SuperUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Brukeren ble opprettet og epost med aktiveringslenke er sendt..
         /// </summary>
         public static string UserControllerStatusMessageCreatedUser {

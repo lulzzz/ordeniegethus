@@ -150,7 +150,7 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Husk pålogging</value>
   </data>
-  <data name="SuperUsers" xml:space="preserve">
+  <data name="SystemOwner" xml:space="preserve">
     <value>Systemansvarlig</value>
   </data>
   <data name="Vendor" xml:space="preserve">

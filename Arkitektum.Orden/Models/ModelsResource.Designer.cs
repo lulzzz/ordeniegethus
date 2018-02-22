@@ -162,9 +162,9 @@ namespace Arkitektum.Orden.Models {
         /// <summary>
         ///   Looks up a localized string similar to Systemansvarlig.
         /// </summary>
-        public static string SuperUsers {
+        public static string SystemOwner {
             get {
-                return ResourceManager.GetString("SuperUsers", resourceCulture);
+                return ResourceManager.GetString("SystemOwner", resourceCulture);
             }
         }
         

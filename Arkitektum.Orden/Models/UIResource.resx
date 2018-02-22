@@ -145,6 +145,9 @@
   <data name="LoginHeader" xml:space="preserve">
     <value>Logg inn</value>
   </data>
+  <data name="SuperUser" xml:space="preserve">
+    <value>Systemansvarlig</value>
+  </data>
   <data name="UserControllerStatusMessageCreatedUser" xml:space="preserve">
     <value>Brukeren ble opprettet og epost med aktiveringslenke er sendt.</value>
   </data>
