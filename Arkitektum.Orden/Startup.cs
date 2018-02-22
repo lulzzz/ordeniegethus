@@ -53,6 +53,7 @@ namespace Arkitektum.Orden
             services.AddTransient<ISharedServiceService, SharedServiceService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOrganizationService, OrganizationService>();
+            services.AddTransient<IApplicationService, ApplicationService>();
             services.AddScoped<ISecurityService, SecurityService>();
 
             services.AddMvc()
