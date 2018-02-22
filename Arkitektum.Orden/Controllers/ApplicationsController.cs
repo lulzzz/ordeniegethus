@@ -28,9 +28,9 @@ namespace Arkitektum.Orden.Controllers
 
 
         // GET: Applications
-        public async Task<IActionResult> Index(int organizationId)
+        public async Task<IActionResult> Index()
         {
-            var applications = await _applicationService.GetAllApplicationsForOrganisation(organizationId);
+            var applications = await _applicationService.GetAll();
             return View(new ApplicationViewModel().MapToEnumerable(applications));
         }
 
@@ -78,7 +78,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SuperUser,Version")] ApplicationViewModel application)
+        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SystemOwner,Version")] ApplicationViewModel application)
         {
             if (ModelState.IsValid)
             {
@@ -97,12 +97,12 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var application = await _context.Application.SingleOrDefaultAsync(m => m.Id == id);
+            var application = await _applicationService.Get(id);
             if (application == null)
             {
                 return NotFound();
             }
-            ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id", application.OrganizationId);
+           // ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id", application.OrganizationId);
             return View(application);
         }
 
