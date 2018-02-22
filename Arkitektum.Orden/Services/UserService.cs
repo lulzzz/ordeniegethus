@@ -34,7 +34,7 @@ public interface IUserService
         /// <returns></returns>
         public async Task<ApplicationUser> Get(string id)
         {
-            return await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            return await _context.ApplicationUser.SingleOrDefaultAsync(au => au.Id == id);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ public interface IUserService
 
         public async Task Delete(string id)
         {
-            var User = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
+            var User = await _context.ApplicationUser.SingleOrDefaultAsync(au => au.Id == id);
             _context.ApplicationUser.Remove(User);
             await SaveChangesAsync();
         }
