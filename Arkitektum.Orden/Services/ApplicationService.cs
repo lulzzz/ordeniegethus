@@ -11,7 +11,7 @@ namespace Arkitektum.Orden.Services
 {
     public interface IApplicationService
     {
-        Task<Application> Get(int id);
+        Task<Application> Get(int? id);
         Task<IEnumerable<Application>> GetAll();
         Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId);
         Task<Application> Create(Application application);
@@ -32,7 +32,7 @@ namespace Arkitektum.Orden.Services
 
         public async Task<IEnumerable<Application>> GetAll()
         {
-            return await _context.Application.ToListAsync();
+            return await _context.Application.Include(a => a.SystemOwner).ToListAsync();
         }
 
         public async Task<Application> Create(Application application)
@@ -49,11 +49,12 @@ namespace Arkitektum.Orden.Services
             await SaveChanges();
         }
 
-        public async Task<Application> Get(int id)
+        public async Task<Application> Get(int? id)
         {
-            return await _context.Application.SingleOrDefaultAsync(a => a.Id == id);
+           return await _context.Application.Include(a => a.SystemOwner).SingleOrDefaultAsync(a => a.Id == id);
         }
 
+        
        
         public async Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId)
         {
