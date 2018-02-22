@@ -53,11 +53,13 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public ApplicationUser SystemOwner { get; set; }
 
+        public string SystemOwnerId { get; set; }
+
         /// <summary>
         ///     Superbrukere
         /// </summary>
         public List<ApplicationUser> SuperUsers { get; set; }
-
+        
 
         /// <summary>
         ///     Lenker til eksterne ressurser
@@ -100,6 +102,7 @@ namespace Arkitektum.Orden.Models
 
         public int? VendorId { get; set; }
         public int? HostingVendorId { get; set; }
+
      
     }
 }
