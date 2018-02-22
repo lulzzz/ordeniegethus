@@ -13,11 +13,11 @@ namespace Arkitektum.Orden.Models.ViewModels
         [Required]
         public string Name { get; set; }
         public string Version { get; set; }
-        public Vendor Vendor {get; set;}
+        public string Vendor {get; set;}
         public decimal AnnualFee { get; set; }
         public List<SelectListItem> AvailableSuperUsers { get; set; }
-        public string SuperUser { get; set; }
-
+        public string SystemOwner { get; set; }
+        
         public override IEnumerable<ApplicationViewModel> MapToEnumerable(IEnumerable<Application> inputs)
         {
             var viewModels = new List<ApplicationViewModel>();
@@ -33,10 +33,11 @@ namespace Arkitektum.Orden.Models.ViewModels
         {
            return new ApplicationViewModel
            {
+               Id = input.Id,
                Name = input.Name,
                AnnualFee = input.AnnualFee,
-               //SuperUsers = input.SuperUsers,
-               Vendor = input.Vendor,
+               SystemOwner = input.SystemOwner.FullName,
+               //Vendor = input.Vendor.ToString(),
                Version = input.Version
            };
         }
@@ -45,11 +46,12 @@ namespace Arkitektum.Orden.Models.ViewModels
         {
             return new Application
             {
+                Id = input.Id,
                 Name = input.Name,
                 AnnualFee = input.AnnualFee,
-                //SuperUsers = input.SuperUsers,
-                Vendor = input.Vendor,
-                Version = input.Version
+                SystemOwnerId = input.SystemOwner,
+             
+                
             };
         }
     }
