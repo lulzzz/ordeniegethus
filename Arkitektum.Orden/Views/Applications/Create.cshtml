@@ -27,14 +27,14 @@
                 <span asp-validation-for="AnnualFee" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SuperUser" class="control-label"></label>
-                <select asp-for="SuperUser" asp-items="Model.AvailableSuperUsers" class="form-control"></select>
-                <span asp-validation-for="SuperUser" class="text-danger"></span>
+                <label asp-for="SystemOwner" class="control-label"></label>
+                <select asp-for="SystemOwner" asp-items="Model.AvailableSuperUsers" class="form-control"></select>
+                <span asp-validation-for="SystemOwner" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Vendor" class="control-label"></label>
                 <input asp-for="Vendor" class="form-control" />
-                <span asp-validation-for="Vendor.Name" class="text-danger"></span>
+                <span asp-validation-for="Vendor" class="text-danger"></span>
             </div>
           <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -44,7 +44,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Tilbake til applikasjonsliste</a>
 </div>
 
 @section Scripts {
