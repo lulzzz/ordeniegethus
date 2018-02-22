@@ -1,12 +1,11 @@
-﻿@model Arkitektum.Orden.Models.Application
+﻿@model Arkitektum.Orden.Models.ViewModels.ApplicationViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Lag en ny applikasjon</h2>
 
-<h4>Application</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,13 +27,13 @@
                 <span asp-validation-for="AnnualFee" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SuperUsers" class="control-label"></label>
-                <input asp-for="SuperUsers" class="form-control" />
-                <span asp-validation-for="SuperUsers" class="text-danger"></span>
+                <label asp-for="SuperUser" class="control-label"></label>
+                <select asp-for="SuperUser" asp-items="Model.AvailableSuperUsers" class="form-control"></select>
+                <span asp-validation-for="SuperUser" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Vendor" class="control-label"></label>
-                <input asp-for="VendorId" class="form-control" />
+                <input asp-for="Vendor" class="form-control" />
                 <span asp-validation-for="Vendor.Name" class="text-danger"></span>
             </div>
           <div class="form-group">

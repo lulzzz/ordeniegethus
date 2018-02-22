@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Arkitektum.Orden.Models.Application>
+﻿@model IEnumerable<Arkitektum.Orden.Models.ViewModels.ApplicationViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +7,7 @@
 <h2>Applikasjoner</h2>
 
 <p>
-    <a asp-action="Create">Lag ny applikasjon</a>
+    <a asp-action="Create">Registrer en ny applikasjon</a>
 </p>
 <table class="table">
     <thead>
@@ -25,7 +25,7 @@
                 @Html.DisplayNameFor(model => model.Vendor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SuperUsers)
+                @Html.DisplayNameFor(model => model.AvailableSuperUsers)
             </th>
           
             <th></th>
@@ -47,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.Vendor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SuperUsers)
+                @Html.DisplayFor(modelItem => item.AvailableSuperUsers)
             </td>
 
             <td>

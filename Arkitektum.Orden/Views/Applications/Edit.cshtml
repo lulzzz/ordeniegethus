@@ -1,5 +1,6 @@
 ﻿@model Arkitektum.Orden.Models.Application
 
+
 @{
     ViewData["Title"] = "Edit";
 }
@@ -53,6 +54,8 @@
                 <input asp-for="VendorId" class="form-control" />
                 <span asp-validation-for="VendorId" class="text-danger"></span>
             </div>
+            <h6>Tilknyttede felleskomponenter</h6>
+        
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
