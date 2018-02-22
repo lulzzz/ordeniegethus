@@ -47,8 +47,7 @@ namespace Arkitektum.Orden
 
             // Add application services.
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IPrincipal>(
-                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+            services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ISharedServiceService, SharedServiceService>();
             services.AddTransient<IEmailSender, EmailSender>();
