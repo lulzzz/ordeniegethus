@@ -37,7 +37,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                Name = input.Name,
                AnnualFee = input.AnnualFee,
                SystemOwner = input.SystemOwner.FullName,
-               //Vendor = input.Vendor.ToString(),
+               Vendor = input.Vendor,
                Version = input.Version
            };
         }
@@ -50,7 +50,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 Name = input.Name,
                 AnnualFee = input.AnnualFee,
                 SystemOwnerId = input.SystemOwner,
-             
+                Vendor = input.Vendor
                 
             };
         }

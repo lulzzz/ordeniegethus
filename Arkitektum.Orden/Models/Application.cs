@@ -21,7 +21,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Leverandør
         /// </summary>
-        public Vendor Vendor { get; set; }
+        public string Vendor { get; set; }
 
         /// <summary>
         ///     Støtter disse standardene
@@ -74,7 +74,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Driftsleverandør
         /// </summary>
-        public Vendor HostingVendor { get; set; }
+        public string HostingVendor { get; set; }
 
         /// <summary>
         ///     Antall brukere
@@ -100,9 +100,7 @@ namespace Arkitektum.Orden.Models
         public int? OrganizationId { get; set; }
         public Organization Organization { get; set; }
 
-        public int? VendorId { get; set; }
-        public int? HostingVendorId { get; set; }
-
+     
      
     }
 }

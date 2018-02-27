@@ -32,6 +32,7 @@ namespace Arkitektum.Orden.Data
                 .HasForeignKey(oa => oa.OrganizationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+        
             builder.Entity<Organization>().HasOne(o => o.DcatCatalog).WithOne(cat => cat.Organization).HasForeignKey<DcatCatalog>(cat => cat.OrganizationId);
 
             builder.Entity<ApplicationDataset>().HasKey("ApplicationId", "DatasetId");
