@@ -95,7 +95,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Felleskomponenter
         /// </summary>
-        public List<ApplicationSharedService> ApplicationSharedServices { get; set; }
+        public List<ApplicationNationalComponent> ApplicationNationalComponent { get; set; }
        
         public int? OrganizationId { get; set; }
         public Organization Organization { get; set; }

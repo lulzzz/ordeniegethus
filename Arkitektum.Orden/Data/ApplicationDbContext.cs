@@ -10,7 +10,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Organization> Organization { get; set; }
         public DbSet<Vendor> Vendor { get; set; }
-        public DbSet<SharedService> SharedService { get; set; }
+        public DbSet<NationalComponent> NationalComponent { get; set; }
    
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -35,7 +35,7 @@ namespace Arkitektum.Orden.Data
             builder.Entity<Organization>().HasOne(o => o.DcatCatalog).WithOne(cat => cat.Organization).HasForeignKey<DcatCatalog>(cat => cat.OrganizationId);
 
             builder.Entity<ApplicationDataset>().HasKey("ApplicationId", "DatasetId");
-            builder.Entity<ApplicationSharedService>().HasKey("ApplicationId", "SharedServiceId");
+            builder.Entity<ApplicationNationalComponent>().HasKey("ApplicationId", "NationalComponentId");
             builder.Entity<ApplicationStandard>().HasKey("ApplicationId", "StandardId");
             builder.Entity<ApplicationSupportedIntegration>().HasKey("ApplicationId", "SupportedIntegrationId");
             builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId");

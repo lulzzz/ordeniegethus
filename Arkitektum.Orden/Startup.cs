@@ -49,7 +49,7 @@ namespace Arkitektum.Orden
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ISharedServiceService, SharedServiceService>();
+            services.AddTransient<INationalComponentService, NationalComponentService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOrganizationService, OrganizationService>();
             services.AddTransient<IApplicationService, ApplicationService>();
