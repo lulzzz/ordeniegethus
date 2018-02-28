@@ -442,7 +442,9 @@ namespace Arkitektum.Orden.Data.Migrations
 
                     b.Property<string>("ApplicationUserId");
 
-                    b.HasKey("OrganizationId", "ApplicationUserId");
+                    b.Property<string>("Role");
+
+                    b.HasKey("OrganizationId", "ApplicationUserId", "Role");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -506,6 +508,18 @@ namespace Arkitektum.Orden.Data.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.ToTable("SectorApplication");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.SharedService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SharedService");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.Standard", b =>
