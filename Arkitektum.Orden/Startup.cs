@@ -31,7 +31,10 @@ namespace Arkitektum.Orden
             services.AddDataProtection().SetApplicationName("OrdenIEgetHus");
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options
+                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                    .EnableSensitiveDataLogging()
+                );
 
             services.AddIdentity<ApplicationUser, IdentityRole>(
                     user =>
