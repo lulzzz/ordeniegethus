@@ -39,54 +39,125 @@ namespace Arkitektum.Orden.Controllers
         }
 
         // GET: Users/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             var model = new UserViewModel();
+            List<Organization> delegateableOrganizations = await _securityService.GetDelegateableOrganizationsAsync();
             List<string> delegateableRoles = _securityService.GetDelegateableRoles();
-            model.Roles = new List<CheckboxRole>();
-            foreach (var role in delegateableRoles)
+            model.OrganizationRoles = new List<CheckboxOrganizationRole>();
+            foreach (var organization in delegateableOrganizations)
             {
-                model.Roles.Add(new CheckboxRole() { Name = role }); // TODO add localized names
+                foreach (var role in delegateableRoles)
+                {
+                    model.OrganizationRoles.Add(new CheckboxOrganizationRole()
+                    {
+                        OrganizationId = organization.Id,
+                        OrganizationName = organization.Name,
+                        RoleId = role,
+                        RoleName = role // TODO add localized names
+                    });
+                }
             }
+
             return View(model);
         }
 
         // POST: Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Email,FullName,Roles")] UserViewModel model)
+        public async Task<IActionResult> Create([Bind("Email,FullName,OrganizationRoles")] UserViewModel model)
         {
             if(ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var hasPermission = await VerifyUserHasPermissionToCreateMemberships(model);
+                if (!hasPermission)
                 {
-                    UserName = model.Email, 
-                    Email = model.Email, 
-                    EmailConfirmed = true,
-                    FullName = model.FullName
-                };
-                
-                var result = await _userManager.CreateAsync(user); // Create without password.
-                if(result.Succeeded)
-                {
-                    List<string> delegateableRoles = _securityService.GetDelegateableRoles();
-
-                    foreach (var role in model.Roles)
-                    {
-                        if (role.Selected && delegateableRoles.Contains(role.Name))
-                            await _userManager.AddToRoleAsync(user, role.Name);
-                    }
-                    await SendActivationMail(user);
-                    StatusMessage = UIResource.UserControllerStatusMessageCreatedUser;
-                    return RedirectToAction(nameof(Index));
+                    ModelState.AddModelError("", "User does not have permission to create memberships");
                 }
-                
-                foreach(var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(error.Code, error.Description);
+                    ApplicationUser user = CreateApplicationUser(model);
+
+                    var result = await _userManager.CreateAsync(user); // Create without password.
+                    if (result.Succeeded)
+                    {
+                        List<OrganizationApplicationUser> memberships = CreateOrganizationMemberships(user, model.OrganizationRoles);
+                        await _userService.AddOrganizationRolesAsync(memberships);
+
+                        await SendActivationMail(user);
+
+                        StatusMessage = UIResource.UserControllerStatusMessageCreatedUser;
+                        
+                        return RedirectToAction(nameof(Index));
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(error.Code, error.Description);
+                    }
                 }
             }
             return View(model);
+        }
+
+        private static ApplicationUser CreateApplicationUser(UserViewModel model)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                EmailConfirmed = true,
+                FullName = model.FullName
+            };
+            return user;
+        }
+
+        private async Task<bool> VerifyUserHasPermissionToCreateMemberships(UserViewModel model)
+        {
+            List<Organization> delegateableOrganizations = await _securityService.GetDelegateableOrganizationsAsync();
+            List<string> delegateableRoles = _securityService.GetDelegateableRoles();
+
+            List<int> delegatableOrganizationIds = delegateableOrganizations.Select(o => o.Id).ToList();
+            foreach (var role in model.OrganizationRoles)
+            {
+                if (role.Selected)
+                {
+                    if (!delegateableRoles.Contains(role.RoleId))
+                    {
+                        
+                        return false;
+                    }
+
+                    if (!delegatableOrganizationIds.Contains(role.OrganizationId))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            
+
+            return true;
+        }
+
+        private static List<OrganizationApplicationUser> CreateOrganizationMemberships(ApplicationUser user, List<CheckboxOrganizationRole> model)
+        {
+            List<OrganizationApplicationUser> organizationMembership = new List<OrganizationApplicationUser>();
+
+            foreach (var item in model)
+            {
+                if (item.Selected)
+                {
+                    organizationMembership.Add(new OrganizationApplicationUser()
+                    {
+                        OrganizationId = item.OrganizationId,
+                        ApplicationUser = user,
+                        Role = item.RoleId
+                    });
+                }
+            }
+
+            return organizationMembership;
         }
 
 
@@ -110,11 +181,14 @@ namespace Arkitektum.Orden.Controllers
             if (user == null) return NotFound();
 
             var userViewModel = new UserViewModel().Map(user);
-            IList<string> roles = await _userManager.GetRolesAsync(user);
-            userViewModel.Roles = new List<CheckboxRole>();
-            foreach (var role in roles)
+            userViewModel.OrganizationRoles = new List<CheckboxOrganizationRole>();
+            foreach (var organizationMembership in user.Organizations)
             {
-                userViewModel.Roles.Add(new CheckboxRole() {Name = role});
+                userViewModel.OrganizationRoles.Add(new CheckboxOrganizationRole()
+                {
+                    RoleName = organizationMembership.Role, 
+                    OrganizationName = organizationMembership.Organization.Name,
+                });
             }
             return View(userViewModel);
         }

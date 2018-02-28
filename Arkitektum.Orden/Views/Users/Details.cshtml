@@ -23,13 +23,13 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Roles)
+            @Html.DisplayNameFor(model => model.OrganizationRoles)
         </dt>
         <dd>
             <ul>
-                @foreach (var role in Model.Roles)
+                @foreach (var role in Model.OrganizationRoles)
                 {
-                    <li>@role.Name</li>
+                    <li>@role.OrganizationName: @role.RoleName</li>
                 }
             </ul>
         </dd>

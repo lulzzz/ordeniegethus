@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Services
@@ -13,6 +15,7 @@ public interface IUserService
         Task<ApplicationUser> Create(ApplicationUser user);
         Task SaveChangesAsync();
         Task Delete(string id);
+        Task AddOrganizationRolesAsync(List<OrganizationApplicationUser> organizationMembership);
     }
 
     /// <summary>
@@ -28,13 +31,17 @@ public interface IUserService
         }
 
         /// <summary>
-        ///     Retrieve User with given id or null if not found
+        ///     Retrieve User with given id or null if not found. 
+        /// Includes roles and associated organizations.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public async Task<ApplicationUser> Get(string id)
         {
-            return await _context.ApplicationUser.SingleOrDefaultAsync(au => au.Id == id);
+            return await _context.ApplicationUser
+                .Include(u => u.Organizations)
+                .ThenInclude(o => o.Organization)
+                .SingleOrDefaultAsync(au => au.Id == id);
         }
 
         /// <summary>
@@ -65,8 +72,23 @@ public interface IUserService
 
         public async Task Delete(string id)
         {
-            var User = await _context.ApplicationUser.SingleOrDefaultAsync(au => au.Id == id);
-            _context.ApplicationUser.Remove(User);
+            var user = await _context.ApplicationUser.SingleOrDefaultAsync(au => au.Id == id);
+            _context.ApplicationUser.Remove(user);
+            await SaveChangesAsync();
+        }
+
+        public async Task AddOrganizationRolesAsync(List<OrganizationApplicationUser> organizationMemberships)
+        {
+            //_context.Attach(organizationMemberships.First().ApplicationUser);
+
+            foreach (var item in organizationMemberships)
+            {
+                //bool isDetached = _context.Entry(item.Organization).State == EntityState.Detached;
+                //if (isDetached)
+                //    _context.Attach(item.Organization);
+                
+                _context.Add(item);
+            }
             await SaveChangesAsync();
         }
     }

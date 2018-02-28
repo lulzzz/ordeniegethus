@@ -133,6 +133,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Organisasjoner og rettigheter.
+        /// </summary>
+        public static string OrganizationRoles {
+            get {
+                return ResourceManager.GetString("OrganizationRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organisasjoner.
         /// </summary>
         public static string Organizations {

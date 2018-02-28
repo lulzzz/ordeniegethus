@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.Threading.Tasks;
+using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Services
 {
@@ -9,15 +12,18 @@ namespace Arkitektum.Orden.Services
     {
         CurrentUser GetCurrentUser();
         List<string> GetDelegateableRoles();
+        Task<List<Organization>> GetDelegateableOrganizationsAsync();
     }
     
     public class SecurityService : ISecurityService
     {
         private readonly IPrincipal _principal;
+        private readonly ApplicationDbContext _context;
 
-        public SecurityService(IPrincipal principal)
+        public SecurityService(IPrincipal principal, ApplicationDbContext context)
         {
             _principal = principal;
+            _context = context;
         }
 
         /// <summary>
@@ -42,6 +48,11 @@ namespace Arkitektum.Orden.Services
                 return new[] {Roles.OrganizationAdmin, Roles.User, Roles.Reader}.ToList();
 
             return new List<string>();
+        }
+
+        public async Task<List<Organization>> GetDelegateableOrganizationsAsync()
+        {
+            return await _context.Organization.AsNoTracking().ToListAsync();
         }
     }
 }

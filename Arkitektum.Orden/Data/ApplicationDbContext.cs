@@ -38,7 +38,7 @@ namespace Arkitektum.Orden.Data
             builder.Entity<ApplicationNationalComponent>().HasKey("ApplicationId", "NationalComponentId");
             builder.Entity<ApplicationStandard>().HasKey("ApplicationId", "StandardId");
             builder.Entity<ApplicationSupportedIntegration>().HasKey("ApplicationId", "SupportedIntegrationId");
-            builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId");
+            builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId", "Role");
             builder.Entity<OrganizationAdministrators>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
             

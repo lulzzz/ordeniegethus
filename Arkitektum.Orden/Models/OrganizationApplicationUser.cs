@@ -9,5 +9,7 @@
         public Organization Organization { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+
+        public string Role { get; set; }
     }
 }

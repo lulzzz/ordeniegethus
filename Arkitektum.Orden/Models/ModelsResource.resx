@@ -141,6 +141,9 @@
   <data name="OrganizationNumber" xml:space="preserve">
     <value>Organisasjonsnummer</value>
   </data>
+  <data name="OrganizationRoles" xml:space="preserve">
+    <value>Organisasjoner og rettigheter</value>
+  </data>
   <data name="Organizations" xml:space="preserve">
     <value>Organisasjoner</value>
   </data>

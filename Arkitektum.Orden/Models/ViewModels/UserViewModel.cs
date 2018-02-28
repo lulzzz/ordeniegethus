@@ -10,7 +10,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         public string Email { get; set; }
         public string FullName { get; set; }
         
-        public List<CheckboxRole> Roles { get; set; }
+        public List<CheckboxOrganizationRole> OrganizationRoles { get; set; }
 
         public List<SelectListItem> AllRoles { get; set; }
 
@@ -57,9 +57,12 @@ namespace Arkitektum.Orden.Models.ViewModels
         }
     }
 
-    public class CheckboxRole
+    public class CheckboxOrganizationRole
     {
-        public string Name { get; set; }
-        public bool Selected { get;set; }
+        public string OrganizationName { get; set; }
+        public int OrganizationId { get; set; }
+        public string RoleId { get; set; }
+        public string RoleName { get; set; }
+        public bool Selected { get; set; }
     }
 }
