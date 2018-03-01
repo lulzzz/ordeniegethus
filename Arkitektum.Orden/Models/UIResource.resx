@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Lagre</value>
+  </data>
   <data name="ButtonSubmit" xml:space="preserve">
     <value>Send inn</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Slett</value>
   </data>
   <data name="EmailConfirmationBody" xml:space="preserve">
     <value>&lt;h4&gt;Du kan nå logge på Orden i eget hus&lt;/h4&gt;
