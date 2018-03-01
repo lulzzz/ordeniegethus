@@ -136,6 +136,15 @@
   <data name="ForgotPasswordHelpText" xml:space="preserve">
     <value>Skriv inn din epostadresse for å sette et nytt passord. Du vil motta en epost med instruksjoner for å lage et nytt passord.</value>
   </data>
+  <data name="LinkDelete" xml:space="preserve">
+    <value>Slett</value>
+  </data>
+  <data name="LinkDetails" xml:space="preserve">
+    <value>Vis detaljer</value>
+  </data>
+  <data name="LinkEdit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Logg inn</value>
   </data>
@@ -144,6 +153,12 @@
   </data>
   <data name="LoginHeader" xml:space="preserve">
     <value>Logg inn</value>
+  </data>
+  <data name="SectorCreateNew" xml:space="preserve">
+    <value>Opprett nytt tjenesteområde</value>
+  </data>
+  <data name="SectorHeaderIndex" xml:space="preserve">
+    <value>Tjenesteområder</value>
   </data>
   <data name="SuperUser" xml:space="preserve">
     <value>Systemansvarlig</value>

@@ -43,5 +43,7 @@ namespace Arkitektum.Orden.Data
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
             
         }
+
+        public DbSet<Arkitektum.Orden.Models.Sector> Sector { get; set; }
     }
 }

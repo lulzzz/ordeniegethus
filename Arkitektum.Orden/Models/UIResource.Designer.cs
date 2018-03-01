@@ -109,6 +109,33 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slett.
+        /// </summary>
+        public static string LinkDelete {
+            get {
+                return ResourceManager.GetString("LinkDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vis detaljer.
+        /// </summary>
+        public static string LinkDetails {
+            get {
+                return ResourceManager.GetString("LinkDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rediger.
+        /// </summary>
+        public static string LinkEdit {
+            get {
+                return ResourceManager.GetString("LinkEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logg inn.
         /// </summary>
         public static string LoginButton {
@@ -132,6 +159,24 @@ namespace Arkitektum.Orden.Models {
         public static string LoginHeader {
             get {
                 return ResourceManager.GetString("LoginHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opprett nytt tjenesteområde.
+        /// </summary>
+        public static string SectorCreateNew {
+            get {
+                return ResourceManager.GetString("SectorCreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tjenesteområder.
+        /// </summary>
+        public static string SectorHeaderIndex {
+            get {
+                return ResourceManager.GetString("SectorHeaderIndex", resourceCulture);
             }
         }
         

@@ -129,6 +129,9 @@
   <data name="FullName" xml:space="preserve">
     <value>Navn</value>
   </data>
+  <data name="LawReferences" xml:space="preserve">
+    <value>Lovhjemler</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Navn</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Husk pålogging</value>
+  </data>
+  <data name="Sector" xml:space="preserve">
+    <value>Tjenesteområde</value>
   </data>
   <data name="SystemOwner" xml:space="preserve">
     <value>Systemansvarlig</value>
