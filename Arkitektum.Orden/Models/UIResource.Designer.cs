@@ -61,11 +61,47 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lagre.
+        /// </summary>
+        public static string ButtonSave {
+            get {
+                return ResourceManager.GetString("ButtonSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send inn.
         /// </summary>
         public static string ButtonSubmit {
             get {
                 return ResourceManager.GetString("ButtonSubmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slett.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detaljer.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rediger.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -109,11 +145,20 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Slett.
+        ///   Looks up a localized string similar to Er du sikker på at du vil slette dette elementet?.
         /// </summary>
-        public static string LinkDelete {
+        public static string HelpTextConfirmDeleteItem {
             get {
-                return ResourceManager.GetString("LinkDelete", resourceCulture);
+                return ResourceManager.GetString("HelpTextConfirmDeleteItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tilbake til liste.
+        /// </summary>
+        public static string LinkBackToList {
+            get {
+                return ResourceManager.GetString("LinkBackToList", resourceCulture);
             }
         }
         
@@ -123,15 +168,6 @@ namespace Arkitektum.Orden.Models {
         public static string LinkDetails {
             get {
                 return ResourceManager.GetString("LinkDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rediger.
-        /// </summary>
-        public static string LinkEdit {
-            get {
-                return ResourceManager.GetString("LinkEdit", resourceCulture);
             }
         }
         
@@ -168,6 +204,15 @@ namespace Arkitektum.Orden.Models {
         public static string SectorCreateNew {
             get {
                 return ResourceManager.GetString("SectorCreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rediger tjenesteområde.
+        /// </summary>
+        public static string SectorHeaderEdit {
+            get {
+                return ResourceManager.GetString("SectorHeaderEdit", resourceCulture);
             }
         }
         

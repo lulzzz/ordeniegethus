@@ -126,6 +126,12 @@
   <data name="Delete" xml:space="preserve">
     <value>Slett</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detaljer</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Rediger</value>
+  </data>
   <data name="EmailConfirmationBody" xml:space="preserve">
     <value>&lt;h4&gt;Du kan nå logge på Orden i eget hus&lt;/h4&gt;
 &lt;p&gt;For å komme igang må du &lt;a href="{0}"&gt;aktivere&lt;/a&gt; kontoen din.&lt;/p&gt;
@@ -142,14 +148,14 @@
   <data name="ForgotPasswordHelpText" xml:space="preserve">
     <value>Skriv inn din epostadresse for å sette et nytt passord. Du vil motta en epost med instruksjoner for å lage et nytt passord.</value>
   </data>
-  <data name="LinkDelete" xml:space="preserve">
-    <value>Slett</value>
+  <data name="HelpTextConfirmDeleteItem" xml:space="preserve">
+    <value>Er du sikker på at du vil slette dette elementet?</value>
+  </data>
+  <data name="LinkBackToList" xml:space="preserve">
+    <value>Tilbake til liste</value>
   </data>
   <data name="LinkDetails" xml:space="preserve">
     <value>Vis detaljer</value>
-  </data>
-  <data name="LinkEdit" xml:space="preserve">
-    <value>Rediger</value>
   </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Logg inn</value>
@@ -162,6 +168,9 @@
   </data>
   <data name="SectorCreateNew" xml:space="preserve">
     <value>Opprett nytt tjenesteområde</value>
+  </data>
+  <data name="SectorHeaderEdit" xml:space="preserve">
+    <value>Rediger tjenesteområde</value>
   </data>
   <data name="SectorHeaderIndex" xml:space="preserve">
     <value>Tjenesteområder</value>

@@ -1,14 +1,14 @@
-﻿@model Arkitektum.Orden.Models.Sector
+﻿@model Sector
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = UIResource.Details;
 }
 
-<h2>Details</h2>
+<h2>@ViewData["Title"]</h2>
 
 <div>
-    <h4>Sector</h4>
-    <hr />
+    <h4>@ModelsResource.Sector</h4>
+    <hr/>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -16,15 +16,9 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Organization)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Organization.Id)
-        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">@UIResource.Edit</a> |
+    <a asp-action="Index">@UIResource.LinkBackToList</a>
 </div>

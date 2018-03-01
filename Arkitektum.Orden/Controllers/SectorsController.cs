@@ -7,14 +7,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Models.ViewModels;
+using Arkitektum.Orden.Services;
 
 namespace Arkitektum.Orden.Controllers
 {
-    public class SectorsController : Controller
+    public class SectorsController : BaseController
     {
         private readonly ApplicationDbContext _context;
 
-        public SectorsController(ApplicationDbContext context)
+        public SectorsController(ApplicationDbContext context, ISecurityService securityService) : base(securityService)
         {
             _context = context;
         }
@@ -22,8 +24,10 @@ namespace Arkitektum.Orden.Controllers
         // GET: Sectors
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Sector.Include(s => s.Organization);
-            return View(await applicationDbContext.ToListAsync());
+            SimpleOrganization currentOrganization = CurrentOrganization();
+            var applicationDbContext = _context.Sector.Where(s => s.OrganizationId == currentOrganization.Id);
+            var sectors = await applicationDbContext.ToListAsync();
+            return View(sectors);
         }
 
         // GET: Sectors/Details/5
@@ -48,6 +52,7 @@ namespace Arkitektum.Orden.Controllers
         // GET: Sectors/Create
         public IActionResult Create()
         {
+            ViewData["CurrentOrganizationId"] = CurrentOrganizationId();
             ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id");
             return View();
         }

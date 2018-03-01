@@ -79,6 +79,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applikasjoner.
+        /// </summary>
+        public static string Applications {
+            get {
+                return ResourceManager.GetString("Applications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Epost.
         /// </summary>
         public static string Email {
@@ -183,6 +192,15 @@ namespace Arkitektum.Orden.Models {
         public static string Sector {
             get {
                 return ResourceManager.GetString("Sector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tjenesteområder.
+        /// </summary>
+        public static string Sectors {
+            get {
+                return ResourceManager.GetString("Sectors", resourceCulture);
             }
         }
         

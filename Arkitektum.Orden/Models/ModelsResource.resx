@@ -123,6 +123,9 @@
   <data name="Application" xml:space="preserve">
     <value>Applikasjon</value>
   </data>
+  <data name="Applications" xml:space="preserve">
+    <value>Applikasjoner</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Epost</value>
   </data>
@@ -158,6 +161,9 @@
   </data>
   <data name="Sector" xml:space="preserve">
     <value>Tjenesteområde</value>
+  </data>
+  <data name="Sectors" xml:space="preserve">
+    <value>Tjenesteområder</value>
   </data>
   <data name="SystemOwner" xml:space="preserve">
     <value>Systemansvarlig</value>
