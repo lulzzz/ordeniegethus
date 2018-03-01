@@ -99,7 +99,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Lovhjemmel/forskrift for forvaltning
         /// </summary>
-        public List<LawReference> LawReferences { get; set; }
+        public List<ResourceLink> LawReferences { get; set; }
 
         /// <summary>
         ///     Publisert til felles datakatalog

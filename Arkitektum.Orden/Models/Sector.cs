@@ -17,7 +17,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Lovpålagt tjeneste, referanse til hjemmel/forskrift
         /// </summary>
-        public List<LawReference> LawReferences { get; set; } 
+        public List<ResourceLink> LawReferences { get; set; } 
 
         public int OrganizationId { get; set; }
         public virtual Organization Organization { get; set; }
