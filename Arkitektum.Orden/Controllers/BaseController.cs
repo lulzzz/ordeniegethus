@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Arkitektum.Orden.Models;
+﻿using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,18 +8,37 @@ namespace Arkitektum.Orden.Controllers
     {
         private readonly ISecurityService _securityService;
 
-        public BaseController(ISecurityService securityService)
+        protected BaseController(ISecurityService securityService)
         {
             _securityService = securityService;
         }
 
-        protected ApplicationUser CurrentUser()
+        protected ICurrentUser CurrentUser()
         {
-            _securityService.GetCurrentUser();
-
-            return null;
+            return _securityService.GetCurrentUser();
         }
 
-    }
+        /// <summary>
+        ///     Returns the current organization from the session
+        /// </summary>
+        /// <returns></returns>
+        protected SimpleOrganization CurrentOrganization()
+        {
+            return new SessionHelper().GetCurrentOrganization(HttpContext.Session);
+        }
 
+        protected int? CurrentOrganizationId()
+        {
+            return CurrentOrganization()?.Id;
+        }
+
+        /// <summary>
+        ///     Set current organization in the session
+        /// </summary>
+        /// <param name="simpleOrganization"></param>
+        protected void SetCurrentOrganization(SimpleOrganization simpleOrganization)
+        {
+            new SessionHelper().SetCurrentOrganization(HttpContext.Session, simpleOrganization);
+        }
+    }
 }

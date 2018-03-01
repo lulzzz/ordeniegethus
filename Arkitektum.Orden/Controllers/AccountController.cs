@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.AccountViewModels;
+using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 
 namespace Arkitektum.Orden.Controllers
@@ -24,17 +25,20 @@ namespace Arkitektum.Orden.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly IUserService _userService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _userService = userService;
         }
 
         [TempData]
@@ -65,6 +69,14 @@ namespace Arkitektum.Orden.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    ApplicationUser user = await _userService.GetUserByEmailAsync(model.Email);
+                    if (user.Organizations != null && user.Organizations.Any())
+                    {
+                        var currentOrganization = new SimpleOrganization(user.Organizations);
+                        new SessionHelper().SetCurrentOrganization(HttpContext.Session, currentOrganization);
+                    }
+
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -85,6 +97,21 @@ namespace Arkitektum.Orden.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangeCurrentOrganization(int organizationId)
+        {
+            ApplicationUser user = await _userService.Get(_userManager.GetUserId(User));
+
+            if (user.Organizations != null && user.Organizations.Any())
+            {
+                var currentOrganization = new SimpleOrganization(user.Organizations, organizationId);
+                new SessionHelper().SetCurrentOrganization(HttpContext.Session, currentOrganization);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

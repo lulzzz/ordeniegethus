@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
@@ -11,6 +12,7 @@ namespace Arkitektum.Orden.Services
 public interface IUserService
     {
         Task<ApplicationUser> Get(string id);
+        Task<ApplicationUser> GetUserByEmailAsync(string email);
         Task<IEnumerable<ApplicationUser>> GetAll();
         Task<ApplicationUser> Create(ApplicationUser user);
         Task SaveChangesAsync();
@@ -42,6 +44,15 @@ public interface IUserService
                 .Include(u => u.Organizations)
                 .ThenInclude(o => o.Organization)
                 .SingleOrDefaultAsync(au => au.Id == id);
+        }
+
+        public async Task<ApplicationUser> GetUserByEmailAsync(string email)
+        {
+            return await _context.ApplicationUser
+                .Include(u => u.Organizations)
+                .ThenInclude(o => o.Organization)
+                .SingleOrDefaultAsync(au =>
+                    string.Equals(au.Email, email, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>

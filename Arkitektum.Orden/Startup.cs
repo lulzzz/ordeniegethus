@@ -30,6 +30,14 @@ namespace Arkitektum.Orden
             services.AddAntiforgery(opts => opts.Cookie.Name = "AntiForgery.OrdenIEgetHus");
             services.AddDataProtection().SetApplicationName("OrdenIEgetHus");
 
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true; // cookie is only available on server side
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options
                     .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
@@ -87,6 +95,8 @@ namespace Arkitektum.Orden
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseSession();
 
             app.UseStaticFiles();
 

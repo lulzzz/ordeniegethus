@@ -44,8 +44,7 @@ namespace Arkitektum.Orden.Services
             if (GetCurrentUser().IsInRole(Roles.Admin))
                 return new List<string>(Roles.All);
 
-            if (GetCurrentUser().IsInRole(Roles.OrganizationAdmin))
-                return new[] {Roles.OrganizationAdmin, Roles.User, Roles.Reader}.ToList();
+            // TODO: Use organization membership to determine delegatable roles, except for administrator
 
             return new List<string>();
         }
