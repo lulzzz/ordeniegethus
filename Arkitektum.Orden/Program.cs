@@ -27,7 +27,8 @@ namespace Arkitektum.Orden
             {
                 var host = BuildWebHost(args);
 
-                MigrateAndSeedDatabase(host);
+                DropAndRecreateDatabase(host);
+                //MigrateAndSeedDatabase(host);
 
                 Log.Information("Starting web host");
                 host.Run();
@@ -42,6 +43,30 @@ namespace Arkitektum.Orden
             finally
             {
                 Log.CloseAndFlush();
+            }
+        }
+        
+        private static void DropAndRecreateDatabase(IWebHost host)
+        {
+            Log.Information("Dropping and recreating the database");
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+
+                    context.Database.EnsureDeleted();
+                    context.Database.EnsureCreated();
+                    DbInitializer.Initialize(context, userManager, roleManager).Wait();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while recreating the database");
+                }
             }
         }
 
