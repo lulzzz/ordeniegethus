@@ -66,6 +66,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\scss\modules\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
