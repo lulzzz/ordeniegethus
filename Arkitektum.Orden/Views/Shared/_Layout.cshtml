@@ -24,6 +24,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Orden i eget hus</a>
+        @await Html.PartialAsync("_LoginPartial")
 
     </nav>
 
@@ -41,8 +42,6 @@
                     <li class="nav-item"><a asp-area="" asp-controller="Sectors" asp-action="Index" class="nav-link">@ModelsResource.Sectors</a></li>
                     <li class="nav-item"><a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link">Brukere</a></li>
                 </ul>
-
-                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     }
