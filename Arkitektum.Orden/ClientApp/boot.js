@@ -1,8 +1,19 @@
-import './scss/main.scss';
+﻿import './scss/main.scss';
+import 'bootstrap';
 import Vue from 'vue';
-import App from './components/app/app.vue';
-new Vue({
+
+
+/* Vuex store */
+import store from './store'
+
+/* Views */
+import Sector from './components/views/Sector.vue';
+
+
+new Vue( {
     el: '#app-root',
-    render: function (h) { return h(App); }
+    store,
+    components: {
+        Sector,
+    }
 });
-//# sourceMappingURL=boot.js.map

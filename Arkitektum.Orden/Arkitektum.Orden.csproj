@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\views\Sector.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
@@ -52,6 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\views\Sector.js" />
     <TypeScriptCompile Include="ClientApp\store\Actions.js" />
     <TypeScriptCompile Include="ClientApp\store\Getters.js" />
     <TypeScriptCompile Include="ClientApp\store\index.js" />
