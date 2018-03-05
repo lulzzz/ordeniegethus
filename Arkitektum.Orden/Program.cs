@@ -27,7 +27,7 @@ namespace Arkitektum.Orden
             {
                 var host = BuildWebHost(args);
 
-                DropAndRecreateDatabase(host);
+                //DropAndRecreateDatabase(host);
                 //MigrateAndSeedDatabase(host);
 
                 Log.Information("Starting web host");
