@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="OrganizationId" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -46,7 +47,7 @@
             <div class="form-group">
                 <label asp-for="SystemOwner" class="control-label"></label>
                 <select asp-for="SystemOwner" class="form-control" asp-items="Model.AvailableSuperUsers"></select>
-                 <span asp-validation-for="SystemOwner" class="text-danger"></span>
+                <span asp-validation-for="SystemOwner" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Vendor" class="control-label"></label>
@@ -54,7 +55,7 @@
                 <span asp-validation-for="Vendor" class="text-danger"></span>
             </div>
             <h6>Tilknyttede felleskomponenter</h6>
-        
+
             <div class="form-group">
                 <input type="submit" value="Lagre" class="btn btn-default" />
             </div>

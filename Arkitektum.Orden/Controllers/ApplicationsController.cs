@@ -12,27 +12,24 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Arkitektum.Orden.Controllers
 {
-    [Authorize(Roles = Roles.User)]
-    public class ApplicationsController : Controller
+    [Authorize]
+    public class ApplicationsController : BaseController
     {
-        private readonly ApplicationDbContext _context;
         private readonly IApplicationService _applicationService;
         private readonly IUserService _userService;
     
-
-
-        public ApplicationsController(IApplicationService applicationService, IUserService userService)
+        public ApplicationsController(IApplicationService applicationService, IUserService userService, ISecurityService securityService) : base(securityService)
         {
             _applicationService = applicationService;
             _userService = userService;
-       
         }
 
 
         // GET: Applications
         public async Task<IActionResult> Index()
-        {
-            var applications = await _applicationService.GetAll();
+        {            
+            SimpleOrganization currentOrganization = CurrentOrganization();
+            var applications = await _applicationService.GetAllApplicationsForOrganisation(currentOrganization.Id);
             return View(new ApplicationViewModel().MapToEnumerable(applications));
         }
 
@@ -57,6 +54,7 @@ namespace Arkitektum.Orden.Controllers
         public async Task<IActionResult> Create()
         {
             var model = new ApplicationViewModel();
+            model.OrganizationId = CurrentOrganizationId().Value;
 
             model.AvailableSuperUsers = new List<SelectListItem>();
 
@@ -78,7 +76,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SystemOwner,Version")] ApplicationViewModel application)
+        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SystemOwner,Version,OrganizationId")] ApplicationViewModel application)
         {
             if (ModelState.IsValid)
             {
@@ -124,7 +122,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers,Vendor")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers,Vendor,OrganizationId")] Application application)
         {
             if (id != application.Id)
             {

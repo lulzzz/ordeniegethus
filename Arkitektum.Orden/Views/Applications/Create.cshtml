@@ -10,20 +10,22 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <input type="hidden" asp-for="OrganizationId"/>
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Version" class="control-label"></label>
-                <input asp-for="Version" class="form-control" />
+                <input asp-for="Version" class="form-control"/>
                 <span asp-validation-for="Version" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AnnualFee" class="control-label"></label>
-                <input asp-for="AnnualFee" class="form-control" />
+                <input asp-for="AnnualFee" class="form-control"/>
                 <span asp-validation-for="AnnualFee" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,11 +35,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Vendor" class="control-label"></label>
-                <input asp-for="Vendor" class="form-control" />
+                <input asp-for="Vendor" class="form-control"/>
                 <span asp-validation-for="Vendor" class="text-danger"></span>
             </div>
-          <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default"/>
             </div>
         </form>
     </div>

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Arkitektum.Orden.Models.ViewModels
@@ -21,7 +18,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         public string InitialCost { get; set; }
         public string HostingLocation { get; set; }
         public int NumberOfUsers { get; set; }
-
+        public int? OrganizationId { get; set; }
       
 
         public override IEnumerable<ApplicationViewModel> MapToEnumerable(IEnumerable<Application> inputs)
@@ -44,7 +41,8 @@ namespace Arkitektum.Orden.Models.ViewModels
                Version = input.Version,
                InitialCost = input.DecimalToString(input.InitialCost),
                HostingLocation = input.HostingLocation,
-               NumberOfUsers = input.NumberOfUsers
+               NumberOfUsers = input.NumberOfUsers,
+               OrganizationId = input.OrganizationId
            };
         }
 
@@ -61,6 +59,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 InitialCost = System.Convert.ToDecimal(input.InitialCost),
                 HostingLocation = input.HostingLocation,
                 NumberOfUsers = input.NumberOfUsers,
+                OrganizationId = input.OrganizationId
             };
         }
     }
