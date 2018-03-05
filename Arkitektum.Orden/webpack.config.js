@@ -10,14 +10,40 @@ module.exports = (env) => {
     return [{
         stats: { modules: false },
         context: __dirname,
-        resolve: { extensions: ['.js', '.ts', '.vue', '.scss'] },
-        entry: { 'main': './ClientApp/boot.ts' },
+        resolve: {
+            extensions: ['.js', '.ts', '.vue', '.scss'],
+            alias: { vue: isDevBuild ? 'vue/dist/vue.js' : 'vue/dist/vue.min.js' }
+        },
+        entry: { 'main': './ClientApp/boot.js' },
         module: {
             rules: [
-                { test: /\.vue$/, include: /ClientApp/, loader: 'vue-loader', options: { loaders: { js: 'awesome-typescript-loader?silent=true' } } },
+                {
+                    test: /\.vue$/,
+                    include: /ClientApp/,
+                    loader: 'vue-loader',
+                    options: {
+                        loaders: {
+                            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
+                            // the "scss" and "sass" values for the lang attribute to the right configs here.
+                            // other preprocessors should work out of the box, no loader config like this necessary.
+                            'scss': 'vue-style-loader!css-loader!sass-loader',
+                            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+                            css: ExtractTextPlugin.extract({
+                                use: 'css-loader?minimize',
+                                fallback: 'vue-style-loader' // <- this is a dep of vue-loader, so no need to explicitly install if using npm3
+                            })
+                        }
+                        // other vue-loader options go here
+                    }
+                },
+                {
+                    test: /\.js$/,
+                    loader: 'babel-loader',
+                    exclude: /node_modules/
+                },
                 { test: /\.ts$/, include: /ClientApp/, use: 'awesome-typescript-loader?silent=true'},
                 /*{ test: /\.css$/, use: isDevBuild ? ['style-loader', 'css-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize' }) },*/
-                { test: /\.scss$/, use: isDevBuild ? ['style-loader', 'css-loader', 'sass-loader'] : ExtractTextPlugin.extract({ use: 'css-loader?minimize!sass-loader' }) }, // TODO: Fix ExtractText to file from Sass-Loader
+                { test: /\.scss$/, use: ExtractTextPlugin.extract({ use: 'css-loader?minimize!sass-loader' }) }, // TODO: Fix ExtractText to file from Sass-Loader
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
@@ -36,6 +62,10 @@ module.exports = (env) => {
             new webpack.DllReferencePlugin({
                 context: __dirname,
                 manifest: require('./wwwroot/dist/vendor-manifest.json')
+            }),
+            new ExtractTextPlugin("site.css"),
+            new webpack.LoaderOptionsPlugin({
+                minimize: true
             })
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only
@@ -46,7 +76,6 @@ module.exports = (env) => {
         ] : [
                 // Plugins that apply in production builds only
                 new webpack.optimize.UglifyJsPlugin(),
-                new ExtractTextPlugin('site.css')
             ])
     }];
 };
