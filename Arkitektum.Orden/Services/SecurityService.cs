@@ -75,6 +75,9 @@ namespace Arkitektum.Orden.Services
 
             if (user != null)
             {
+                if (GetCurrentUser().IsInRole(Roles.Admin))
+                    return new SimpleOrganization(_context.Organization.AsNoTracking().ToList(), organizationId);
+
                 if (user.Organizations != null && user.Organizations.Any())
                 {
                     return new SimpleOrganization(user.Organizations, organizationId);

@@ -71,14 +71,6 @@ namespace Arkitektum.Orden.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-
-                    ApplicationUser user = await _userService.GetUserByEmailAsync(model.Email);
-                    if (user.Organizations != null && user.Organizations.Any())
-                    {
-                        var currentOrganization = new SimpleOrganization(user.Organizations);
-                        new SessionHelper().SetCurrentOrganization(HttpContext.Session, currentOrganization);
-                    }
-
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -107,7 +99,7 @@ namespace Arkitektum.Orden.Controllers
         {
             ApplicationUser user = await _userService.Get(_userManager.GetUserId(User));
             
-            if (user.HasAccessToOrganization(organizationId))
+            if (User.IsInRole(Roles.Admin) || user.HasAccessToOrganization(organizationId))
             {
                 HttpContext.Response.Cookies.Append(CookieNames.CurrentOrganizationId, organizationId.ToString());
             }
