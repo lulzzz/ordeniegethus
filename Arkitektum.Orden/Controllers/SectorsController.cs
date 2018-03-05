@@ -57,6 +57,26 @@ namespace Arkitektum.Orden.Controllers
             return View();
         }
 
+        public IActionResult EditJson()
+        {
+            var data = new Sector() {
+                Id = 2, Name = "Helse og omsorg",
+                LawReferences = new List<ResourceLink>() {
+                    new ResourceLink() {
+                        Id = 0,
+                        Description = "Beskrivelse av første lovreferanse",
+                        Url = "www.lenketilfoerstelovreferanse.no"
+                    },
+                    new ResourceLink() {
+                        Id = 0,
+                        Description = "Beskrivelse av andre lovreferanse",
+                        Url = "www.lenketilandrelovreferanse.no"
+                    },
+                }
+            };
+            return Json(data);
+        }
+
         // POST: Sectors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
