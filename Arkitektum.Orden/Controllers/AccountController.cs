@@ -14,6 +14,8 @@ using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.AccountViewModels;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
+using Arkitektum.Orden.Utils;
+using Microsoft.AspNetCore.Http;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -104,11 +106,10 @@ namespace Arkitektum.Orden.Controllers
         public async Task<IActionResult> ChangeCurrentOrganization(int organizationId)
         {
             ApplicationUser user = await _userService.Get(_userManager.GetUserId(User));
-
-            if (user.Organizations != null && user.Organizations.Any())
+            
+            if (user.HasAccessToOrganization(organizationId))
             {
-                var currentOrganization = new SimpleOrganization(user.Organizations, organizationId);
-                new SessionHelper().SetCurrentOrganization(HttpContext.Session, currentOrganization);
+                HttpContext.Response.Cookies.Append(CookieNames.CurrentOrganizationId, organizationId.ToString());
             }
 
             return RedirectToAction("Index", "Home");

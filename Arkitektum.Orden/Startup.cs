@@ -64,7 +64,8 @@ namespace Arkitektum.Orden
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOrganizationService, OrganizationService>();
             services.AddTransient<IApplicationService, ApplicationService>();
-            services.AddScoped<ISecurityService, SecurityService>();
+            services.AddTransient<ISecurityService, SecurityService>();
+            services.AddTransient<ISecurityHelper, SecurityHelper>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));

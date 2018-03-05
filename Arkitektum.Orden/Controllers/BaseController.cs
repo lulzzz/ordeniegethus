@@ -1,5 +1,6 @@
 ﻿using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
+using Arkitektum.Orden.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arkitektum.Orden.Controllers
@@ -8,7 +9,7 @@ namespace Arkitektum.Orden.Controllers
     {
         private readonly ISecurityService _securityService;
 
-        protected BaseController(ISecurityService securityService)
+        protected BaseController(ISecurityService securityService )
         {
             _securityService = securityService;
         }
@@ -24,7 +25,8 @@ namespace Arkitektum.Orden.Controllers
         /// <returns></returns>
         protected SimpleOrganization CurrentOrganization()
         {
-            return new SessionHelper().GetCurrentOrganization(HttpContext.Session);
+            var currentOrganizationId = new CookieHelper().GetCurrentOrganizationId(HttpContext);
+            return _securityService.GetCurrentOrganization(currentOrganizationId);
         }
 
         protected int? CurrentOrganizationId()
@@ -32,13 +34,5 @@ namespace Arkitektum.Orden.Controllers
             return CurrentOrganization()?.Id;
         }
 
-        /// <summary>
-        ///     Set current organization in the session
-        /// </summary>
-        /// <param name="simpleOrganization"></param>
-        protected void SetCurrentOrganization(SimpleOrganization simpleOrganization)
-        {
-            new SessionHelper().SetCurrentOrganization(HttpContext.Session, simpleOrganization);
-        }
     }
 }

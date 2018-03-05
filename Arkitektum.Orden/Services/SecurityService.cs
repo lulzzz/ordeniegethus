@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Services
@@ -13,17 +16,23 @@ namespace Arkitektum.Orden.Services
         CurrentUser GetCurrentUser();
         List<string> GetDelegateableRoles();
         Task<List<Organization>> GetDelegateableOrganizationsAsync();
+
+        SimpleOrganization GetCurrentOrganization(int? organizationId);
     }
     
     public class SecurityService : ISecurityService
     {
         private readonly IPrincipal _principal;
         private readonly ApplicationDbContext _context;
+        private readonly IUserService _userService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public SecurityService(IPrincipal principal, ApplicationDbContext context)
+        public SecurityService(IPrincipal principal, ApplicationDbContext context, IUserService userService, UserManager<ApplicationUser> userManager)
         {
             _principal = principal;
             _context = context;
+            _userService = userService;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -52,6 +61,24 @@ namespace Arkitektum.Orden.Services
         public async Task<List<Organization>> GetDelegateableOrganizationsAsync()
         {
             return await _context.Organization.AsNoTracking().ToListAsync();
+        }
+
+        /// <summary>
+        /// Returns the users current organization along with other available organizations.
+        /// Returns null if user does not have access to any organizations
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <returns></returns>
+        public SimpleOrganization GetCurrentOrganization(int? organizationId)
+        {
+            ApplicationUser user = _userService.Get(_userManager.GetUserId(new ClaimsPrincipal(_principal))).Result;
+
+            if (user.Organizations != null && user.Organizations.Any())
+            {
+                return new SimpleOrganization(user.Organizations, organizationId);
+            }
+
+            return null;
         }
     }
 }

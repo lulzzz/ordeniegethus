@@ -61,7 +61,7 @@ namespace Arkitektum.Orden.Test.Services
 
         private static SecurityService CreateServiceForUserWithRoles(string role)
         {
-            return new SecurityService(new MockPrincipal("johndoe", role), null);
+            return new SecurityService(new MockPrincipal("johndoe", role), null, null, null);
         }
     }
 

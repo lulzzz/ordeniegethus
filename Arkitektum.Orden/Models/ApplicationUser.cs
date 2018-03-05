@@ -22,5 +22,18 @@ namespace Arkitektum.Orden.Models
         ///     The organizations this user can administrate.
         /// </summary>
         public List<OrganizationAdministrators> OrganizationAdministrators { get; set; }
+
+        public bool HasAccessToOrganization(int organizationId)
+        {
+            if (Organizations != null)
+            {
+                foreach (var org in Organizations)
+                {
+                    if (org.OrganizationId == organizationId)
+                        return true;
+                }
+            }
+            return false;
+        }
     }
 }
