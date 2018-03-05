@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20180228140408_RenameSharedServiceToNationalComponent.cs" />
+    <Compile Remove="Data\Migrations\20180228140408_RenameSharedServiceToNationalComponent.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180228205134_AddRoleAsKeyOnOrganizationApplicationUser.cs" />
+    <Compile Remove="Data\Migrations\20180228205134_AddRoleAsKeyOnOrganizationApplicationUser.Designer.cs" />
+    <Compile Remove="Data\Migrations\20180305201150_UpdateBeforeDemoMeeting.cs" />
+    <Compile Remove="Data\Migrations\20180305201150_UpdateBeforeDemoMeeting.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\components\views\Sector.js" />
   </ItemGroup>
 
@@ -67,6 +76,8 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\scss\modules\" />
+    <Folder Include="Data\Migrations\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
