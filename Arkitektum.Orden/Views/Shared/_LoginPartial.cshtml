@@ -2,30 +2,24 @@
 @using Microsoft.AspNetCore.Identity
 @using Arkitektum.Orden.Models
 @using Arkitektum.Orden.Services
-@using Microsoft.AspNetCore.Http
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject ISecurityHelper SecurityHelper
 
-@if (SignInManager.IsSignedIn(User))
-{
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hei @UserManager.GetUserName(User)!</a>
-            </li>
-            <li>
-                Din organisasjon:
-                <form asp-controller="Account" asp-action="ChangeCurrentOrganization">
-                    <div class="form-group">
-                        <select name="organizationId" class="form-control">
-                            @{
-                                var currentOrganization = SecurityHelper.GetCurrentOrganization();                                
-                            }
-                            @if (currentOrganization != null)
-                            {
-                                <option value="@currentOrganization.Id" selected="selected">@currentOrganization.Name</option>
-                                
+<div class="navbar-account">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@UserManager.GetUserName(User)</a>
+        <form asp-controller="Account" asp-action="ChangeCurrentOrganization">
+            <div class="select-container">
+                <select name="organizationId">
+                    @{
+                        var currentOrganization = SecurityHelper.GetCurrentOrganization();
+                    }
+                    @if (currentOrganization != null)
+                    {
+                        <option value="@currentOrganization.Id" selected="selected">@currentOrganization.Name</option>
 
                         foreach (var org in currentOrganization.AvailableOrganizations)
                         {
