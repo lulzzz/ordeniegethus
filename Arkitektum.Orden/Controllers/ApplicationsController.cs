@@ -18,12 +18,14 @@ namespace Arkitektum.Orden.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IApplicationService _applicationService;
         private readonly IUserService _userService;
+    
 
 
         public ApplicationsController(IApplicationService applicationService, IUserService userService)
         {
             _applicationService = applicationService;
             _userService = userService;
+       
         }
 
 
@@ -42,15 +44,13 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var application = await _context.Application
-                .Include(a => a.Organization)
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var application = await _applicationService.Get(id.Value);
             if (application == null)
             {
                 return NotFound();
             }
 
-            return View(application);
+            return View(new ApplicationViewModel().Map(application));
         }
 
         // GET: Applications/Create
@@ -102,8 +102,21 @@ namespace Arkitektum.Orden.Controllers
             {
                 return NotFound();
             }
-           // ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id", application.OrganizationId);
-            return View(application);
+
+            var model = new ApplicationViewModel().Map(application);
+
+            model.AvailableSuperUsers = new List<SelectListItem>();
+
+            foreach (var applicationUser in await _userService.GetAll())
+            {
+                model.AvailableSuperUsers.Add(new SelectListItem()
+                {
+                    Text = applicationUser.FullName,
+                    Value = applicationUser.Id
+                });
+            }
+            
+            return View(model);
         }
 
         // POST: Applications/Edit/5
@@ -111,55 +124,45 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers,OrganizationId,VendorId")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers,Vendor")] Application application)
         {
             if (id != application.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            var appliactionToUpdate = await _applicationService.Get(id);
+            if (await TryUpdateModelAsync(
+                appliactionToUpdate,
+                "",
+                a => a.Name, a => a.Vendor, a => a.AnnualFee, a => a.HostingLocation,
+                a => a.InitialCost, a => a.NumberOfUsers, a => a.SystemOwnerId,
+                a => a.Version))
                 try
                 {
-                    _context.Update(application);
-                    await _context.SaveChangesAsync();
+                    await _applicationService.SaveChanges();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException /* ex */)
                 {
-                    if (!ApplicationExists(application.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    //Log the error (uncomment ex variable name and write a log.)
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                                                 "Try again, and if the problem persists, " +
+                                                 "see your system administrator.");
                 }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id", application.OrganizationId);
 
-            return View(application);
+            return View(new ApplicationViewModel().Map(appliactionToUpdate));
         }
 
         // GET: Applications/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var application = await _context.Application
-                .Include(a => a.Organization)
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (application == null)
-            {
-                return NotFound();
-            }
-
-            return View(application);
+            if (id == null) return NotFound();
+            
+            var applicationToDelete = await _applicationService.Get(id);
+            if (applicationToDelete == null) return NotFound();
+            
+            return View(applicationToDelete);
         }
 
         // POST: Applications/Delete/5
@@ -167,15 +170,9 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var application = await _context.Application.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Application.Remove(application);
-            await _context.SaveChangesAsync();
+            await _applicationService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ApplicationExists(int id)
-        {
-            return _context.Application.Any(e => e.Id == id);
-        }
-    }
+       }
 }

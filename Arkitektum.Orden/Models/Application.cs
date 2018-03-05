@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
@@ -59,7 +60,7 @@ namespace Arkitektum.Orden.Models
         ///     Superbrukere
         /// </summary>
         public List<ApplicationUser> SuperUsers { get; set; }
-        
+
 
         /// <summary>
         ///     Lenker til eksterne ressurser
@@ -100,7 +101,11 @@ namespace Arkitektum.Orden.Models
         public int? OrganizationId { get; set; }
         public Organization Organization { get; set; }
 
-     
-     
+
+        public string DecimalToString(decimal inputDecimal)
+        {
+            string priceAsString = decimal.Round(inputDecimal, 0, MidpointRounding.AwayFromZero).ToString();
+            return priceAsString;
+        }
     }
 }

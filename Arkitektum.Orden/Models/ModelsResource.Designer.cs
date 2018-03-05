@@ -106,6 +106,24 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Driftsplassering.
+        /// </summary>
+        public static string HostingLocation {
+            get {
+                return ResourceManager.GetString("HostingLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Innkjøpskostnad.
+        /// </summary>
+        public static string InitialCost {
+            get {
+                return ResourceManager.GetString("InitialCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lovhjemler.
         /// </summary>
         public static string LawReferences {

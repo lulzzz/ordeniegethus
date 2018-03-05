@@ -32,7 +32,7 @@ namespace Arkitektum.Orden.Services
 
         public async Task<IEnumerable<Application>> GetAll()
         {
-            return await _context.Application.Include(a => a.SystemOwner).ToListAsync();
+            return await _context.Application.Include(a => a.SystemOwner).Include(a => a.Organization).ToListAsync();
         }
 
         public async Task<Application> Create(Application application)
@@ -51,7 +51,7 @@ namespace Arkitektum.Orden.Services
 
         public async Task<Application> Get(int? id)
         {
-           return await _context.Application.Include(a => a.SystemOwner).SingleOrDefaultAsync(a => a.Id == id);
+           return await _context.Application.Include(a => a.SystemOwner).Include(a => a.Organization).SingleOrDefaultAsync(a => a.Id == id);
         }
 
         

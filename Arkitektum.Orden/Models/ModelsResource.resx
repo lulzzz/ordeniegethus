@@ -135,6 +135,12 @@
   <data name="LawReferences" xml:space="preserve">
     <value>Lovhjemler</value>
   </data>
+  <data name="HostingLocation" xml:space="preserve">
+    <value>Driftsplassering</value>
+  </data>
+  <data name="InitialCost" xml:space="preserve">
+    <value>Innkjøpskostnad</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Navn</value>
   </data>

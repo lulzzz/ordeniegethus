@@ -1,13 +1,12 @@
-﻿@model Arkitektum.Orden.Models.Application
+﻿@model Arkitektum.Orden.Models.ViewModels.ApplicationViewModel
 
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Rediger applikasjon</h2>
 
-<h4>Application</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -45,31 +44,26 @@
                 <span asp-validation-for="NumberOfUsers" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrganizationId" class="control-label"></label>
-                <select asp-for="OrganizationId" class="form-control" asp-items="ViewBag.OrganizationId"></select>
-                <span asp-validation-for="OrganizationId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="SystemOwner" class="control-label"></label>
-                <select asp-for="SystemOwner" class="form-control" asp-items="ViewBag.SystemOwner"></select>
+                <select asp-for="SystemOwner" class="form-control" asp-items="Model.AvailableSuperUsers"></select>
                  <span asp-validation-for="SystemOwner" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VendorId" class="control-label"></label>
-                <input asp-for="VendorId" class="form-control" />
-                <span asp-validation-for="VendorId" class="text-danger"></span>
+                <label asp-for="Vendor" class="control-label"></label>
+                <input asp-for="Vendor" class="form-control" />
+                <span asp-validation-for="Vendor" class="text-danger"></span>
             </div>
             <h6>Tilknyttede felleskomponenter</h6>
         
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Lagre" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Tilbake til liste</a>
 </div>
 
 @section Scripts {

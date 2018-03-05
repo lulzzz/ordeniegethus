@@ -9,7 +9,6 @@ namespace Arkitektum.Orden.Data
         public DbSet<Application> Application { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Organization> Organization { get; set; }
-        public DbSet<Vendor> Vendor { get; set; }
         public DbSet<NationalComponent> NationalComponent { get; set; }
    
 

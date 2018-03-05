@@ -1,13 +1,13 @@
-﻿@model Arkitektum.Orden.Models.Application
+﻿@model Arkitektum.Orden.Models.ViewModels.ApplicationViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detaljer</h2>
 
 <div>
-    <h4>Application</h4>
+    <h4>Applikasjon @Html.DisplayFor(model => model.Name)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -47,20 +47,15 @@
             @Html.DisplayFor(model => model.NumberOfUsers)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.VendorId)
+            @Html.DisplayNameFor(model => model.Vendor)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.VendorId)
+            @Html.DisplayFor(model => model.Vendor)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Organization)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Organization.Id)
-        </dd>
+     
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Rediger</a> |
+    <a asp-action="Index">Tilbake til liste</a>
 </div>
