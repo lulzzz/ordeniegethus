@@ -52,6 +52,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\store\Actions.js" />
+    <TypeScriptCompile Include="ClientApp\store\Getters.js" />
+    <TypeScriptCompile Include="ClientApp\store\index.js" />
+    <TypeScriptCompile Include="ClientApp\store\Mutations.js" />
+    <TypeScriptCompile Include="ClientApp\store\State.js" />
     <TypeScriptCompile Include="vue-module.d.ts" />
   </ItemGroup>
 
