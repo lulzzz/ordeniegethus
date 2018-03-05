@@ -73,9 +73,12 @@ namespace Arkitektum.Orden.Services
         {
             ApplicationUser user = _userService.Get(_userManager.GetUserId(new ClaimsPrincipal(_principal))).Result;
 
-            if (user.Organizations != null && user.Organizations.Any())
+            if (user != null)
             {
-                return new SimpleOrganization(user.Organizations, organizationId);
+                if (user.Organizations != null && user.Organizations.Any())
+                {
+                    return new SimpleOrganization(user.Organizations, organizationId);
+                }
             }
 
             return null;
