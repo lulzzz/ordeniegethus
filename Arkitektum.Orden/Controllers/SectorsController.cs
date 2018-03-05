@@ -9,9 +9,11 @@ using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Arkitektum.Orden.Controllers
 {
+    [Authorize]
     public class SectorsController : BaseController
     {
         private readonly ApplicationDbContext _context;
