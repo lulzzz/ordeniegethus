@@ -30,7 +30,10 @@ namespace Arkitektum.Orden.Services
 
         public async Task<List<Sector>> GetSectorsForOrganization(int organizationId)
         {
-            return await _context.Sector.Where(s => s.OrganizationId == organizationId).ToListAsync();
+            return await _context.Sector.Where(s => s.OrganizationId == organizationId)
+                .Include(s => s.Organization)
+                .Include(s => s.SectorApplications).ThenInclude(sa => sa.Application)
+                .ToListAsync();
         }
 
         public async Task<Sector> GetAsync(int id)

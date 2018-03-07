@@ -1,12 +1,40 @@
-﻿@{
+﻿@model Arkitektum.Orden.Models.ViewModels.HomeViewModel
+@{
     ViewData["Title"] = "Start";
 }
 <div id="app-root"></div>
 <div class="row">
-    <div class="col-md-offset-2 col-md-7 container">
-        <div class="jumbotron dashboard-box">
-            <h1><span class="blue">14</span> Datasett</h1><br/>
-            <h1><span class="green">11</span> Applikasjoner</h1>
-        </div>
+    <div class="jumbotron dashboard-box">
+        <h1>
+            <span class="green">@Model.NumberOfApplications</span>
+            @if (Model.NumberOfApplications > 1)
+            {
+                <text>@ModelsResource.Applications</text>
+            }
+            else
+            {
+                <text>@ModelsResource.Application</text>
+            }
+        </h1>
+    </div>
+
+    <div class="jumbotron dashboard-box">
+        <h1><span class="blue">@Model.NumberOfDataset</span> Datasett</h1><br/>
+    </div>
+
+    <div class="jumbotron dashboard-box">
+        <h1><span class="red">@Model.NumberOfPublishedDataset</span> Publiserte datasett</h1><br/>
     </div>
 </div>
+
+<h2>@ModelsResource.Sectors</h2>
+<hr/>
+<ul>
+    @foreach (var sector in Model.Sectors)
+    {
+        <li>
+            <a asp-action="Details" asp-controller="Sectors" asp-route-id="@sector.Id">@sector.Name</a> 
+            <span class="badge badge-info">@sector.Applications.Count() applikasjoner</span>
+        </li>
+    }
+</ul>

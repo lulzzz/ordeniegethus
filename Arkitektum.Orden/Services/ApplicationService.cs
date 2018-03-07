@@ -16,6 +16,7 @@ namespace Arkitektum.Orden.Services
         Task SaveChanges();
         Task Delete(int id);
         Task UpdateAsync(int id, Application updatedApplication);
+        Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -57,6 +58,11 @@ namespace Arkitektum.Orden.Services
             currentApplication.UpdateSectorRelations(updatedApplication.SectorApplications);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> GetApplicationCountForOrganization(int currentOrganizationId)
+        {
+            return await _context.Application.Where(a => a.OrganizationId == currentOrganizationId).CountAsync();
         }
 
         public async Task<Application> GetAsync(int? id)

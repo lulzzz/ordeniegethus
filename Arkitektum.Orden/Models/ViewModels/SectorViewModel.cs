@@ -17,5 +17,18 @@ namespace Arkitektum.Orden.Models.ViewModels
                 Applications = new ApplicationViewModel().MapToEnumerable(input.ApplicationsAsEnumerable())
             };
         }
+
+        public static IEnumerable<SectorViewModel> MapEnumerable(List<Sector> sectors)
+        {
+            var output = new List<SectorViewModel>();
+            if (sectors != null)
+            {
+                foreach (var sector in sectors)
+                {
+                    output.Add(Map(sector));
+                }
+            }
+            return output;
+        }
     }
 }
