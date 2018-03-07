@@ -12,7 +12,10 @@ module.exports = (env) => {
         context: __dirname,
         resolve: {
             extensions: ['.js', '.ts', '.vue', '.scss'],
-            alias: { vue: isDevBuild ? 'vue/dist/vue.js' : 'vue/dist/vue.min.js' }
+            alias: {
+                vue: isDevBuild ? 'vue/dist/vue.js' : 'vue/dist/vue.min.js',
+                '@fortawesome/fontawesome-free-solid$': '@fortawesome/fontawesome-free-solid/shakable.es.js'
+            }
         },
         entry: { 'main': './ClientApp/boot.js' },
         module: {
