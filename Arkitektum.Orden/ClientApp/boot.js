@@ -1,5 +1,6 @@
 ﻿import './scss/main.scss';
 import './assets/icons';
+import './scripts/init';
 import 'bootstrap';
 import Vue from 'vue';
 
