@@ -180,4 +180,31 @@
   <data name="Version" xml:space="preserve">
     <value>Versjon</value>
   </data>
+  <data name="AccessRight" xml:space="preserve">
+    <value>Tilgjengelighet for allmennheten</value>
+  </data>
+  <data name="DataLocation" xml:space="preserve">
+    <value>Dataplassering</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="HasMasterData" xml:space="preserve">
+    <value>Har masterdata</value>
+  </data>
+  <data name="HasPersonalData" xml:space="preserve">
+    <value>Har personopplysninger</value>
+  </data>
+  <data name="HasSensitivePersonalData" xml:space="preserve">
+    <value>Har sensitive personopplysninger</value>
+  </data>
+  <data name="PublishedToSharedDataCatalog" xml:space="preserve">
+    <value>Publisert til felles datakatalog</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Formål</value>
+  </data>
+  <data name="Datasets" xml:space="preserve">
+    <value>Datasett</value>
+  </data>
 </root>

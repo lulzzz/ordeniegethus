@@ -7,23 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 
 namespace Arkitektum.Orden.Controllers
 {
     public class DatasetsController : BaseController
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationService _applicationService;
+        private readonly IDatasetService _dataService;
+        private ApplicationDbContext _context;
 
-        public DatasetsController(ApplicationDbContext context, ISecurityService securityService) : base(securityService)
+
+        public DatasetsController(ISecurityService securityService, IApplicationService applicationService, IDatasetService dataService) : base(securityService)
         {
-            _context = context;
+            _applicationService = applicationService;
+            _dataService = dataService;
         }
 
         // GET: Datasets
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dataset.ToListAsync());
+            SimpleOrganization currentOrganization = CurrentOrganization();
+            var datasets = await _dataService.GetAllDatasetsForOrganization(currentOrganization.Id);
+            return View(new DatasetViewModel().MapToEnumerable(datasets));
         }
 
         // GET: Datasets/Details/5
