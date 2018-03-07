@@ -10,7 +10,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Organization> Organization { get; set; }
         public DbSet<NationalComponent> NationalComponent { get; set; }
-   
+        public DbSet<ApplicationDataset> ApplicationDataset { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

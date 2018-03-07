@@ -19,7 +19,7 @@ namespace Arkitektum.Orden.Services
         Task Delete(int id);
     }
     /// <summary>
-    /// Handles operations on Application Entity
+    /// Handles operations on Dataset Entity
     /// </summary>
     public class ApplicationService : IApplicationService
     {

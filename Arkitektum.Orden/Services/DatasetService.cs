@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Services
@@ -16,6 +18,9 @@ namespace Arkitektum.Orden.Services
         Task<Dataset> Create(Dataset Dataset);
         Task SaveChanges();
         Task Delete(int id);
+        Task <IEnumerable<Dataset>> GetAllDatasetsForOrganization(int currentOrganizationId);
+
+   
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -23,10 +28,12 @@ namespace Arkitektum.Orden.Services
     public class DatasetService : IDatasetService
     {
         private readonly ApplicationDbContext _context;
+    
 
         public DatasetService(ApplicationDbContext context)
         {
             _context = context;
+          
         }
 
         public async Task<IEnumerable<Dataset>> GetAll()
@@ -40,12 +47,25 @@ namespace Arkitektum.Orden.Services
             await SaveChanges();
             return Dataset;
         }
-
+         
         public async Task Delete(int id)
         {
             var Dataset = await _context.Dataset.SingleOrDefaultAsync(a => a.Id == id);
             _context.Dataset.Remove(Dataset);
             await SaveChanges();
+        }
+
+        public async Task<IEnumerable<Dataset>> GetAllDatasetsForOrganization(int currentOrganizationId)
+        {
+
+            var datasets = from ad in _context.ApplicationDataset
+                join app in _context.Application on ad.ApplicationId equals app.Id
+                           where app.OrganizationId == currentOrganizationId
+                select ad.Dataset;
+
+            return await datasets.ToListAsync();
+
+
         }
 
         public async Task<Dataset> Get(int? id)

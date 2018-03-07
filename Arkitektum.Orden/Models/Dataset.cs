@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Arkitektum.Orden.Models
 {
@@ -118,11 +119,13 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public List<ApplicationDataset> ApplicationDatasets { get; set; }
 
-      
+
         /// <summary>
         /// En katalog eller repository som inneholder beskrivelsene 
         /// av datasettene som er beskrevet.
         /// </summary>
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DcatCatalog DcatCatalog { get; set; }
 
         /// <summary>

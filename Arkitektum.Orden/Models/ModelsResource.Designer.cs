@@ -61,6 +61,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tilgjengelighet for allmennheten.
+        /// </summary>
+        public static string AccessRight {
+            get {
+                return ResourceManager.GetString("AccessRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Årlig kostnad.
         /// </summary>
         public static string AnnualFee {
@@ -88,6 +97,33 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dataplassering.
+        /// </summary>
+        public static string DataLocation {
+            get {
+                return ResourceManager.GetString("DataLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datasett.
+        /// </summary>
+        public static string Datasets {
+            get {
+                return ResourceManager.GetString("Datasets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Epost.
         /// </summary>
         public static string Email {
@@ -102,6 +138,33 @@ namespace Arkitektum.Orden.Models {
         public static string FullName {
             get {
                 return ResourceManager.GetString("FullName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Har masterdata.
+        /// </summary>
+        public static string HasMasterData {
+            get {
+                return ResourceManager.GetString("HasMasterData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Har personopplysninger.
+        /// </summary>
+        public static string HasPersonalData {
+            get {
+                return ResourceManager.GetString("HasPersonalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Har sensitive personopplysninger.
+        /// </summary>
+        public static string HasSensitivePersonalData {
+            get {
+                return ResourceManager.GetString("HasSensitivePersonalData", resourceCulture);
             }
         }
         
@@ -192,6 +255,24 @@ namespace Arkitektum.Orden.Models {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publisert til felles datakatalog.
+        /// </summary>
+        public static string PublishedToSharedDataCatalog {
+            get {
+                return ResourceManager.GetString("PublishedToSharedDataCatalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formål.
+        /// </summary>
+        public static string Purpose {
+            get {
+                return ResourceManager.GetString("Purpose", resourceCulture);
             }
         }
         
