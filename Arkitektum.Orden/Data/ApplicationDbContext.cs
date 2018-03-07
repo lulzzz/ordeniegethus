@@ -45,5 +45,7 @@ namespace Arkitektum.Orden.Data
         }
 
         public DbSet<Arkitektum.Orden.Models.Sector> Sector { get; set; }
+
+        public DbSet<Arkitektum.Orden.Models.Dataset> Dataset { get; set; }
     }
 }
