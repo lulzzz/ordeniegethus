@@ -1,4 +1,5 @@
-﻿using Arkitektum.Orden.Models.ViewModels;
+﻿using System;
+using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Arkitektum.Orden.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -29,9 +30,12 @@ namespace Arkitektum.Orden.Controllers
             return _securityService.GetCurrentOrganization(currentOrganizationId);
         }
 
-        protected int? CurrentOrganizationId()
+        protected int CurrentOrganizationId()
         {
-            return CurrentOrganization()?.Id;
+            if (CurrentOrganization() == null)
+                throw new Exception("Invalid system state - current organization is null");
+
+            return CurrentOrganization().Id;
         }
 
     }

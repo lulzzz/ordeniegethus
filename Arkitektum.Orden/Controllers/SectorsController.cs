@@ -17,18 +17,19 @@ namespace Arkitektum.Orden.Controllers
     public class SectorsController : BaseController
     {
         private readonly ApplicationDbContext _context;
+        private readonly ISectorService _sectorService;
 
-        public SectorsController(ApplicationDbContext context, ISecurityService securityService) : base(securityService)
+        public SectorsController(ApplicationDbContext context, ISectorService sectorService, ISecurityService securityService) : base(securityService)
         {
             _context = context;
+            _sectorService = sectorService;
         }
 
         // GET: Sectors
         public async Task<IActionResult> Index()
         {
             SimpleOrganization currentOrganization = CurrentOrganization();
-            var applicationDbContext = _context.Sector.Where(s => s.OrganizationId == currentOrganization.Id);
-            var sectors = await applicationDbContext.ToListAsync();
+            var sectors = await _sectorService.GetSectorsForOrganization(currentOrganization.Id);
             return View(sectors);
         }
 

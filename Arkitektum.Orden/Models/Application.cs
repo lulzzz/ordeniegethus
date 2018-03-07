@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Arkitektum.Orden.Models
@@ -106,6 +107,30 @@ namespace Arkitektum.Orden.Models
         {
             string priceAsString = decimal.Round(inputDecimal, 0, MidpointRounding.AwayFromZero).ToString();
             return priceAsString;
+        }
+
+        /// <summary>
+        /// Updates the list of sectors with the incoming list. 
+        /// Preserves existing sectors that are tracked by entity framework which still should be in the list. 
+        /// </summary>
+        /// <param name="updatedSectorApplications"></param>
+        public void UpdateSectorRelations(List<SectorApplication> updatedSectorApplications)
+        {
+            var updatedSectorIds = updatedSectorApplications.Select(sa => sa.SectorId).ToList();
+
+            List<SectorApplication> updatedListOfSectors = new List<SectorApplication>();
+
+            foreach (var sector in SectorApplications)
+            {
+                if (updatedSectorIds.Contains(sector.SectorId))
+                {
+                    updatedListOfSectors.Add(sector);
+                    updatedSectorApplications.RemoveAll(sa => sa.SectorId == sector.SectorId);
+                }
+            }
+            updatedListOfSectors.AddRange(updatedSectorApplications);
+
+            SectorApplications = updatedListOfSectors;
         }
     }
 }
