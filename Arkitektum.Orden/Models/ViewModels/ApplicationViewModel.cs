@@ -36,7 +36,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                Id = input.Id,
                Name = input.Name,
                AnnualFee = input.DecimalToString(input.AnnualFee),
-               SystemOwner = input.SystemOwner.FullName,
+               SystemOwner = input.SystemOwner?.FullName,
                Vendor = input.Vendor,
                Version = input.Version,
                InitialCost = input.DecimalToString(input.InitialCost),
