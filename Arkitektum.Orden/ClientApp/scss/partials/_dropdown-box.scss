@@ -1,0 +1,43 @@
+﻿.dropdown-box-toggle {
+    cursor: pointer;
+    .dropdown-box-container {
+        display: none;
+        position: relative;
+        text-align: left;
+        top: 5px;
+
+        .dropdown-box-content {
+            position: absolute;
+            width: 200px;
+            right: 0px;
+            background-color: #fbfcfd;
+            border-radius: 3px;
+            padding: 4px 8px;
+            @include box-shadow(0 2px 5px rgba(0,0,0,.26));
+
+            a {
+                color: $primary-color;
+            }
+        }
+    }
+
+    &.active {
+        .dropdown-box-container {
+            display: block;
+
+            &:before {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+                top: -5px;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 0 5px 5px;
+                border-bottom-color: #fbfcfd;
+            }
+        }
+    }
+}
