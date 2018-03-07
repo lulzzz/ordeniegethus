@@ -1,5 +1,7 @@
 ﻿.navbar {
     display: block;
+    padding: 0;
+    height: 51px;
 
     &.navbar-inverse {
         background-color: $primary-color;
