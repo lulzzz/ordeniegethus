@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Arkitektum.Orden.Models
 {
@@ -23,5 +24,16 @@ namespace Arkitektum.Orden.Models
         public virtual Organization Organization { get; set; }
 
         public List<SectorApplication> SectorApplications { get; set; }
+
+        public IEnumerable<Application> ApplicationsAsEnumerable()
+        {
+            return SectorApplications.Select(sa => sa.Application);
+        }
+
+        public Sector()
+        {
+            LawReferences = new List<ResourceLink>();
+            SectorApplications = new List<SectorApplication>();
+        }
     }
 }

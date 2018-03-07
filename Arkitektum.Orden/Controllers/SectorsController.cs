@@ -40,16 +40,22 @@ namespace Arkitektum.Orden.Controllers
             {
                 return NotFound();
             }
-
-            var sector = await _context.Sector
-                .Include(s => s.Organization)
-                .SingleOrDefaultAsync(m => m.Id == id);
+            
+            var sector = await _sectorService.GetAsync(id.Value);
             if (sector == null)
             {
                 return NotFound();
             }
 
-            return View(sector);
+            if (!HasAccessTo(sector))
+                return Forbid();
+
+            return View(SectorViewModel.Map(sector));
+        }
+
+        private bool HasAccessTo(Sector sector)
+        {
+            return sector?.OrganizationId == CurrentOrganizationId();
         }
 
         // GET: Sectors/Create
