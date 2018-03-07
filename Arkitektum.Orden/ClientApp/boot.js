@@ -1,4 +1,5 @@
 ﻿import './scss/main.scss';
+import './assets/icons';
 import 'bootstrap';
 import Vue from 'vue';
 
