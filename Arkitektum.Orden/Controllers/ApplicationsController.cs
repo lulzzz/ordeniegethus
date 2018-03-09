@@ -113,7 +113,7 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var application = await _applicationService.GetAsync(id);
+            var application = await _applicationService.GetAsync(id.Value);
             if (application == null)
             {
                 return NotFound();
@@ -159,7 +159,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
             
-            var applicationToDelete = await _applicationService.GetAsync(id);
+            var applicationToDelete = await _applicationService.GetAsync(id.Value);
             if (applicationToDelete == null) return NotFound();
             
             return View(applicationToDelete);

@@ -9,7 +9,7 @@ namespace Arkitektum.Orden.Services
 {
     public interface IApplicationService
     {
-        Task<Application> GetAsync(int? id);
+        Task<Application> GetAsync(int id);
         Task<IEnumerable<Application>> GetAll();
         Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId);
         Task<Application> Create(Application application);
@@ -65,7 +65,7 @@ namespace Arkitektum.Orden.Services
             return await _context.Application.Where(a => a.OrganizationId == currentOrganizationId).CountAsync();
         }
 
-        public async Task<Application> GetAsync(int? id)
+        public async Task<Application> GetAsync(int id)
         {
            return await _context.Application
                .Include(a => a.SystemOwner)
