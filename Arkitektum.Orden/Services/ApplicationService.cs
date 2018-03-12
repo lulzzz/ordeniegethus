@@ -25,11 +25,13 @@ namespace Arkitektum.Orden.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly ISecurityService _securityService;
+        private readonly ISearchIndexingService _searchIndexingService;
 
-        public ApplicationService(ApplicationDbContext context, ISecurityService securityService)
+        public ApplicationService(ApplicationDbContext context, ISecurityService securityService, ISearchIndexingService searchIndexingService)
         {
             _context = context;
             _securityService = securityService;
+            _searchIndexingService = searchIndexingService;
         }
 
         public async Task<IEnumerable<Application>> GetAll()
@@ -41,6 +43,7 @@ namespace Arkitektum.Orden.Services
         {
             _context.Add(application);
             await SaveChanges();
+            await _searchIndexingService.AddToIndex(application);
             return application;
         }
 
@@ -61,7 +64,9 @@ namespace Arkitektum.Orden.Services
 
             currentApplication.UpdateNationalComponentsRelations(updatedApplication.ApplicationNationalComponent);
 
-            await SaveChanges();
+            await _context.SaveChangesAsync();
+
+            await _searchIndexingService.AddToIndex(currentApplication);
         }
 
         public async Task<int> GetApplicationCountForOrganization(int currentOrganizationId)

@@ -32,12 +32,14 @@ namespace Arkitektum.Orden.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly ISecurityService _securityService;
+        private readonly ISearchIndexingService _searchIndexingService;
 
 
-        public DatasetService(ApplicationDbContext context, ISecurityService securityService)
+        public DatasetService(ApplicationDbContext context, ISecurityService securityService, ISearchIndexingService searchIndexingService)
         {
             _context = context;
             _securityService = securityService;
+            _searchIndexingService = searchIndexingService;
         }
 
         public async Task<IEnumerable<Dataset>> GetAll()
@@ -49,6 +51,7 @@ namespace Arkitektum.Orden.Services
         {
             _context.Add(dataset);
             await SaveChanges();
+            await _searchIndexingService.AddToIndex(dataset);
             return dataset;
         }
          
