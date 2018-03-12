@@ -1,0 +1,16 @@
+﻿@model Arkitektum.Orden.Models.ViewModels.SearchResultViewModel
+@{
+    ViewData["Title"] = "Søkeresultat";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>Antall treff: @Model.NumberOfHits</p>
+
+<ul>
+    @foreach (var item in Model.Items)
+    {
+        <li>@item.Name</li>
+    }
+</ul>
+
