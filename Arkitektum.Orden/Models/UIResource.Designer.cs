@@ -199,6 +199,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registrer ny nasjonal felleskomponent.
+        /// </summary>
+        public static string NationalComponentCreateNew {
+            get {
+                return ResourceManager.GetString("NationalComponentCreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprett nytt tjenesteområde.
         /// </summary>
         public static string SectorCreateNew {
