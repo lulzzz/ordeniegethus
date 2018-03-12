@@ -48,15 +48,9 @@
     form {
         display: inline-block;
     }
-
+    
     button {
-        @include appearance(none);
-        background: none;
-        border: none;
-        color: #fff;
-        padding: 0;
-        cursor: pointer;
-        vertical-align: middle;
+        padding: 5;
     }
 
     .select-container {
