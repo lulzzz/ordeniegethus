@@ -14,14 +14,14 @@ namespace Arkitektum.Orden.Controllers
             _searchService = searchService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string query)
         {
-            var response = await _searchService.Search(null);
+            var response = await _searchService.Search(query);
 
             var model = new SearchResultViewModel
             {
                 NumberOfHits = response.Total,
-                Items = SearchResultItem.Map(response.Documents)
+                Items = response.Documents
             };
             return View(model);
         }
