@@ -227,6 +227,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ikke offentlige data.
+        /// </summary>
+        public static string NonPublicData {
+            get {
+                return ResourceManager.GetString("NonPublicData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall brukere.
         /// </summary>
         public static string NumberOfUsers {
