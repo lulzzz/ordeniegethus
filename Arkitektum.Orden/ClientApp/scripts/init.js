@@ -21,7 +21,9 @@ function initFunction() {
                     event.target.classList.add('active');
                 } else {
                     let ancestorElement = findAncestor(event.target, 'dropdown-box-toggle');
-                    ancestorElement.classList.add('active');
+                    if (ancestorElement !== null) {
+                        ancestorElement.classList.add('active');
+                    }
                 }
             }
         }
