@@ -215,14 +215,7 @@ namespace Arkitektum.Orden.Models {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Nasjonale felleskomponenter.
-        /// </summary>
-        public static string NationalComponents {
-            get {
-                return ResourceManager.GetString("NationalComponents", resourceCulture);
-            }
-        }
+
         
         /// <summary>
         ///   Looks up a localized string similar to Ikke offentlige data.
