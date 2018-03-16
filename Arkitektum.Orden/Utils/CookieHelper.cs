@@ -19,5 +19,21 @@ namespace Arkitektum.Orden.Utils
 
             return organizationId;
         }
+
+        public int? GetCurrentDatasetId(HttpContext httpContext)
+        {
+            httpContext.Request.Cookies.TryGetValue(CookieNames.CurrentDatasetId,
+                out var datasetFromCookie);
+
+            int? datasetId = null;
+
+            if (!string.IsNullOrWhiteSpace(datasetFromCookie))
+            {
+                int.TryParse(datasetFromCookie, out var parsedDatasetId);
+                datasetId = parsedDatasetId;
+            }
+
+            return datasetId;
+        }
     }
 }

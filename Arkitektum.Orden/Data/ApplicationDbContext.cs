@@ -11,6 +11,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<Organization> Organization { get; set; }
         public DbSet<NationalComponent> NationalComponent { get; set; }
         public DbSet<ApplicationDataset> ApplicationDataset { get; set; }
+        public DbSet<Field> Fields { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -47,5 +48,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<Arkitektum.Orden.Models.Sector> Sector { get; set; }
 
         public DbSet<Arkitektum.Orden.Models.Dataset> Dataset { get; set; }
+
+        public DbSet<Arkitektum.Orden.Models.Field> Field { get; set; }
     }
 }

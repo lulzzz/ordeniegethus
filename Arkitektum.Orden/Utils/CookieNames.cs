@@ -6,5 +6,7 @@
     public static class CookieNames
     {
         public const string CurrentOrganizationId = "currentOrganizationId";
+
+        public const string CurrentDatasetId = "currentDatasetId";
     }
 }

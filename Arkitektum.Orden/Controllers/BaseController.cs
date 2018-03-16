@@ -38,5 +38,11 @@ namespace Arkitektum.Orden.Controllers
             return CurrentOrganization().Id;
         }
 
+        protected int? CurrentDatasetId()
+        {
+            var currentDatasetId = new CookieHelper().GetCurrentDatasetId(HttpContext);
+            return currentDatasetId;
+        }
+
     }
 }
