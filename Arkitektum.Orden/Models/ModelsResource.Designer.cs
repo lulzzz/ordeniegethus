@@ -205,11 +205,13 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nasjonal felleskomponent.
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nasjonale felleskomponenter.
         /// </summary>
-        public static string NationalComponent {
+        public static string NationalComponents {
             get {
-                return ResourceManager.GetString("NationalComponent", resourceCulture);
+                return ResourceManager.GetString("NationalComponents", resourceCulture);
             }
         }
         
@@ -219,6 +221,15 @@ namespace Arkitektum.Orden.Models {
         public static string NationalComponents {
             get {
                 return ResourceManager.GetString("NationalComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ikke offentlige data.
+        /// </summary>
+        public static string NonPublicData {
+            get {
+                return ResourceManager.GetString("NonPublicData", resourceCulture);
             }
         }
         
@@ -277,6 +288,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offentlige data.
+        /// </summary>
+        public static string PublicData {
+            get {
+                return ResourceManager.GetString("PublicData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publisert til felles datakatalog.
         /// </summary>
         public static string PublishedToSharedDataCatalog {
@@ -300,6 +320,15 @@ namespace Arkitektum.Orden.Models {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data med  begrenset tilgang.
+        /// </summary>
+        public static string RestrictedData {
+            get {
+                return ResourceManager.GetString("RestrictedData", resourceCulture);
             }
         }
         

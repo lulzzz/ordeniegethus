@@ -210,7 +210,13 @@
   <data name="NationalComponents" xml:space="preserve">
     <value>Nasjonale felleskomponenter</value>
   </data>
-  <data name="NationalComponent" xml:space="preserve">
-    <value>Nasjonal felleskomponent</value>
+  <data name="NonPublicData" xml:space="preserve">
+    <value>Ikke offentlige data</value>
+  </data>
+  <data name="PublicData" xml:space="preserve">
+    <value>Offentlige data</value>
+  </data>
+  <data name="RestrictedData" xml:space="preserve">
+    <value>Data med  begrenset tilgang</value>
   </data>
 </root>

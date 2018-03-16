@@ -9,27 +9,31 @@ using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
+using Microsoft.AspNetCore.Hosting.Internal;
 
 namespace Arkitektum.Orden.Controllers
 {
     public class DatasetsController : BaseController
     {
+        private readonly IUserService _userService;
+        private readonly IDatasetService _datasetService;
         private readonly IApplicationService _applicationService;
-        private readonly IDatasetService _dataService;
         private ApplicationDbContext _context;
 
 
-        public DatasetsController(ISecurityService securityService, IApplicationService applicationService, IDatasetService dataService) : base(securityService)
+        public DatasetsController(ISecurityService securityService, IUserService userService, IDatasetService datasetService, IApplicationService applicationService, ApplicationDbContext context) : base(securityService)
         {
+            _userService = userService;
+            _datasetService = datasetService;
             _applicationService = applicationService;
-            _dataService = dataService;
+            _context = context;
         }
 
         // GET: Datasets
         public async Task<IActionResult> Index()
         {
             SimpleOrganization currentOrganization = CurrentOrganization();
-            var datasets = await _dataService.GetAllDatasetsForOrganization(currentOrganization.Id);
+            var datasets = await _datasetService.GetAllDatasetsForOrganization(currentOrganization.Id);
             return View(new DatasetViewModel().MapToEnumerable(datasets));
         }
 
@@ -41,36 +45,66 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var dataset = await _context.Dataset
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var dataset = await _datasetService.GetAsync(id.Value);
+               
             if (dataset == null)
             {
                 return NotFound();
             }
 
-            return View(dataset);
+            return View(new DatasetViewModel().Map(dataset));
         }
 
         // GET: Datasets/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            SimpleOrganization currentOrganization = CurrentOrganization();
+
+            var model = new DatasetViewModel();
+         
+            model.OrganizationId = currentOrganization.Id;
+
+            model.AvailableApplications = GetAvailableApplications(currentOrganization.Id).Result;
+            
+
+            return View(model);
+
         }
+
+        private async Task<List<SelectListItem>> GetAvailableApplications(int currentOrganizationId)
+        {
+            var applicationsForOrganisation = await _applicationService.GetAllApplicationsForOrganisation(currentOrganizationId);
+
+            List<SelectListItem> selectListItems = new List<SelectListItem>();
+
+            foreach (var application in applicationsForOrganisation)
+            {
+                selectListItems.Add(new SelectListItem
+                {
+                    Text = application.Name,
+                    Value = application.Id.ToString()
+                });
+            }
+ 
+            return selectListItems;
+        }
+
 
         // POST: Datasets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData,DataLocation,PublishedToSharedDataCatalog")] Dataset dataset)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData,DataLocation,PublishedToSharedDataCatalog," +
+                                                      "Application,OrganizationId")] DatasetViewModel dataset)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dataset);
-                await _context.SaveChangesAsync();
+                var createDataset = await _datasetService.Create(new DatasetViewModel().Map(dataset));
                 return RedirectToAction(nameof(Index));
             }
-            return View(dataset);
+
+            return View();
         }
 
         // GET: Datasets/Edit/5
@@ -81,12 +115,17 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var dataset = await _context.Dataset.SingleOrDefaultAsync(m => m.Id == id);
-            if (dataset == null)
+            var datasets = await _datasetService.GetAsync(id.Value);
+    
+            SimpleOrganization currentOrganization = CurrentOrganization();
+            var applications = await _applicationService.GetAllApplicationsForOrganisation(currentOrganization.Id);
+            
+
+            if (datasets == null)
             {
                 return NotFound();
             }
-            return View(dataset);
+            return View(new DatasetViewModel().Map(datasets, applications));
         }
 
         // POST: Datasets/Edit/5
@@ -94,52 +133,29 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData,DataLocation,PublishedToSharedDataCatalog")] Dataset dataset)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData," +
+                                                            "DataLocation,PublishedToSharedDataCatalog,Application")] DatasetViewModel dataset)
         {
             if (id != dataset.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(dataset);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DatasetExists(dataset.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
+            await _datasetService.UpdateAsync(id, dataset.Map(dataset));
+
             return View(dataset);
         }
 
         // GET: Datasets/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var dataset = await _context.Dataset
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (dataset == null)
-            {
-                return NotFound();
-            }
+            var dataset = await _datasetService.GetAsync(id.Value);
 
-            return View(dataset);
+            if (dataset == null) return NotFound();
+            
+            return View(new DatasetViewModel().Map(dataset));
         }
 
         // POST: Datasets/Delete/5
@@ -147,15 +163,9 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dataset = await _context.Dataset.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Dataset.Remove(dataset);
-            await _context.SaveChangesAsync();
+            await _datasetService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DatasetExists(int id)
-        {
-            return _context.Dataset.Any(e => e.Id == id);
-        }
     }
 }

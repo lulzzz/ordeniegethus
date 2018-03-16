@@ -57,6 +57,8 @@ namespace Arkitektum.Orden.Services
 
             currentApplication.UpdateSectorRelations(updatedApplication.SectorApplications);
 
+            currentApplication.UpdateNationalComponentsRelations(updatedApplication.ApplicationNationalComponent);
+
             await _context.SaveChangesAsync();
         }
 
@@ -70,6 +72,7 @@ namespace Arkitektum.Orden.Services
            return await _context.Application
                .Include(a => a.SystemOwner)
                .Include(a => a.Organization)
+               .Include(a => a.ApplicationNationalComponent).ThenInclude(anc => anc.NationalComponent)
                .Include(a => a.SectorApplications).ThenInclude(sa => sa.Sector)
                .SingleOrDefaultAsync(a => a.Id == id);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Arkitektum.Orden.Models
 {
@@ -105,9 +106,11 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Publisert til felles datakatalog
         /// </summary>
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? PublishedToSharedDataCatalog { get; set; }
 
-    
+
         /// <summary>
         /// Informasjonselementer i datasettet
         /// </summary>
@@ -124,27 +127,60 @@ namespace Arkitektum.Orden.Models
         /// En katalog eller repository som inneholder beskrivelsene 
         /// av datasettene som er beskrevet.
         /// </summary>
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
         public DcatCatalog DcatCatalog { get; set; }
 
         /// <summary>
         /// Koblingen mellom datasettet og en tilgjengelig distribusjon
         /// </summary>
-        public List<Distribution> Distributions {get; set; }
-        }
+        public List<Distribution> Distributions { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public enum AccessRight
+        public void UpdateApplicationRelation(List<ApplicationDataset> updateDatasetApplicationDatasets)
         {
-            PublicData,
-            RestrictedData,
-            NonPublicData
+            var updatedApplicationIds = updateDatasetApplicationDatasets.Select(udad => udad.ApplicationId).ToList();
+
+            List<ApplicationDataset> updatedListOfApplications = new List<ApplicationDataset>();
+
+            foreach (var application in ApplicationDatasets)
+            {
+                if (updatedApplicationIds.Contains(application.ApplicationId))
+                {
+                    updatedListOfApplications.Add(application);
+                    updateDatasetApplicationDatasets.RemoveAll(da => da.ApplicationId == application.ApplicationId);
+                }
+
+            }
+
+            updatedListOfApplications.AddRange(updateDatasetApplicationDatasets);
+
+            ApplicationDatasets = updatedListOfApplications;
         }
 
 
+        public IEnumerable<Application> ApplicationsAsEnumerable()
+        {
+            return ApplicationDatasets?.Select(sa => sa.Application);
+        }
 
+        }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public enum AccessRight
+    {
+        [Display(Name = "Offentlige data")]
+        PublicData,
+        [Display(Name = "Data med  begrenset tilgang")]
+        RestrictedData,
+        [Display(Name = "Ikke offentlige data")]
+        NonPublicData
     }
+
+
+
+
+
+
+}

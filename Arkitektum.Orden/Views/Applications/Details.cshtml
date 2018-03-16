@@ -52,7 +52,20 @@
         <dd>
             @Html.DisplayFor(model => model.Vendor)
         </dd>
-     
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NationalComponents)
+        </dt>
+        <ul style="list-style-type: none">
+            @for (var i = 0; i <Model.NationalComponents.Count; i++)
+            {
+                <li>
+                    <label asp-for="@Model.NationalComponents[i].NationalComponentName">@Model.NationalComponents[i].NationalComponentName</label>
+                </li>
+            }
+        </ul>
+
+
     </dl>
 </div>
 <div>
