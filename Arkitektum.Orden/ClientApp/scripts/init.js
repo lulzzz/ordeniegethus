@@ -3,7 +3,7 @@
     return el;
 }
 
-function initFunction() {
+function initDropdownElements() {
     let overlayElementsIsDefined = document.getElementsByClassName('dropdown-box-toggle') !== undefined;
     if (overlayElementsIsDefined) {
         let overlayElements = document.getElementsByClassName('dropdown-box-toggle');
@@ -30,6 +30,8 @@ function initFunction() {
     }
 }
 
-
+function initFunction() {
+    initDropdownElements();
+}
 
 document.addEventListener('DOMContentLoaded', initFunction, false);
