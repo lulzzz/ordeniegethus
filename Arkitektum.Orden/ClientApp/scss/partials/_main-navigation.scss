@@ -37,20 +37,20 @@
 }
 
 .navbar-left {
-    width: 220px;
+    width: 300px;
     float: left;
     padding: 6px 0;
 }
 
 .navbar-center {
-    width: calc(100% - 440px);
+    width: calc(100% - 600px);
     display: inline-block;
     text-align: center;
     padding: 6px 0;
 }
 
 .navbar-right {
-    width: 220px;
+    width: 300px;
     float: right;
     text-align: right;
     padding: 4px 0;
@@ -112,26 +112,37 @@
     form {
         display: inline-block;
     }
-    /*.select-container {
-        display: inline-block;
-        background: #fff;
+
+    .select-container {
+        float: left;
 
         select {
             @include appearance(none);
-            border: none;
-            background: none;
             padding-right: 22px;
             position: relative;
+            background-color: rgba(0,0,0,.2);
+            color: #fff;
+            border: 1px solid rgba(0,0,0,0.1);
+            display: inline-block;
+            width: auto;
+
+            option {
+                color: $default-text-color;
+                background-color: #fff;
+            }
         }
 
         &:after {
             margin-left: -22px;
+            right: 8px;
+            position: relative;
             width: 22px;
             text-align: center;
             content: "\25BC";
             display: inline-block;
+            color: #fff;
         }
-    }*/
+    }
 }
 
 @media (min-width: $screen-sm) {

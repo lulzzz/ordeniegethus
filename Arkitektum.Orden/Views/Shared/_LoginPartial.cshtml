@@ -7,35 +7,24 @@
 <div class="navbar-account">
     @if (SignInManager.IsSignedIn(User))
     {
-        <div class="navbar-account-menu-item dropdown-box-toggle">
-            <div class="navbar-icon">
-                <span class="fas fa-users fa-2x"></span>
-            </div>
-            <div class="dropdown-box-container">
-                <div class="dropdown-box-content">
+        <form asp-controller="Account" asp-action="ChangeCurrentOrganization">
+            <div class="select-container">
+                <select name="organizationId" class="form-control" onchange="this.form.submit()">
+                    @{
+                        var currentOrganization = SecurityHelper.GetCurrentOrganization();
+                    }
+                    @if (currentOrganization != null)
+                    {
+                        <option value="@currentOrganization.Id" selected="selected">@currentOrganization.Name</option>
 
-                    <form asp-controller="Account" asp-action="ChangeCurrentOrganization">
-                        <div class="select-container">
-                            <select name="organizationId" class="form-control">
-                                @{
-                                    var currentOrganization = SecurityHelper.GetCurrentOrganization();
-                                }
-                                @if (currentOrganization != null)
-                                {
-                                    <option value="@currentOrganization.Id" selected="selected">@currentOrganization.Name</option>
-
-                                    foreach (var org in currentOrganization.AvailableOrganizations)
-                                    {
-                                        <option value="@org.Id">@org.Name</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        <button type="submit" class="btn navbar-btn navbar-link">Bytt organisasjon</button>
-                    </form>
-                </div>
+                        foreach (var org in currentOrganization.AvailableOrganizations)
+                        {
+                            <option value="@org.Id">@org.Name</option>
+                        }
+                    }
+                </select>
             </div>
-        </div>
+        </form>
         <div class="navbar-account-menu-item dropdown-box-toggle">
             <div class="navbar-icon">
                 <span class="fas fa-user fa-2x"></span>
