@@ -37,148 +37,162 @@
 }
 
 .navbar-left {
-    width: 300px;
+    width: 250px;
     float: left;
     padding: 6px 0;
 }
 
 .navbar-center {
-    width: calc(100% - 600px);
+    width: calc(100% - 350px);
     display: inline-block;
     text-align: center;
     padding: 6px 0;
 }
 
 .navbar-right {
-    width: 300px;
+    width: 100px;
     float: right;
     text-align: right;
     padding: 4px 0;
 }
 
-.navbar-search-container {
-    width: 100%;
-    max-width: 400px;
-    display: inline-block;
-
-    input {
-        width: 100%;
-        height: 39px;
-        border-radius: 4px;
-        border: 1px solid rgba(0,0,0,0.2);
-    }
-}
-
-.navbar-account {
-    padding: .25rem .75rem;
-
-    .navbar-account-menu-item {
-        display: inline-block;
-
-        .navbar-icon {
-            height: 35px;
-            width: 35px;
-            border-radius: 50%;
-            background-color: rgba(0,0,0,.2);
-            color: #fff;
-            border: 1px solid rgba(0,0,0,0.1);
-            overflow: hidden;
-            @include transition(all .2s);
-
-            svg.svg-inline--fa {
-                width: 34px;
-                height: 34px;
-            }
-        }
-
-        &:hover {
-            .navbar-icon {
-                background-color: rgba(255,255,255,.2);
-            }
-        }
-
-        &.active {
-            .navbar-icon {
-                background-color: #fff;
-                color: $primary-color;
-            }
-        }
-    }
-
-    a {
-        color: #fff;
-    }
-
-
-    form {
-        display: inline-block;
-    }
-
-    .select-container {
-        float: left;
-
-        select {
-            @include appearance(none);
-            padding-right: 22px;
-            position: relative;
-            background-color: rgba(0,0,0,.2);
-            color: #fff;
-            border: 1px solid rgba(0,0,0,0.1);
-            display: inline-block;
-            width: auto;
-
-            option {
-                color: $default-text-color;
-                background-color: #fff;
-            }
-        }
-
-        &:after {
-            margin-left: -22px;
-            right: 8px;
-            position: relative;
-            width: 22px;
-            text-align: center;
-            content: "\25BC";
-            display: inline-block;
-            color: #fff;
-        }
-    }
-}
-
 @media (min-width: $screen-sm) {
-    .main-navigation {
-        padding: 0;
-        width: 245px;
-        height: 1px;
-        left: 0;
-        display: block;
-        float: left;
+    .navbar-left {
+        width: 275px;
+    }
 
-        .main-navigation-content {
-            height: 100% !important;
-            width: 245px;
-            position: absolute;
-            background-color: #fbfcfd;
-            @include box-shadow(2px 3px 5px 0 rgba(0, 0, 0, .26));
+    .navbar-center {
+        width: calc(100% - 550px);
+    }
 
-            &.show {
-                left: 0;
+    .navbar-right {
+        width: 275px;
+    }
+}
+
+    .navbar-search-container {
+        width: 100%;
+        max-width: 400px;
+        display: inline-block;
+
+        input {
+            width: 100%;
+            height: 39px;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+    }
+
+    .navbar-account {
+        padding: .25rem .75rem;
+
+        .navbar-account-menu-item {
+            display: inline-block;
+            vertical-align: bottom;
+
+            .navbar-icon,
+            .navbar-text-toggle {
+                height: 35px;
+                @include transition(all .2s);
+                color: #fff;
             }
 
-            ul {
+            .navbar-icon {
+                width: 35px;
+                border-radius: 50%;
+                overflow: hidden;
+
+                svg.svg-inline--fa {
+                    width: 34px;
+                    height: 34px;
+                }
+            }
+
+            .navbar-text-toggle {
+                display: none;
+                font-size: 18px;
+                line-height: 31px;
+                padding: 0 6px;
+                border-radius: 3px;
+
+                &:after {
+                    content: "\25BC";
+                    display: inline-block;
+                    color: #fff;
+                    font-size: 14px;
+                    margin-left: 6px;
+                }
+            }
+
+            @media (min-width: $screen-sm) {
+                .navbar-text-toggle {
+                    display: inline-block;
+                }
+
+                &.navbar-organization .navbar-icon {
+                    display: none;
+                }
+            }
 
 
-                li {
-                    &:hover {
-                        background-color: rgba(0,0,0,.05);
-                    }
+            &:hover {
+                .navbar-icon,
+                .navbar-text-toggle {
+                    background-color: rgba(255,255,255,.2);
+                }
+            }
 
-                    a {
-                        color: #333;
+            &.active {
+                .navbar-icon,
+                .navbar-text-toggle {
+                    background-color: rgba(255,255,255,.2);
+                }
+            }
+        }
+
+        a {
+            color: #fff;
+        }
+
+        form {
+            display: inline-block;
+            color: #fff;
+        }
+    }
+
+    @media (min-width: $screen-sm) {
+        .main-navigation {
+            padding: 0;
+            width: 245px;
+            height: 1px;
+            left: 0;
+            display: block;
+            float: left;
+
+            .main-navigation-content {
+                height: 100% !important;
+                width: 245px;
+                position: absolute;
+                background-color: #fbfcfd;
+                @include box-shadow(2px 3px 5px 0 rgba(0, 0, 0, .26));
+
+                &.show {
+                    left: 0;
+                }
+
+                ul {
+
+
+                    li {
+                        &:hover {
+                            background-color: rgba(0,0,0,.05);
+                        }
+
+                        a {
+                            color: #333;
+                        }
                     }
                 }
             }
         }
     }
-}
