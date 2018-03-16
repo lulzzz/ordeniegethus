@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace Arkitektum.Orden.Models.ViewModels
 {
@@ -25,7 +30,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         public bool HasPersonalData { get; set; }
         public bool HasSensitivePersonalData { get; set; }
         public int? OrganizationId { get; set; }
-
+        public byte[] Fields { get; set; }
 
 
 
@@ -148,10 +153,16 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog,
                 DataLocation = input.DataLocation,
-                AvailableApplications = Map(applications)
+                AvailableApplications = Map(applications),
+                Fields = Map(input.Fields)
 
             };
 
+        }
+
+        private byte[] Map(List<Field> fields)
+        {
+            throw new NotImplementedException();
         }
 
         private List<SelectListItem> Map(IEnumerable<Application> applications)

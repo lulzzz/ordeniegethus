@@ -44,121 +44,120 @@ namespace Arkitektum.Orden.Controllers
             }
 
             return Json(field);
-
-
-
-            //    // GET: Fields/Create
-            //    public IActionResult Create()
-            //    {
-            //        ViewData["DatasetId"] = new SelectList(_context.Dataset, "Id", "Id");
-            //        return View();
-            //    }
-
-            //    // POST: Fields/Create
-            //    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-            //    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-            //    [HttpPost]
-            //    [ValidateAntiForgeryToken]
-            //    public async Task<IActionResult> Create([Bind("Id,Name,Description,IsPersonalData,IsSensitivePersonalData,DatasetId")] Field @field)
-            //    {
-            //        if (ModelState.IsValid)
-            //        {
-            //            _context.Add(@field);
-            //            await _context.SaveChangesAsync();
-            //            return RedirectToAction(nameof(Index));
-            //        }
-            //        ViewData["DatasetId"] = new SelectList(_context.Dataset, "Id", "Id", @field.DatasetId);
-            //        return View(@field);
-            //    }
-
-            //    // GET: Fields/Edit/5
-            //    public async Task<IActionResult> Edit(int? id)
-            //    {
-            //        if (id == null)
-            //        {
-            //            return NotFound();
-            //        }
-
-            //        var @field = await _context.Field.SingleOrDefaultAsync(m => m.Id == id);
-            //        if (@field == null)
-            //        {
-            //            return NotFound();
-            //        }
-            //        ViewData["DatasetId"] = new SelectList(_context.Dataset, "Id", "Id", @field.DatasetId);
-            //        return View(@field);
-            //    }
-
-            //    // POST: Fields/Edit/5
-            //    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-            //    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-            //    [HttpPost]
-            //    [ValidateAntiForgeryToken]
-            //    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,IsPersonalData,IsSensitivePersonalData,DatasetId")] Field @field)
-            //    {
-            //        if (id != @field.Id)
-            //        {
-            //            return NotFound();
-            //        }
-
-            //        if (ModelState.IsValid)
-            //        {
-            //            try
-            //            {
-            //                _context.Update(@field);
-            //                await _context.SaveChangesAsync();
-            //            }
-            //            catch (DbUpdateConcurrencyException)
-            //            {
-            //                if (!FieldExists(@field.Id))
-            //                {
-            //                    return NotFound();
-            //                }
-            //                else
-            //                {
-            //                    throw;
-            //                }
-            //            }
-            //            return RedirectToAction(nameof(Index));
-            //        }
-            //        ViewData["DatasetId"] = new SelectList(_context.Dataset, "Id", "Id", @field.DatasetId);
-            //        return View(@field);
-            //    }
-
-            //    // GET: Fields/Delete/5
-            //    public async Task<IActionResult> Delete(int? id)
-            //    {
-            //        if (id == null)
-            //        {
-            //            return NotFound();
-            //        }
-
-            //        var @field = await _context.Field
-            //            .Include(@ => @.Dataset)
-            //            .SingleOrDefaultAsync(m => m.Id == id);
-            //        if (@field == null)
-            //        {
-            //            return NotFound();
-            //        }
-
-            //        return View(@field);
-            //    }
-
-            //    // POST: Fields/Delete/5
-            //    [HttpPost, ActionName("Delete")]
-            //    [ValidateAntiForgeryToken]
-            //    public async Task<IActionResult> DeleteConfirmed(int id)
-            //    {
-            //        var @field = await _context.Field.SingleOrDefaultAsync(m => m.Id == id);
-            //        _context.Field.Remove(@field);
-            //        await _context.SaveChangesAsync();
-            //        return RedirectToAction(nameof(Index));
-            //    }
-
-            //    private bool FieldExists(int id)
-            //    {
-            //        return _context.Field.Any(e => e.Id == id);
-            //    }
-            //}
         }
+
+
+        //// GET: Fields/Create
+        //public async Task<JsonResult> Create()
+        //{
+
+
+
+        //// POST: Fields/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Name,Description,IsPersonalData,IsSensitivePersonalData,DatasetId")] JsonResult field)
+        //{
+        //    //Get current datasetId
+        //    if (ModelState.IsValid)
+        //    {
+        //       await _fieldService.Create(field);
+        //       await _fieldService.SaveChangesAsync();
+        //       return RedirectToAction(nameof(Index));
+        //    }
+         
+        //}
+
+        //    // GET: Fields/Edit/5
+        //    public async Task<IActionResult> Edit(int? id)
+        //    {
+        //        if (id == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        var @field = await _context.Field.SingleOrDefaultAsync(m => m.Id == id);
+        //        if (@field == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        ViewData["DatasetId"] = new SelectList(_context.Dataset, "Id", "Id", @field.DatasetId);
+        //        return View(@field);
+        //    }
+
+        //    // POST: Fields/Edit/5
+        //    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //    [HttpPost]
+        //    [ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,IsPersonalData,IsSensitivePersonalData,DatasetId")] Field @field)
+        //    {
+        //        if (id != @field.Id)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        if (ModelState.IsValid)
+        //        {
+        //            try
+        //            {
+        //                _context.Update(@field);
+        //                await _context.SaveChangesAsync();
+        //            }
+        //            catch (DbUpdateConcurrencyException)
+        //            {
+        //                if (!FieldExists(@field.Id))
+        //                {
+        //                    return NotFound();
+        //                }
+        //                else
+        //                {
+        //                    throw;
+        //                }
+        //            }
+        //            return RedirectToAction(nameof(Index));
+        //        }
+        //        ViewData["DatasetId"] = new SelectList(_context.Dataset, "Id", "Id", @field.DatasetId);
+        //        return View(@field);
+        //    }
+
+        //    // GET: Fields/Delete/5
+        //    public async Task<IActionResult> Delete(int? id)
+        //    {
+        //        if (id == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        var @field = await _context.Field
+        //            .Include(@ => @.Dataset)
+        //            .SingleOrDefaultAsync(m => m.Id == id);
+        //        if (@field == null)
+        //        {
+        //            return NotFound();
+        //        }
+
+        //        return View(@field);
+        //    }
+
+        //    // POST: Fields/Delete/5
+        //    [HttpPost, ActionName("Delete")]
+        //    [ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> DeleteConfirmed(int id)
+        //    {
+        //        var @field = await _context.Field.SingleOrDefaultAsync(m => m.Id == id);
+        //        _context.Field.Remove(@field);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+
+        //    private bool FieldExists(int id)
+        //    {
+        //        return _context.Field.Any(e => e.Id == id);
+        //    }
+        //}
     }
 }
+

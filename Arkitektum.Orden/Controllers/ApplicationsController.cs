@@ -117,7 +117,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createApplication = await _applicationService.Create(new ApplicationViewModel().Map(application));
+                await _applicationService.Create(new ApplicationViewModel().Map(application));
                 return RedirectToAction(nameof(Index));
             }
 

@@ -65,7 +65,6 @@ namespace Arkitektum.Orden.Controllers
             model.OrganizationId = currentOrganization.Id;
 
             model.AvailableApplications = GetAvailableApplications(currentOrganization.Id).Result;
-            
 
             return View(model);
 
@@ -95,12 +94,12 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData,DataLocation,PublishedToSharedDataCatalog," +
-                                                      "Application,OrganizationId")] DatasetViewModel dataset)
+        public async Task<IActionResult> Create([Bind("Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData,DataLocation,PublishedToSharedDataCatalog," +
+                                                      "Application,OrganizationId,Fields")] DatasetViewModel dataset)
         {
             if (ModelState.IsValid)
             {
-                var createDataset = await _datasetService.Create(new DatasetViewModel().Map(dataset));
+                await _datasetService.Create(new DatasetViewModel().Map(dataset));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -115,17 +114,17 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var datasets = await _datasetService.GetAsync(id.Value);
+            var dataset = await _datasetService.GetAsync(id.Value);
     
             SimpleOrganization currentOrganization = CurrentOrganization();
             var applications = await _applicationService.GetAllApplicationsForOrganisation(currentOrganization.Id);
             
 
-            if (datasets == null)
+            if (dataset == null)
             {
                 return NotFound();
             }
-            return View(new DatasetViewModel().Map(datasets, applications));
+            return View(new DatasetViewModel().Map(dataset, applications));
         }
 
         // POST: Datasets/Edit/5
