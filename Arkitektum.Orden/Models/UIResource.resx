@@ -166,6 +166,9 @@
   <data name="LoginHeader" xml:space="preserve">
     <value>Logg inn</value>
   </data>
+  <data name="NationalComponentCreateNew" xml:space="preserve">
+    <value>Registrer ny nasjonal felleskomponent</value>
+  </data>
   <data name="SectorCreateNew" xml:space="preserve">
     <value>Opprett nytt tjenesteområde</value>
   </data>

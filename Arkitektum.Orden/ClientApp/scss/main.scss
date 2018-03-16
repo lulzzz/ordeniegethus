@@ -2,6 +2,8 @@
 @import "partials/all";
 
 .dashboard-box {
+    background: inherit;
+
     span {
         -moz-border-radius: 20px;
         border-radius: 20px;
@@ -12,11 +14,17 @@
         padding-top: 10px;
         padding-bottom: 10px;
         font-size: 1em;
+
         &.blue {
             background-color: cornflowerblue;
         }
+
         &.green {
             background-color: lightseagreen
+        }
+
+        &.red {
+            background-color: lightsalmon
         }
     }
 }

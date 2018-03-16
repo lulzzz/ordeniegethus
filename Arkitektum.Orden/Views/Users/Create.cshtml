@@ -8,8 +8,8 @@
 
 <hr/>
 <div class="row">
+    <form asp-action="Create">
     <div class="col-md-4">
-        <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="FullName" class="control-label"></label>
@@ -23,12 +23,12 @@
         </div>
     </div>
     <div class="col-md-12">
-            <div class="form-group">
-                <label asp-for="OrganizationRoles" class="control-label"></label>
-                <div class="row">
-            @{
-                string previousOrganization = null;
-            }
+        <div class="form-group">
+            <label asp-for="OrganizationRoles" class="control-label"></label>
+            <div class="row">
+                @{
+                    string previousOrganization = null;
+                }
                 @for (var i = 0; i < Model.OrganizationRoles.Count; i++)
                 {
                     string currentOrganization = Model.OrganizationRoles[i].OrganizationName;
@@ -44,23 +44,23 @@
                         <h4>@currentOrganization</h4>
                     }
 
-                        <div class="form-group">
-                            <input type="hidden" asp-for="@Model.OrganizationRoles[i].OrganizationId" />
-                            <input type="hidden" asp-for="@Model.OrganizationRoles[i].OrganizationName" />
-                            <input type="hidden" asp-for="@Model.OrganizationRoles[i].RoleId" />
-                            <input type="hidden" asp-for="@Model.OrganizationRoles[i].RoleName" />
-                            <input type="checkbox" asp-for="@Model.OrganizationRoles[i].Selected" />
-                            <label asp-for="@Model.OrganizationRoles[i].RoleName">@Model.OrganizationRoles[i].RoleName</label>
-                        </div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="@Model.OrganizationRoles[i].OrganizationId" />
+                        <input type="hidden" asp-for="@Model.OrganizationRoles[i].OrganizationName" />
+                        <input type="hidden" asp-for="@Model.OrganizationRoles[i].RoleId" />
+                        <input type="hidden" asp-for="@Model.OrganizationRoles[i].RoleName" />
+                        <input type="checkbox" asp-for="@Model.OrganizationRoles[i].Selected" />
+                        <label asp-for="@Model.OrganizationRoles[i].RoleName">@Model.OrganizationRoles[i].RoleName</label>
+                    </div>
                 }
-                </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <input type="submit" value="@UIResource.ButtonSave" class="btn btn-default"/>
-            </div>
-        </form>
+        <div class="form-group">
+            <input type="submit" value="@UIResource.ButtonSave" class="btn btn-default"/>
+        </div>
     </div>
+    </form>
 </div>
 
 @section Scripts {

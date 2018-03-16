@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
@@ -11,12 +9,14 @@ namespace Arkitektum.Orden.Services
 {
     public interface IApplicationService
     {
-        Task<Application> Get(int? id);
+        Task<Application> GetAsync(int id);
         Task<IEnumerable<Application>> GetAll();
         Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId);
         Task<Application> Create(Application application);
         Task SaveChanges();
         Task Delete(int id);
+        Task UpdateAsync(int id, Application updatedApplication);
+        Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -49,9 +49,29 @@ namespace Arkitektum.Orden.Services
             await SaveChanges();
         }
 
-        public async Task<Application> Get(int? id)
+        public async Task UpdateAsync(int id, Application updatedApplication)
         {
-           return await _context.Application.Include(a => a.SystemOwner).Include(a => a.Organization).SingleOrDefaultAsync(a => a.Id == id);
+            var currentApplication = await GetAsync(id);
+            
+            _context.Entry(currentApplication).CurrentValues.SetValues(updatedApplication);
+
+            currentApplication.UpdateSectorRelations(updatedApplication.SectorApplications);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> GetApplicationCountForOrganization(int currentOrganizationId)
+        {
+            return await _context.Application.Where(a => a.OrganizationId == currentOrganizationId).CountAsync();
+        }
+
+        public async Task<Application> GetAsync(int id)
+        {
+           return await _context.Application
+               .Include(a => a.SystemOwner)
+               .Include(a => a.Organization)
+               .Include(a => a.SectorApplications).ThenInclude(sa => sa.Sector)
+               .SingleOrDefaultAsync(a => a.Id == id);
         }
 
         

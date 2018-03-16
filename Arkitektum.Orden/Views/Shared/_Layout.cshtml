@@ -43,9 +43,10 @@
             <div class="main-navigation-content">
                 <ul class="navbar-nav mr-auto">
                     @if (User.IsInRole(Roles.Admin))
-    {
-                <li class="nav-item"><a asp-area="" asp-controller="Organizations" asp-action="Index" class="nav-link">@ModelsResource.Organizations</a></li>
-}
+                    {
+                        <li class="nav-item"><a asp-area="" asp-controller="Organizations" asp-action="Index" class="nav-link">@ModelsResource.Organizations</a></li>
+                        <li class="nav-item"><a asp-area="" asp-controller="NationalComponents" asp-action="Index" class="nav-link">@ModelsResource.NationalComponents</a></li>
+                    }
                     <li class="nav-item"><a asp-area="" asp-controller="Applications" asp-action="Index" class="nav-link">@ModelsResource.Applications</a></li>
                     <li class="nav-item"><a asp-area="" asp-controller="Sectors" asp-action="Index" class="nav-link">@ModelsResource.Sectors</a></li>
                     <li class="nav-item"><a asp-area="" asp-controller="Datasets" asp-action="Index" class="nav-link">@ModelsResource.Datasets</a></li>

@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Arkitektum.Orden.Data;
-using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -17,11 +13,15 @@ namespace Arkitektum.Orden.Controllers
     {
         private readonly IApplicationService _applicationService;
         private readonly IUserService _userService;
-    
-        public ApplicationsController(IApplicationService applicationService, IUserService userService, ISecurityService securityService) : base(securityService)
+        private readonly ISectorService _sectorService;
+
+        public ApplicationsController(IApplicationService applicationService, 
+            IUserService userService, ISecurityService securityService,
+            ISectorService sectorService) : base(securityService)
         {
             _applicationService = applicationService;
             _userService = userService;
+            _sectorService = sectorService;
         }
 
 
@@ -41,7 +41,7 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var application = await _applicationService.Get(id.Value);
+            var application = await _applicationService.GetAsync(id.Value);
             if (application == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace Arkitektum.Orden.Controllers
         public async Task<IActionResult> Create()
         {
             var model = new ApplicationViewModel();
-            model.OrganizationId = CurrentOrganizationId().Value;
+            model.OrganizationId = CurrentOrganizationId();
 
             model.AvailableSuperUsers = new List<SelectListItem>();
 
@@ -67,8 +67,26 @@ namespace Arkitektum.Orden.Controllers
                 });
             }
 
+            model.Sectors = await GetAvailableSectors();
+
             return View(model);
 
+        }
+
+        private async Task<List<CheckboxApplicationSector>> GetAvailableSectors()
+        {
+            var availableSectors = new List<CheckboxApplicationSector>();
+
+            foreach (var sector in await _sectorService.GetSectorsForOrganization(CurrentOrganizationId()))
+            {
+                availableSectors.Add(new CheckboxApplicationSector()
+                {
+                    SectorId = sector.Id,
+                    SectorName = sector.Name,
+                });
+            }
+
+            return availableSectors;
         }
 
         // POST: Applications/Create
@@ -76,7 +94,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SystemOwner,Version,OrganizationId")] ApplicationViewModel application)
+        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SystemOwner,Version,OrganizationId,Sectors")] ApplicationViewModel application)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +113,7 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var application = await _applicationService.Get(id);
+            var application = await _applicationService.GetAsync(id.Value);
             if (application == null)
             {
                 return NotFound();
@@ -113,7 +131,9 @@ namespace Arkitektum.Orden.Controllers
                     Value = applicationUser.Id
                 });
             }
-            
+
+            model.MergeSectors(await GetAvailableSectors());
+
             return View(model);
         }
 
@@ -122,34 +142,16 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers,Vendor,OrganizationId")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers,Vendor,OrganizationId,Sectors")] ApplicationViewModel application)
         {
             if (id != application.Id)
             {
                 return NotFound();
             }
 
-            var appliactionToUpdate = await _applicationService.Get(id);
-            if (await TryUpdateModelAsync(
-                appliactionToUpdate,
-                "",
-                a => a.Name, a => a.Vendor, a => a.AnnualFee, a => a.HostingLocation,
-                a => a.InitialCost, a => a.NumberOfUsers, a => a.SystemOwnerId,
-                a => a.Version))
-                try
-                {
-                    await _applicationService.SaveChanges();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateException /* ex */)
-                {
-                    //Log the error (uncomment ex variable name and write a log.)
-                    ModelState.AddModelError("", "Unable to save changes. " +
-                                                 "Try again, and if the problem persists, " +
-                                                 "see your system administrator.");
-                }
-
-            return View(new ApplicationViewModel().Map(appliactionToUpdate));
+            await _applicationService.UpdateAsync(id, application.Map(application));
+            
+            return View(application);
         }
 
         // GET: Applications/Delete/5
@@ -157,7 +159,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (id == null) return NotFound();
             
-            var applicationToDelete = await _applicationService.Get(id);
+            var applicationToDelete = await _applicationService.GetAsync(id.Value);
             if (applicationToDelete == null) return NotFound();
             
             return View(applicationToDelete);

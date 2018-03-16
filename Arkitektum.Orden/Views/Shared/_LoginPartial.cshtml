@@ -1,6 +1,3 @@
-@using Arkitektum.Orden.Controllers
-@using Microsoft.AspNetCore.Identity
-@using Arkitektum.Orden.Models
 @using Arkitektum.Orden.Services
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -56,6 +53,6 @@
     }
     else
     {
-        <a asp-area="" asp-controller="Account" asp-action="Login">Logg inn</a>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-default navbar-btn navbar-link">Logg inn</a>
     }
 </div>

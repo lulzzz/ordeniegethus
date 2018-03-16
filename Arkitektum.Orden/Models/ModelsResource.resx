@@ -207,4 +207,10 @@
   <data name="Datasets" xml:space="preserve">
     <value>Datasett</value>
   </data>
+  <data name="NationalComponents" xml:space="preserve">
+    <value>Nasjonale felleskomponenter</value>
+  </data>
+  <data name="NationalComponent" xml:space="preserve">
+    <value>Nasjonal felleskomponent</value>
+  </data>
 </root>

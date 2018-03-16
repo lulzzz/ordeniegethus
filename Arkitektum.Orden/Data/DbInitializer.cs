@@ -47,9 +47,20 @@ namespace Arkitektum.Orden.Data
                 FullName = "Administrator"
             };
             IdentityResult result = userManager.CreateAsync(adminUser, "Test123").Result;
-
             if (result.Succeeded) await userManager.AddToRolesAsync(adminUser, Roles.All);
+            
+            
+            var emailRegularUser = "henning@arkitektum.no";
+            var regularUser = new ApplicationUser
+            {
+                UserName = emailRegularUser,
+                Email = emailRegularUser,
+                FullName = "Administrator"
+            };
+            IdentityResult resultRegularUser = userManager.CreateAsync(regularUser, "Test123").Result;
+            if (result.Succeeded) await userManager.AddToRoleAsync(regularUser, Roles.User);
 
+            
 
             //adding Kommuner
             var boKommune = new Organization() {Name = "Bø kommune"};
@@ -61,54 +72,73 @@ namespace Arkitektum.Orden.Data
             var kongsbergKommune = new Organization() {Name = "Kongsberg kommune"};
             context.Add(kongsbergKommune);
 
-            //adding Tjenesteområder
-            var sectorBarnehage = new Sector() { Name = "Barnehage", Organization = boKommune };
-            context.Add(sectorBarnehage);
-
-            var sectorKultur = new Sector() { Name = "Kultur", Organization = boKommune };
-            context.Add(sectorKultur);
-
-            var sectorGrunnskole = new Sector() { Name = "Grunnskole", Organization = boKommune };
-            context.Add(sectorGrunnskole);
-
-            var sectorSosialtjenesten = new Sector() { Name = "Sosialtjenesten", Organization = boKommune };
-            context.Add(sectorSosialtjenesten);
-
-            var sectorBarnevern = new Sector() { Name = "Barnevern", Organization = boKommune };
-            context.Add(sectorBarnevern);
-
-
-
-            /*
-        var vismaBarnehage = new Application() { Name = "Visma barnehage", Organization = boKommune};
-        vismaBarnehage.SectorApplications = new List<SectorApplication>()
-        {
-            new SectorApplication()
+            
+            regularUser.Organizations = new List<OrganizationApplicationUser>()
             {
-                Application = vismaBarnehage,
-                Sector = sectorBarnehage
-            }
+                new OrganizationApplicationUser()
+                {
+                    ApplicationUser = regularUser,
+                    Organization = boKommune,
+                    Role = Roles.OrganizationAdmin
+                },
+                new OrganizationApplicationUser()
+                {
+                    ApplicationUser = regularUser,
+                    Organization = skienKommune,
+                    Role = Roles.OrganizationAdmin
+                },
+            };
+            
 
-        };
-        */
+            // bø kommune
+            var sectorBoBarnehage = new Sector() { Name = "Barnehage", Organization = boKommune };
+            context.Add(sectorBoBarnehage);
+
+            var sectorBoKultur = new Sector() { Name = "Kultur", Organization = boKommune };
+            context.Add(sectorBoKultur);
+
+            var sectorBoGrunnskole = new Sector() { Name = "Grunnskole", Organization = boKommune };
+            context.Add(sectorBoGrunnskole);
+
+            var sectorBoSosialtjenesten = new Sector() { Name = "Sosialtjenesten", Organization = boKommune };
+            context.Add(sectorBoSosialtjenesten);
+
+            var sectorBoBarnevern = new Sector() { Name = "Barnevern", Organization = boKommune };
+            context.Add(sectorBoBarnevern);
+            
+            context.Add(AddApplication("itsLearning", boKommune, sectorBoGrunnskole));
+            context.Add(AddApplication("Docebo LMS", boKommune, sectorBoGrunnskole));
+            context.Add(AddApplication("LearnUpon", boKommune, sectorBoGrunnskole));
+            context.Add(AddApplication("Schoology LMS", boKommune, sectorBoGrunnskole));
+            context.Add(AddApplication("Google Classroom", boKommune, sectorBoGrunnskole));
+
+            context.Add(AddApplication("vismaBarnehage", boKommune, sectorBoBarnehage));
+            context.Add(AddApplication("IST barnehage", boKommune, sectorBoBarnehage));
+            context.Add(AddApplication("Fagsystem Oppvekst", boKommune, sectorBoBarnehage));
+
+            context.Add(AddApplication("Fagsystem Kultur", boKommune, sectorBoKultur));
+            context.Add(AddApplication("IST Extens", boKommune, sectorBoKultur));
+
+            context.Add(AddApplication("Fagsystem Sosial", boKommune, sectorBoSosialtjenesten));
 
 
-            //adding Applikasjoner
-            context.Add(AddApplication("itsLearning", boKommune, sectorGrunnskole));
-            context.Add(AddApplication("Docebo LMS", boKommune, sectorGrunnskole));
-            context.Add(AddApplication("LearnUpon", boKommune, sectorGrunnskole));
-            context.Add(AddApplication("Schoology LMS", boKommune, sectorGrunnskole));
-            context.Add(AddApplication("Google Classroom", boKommune, sectorGrunnskole));
+            // skien
 
+            var sectorSkienKultur = new Sector() { Name = "Kultur", Organization = skienKommune };
+            context.Add(sectorBoKultur);
 
-            context.Add(AddApplication("vismaBarnehage", boKommune, sectorBarnehage));
-            context.Add(AddApplication("IST barnehage", boKommune, sectorBarnehage));
-            context.Add(AddApplication("Fagsystem Oppvekst", boKommune, sectorBarnehage));
+            var sectorSkienGrunnskole = new Sector() { Name = "Grunnskole", Organization = skienKommune };
+            context.Add(sectorBoGrunnskole);
 
-            context.Add(AddApplication("Fagsystem Kultur", boKommune, sectorKultur));
-            context.Add(AddApplication("IST Extens", boKommune, sectorKultur));
+            var sectorSkienSosialtjenesten = new Sector() { Name = "Sosialtjenesten", Organization = skienKommune };
+            context.Add(sectorBoSosialtjenesten);
 
-            context.Add(AddApplication("Fagsystem Sosial", boKommune, sectorSosialtjenesten));
+            context.Add(AddApplication("itsLearning", skienKommune, sectorSkienGrunnskole));
+            context.Add(AddApplication("Schoology LMS", skienKommune, sectorSkienGrunnskole));
+            
+            context.Add(AddApplication("Fagsystem Kultur", skienKommune, sectorSkienKultur));
+
+            context.Add(AddApplication("Fagsystem Sosial", skienKommune, sectorSkienSosialtjenesten));
 
             context.SaveChanges();
         }

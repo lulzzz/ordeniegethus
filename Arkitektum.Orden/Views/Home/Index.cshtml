@@ -1,12 +1,47 @@
-﻿@{
+﻿@using Arkitektum.Orden.Services
+@model Arkitektum.Orden.Models.ViewModels.HomeViewModel
+@{
     ViewData["Title"] = "Start";
 }
 <div id="app-root"></div>
 <div class="row">
-    <div class="col-md-offset-2 col-md-7 container">
-        <div class="jumbotron dashboard-box">
-            <h1><span class="blue">14</span> Datasett</h1><br/>
-            <h1><span class="green">11</span> Applikasjoner</h1>
-        </div>
+
+    <div class="col-md-6">
+        <h2>@ModelsResource.Sectors</h2>
+        <hr/>
+        @if (Model.Sectors == null || !Model.Sectors.Any())
+        {
+            <p>Ingen tjenesteområder er registrert.</p>
+        }
+        else
+        {
+            <ul>
+                @foreach (var sector in Model.Sectors)
+                {
+                    <li>
+                        <a asp-action="Details" asp-controller="Sectors" asp-route-id="@sector.Id">@sector.Name</a>
+                        <p>@sector.Applications.Count() applikasjoner</p>
+                    </li>
+                }
+
+            </ul>
+        }
+    </div>
+    <div class="col-md-6">
+        <h2>Nøkkeltall</h2>
+        <hr/>
+        <h4>
+            <span class="badge badge-primary">@Model.NumberOfApplications</span>
+            @if (Model.NumberOfApplications > 1)
+            {
+                <text>@ModelsResource.Applications</text>
+            }
+            else
+            {
+                <text>@ModelsResource.Application</text>
+            }
+        </h4>
+        <h4><span class="badge badge-primary">@Model.NumberOfDataset</span> Datasett</h4>
+        <h4><span class="badge badge-primary">@Model.NumberOfPublishedDataset</span> Publiserte datasett</h4>
     </div>
 </div>

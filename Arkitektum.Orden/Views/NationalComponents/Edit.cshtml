@@ -1,12 +1,12 @@
 ﻿@model Arkitektum.Orden.Models.NationalComponent
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = @UIResource.Edit;
 }
 
-<h2>Edit</h2>
+<h2>@ViewData["Title"]</h2>
 
-<h4>NationalComponent</h4>
+<h4>@ModelsResource.NationalComponent</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,14 +19,14 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="@UIResource.ButtonSave" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@UIResource.LinkBackToList</a>
 </div>
 
 @section Scripts {

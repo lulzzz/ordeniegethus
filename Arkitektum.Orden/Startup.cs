@@ -66,6 +66,7 @@ namespace Arkitektum.Orden
             services.AddTransient<IApplicationService, ApplicationService>();
             services.AddTransient<ISecurityService, SecurityService>();
             services.AddTransient<ISecurityHelper, SecurityHelper>();
+            services.AddTransient<ISectorService, SectorService>();
             services.AddTransient<IDatasetService, DatasetService>();
 
             services.AddMvc()
