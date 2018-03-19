@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services;
 using FluentAssertions;
@@ -61,7 +59,7 @@ namespace Arkitektum.Orden.Test.Services
 
         private static SecurityService CreateServiceForUserWithRoles(string role)
         {
-            return new SecurityService(new MockPrincipal("johndoe", role), null, null, null);
+            return new SecurityService(new MockPrincipal("johndoe", role), null, null, null, null);
         }
     }
 
@@ -81,8 +79,8 @@ namespace Arkitektum.Orden.Test.Services
 
         public IIdentity Identity
         {
-            get { return _identity; }
-            set { this._identity = value; }
+            get => _identity;
+            set => _identity = value;
         }
 
         public bool IsInRole(string role)
@@ -102,7 +100,7 @@ namespace Arkitektum.Orden.Test.Services
 
         public string AuthenticationType
         {
-            get { throw new System.NotImplementedException(); }
+            get { throw new NotImplementedException(); }
         }
 
         public bool IsAuthenticated
