@@ -2,7 +2,12 @@
 
 namespace Arkitektum.Orden.Utils
 {
-    public class CookieHelper
+    public interface ICookieHelper
+    {
+        int? GetCurrentOrganizationId(HttpContext httpContext);
+    }
+
+    public class CookieHelper : ICookieHelper
     {
         public int? GetCurrentOrganizationId(HttpContext httpContext)
         {

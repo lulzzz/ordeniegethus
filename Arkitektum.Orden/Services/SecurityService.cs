@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
+using Arkitektum.Orden.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,7 @@ namespace Arkitektum.Orden.Services
         Task<List<Organization>> GetDelegateableOrganizationsAsync();
 
         SimpleOrganization GetCurrentOrganization(int? organizationId);
+        SimpleOrganization GetCurrentOrganization(HttpContext httpContext);
     }
     
     public class SecurityService : ISecurityService
@@ -26,13 +29,15 @@ namespace Arkitektum.Orden.Services
         private readonly ApplicationDbContext _context;
         private readonly IUserService _userService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ICookieHelper _cookieHelper;
 
-        public SecurityService(IPrincipal principal, ApplicationDbContext context, IUserService userService, UserManager<ApplicationUser> userManager)
+        public SecurityService(IPrincipal principal, ApplicationDbContext context, IUserService userService, UserManager<ApplicationUser> userManager, ICookieHelper cookieHelper)
         {
             _principal = principal;
             _context = context;
             _userService = userService;
             _userManager = userManager;
+            _cookieHelper = cookieHelper;
         }
 
         /// <summary>
@@ -64,10 +69,21 @@ namespace Arkitektum.Orden.Services
         }
 
         /// <summary>
-        /// Returns the users current organization along with other available organizations.
+        /// Get the current organization from cookie, lookup all other available organizations from database.
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        public SimpleOrganization GetCurrentOrganization(HttpContext httpContext)
+        {
+            var currentOrganizationId = _cookieHelper.GetCurrentOrganizationId(httpContext);
+            return GetCurrentOrganization(currentOrganizationId);
+        }
+
+        /// <summary>
+        /// Returns the list of organizations available to the user.
         /// Returns null if user does not have access to any organizations
         /// </summary>
-        /// <param name="organizationId"></param>
+        /// <param name="organizationId">The id of the current organization - first item in organization list will be used if null</param>
         /// <returns></returns>
         public SimpleOrganization GetCurrentOrganization(int? organizationId)
         {

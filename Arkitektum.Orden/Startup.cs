@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services;
+using Arkitektum.Orden.Utils;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
@@ -68,6 +69,7 @@ namespace Arkitektum.Orden
             services.AddTransient<ISecurityHelper, SecurityHelper>();
             services.AddTransient<ISectorService, SectorService>();
             services.AddTransient<IDatasetService, DatasetService>();
+            services.AddTransient<ICookieHelper, CookieHelper>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));
