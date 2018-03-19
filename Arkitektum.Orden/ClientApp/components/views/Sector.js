@@ -1,28 +1,25 @@
-﻿import { mapGetters, mapMutations, mapActions } from 'vuex';
+﻿import axios from 'axios';
 
 /* Components */
 import ResourceLink from '../modules/ResourceLink.vue';
 
-const apiDataUrl = 'http://localhost:58288/Sectors/EditJson';
-
 export default {
     name: 'Sector',
+    data: function () {
+        return {
+            name: '',
+            apiData: null,
+            test: {}
+        };
+    },
+    mounted() {
+        //this.test = this.$root.getApiData('/Sectors/EditJson')
+        axios.get('/Sectors/EditJson').then(response => {
+            this.apiData = response.data;
+        });
+    },
     components: {
         ResourceLink
-    },
-    computed: {
-        ...mapGetters(['apiData'])
-    },
-    methods: {
-        ...mapMutations([
-            'setApiData'
-        ]),
-        testmethod() {
-            console.log("testing");
-        }
-    },
-    created() {
-        this.$store.dispatch('getApiData', { url: apiDataUrl });
     }
 }
 
