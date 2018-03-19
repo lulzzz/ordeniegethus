@@ -93,6 +93,10 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,OrganizationId")] Sector sector)
         {
+            if (!HasAccessTo(sector))
+            {
+                return Forbid();
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(sector);
@@ -110,11 +114,17 @@ namespace Arkitektum.Orden.Controllers
             {
                 return NotFound();
             }
-
+        
             var sector = await _context.Sector.SingleOrDefaultAsync(m => m.Id == id);
+
             if (sector == null)
             {
                 return NotFound();
+            }
+
+            if (!HasAccessTo(sector))
+            {
+                return Forbid();
             }
             ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id", sector.OrganizationId);
             return View(sector);
@@ -125,11 +135,16 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,OrganizationId")] Sector sector)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,OrganizationId")] Sector sector)
         {
             if (id != sector.Id)
             {
                 return NotFound();
+            }
+
+            if (!HasAccessTo(sector))
+            {
+                return Forbid();
             }
 
             if (ModelState.IsValid)
@@ -167,6 +182,12 @@ namespace Arkitektum.Orden.Controllers
             var sector = await _context.Sector
                 .Include(s => s.Organization)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
+            if (!HasAccessTo(sector))
+            {
+                return Forbid();
+            }
+
             if (sector == null)
             {
                 return NotFound();
@@ -181,9 +202,17 @@ namespace Arkitektum.Orden.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var sector = await _context.Sector.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Sector.Remove(sector);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (HasAccessTo(sector))
+            {
+                _context.Sector.Remove(sector);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return Forbid();
+            }
+            
         }
 
         private bool SectorExists(int id)
