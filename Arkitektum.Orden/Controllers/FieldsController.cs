@@ -21,54 +21,30 @@ namespace Arkitektum.Orden.Controllers
         }
 
         // GET: Fields
-        public async Task<JsonResult> Index()
+        public async Task<JsonResult> Index(int datasetId)
         {
-            //GetDatasetId
-            var fields = await _fieldService.GetAll();
+            var fields = await _fieldService.GetAllFieldsForDataset(datasetId);
             return Json(fields);
         }
+  
 
-        // GET: Fields/Details/5
-        public async Task<JsonResult> Details(int? id)
+        // POST: Fields/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Name,Description,IsPersonalData,IsSensitivePersonalData,DatasetId")] JsonResult field)
         {
-            if (id == null)
+            //Get current datasetId
+            if (ModelState.IsValid)
             {
-                return new JsonResult(NotFound());
+                await _fieldService.Create(field);
+                await _fieldService.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
 
-            var field = await _fieldService.Get(id.Value);
-
-            if (field == null)
-            {
-                return new JsonResult(NotFound());
-            }
-
-            return Json(field);
+            return null;
         }
-
-
-        //// GET: Fields/Create
-        //public async Task<JsonResult> Create()
-        //{
-
-
-
-        //// POST: Fields/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Name,Description,IsPersonalData,IsSensitivePersonalData,DatasetId")] JsonResult field)
-        //{
-        //    //Get current datasetId
-        //    if (ModelState.IsValid)
-        //    {
-        //       await _fieldService.Create(field);
-        //       await _fieldService.SaveChangesAsync();
-        //       return RedirectToAction(nameof(Index));
-        //    }
-         
-        //}
 
         //    // GET: Fields/Edit/5
         //    public async Task<IActionResult> Edit(int? id)

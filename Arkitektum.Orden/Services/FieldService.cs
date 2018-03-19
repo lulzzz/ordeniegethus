@@ -12,7 +12,7 @@ namespace Arkitektum.Orden.Services
     public interface IFieldService
     {
         Task<Field> Get(int id);
-        Task<IEnumerable<Field>> GetAll();
+        Task<IEnumerable<Field>> GetAllFieldsForDataset(int datasetId);
         Task<Field> Create(JsonResult field);
         Task SaveChangesAsync();
         Task Delete();
@@ -31,9 +31,9 @@ namespace Arkitektum.Orden.Services
             return await _context.Field.SingleOrDefaultAsync(f => f.Id == id);
         }
 
-        public async Task<IEnumerable<Field>> GetAll()
+        public async Task<IEnumerable<Field>> GetAllFieldsForDataset(int datasetId)
         {
-           return await _context.Field.ToListAsync();
+           return await _context.Field.Where(f => f.DatasetId == datasetId).ToListAsync();
         }
 
         public Task<Field> Create(JsonResult field)
