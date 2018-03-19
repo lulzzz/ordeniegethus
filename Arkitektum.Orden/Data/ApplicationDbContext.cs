@@ -17,6 +17,10 @@ namespace Arkitektum.Orden.Data
         {
         }
 
+        protected ApplicationDbContext()
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
