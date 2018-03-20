@@ -32,7 +32,7 @@ namespace Arkitektum.Orden.Controllers
             model.NumberOfPublishedDataset = 0; // TODO implement numberOfPublishedDataset
 
             model.Sectors =
-                SectorViewModel.MapEnumerable(await _sectorService.GetSectorsForOrganization(CurrentOrganizationId()));
+               new  SectorViewModel().MapToEnumerable(await _sectorService.GetSectorsForOrganization(CurrentOrganizationId()));
             return View(model);
         }
 

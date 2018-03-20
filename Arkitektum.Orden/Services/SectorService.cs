@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Services
@@ -14,9 +15,10 @@ namespace Arkitektum.Orden.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <returns></returns>
-        Task<List<Sector>> GetSectorsForOrganization(int organizationId);
+        Task<IEnumerable<Sector>> GetSectorsForOrganization(int organizationId);
 
         Task<Sector> GetAsync(int id);
+        Task<Sector> Create(Sector sector);
     }
 
     public class SectorService : ISectorService
@@ -28,7 +30,7 @@ namespace Arkitektum.Orden.Services
             _context = context;
         }
 
-        public async Task<List<Sector>> GetSectorsForOrganization(int organizationId)
+        public async Task<IEnumerable<Sector>> GetSectorsForOrganization(int organizationId)
         {
             return await _context.Sector.Where(s => s.OrganizationId == organizationId)
                 .Include(s => s.Organization)
@@ -42,6 +44,13 @@ namespace Arkitektum.Orden.Services
                 .Include(s => s.Organization)
                 .Include(s => s.SectorApplications).ThenInclude(sa => sa.Application)
                 .SingleOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<Sector> Create(Sector sector)
+        {
+            _context.Add(sector);
+            await _context.SaveChangesAsync();
+            return sector;
         }
     }
 }
