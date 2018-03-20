@@ -94,19 +94,12 @@ namespace Arkitektum.Orden.Controllers
 
             sectorToCreate.OrganizationId = CurrentOrganizationId();
 
-            if (!HasAccessTo(sectorToCreate))
-            {
-                return Forbid();
-            }
-
             if (ModelState.IsValid)
             {
                 await _sectorService.Create(sectorToCreate);
-
-                return RedirectToAction(nameof(Index));
             }
 
-            return View(sectorToCreate);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Sectors/Edit/5
@@ -117,7 +110,7 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
         
-            var sector = await _context.Sector.SingleOrDefaultAsync(m => m.Id == id);
+            var sector = await _sectorService.GetAsync(id.Value);
 
             if (sector == null)
             {
@@ -128,8 +121,8 @@ namespace Arkitektum.Orden.Controllers
             {
                 return Forbid();
             }
-            ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id", sector.OrganizationId);
-            return View(sector);
+            
+            return View(new SectorViewModel().Map(sector));
         }
 
         // POST: Sectors/Edit/5
@@ -137,24 +130,21 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,OrganizationId")] Sector sector)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,OrganizationId")] SectorViewModel sector)
         {
             if (id != sector.Id)
             {
                 return NotFound();
             }
 
-            if (!HasAccessTo(sector))
-            {
-                return Forbid();
-            }
+            var sectorToEdit = new SectorViewModel().Map(sector);
+            sectorToEdit.OrganizationId = CurrentOrganizationId();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(sector);
-                    await _context.SaveChangesAsync();
+                    await _sectorService.UpdateAsync(id, sectorToEdit);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -170,7 +160,7 @@ namespace Arkitektum.Orden.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["OrganizationId"] = new SelectList(_context.Organization, "Id", "Id", sector.OrganizationId);
-            return View(sector);
+            return View(nameof(Index));
         }
 
         // GET: Sectors/Delete/5

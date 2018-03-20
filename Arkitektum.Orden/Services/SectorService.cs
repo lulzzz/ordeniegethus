@@ -19,6 +19,7 @@ namespace Arkitektum.Orden.Services
 
         Task<Sector> GetAsync(int id);
         Task<Sector> Create(Sector sector);
+        Task UpdateAsync(int id, Sector sectorToEdit);
     }
 
     public class SectorService : ISectorService
@@ -51,6 +52,15 @@ namespace Arkitektum.Orden.Services
             _context.Add(sector);
             await _context.SaveChangesAsync();
             return sector;
+        }
+
+        public async Task UpdateAsync(int id, Sector sectorDataForEdit)
+        {
+            var sectorToEdit = await GetAsync(id);
+
+            _context.Entry(sectorToEdit).CurrentValues.SetValues(sectorDataForEdit);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

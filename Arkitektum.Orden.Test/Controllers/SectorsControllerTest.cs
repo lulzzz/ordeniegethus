@@ -46,7 +46,7 @@ namespace Arkitektum.Orden.Test.Controllers
             var controller = CreateController();
             var result = await controller.Index();
             var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Sector>>(viewResult.ViewData.Model);
+            var model = Assert.IsAssignableFrom<IEnumerable<SectorViewModel>>(viewResult.ViewData.Model);
 
             model.Should().HaveCount(1);
         }
@@ -103,14 +103,58 @@ namespace Arkitektum.Orden.Test.Controllers
             Assert.IsType<ForbidResult>(result);
         }
 
+        [Fact]
+        public async Task CreatePostShouldReturnRedirectToActionResultIfNewSectorIsCreated()
+        {
+            var currentOrganizationId = 1;
+            _securityServiceMock = new SecurityServiceMock().ReturnCurrentOrganizationWithId(currentOrganizationId).Mock();
 
-        //[Fact]
-        //public async Task CreateReturnsForbidIfCurrentOrganizationIdDoesntMatchGivenOrganizationId()
-        //{
-        //    var currentOrganizationId = 1;
-        //    _securityServiceMock = new SecurityServiceMock().ReturnCurrentOrganizationWithId(currentOrganizationId).Mock();
+            var sectorToCreate = new Sector()
+            {
+                Name = "Teknisk etat"
+            };
 
-        //}
+            _sectorServiceMock.Setup(ssm => ssm.Create(sectorToCreate)).ReturnsAsync(sectorToCreate);
+
+            var controller = CreateController();
+            var result = await controller.Create(new SectorViewModel().Map(sectorToCreate));
+
+            Assert.IsType<RedirectToActionResult>(result);
+
+        }
+
+        [Fact]
+        public async Task EditReturnsNotFoundIfSectorIdIsNull()
+        {
+            var result = await CreateController().Edit(null);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task EditShouldReturnNotFoundWhenNoSectorWithGivenIdExists()
+        {
+            var result = await CreateController().Edit(1111111111);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task EditReturnsForbidIfOrganizationIdDoesntMatchGivenOrganizationId()
+        {
+            var currentOrganizationId = 1;
+            _securityServiceMock = new SecurityServiceMock().ReturnCurrentOrganizationWithId(currentOrganizationId).Mock();
+
+            var sectorId = 5;
+            var sectorToEdit = new Sector
+            {
+                Name = "Helse og omsorg",
+                OrganizationId = 2
+            };
+            _sectorServiceMock.Setup(ssm => ssm.GetAsync(sectorId)).ReturnsAsync(sectorToEdit);
+            var controller = CreateController();
+            var result = await controller.Edit(sectorId);
+            Assert.IsType<ForbidResult>(result);
+        }
+
 
         private SectorsController CreateController()
         {
