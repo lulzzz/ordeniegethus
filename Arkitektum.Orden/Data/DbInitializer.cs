@@ -91,19 +91,19 @@ namespace Arkitektum.Orden.Data
             
 
             // bø kommune
-            var sectorBoBarnehage = new Sector() { Name = "Barnehage", Organization = boKommune };
+            var sectorBoBarnehage = new Sector() { Name = "Barnehage"};
             context.Add(sectorBoBarnehage);
 
-            var sectorBoKultur = new Sector() { Name = "Kultur", Organization = boKommune };
+            var sectorBoKultur = new Sector() { Name = "Kultur"};
             context.Add(sectorBoKultur);
 
-            var sectorBoGrunnskole = new Sector() { Name = "Grunnskole", Organization = boKommune };
+            var sectorBoGrunnskole = new Sector() { Name = "Grunnskole"};
             context.Add(sectorBoGrunnskole);
 
-            var sectorBoSosialtjenesten = new Sector() { Name = "Sosialtjenesten", Organization = boKommune };
+            var sectorBoSosialtjenesten = new Sector() { Name = "Sosialtjenesten"};
             context.Add(sectorBoSosialtjenesten);
 
-            var sectorBoBarnevern = new Sector() { Name = "Barnevern", Organization = boKommune };
+            var sectorBoBarnevern = new Sector() { Name = "Barnevern"};
             context.Add(sectorBoBarnevern);
             
             context.Add(AddApplication("itsLearning", boKommune, sectorBoGrunnskole));
@@ -124,13 +124,13 @@ namespace Arkitektum.Orden.Data
 
             // skien
 
-            var sectorSkienKultur = new Sector() { Name = "Kultur", Organization = skienKommune };
+            var sectorSkienKultur = new Sector() { Name = "Kultur"};
             context.Add(sectorBoKultur);
 
-            var sectorSkienGrunnskole = new Sector() { Name = "Grunnskole", Organization = skienKommune };
+            var sectorSkienGrunnskole = new Sector() { Name = "Grunnskole"};
             context.Add(sectorBoGrunnskole);
 
-            var sectorSkienSosialtjenesten = new Sector() { Name = "Sosialtjenesten", Organization = skienKommune };
+            var sectorSkienSosialtjenesten = new Sector() { Name = "Sosialtjenesten"};
             context.Add(sectorBoSosialtjenesten);
 
             context.Add(AddApplication("itsLearning", skienKommune, sectorSkienGrunnskole));

@@ -12,8 +12,6 @@ namespace Arkitektum.Orden.Models
 
         public List<Application> Applications { get; set; }
 
-        public List<Sector> Sectors { get; set; }
-
         public List<OrganizationApplicationUser> Users { get; set; }
 
         public List<OrganizationAdministrators> OrganizationAdministrators { get; set; }

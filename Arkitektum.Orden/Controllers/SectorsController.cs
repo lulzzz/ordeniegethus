@@ -92,7 +92,7 @@ namespace Arkitektum.Orden.Controllers
         {
             var sectorToCreate = new SectorViewModel().Map(sector);
 
-            sectorToCreate.OrganizationId = CurrentOrganizationId();
+            
 
             if (ModelState.IsValid)
             {
@@ -138,7 +138,7 @@ namespace Arkitektum.Orden.Controllers
             }
 
             var sectorToEdit = new SectorViewModel().Map(sector);
-            sectorToEdit.OrganizationId = CurrentOrganizationId();
+            
 
             if (ModelState.IsValid)
             {
@@ -171,9 +171,7 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            var sector = await _context.Sector
-                .Include(s => s.Organization)
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var sector = await _context.Sector.SingleOrDefaultAsync(m => m.Id == id);
 
             if (!HasAccessTo(sector))
             {

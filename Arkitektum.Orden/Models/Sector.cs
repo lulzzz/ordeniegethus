@@ -20,9 +20,6 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public List<ResourceLink> LawReferences { get; set; } 
 
-        public int OrganizationId { get; set; }
-        public virtual Organization Organization { get; set; }
-
         public List<SectorApplication> SectorApplications { get; set; }
 
         public IEnumerable<Application> ApplicationsAsEnumerable()
