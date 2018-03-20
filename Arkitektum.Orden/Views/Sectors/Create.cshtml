@@ -8,8 +8,9 @@
 
 <hr />
 <div id="app-root">
-    <sector></sector>
+    <sector organization-id="@ViewData["CurrentOrganizationId"]"></sector>
 </div>
+<!--
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -26,6 +27,8 @@
         </form>
     </div>
 </div>
+-->
+
 
 <div>
     <a asp-action="Index">@UIResource.LinkBackToList</a>

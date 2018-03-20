@@ -5,17 +5,15 @@ import ResourceLink from '../modules/ResourceLink.vue';
 
 export default {
     name: 'Sector',
+    props: ['organizationId'],
     data: function () {
         return {
-            name: '',
-            apiData: null,
-            test: {}
-        };
+            context: false
+        }
     },
-    mounted() {
-        //this.test = this.$root.getApiData('/Sectors/EditJson')
+    mounted: function() {
         axios.get('/Sectors/EditJson').then(response => {
-            this.apiData = response.data;
+            this.context = response.data;
         });
     },
     components: {
