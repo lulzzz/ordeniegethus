@@ -219,4 +219,7 @@
   <data name="RestrictedData" xml:space="preserve">
     <value>Data med  begrenset tilgang</value>
   </data>
+  <data name="NationalComponent" xml:space="preserve">
+    <value>Nasjonal felleskomponent</value>
+  </data>
 </root>
