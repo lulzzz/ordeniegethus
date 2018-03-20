@@ -28,7 +28,10 @@ namespace Arkitektum.Orden
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAntiforgery(opts => opts.Cookie.Name = "AntiForgery.OrdenIEgetHus");
+            services.AddAntiforgery(opts => {
+                opts.Cookie.Name = "AntiForgery.OrdenIEgetHus";
+                opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+            });
             services.AddDataProtection().SetApplicationName("OrdenIEgetHus");
 
             // Adds a default in-memory implementation of IDistributedCache.
