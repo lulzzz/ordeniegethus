@@ -64,7 +64,7 @@ namespace Arkitektum.Orden.Controllers
          
             model.OrganizationId = currentOrganization.Id;
 
-            model.AvailableApplications = GetAvailableApplications(currentOrganization.Id).Result;
+            model.AvailableApplications = await GetAvailableApplications(currentOrganization.Id);
             
 
             return View(model);
