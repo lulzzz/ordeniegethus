@@ -7,7 +7,7 @@ namespace Arkitektum.Orden.Models.ViewModels
     {
         public long NumberOfHits { get; set; }
 
-        public IEnumerable<ApplicationDocument> Items { get; set; }
+        public IEnumerable<object> Items { get; set; }
     }
 
 
