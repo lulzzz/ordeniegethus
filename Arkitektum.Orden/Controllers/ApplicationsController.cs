@@ -57,11 +57,11 @@ namespace Arkitektum.Orden.Controllers
             var model = new ApplicationViewModel();
             model.OrganizationId = CurrentOrganizationId();
 
-            model.AvailableSuperUsers = new List<SelectListItem>();
+            model.AvailableSystemOwners = new List<SelectListItem>();
 
             foreach (var applicationUser in await _userService.GetAll())
             {
-                model.AvailableSuperUsers.Add(new SelectListItem()
+                model.AvailableSystemOwners.Add(new SelectListItem()
                 {
                     Text = applicationUser.FullName,
                     Value = applicationUser.Id
@@ -140,14 +140,15 @@ namespace Arkitektum.Orden.Controllers
 
             var model = new ApplicationViewModel().Map(application);
 
-            model.AvailableSuperUsers = new List<SelectListItem>();
+            model.AvailableSystemOwners = new List<SelectListItem>();
 
             foreach (var applicationUser in await _userService.GetAll())
             {
-                model.AvailableSuperUsers.Add(new SelectListItem()
+                model.AvailableSystemOwners.Add(new SelectListItem()
                 {
                     Text = applicationUser.FullName,
-                    Value = applicationUser.Id
+                    Value = applicationUser.Id,
+                    Selected = applicationUser.Id == application.SystemOwnerId
                 });
             }
 
@@ -164,7 +165,7 @@ namespace Arkitektum.Orden.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers," +
-                                                            "Vendor,OrganizationId,Sectors,NationalComponents")] ApplicationViewModel application)
+                                                            "Vendor,OrganizationId,Sectors,NationalComponents,SystemOwner")] ApplicationViewModel application)
         {
             if (id != application.Id)
             {
@@ -173,7 +174,7 @@ namespace Arkitektum.Orden.Controllers
 
             await _applicationService.UpdateAsync(id, application.Map(application));
             
-            return View(application);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Applications/Delete/5

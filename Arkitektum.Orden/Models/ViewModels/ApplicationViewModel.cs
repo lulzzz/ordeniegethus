@@ -22,7 +22,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         [DataType(DataType.Currency, ErrorMessage = "Du kan bruke kun tall")]
         public string AnnualFee { get; set; }
 
-        public List<SelectListItem> AvailableSuperUsers { get; set; }
+        public List<SelectListItem> AvailableSystemOwners { get; set; }
 
         public string SystemOwner { get; set; }
 
