@@ -40,6 +40,8 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public List<CheckboxApplicationNationalComponents> NationalComponents { get; set; }
 
+        public List<DatasetViewModel> Datasets { get;set; }
+
         public override IEnumerable<ApplicationViewModel> MapToEnumerable(IEnumerable<Application> inputs)
         {
             var viewModels = new List<ApplicationViewModel>();
@@ -64,8 +66,29 @@ namespace Arkitektum.Orden.Models.ViewModels
                NumberOfUsers = input.NumberOfUsers,
                OrganizationId = input.OrganizationId,
                Sectors = Map(input.SectorApplications),
-               NationalComponents = Map(input.ApplicationNationalComponent)
+               NationalComponents = Map(input.ApplicationNationalComponent),
+               Datasets = Map(input.ApplicationDatasets)
            };
+        }
+
+        private List<DatasetViewModel> Map(List<ApplicationDataset> datasets)
+        {
+            var output = new List<DatasetViewModel>();
+            if (datasets != null && datasets.Any())
+            {
+                foreach (var item in datasets)
+                {
+                    output.Add(new DatasetViewModel()
+                    {
+                        Id = item.Dataset.Id,
+                        Name = item.Dataset.Name,
+                        HasMasterData = item.Dataset.HasMasterData,
+                        HasPersonalData = item.Dataset.HasPersonalData,
+                        HasSensitivePersonalData = item.Dataset.HasSensitivePersonalData
+                    });
+                }
+            }
+            return output;
         }
 
         private List<CheckboxApplicationNationalComponents> Map(List<ApplicationNationalComponent> applicationNationalComponent)
