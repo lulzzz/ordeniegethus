@@ -138,14 +138,14 @@ namespace Arkitektum.Orden.Models
 
         public void UpdateNationalComponentsRelations(List<ApplicationNationalComponent> updatedApplicationNationalComponent)
         {
-            var updatedNationalComponentsIds =
+            var nationalComponentsIdsToUpdate =
                 updatedApplicationNationalComponent.Select(anc => anc.NationalComponentId).ToList();
 
             List<ApplicationNationalComponent> updatedListOfNationalComponents = new List<ApplicationNationalComponent>();
 
             foreach (var item in ApplicationNationalComponent)
             {
-                if (updatedNationalComponentsIds.Contains(item.NationalComponentId))
+                if (nationalComponentsIdsToUpdate.Contains(item.NationalComponentId))
                 {
                     updatedListOfNationalComponents.Add(item);
                     updatedApplicationNationalComponent.RemoveAll(anc =>
@@ -154,7 +154,7 @@ namespace Arkitektum.Orden.Models
             }
             updatedListOfNationalComponents.AddRange(updatedApplicationNationalComponent);
 
-            ApplicationNationalComponent = updatedApplicationNationalComponent;
+            ApplicationNationalComponent = updatedListOfNationalComponents;
         }
     }
 }
