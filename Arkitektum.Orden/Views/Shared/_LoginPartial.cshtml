@@ -7,24 +7,32 @@
 <div class="navbar-account">
     @if (SignInManager.IsSignedIn(User))
     {
-        <form asp-controller="Account" asp-action="ChangeCurrentOrganization">
-            <div class="select-container">
-                <select name="organizationId" class="form-control" onchange="this.form.submit()">
-                    @{
-                        var currentOrganization = SecurityHelper.GetCurrentOrganization();
-                    }
-                    @if (currentOrganization != null)
-                    {
-                        <option value="@currentOrganization.Id" selected="selected">@currentOrganization.Name</option>
 
-                        foreach (var org in currentOrganization.AvailableOrganizations)
+        var currentOrganization = SecurityHelper.GetCurrentOrganization();
+        if (currentOrganization.HasOnlyOneOrganization())
+        {
+            <span class="organization">@currentOrganization.Name</span>
+        }
+        else
+        {
+
+            <form asp-controller="Account" asp-action="ChangeCurrentOrganization">
+                <div class="select-container">
+                    <select name="organizationId" class="form-control" onchange="this.form.submit()">
+
+                        @if (currentOrganization != null)
                         {
-                            <option value="@org.Id">@org.Name</option>
+                            <option value="@currentOrganization.Id" selected="selected">@currentOrganization.Name</option>
+
+                            foreach (var org in currentOrganization.AvailableOrganizations)
+                            {
+                                <option value="@org.Id">@org.Name</option>
+                            }
                         }
-                    }
-                </select>
-            </div>
-        </form>
+                    </select>
+                </div>
+            </form>
+        }
         <div class="navbar-account-menu-item dropdown-box-toggle">
             <div class="navbar-icon">
                 <span class="fas fa-user fa-2x"></span>
