@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Arkitektum.Orden.Models
 {
-    public class Dataset
+    public class Dataset : ChangeTrackingEntity
     {
         public int Id { get; set; }
 

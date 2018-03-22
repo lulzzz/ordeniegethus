@@ -12,9 +12,10 @@ using System;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180322125356_AddChangeTrackingFields")]
+    partial class AddChangeTrackingFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,10 +198,6 @@ namespace Arkitektum.Orden.Migrations
 
                     b.Property<string>("DataLocation");
 
-                    b.Property<DateTime?>("DateCreated");
-
-                    b.Property<DateTime?>("DateModified");
-
                     b.Property<int?>("DcatCatalogId");
 
                     b.Property<string>("Description");
@@ -216,10 +213,6 @@ namespace Arkitektum.Orden.Migrations
                     b.Property<DateTime?>("PublishedToSharedDataCatalog");
 
                     b.Property<string>("Purpose");
-
-                    b.Property<string>("UserCreated");
-
-                    b.Property<string>("UserModified");
 
                     b.HasKey("Id");
 
