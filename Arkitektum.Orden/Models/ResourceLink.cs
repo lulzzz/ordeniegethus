@@ -7,5 +7,11 @@
         public string Description { get; set; }
 
         public string Url { get; set; }
+
+        public string ApplicationId { get; set; }
+
+        public string DatasetContactPointsId { get; set; } 
+        public string DatasetResourceLinkId { get; set; } 
+        public string DatasetLawReferenceId { get; set; } 
     }
 }

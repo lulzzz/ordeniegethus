@@ -11,6 +11,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<Organization> Organization { get; set; }
         public DbSet<NationalComponent> NationalComponent { get; set; }
         public DbSet<ApplicationDataset> ApplicationDataset { get; set; }
+        public DbSet<ApplicationDataset> ResourceLink { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -35,8 +36,10 @@ namespace Arkitektum.Orden.Data
                 .HasForeignKey(oa => oa.OrganizationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-        
+
             builder.Entity<Organization>().HasOne(o => o.DcatCatalog).WithOne(cat => cat.Organization).HasForeignKey<DcatCatalog>(cat => cat.OrganizationId);
+            builder.Entity<Dataset>().HasMany(d => d.ContactPoints).WithOne().HasForeignKey("DatasetContactPointsId");
+
 
             builder.Entity<ApplicationDataset>().HasKey("ApplicationId", "DatasetId");
             builder.Entity<ApplicationNationalComponent>().HasKey("ApplicationId", "NationalComponentId");
@@ -45,6 +48,7 @@ namespace Arkitektum.Orden.Data
             builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId", "Role");
             builder.Entity<OrganizationAdministrators>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
+          
             
         }
 
