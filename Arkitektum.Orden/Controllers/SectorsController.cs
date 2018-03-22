@@ -213,7 +213,7 @@ namespace Arkitektum.Orden.Controllers
 
         private bool HasAccessTo(Sector sector)
         {
-            return sector?.OrganizationId == CurrentOrganizationId();
+            return true;
         }
     }
 }

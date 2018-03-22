@@ -76,7 +76,7 @@ namespace Arkitektum.Orden.Test.Controllers
             _sectorServiceMock.Setup(ssm => ssm.GetAsync(sectorId)).ReturnsAsync(new Sector()
             {
                 Id = sectorId,
-                OrganizationId = 1
+              
             });
             var result = await CreateController().Details(sectorId);
 
@@ -95,8 +95,8 @@ namespace Arkitektum.Orden.Test.Controllers
 
             _sectorServiceMock.Setup(ssm => ssm.GetAsync(sectorId)).ReturnsAsync(new Sector()
             {
-                Id = sectorId,
-                OrganizationId = 2
+                Id = sectorId
+             
             });
             var result = await CreateController().Details(sectorId);
 
@@ -146,8 +146,8 @@ namespace Arkitektum.Orden.Test.Controllers
             var sectorId = 5;
             var sectorToEdit = new Sector
             {
-                Name = "Helse og omsorg",
-                OrganizationId = 2
+                Name = "Helse og omsorg"
+        
             };
             _sectorServiceMock.Setup(ssm => ssm.GetAsync(sectorId)).ReturnsAsync(sectorToEdit);
             var controller = CreateController();

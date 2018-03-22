@@ -33,8 +33,7 @@ namespace Arkitektum.Orden.Services
 
         public async Task<IEnumerable<Sector>> GetSectorsForOrganization(int organizationId)
         {
-            return await _context.Sector.Where(s => s.OrganizationId == organizationId)
-                .Include(s => s.Organization)
+            return await _context.Sector
                 .Include(s => s.SectorApplications).ThenInclude(sa => sa.Application)
                 .ToListAsync();
         }
@@ -42,7 +41,6 @@ namespace Arkitektum.Orden.Services
         public async Task<Sector> GetAsync(int id)
         {
             return await _context.Sector
-                .Include(s => s.Organization)
                 .Include(s => s.SectorApplications).ThenInclude(sa => sa.Application)
                 .SingleOrDefaultAsync(s => s.Id == id);
         }

@@ -29,7 +29,6 @@ namespace Arkitektum.Orden.Models.ViewModels
             {
                 Id = input.Id,
                 Name = input.Name,
-                OrganizationId = input.OrganizationId.ToString(),
                 Applications = new ApplicationViewModel().MapToEnumerable(input.ApplicationsAsEnumerable())
             };
         }
