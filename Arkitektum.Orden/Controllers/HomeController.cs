@@ -13,12 +13,14 @@ namespace Arkitektum.Orden.Controllers
     {
         private readonly ISectorService _sectorService;
         private readonly IApplicationService _applicationService;
+        private readonly IDatasetService _datasetService;
 
         public HomeController(ISectorService sectorService, IApplicationService applicationService,
-            ISecurityService securityService) : base(securityService)
+            ISecurityService securityService, IDatasetService datasetService) : base(securityService)
         {
             _sectorService = sectorService;
             _applicationService = applicationService;
+            _datasetService = datasetService;
         }
 
         public async Task<IActionResult> Index()
@@ -26,11 +28,11 @@ namespace Arkitektum.Orden.Controllers
             var model = new HomeViewModel();
             model.NumberOfApplications =
                 await _applicationService.GetApplicationCountForOrganization(CurrentOrganizationId());
-            model.NumberOfDataset = 0; // TODO implement numberOfDataset
+            model.NumberOfDataset = await _datasetService.GetDatasetsCountForOrganization(CurrentOrganizationId());
             model.NumberOfPublishedDataset = 0; // TODO implement numberOfPublishedDataset
 
             model.Sectors =
-                SectorViewModel.MapEnumerable(await _sectorService.GetSectorsForOrganization(CurrentOrganizationId()));
+               new  SectorViewModel().MapToEnumerable(await _sectorService.GetSectorsForOrganization(CurrentOrganizationId()));
             return View(model);
         }
 

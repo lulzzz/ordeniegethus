@@ -14,14 +14,15 @@ namespace Arkitektum.Orden.Controllers
         private readonly IApplicationService _applicationService;
         private readonly IUserService _userService;
         private readonly ISectorService _sectorService;
+        private readonly INationalComponentService _nationalComponentsService;
 
-        public ApplicationsController(IApplicationService applicationService, 
-            IUserService userService, ISecurityService securityService,
-            ISectorService sectorService) : base(securityService)
+        public ApplicationsController(ISecurityService securityService, IApplicationService applicationService, IUserService userService, 
+            ISectorService sectorService, INationalComponentService nationalComponentsService) : base(securityService)
         {
             _applicationService = applicationService;
             _userService = userService;
             _sectorService = sectorService;
+            _nationalComponentsService = nationalComponentsService;
         }
 
 
@@ -56,11 +57,11 @@ namespace Arkitektum.Orden.Controllers
             var model = new ApplicationViewModel();
             model.OrganizationId = CurrentOrganizationId();
 
-            model.AvailableSuperUsers = new List<SelectListItem>();
+            model.AvailableSystemOwners = new List<SelectListItem>();
 
             foreach (var applicationUser in await _userService.GetAll())
             {
-                model.AvailableSuperUsers.Add(new SelectListItem()
+                model.AvailableSystemOwners.Add(new SelectListItem()
                 {
                     Text = applicationUser.FullName,
                     Value = applicationUser.Id
@@ -69,8 +70,26 @@ namespace Arkitektum.Orden.Controllers
 
             model.Sectors = await GetAvailableSectors();
 
+            model.NationalComponents = await GetNationalComponents();
+
             return View(model);
 
+        }
+
+        private async Task<List<CheckboxApplicationNationalComponents>> GetNationalComponents()
+        {
+            var nationalComponents = new List<CheckboxApplicationNationalComponents>();
+
+            foreach (var nationalComponent in await _nationalComponentsService.GetAll())
+            {
+                nationalComponents.Add(new CheckboxApplicationNationalComponents()
+                {
+                    NationalComponentId = nationalComponent.Id,
+                    NationalComponentName = nationalComponent.Name
+                });
+            }
+
+            return nationalComponents;
         }
 
         private async Task<List<CheckboxApplicationSector>> GetAvailableSectors()
@@ -94,7 +113,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SystemOwner,Version,OrganizationId,Sectors")] ApplicationViewModel application)
+        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SystemOwner,Version,OrganizationId,Sectors,NationalComponents")] ApplicationViewModel application)
         {
             if (ModelState.IsValid)
             {
@@ -121,18 +140,21 @@ namespace Arkitektum.Orden.Controllers
 
             var model = new ApplicationViewModel().Map(application);
 
-            model.AvailableSuperUsers = new List<SelectListItem>();
+            model.AvailableSystemOwners = new List<SelectListItem>();
 
             foreach (var applicationUser in await _userService.GetAll())
             {
-                model.AvailableSuperUsers.Add(new SelectListItem()
+                model.AvailableSystemOwners.Add(new SelectListItem()
                 {
                     Text = applicationUser.FullName,
-                    Value = applicationUser.Id
+                    Value = applicationUser.Id,
+                    Selected = applicationUser.Id == application.SystemOwnerId
                 });
             }
 
             model.MergeSectors(await GetAvailableSectors());
+
+            model.NationalComponents = await GetNationalComponents();
 
             return View(model);
         }
@@ -142,7 +164,8 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers,Vendor,OrganizationId,Sectors")] ApplicationViewModel application)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers," +
+                                                            "Vendor,OrganizationId,Sectors,NationalComponents,SystemOwner")] ApplicationViewModel application)
         {
             if (id != application.Id)
             {
@@ -151,7 +174,7 @@ namespace Arkitektum.Orden.Controllers
 
             await _applicationService.UpdateAsync(id, application.Map(application));
             
-            return View(application);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Applications/Delete/5

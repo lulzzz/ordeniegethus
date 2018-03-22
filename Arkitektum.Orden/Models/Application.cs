@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -43,11 +44,13 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Årlig kostnad
         /// </summary>
+    
         public decimal AnnualFee { get; set; }
 
         /// <summary>
         ///     Innkjøpskostnad
         /// </summary>
+
         public decimal InitialCost { get; set; }
 
         /// <summary>
@@ -131,6 +134,27 @@ namespace Arkitektum.Orden.Models
             updatedListOfSectors.AddRange(updatedSectorApplications);
 
             SectorApplications = updatedListOfSectors;
+        }
+
+        public void UpdateNationalComponentsRelations(List<ApplicationNationalComponent> updatedApplicationNationalComponent)
+        {
+            var nationalComponentsIdsToUpdate =
+                updatedApplicationNationalComponent.Select(anc => anc.NationalComponentId).ToList();
+
+            List<ApplicationNationalComponent> updatedListOfNationalComponents = new List<ApplicationNationalComponent>();
+
+            foreach (var item in ApplicationNationalComponent)
+            {
+                if (nationalComponentsIdsToUpdate.Contains(item.NationalComponentId))
+                {
+                    updatedListOfNationalComponents.Add(item);
+                    updatedApplicationNationalComponent.RemoveAll(anc =>
+                        anc.NationalComponentId == item.NationalComponentId);
+                }
+            }
+            updatedListOfNationalComponents.AddRange(updatedApplicationNationalComponent);
+
+            ApplicationNationalComponent = updatedListOfNationalComponents;
         }
     }
 }

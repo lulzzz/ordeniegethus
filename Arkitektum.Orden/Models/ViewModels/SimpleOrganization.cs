@@ -54,5 +54,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                     Name = org.Name
                 });
         }
+
+        public bool HasOnlyOneOrganization() => !AvailableOrganizations.Any();
     }
 }

@@ -223,6 +223,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ikke offentlige data.
+        /// </summary>
+        public static string NonPublicData {
+            get {
+                return ResourceManager.GetString("NonPublicData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Antall brukere.
         /// </summary>
         public static string NumberOfUsers {
@@ -277,6 +286,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offentlige data.
+        /// </summary>
+        public static string PublicData {
+            get {
+                return ResourceManager.GetString("PublicData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Publisert til felles datakatalog.
         /// </summary>
         public static string PublishedToSharedDataCatalog {
@@ -300,6 +318,15 @@ namespace Arkitektum.Orden.Models {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data med  begrenset tilgang.
+        /// </summary>
+        public static string RestrictedData {
+            get {
+                return ResourceManager.GetString("RestrictedData", resourceCulture);
             }
         }
         

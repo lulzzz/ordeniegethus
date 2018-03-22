@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services;
+using Arkitektum.Orden.Utils;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +28,10 @@ namespace Arkitektum.Orden
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAntiforgery(opts => opts.Cookie.Name = "AntiForgery.OrdenIEgetHus");
+            services.AddAntiforgery(opts => {
+                opts.Cookie.Name = "AntiForgery.OrdenIEgetHus";
+                opts.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+            });
             services.AddDataProtection().SetApplicationName("OrdenIEgetHus");
 
             // Adds a default in-memory implementation of IDistributedCache.
@@ -68,6 +72,7 @@ namespace Arkitektum.Orden
             services.AddTransient<ISecurityHelper, SecurityHelper>();
             services.AddTransient<ISectorService, SectorService>();
             services.AddTransient<IDatasetService, DatasetService>();
+            services.AddTransient<ICookieHelper, CookieHelper>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));
