@@ -26,14 +26,11 @@
             </button>
             <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Orden i eget hus</a>
         </div>
-        @if (SignInManager.IsSignedIn(User))
-        {
-            <div class="navbar-center">
-                <div class="navbar-search-container">
-                    <input type="text" placeholder="Søk"/>
-                </div>
+        <div class="navbar-center">
+            <div class="navbar-search-container">
+                <input type="text" />
             </div>
-        }
+        </div>
         <div class="navbar-right">
             @await Html.PartialAsync("_LoginPartial")
         </div>

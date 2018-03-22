@@ -1,5 +1,6 @@
 ﻿.dropdown-box-toggle {
     cursor: pointer;
+
     .dropdown-box-container {
         display: none;
         position: relative;
@@ -13,10 +14,31 @@
             background-color: #fbfcfd;
             border-radius: 3px;
             padding: 4px 8px;
+            z-index: 2;
             @include box-shadow(0 2px 5px rgba(0,0,0,.26));
 
             a {
                 color: $primary-color;
+            }
+
+            form {
+                display: block;
+            }
+
+            .navbar-dropdown-list {
+                list-style: none;
+                padding: 0;
+                margin: -4px -8px;
+                display: block;
+
+                li {
+                    display: block;
+                    padding: 4px 8px;
+
+                    &:hover {
+                        background-color: rgba(0,0,0,.05);
+                    }
+                }
             }
         }
     }

@@ -4,34 +4,39 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject ISecurityHelper SecurityHelper
 
+<script>
+    function changeOrganization() { // TODO: Move to separate script file
+        document.getElementById('navbar-organization-input').value = event.target.dataset.organizationId;
+        document.getElementById('navbar-organization-input').form.submit();
+    }
+</script>
+
 <div class="navbar-account">
     @if (SignInManager.IsSignedIn(User))
     {
-
         var currentOrganization = SecurityHelper.GetCurrentOrganization();
-        if (currentOrganization.HasOnlyOneOrganization())
+
+        if (currentOrganization != null)
         {
-            <span class="organization">@currentOrganization.Name</span>
-        }
-        else
-        {
-
-            <form asp-controller="Account" asp-action="ChangeCurrentOrganization">
-                <div class="select-container">
-                    <select name="organizationId" class="form-control" onchange="this.form.submit()">
-
-                        @if (currentOrganization != null)
-                        {
-                            <option value="@currentOrganization.Id" selected="selected">@currentOrganization.Name</option>
-
-                            foreach (var org in currentOrganization.AvailableOrganizations)
-                            {
-                                <option value="@org.Id">@org.Name</option>
-                            }
-                        }
-                    </select>
+            <div class="navbar-account-menu-item dropdown-box-toggle navbar-organization">
+                <div class="navbar-icon">
+                    <span class="fas fa-users fa-2x"></span>
                 </div>
-            </form>
+                <span class="navbar-text-toggle">@currentOrganization.Name</span>
+                <div class="dropdown-box-container">
+                    <div class="dropdown-box-content">
+                        <form asp-controller="Account" asp-action="ChangeCurrentOrganization">
+                            <input id="navbar-organization-input" type="hidden" name="organizationId" value="@currentOrganization.Id" />
+                            <ul class="navbar-dropdown-list">
+                                @foreach (var org in currentOrganization.AvailableOrganizations)
+                                {
+                                    <li onclick="changeOrganization()" data-organization-id="@org.Id">@org.Name</li>
+                                }
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
         }
         <div class="navbar-account-menu-item dropdown-box-toggle">
             <div class="navbar-icon">
