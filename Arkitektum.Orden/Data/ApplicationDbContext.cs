@@ -38,7 +38,13 @@ namespace Arkitektum.Orden.Data
 
 
             builder.Entity<Organization>().HasOne(o => o.DcatCatalog).WithOne(cat => cat.Organization).HasForeignKey<DcatCatalog>(cat => cat.OrganizationId);
-            builder.Entity<Dataset>().HasMany(d => d.ContactPoints).WithOne().HasForeignKey("DatasetContactPointsId");
+            builder.Entity<Dataset>().HasMany(d => d.ContactPoints).WithOne(cp => cp.DatasetConnectionPoints)
+                .HasForeignKey(cp => cp.DatasetContactPointsId);
+            builder.Entity<Dataset>().HasMany(d => d.LawReferences).WithOne(lr => lr.DatasetLawReference)
+                .HasForeignKey(lr => lr.DatasetLawReferenceId);
+            builder.Entity<Dataset>().HasMany(d => d.ResourceLinks).WithOne(rl => rl.DatasetResourceLink)
+                .HasForeignKey(rl => rl.DatasetResourceLinkId);
+
 
 
             builder.Entity<ApplicationDataset>().HasKey("ApplicationId", "DatasetId");

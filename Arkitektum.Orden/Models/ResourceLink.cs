@@ -8,10 +8,16 @@
 
         public string Url { get; set; }
 
-        public string ApplicationId { get; set; }
+        public int ApplicationId { get; set; }
 
-        public string DatasetContactPointsId { get; set; } 
-        public string DatasetResourceLinkId { get; set; } 
-        public string DatasetLawReferenceId { get; set; } 
+        public int? DatasetContactPointsId { get; set; } 
+        public Dataset DatasetConnectionPoints { get; set; }
+
+        public int? DatasetResourceLinkId { get; set; }
+        public  Dataset DatasetResourceLink { get; set; }
+
+        public int? DatasetLawReferenceId { get; set; }
+        public Dataset DatasetLawReference { get; set; }
+
+        }
     }
-}

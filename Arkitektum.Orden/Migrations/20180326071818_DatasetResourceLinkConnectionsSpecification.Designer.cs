@@ -12,9 +12,10 @@ using System;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180326071818_DatasetResourceLinkConnectionsSpecification")]
+    partial class DatasetResourceLinkConnectionsSpecification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -430,7 +431,9 @@ namespace Arkitektum.Orden.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ApplicationId");
+                    b.Property<string>("ApplicationId");
+
+                    b.Property<int?>("ApplicationId1");
 
                     b.Property<int?>("DatasetContactPointsId");
 
@@ -448,7 +451,7 @@ namespace Arkitektum.Orden.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationId");
+                    b.HasIndex("ApplicationId1");
 
                     b.HasIndex("DatasetContactPointsId");
 
@@ -776,8 +779,7 @@ namespace Arkitektum.Orden.Migrations
                 {
                     b.HasOne("Arkitektum.Orden.Models.Application")
                         .WithMany("ResourceLinks")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationId1");
 
                     b.HasOne("Arkitektum.Orden.Models.Dataset", "DatasetConnectionPoints")
                         .WithMany("ContactPoints")
