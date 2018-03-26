@@ -11,7 +11,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<Organization> Organization { get; set; }
         public DbSet<NationalComponent> NationalComponent { get; set; }
         public DbSet<ApplicationDataset> ApplicationDataset { get; set; }
-        public DbSet<ApplicationDataset> ResourceLink { get; set; }
+        public DbSet<ResourceLink> ResourceLink { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
