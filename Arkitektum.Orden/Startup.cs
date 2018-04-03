@@ -43,11 +43,9 @@ namespace Arkitektum.Orden
                 options.Cookie.HttpOnly = true; // cookie is only available on server side
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options
-                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                    .EnableSensitiveDataLogging()
-                );
+            services.AddEntityFrameworkNpgsql()
+                .AddDbContext<ApplicationDbContext>(options => 
+                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(
                     user =>
