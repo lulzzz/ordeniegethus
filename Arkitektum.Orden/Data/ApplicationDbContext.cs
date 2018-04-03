@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Arkitektum.Orden.Extensions;
 using Arkitektum.Orden.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -30,7 +31,7 @@ namespace Arkitektum.Orden.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
+            
             builder.Entity<ApplicationUser>().HasMany(au => au.OrganizationAdministrators)
                 .WithOne(oa => oa.ApplicationUser)
                 .HasForeignKey(oa => oa.ApplicationUserId)
@@ -52,6 +53,37 @@ namespace Arkitektum.Orden.Data
             builder.Entity<OrganizationAdministrators>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
             
+            UseSnakeCaseInEntities(builder);
+        }
+
+        private static void UseSnakeCaseInEntities(ModelBuilder builder)
+        {
+            foreach (var entity in builder.Model.GetEntityTypes())
+            {
+                // Replace table names
+                entity.Relational().TableName = entity.Relational().TableName.ToSnakeCase();
+
+                // Replace column names            
+                foreach (var property in entity.GetProperties())
+                {
+                    property.Relational().ColumnName = property.Name.ToSnakeCase();
+                }
+
+                foreach (var key in entity.GetKeys())
+                {
+                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                }
+
+                foreach (var key in entity.GetForeignKeys())
+                {
+                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
+                }
+
+                foreach (var index in entity.GetIndexes())
+                {
+                    index.Relational().Name = index.Relational().Name.ToSnakeCase();
+                }
+            }
         }
 
         public DbSet<Arkitektum.Orden.Models.Sector> Sector { get; set; }
