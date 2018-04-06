@@ -21,7 +21,7 @@ namespace Arkitektum.Orden.Services.Search
 
             ISearchResponse<object> result = await client.SearchAsync<object>(s => s
                 .AllIndices()
-                .Type(Types.Type<ApplicationDocument>())
+                .Type(Types.Type(new List<TypeName>(){Types.Type<ApplicationDocument>(), Types.Type<DatasetDocument>()}))
                 .Query(q => q.MatchAll()));
 
             return result;
