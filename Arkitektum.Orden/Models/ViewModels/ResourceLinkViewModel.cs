@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Arkitektum.Orden.Models.ViewModels
 {
@@ -10,9 +7,6 @@ namespace Arkitektum.Orden.Models.ViewModels
         public int Id { get; set; }
         public string Description { get; set; }
         public string Url { get; set; }
-        public int ApplicationId { get; set; }
-
-
 
         public override IEnumerable<ResourceLinkViewModel> MapToEnumerable(IEnumerable<ResourceLink> inputs)
         {
@@ -32,30 +26,24 @@ namespace Arkitektum.Orden.Models.ViewModels
         {
             return new ResourceLinkViewModel
             {
+                Id = input.Id,
                 Description = input.Description,
                 Url = input.Url
             };
         }
 
 
-        public ResourceLink Map(ResourceLink resourceLink, int applicationId)
+        public ResourceLink Map(ResourceLinkViewModel resourceLink, int applicationId)
         {
-            return new ResourceLink
+            var model = new ResourceLink
             {
+                Id = resourceLink.Id,
                 Description = resourceLink.Description,
                 Url = resourceLink.Url,
                 ApplicationId = applicationId
             };
+            return model;
         }
 
-        public ResourceLink Map(ResourceLinkViewModel resourceLink)
-        {
-            return new ResourceLink
-            {
-                Id = resourceLink.Id,
-                Description = resourceLink.Description,
-                Url = resourceLink.Url
-            };
-        }
     }
 }

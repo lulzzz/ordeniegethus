@@ -1,178 +1,76 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters.Json.Internal;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Arkitektum.Orden.Controllers
 {
-    public class ResourceLinksController : Controller
+
+    // TODO: add security checks
+
+    public class ResourceLinksController : BaseController
     {
 
-        private readonly IResourceLinkService _resourseLinkService;
-        private readonly ApplicationDbContext _context;
+        private readonly IResourceLinkService _resourceLinkService;
 
-        public ResourceLinksController(IResourceLinkService resourseLinkService, ApplicationDbContext context)
+        public ResourceLinksController(IResourceLinkService resourceLinkService, ISecurityService securityService) : base(securityService)
         {
-            _resourseLinkService = resourseLinkService;
-            _context = context;
+            _resourceLinkService = resourceLinkService;
         }
 
-        // GET: RecourceLinks for application
+        // GET: ResourceLinks for application
         [HttpGet]
         [Route("/ResourceLinks/Application/{applicationId}")]
-        public async Task<IActionResult> GetApplicationLinks(int applicationId = 1)
+        public async Task<IActionResult> GetApplicationLinks(int applicationId)
         {
-            var data = new List<ResourceLink>()
-            {
-                new ResourceLink()
-                {
-                    Description = "LinkDescription",
-                    Url = "wwww.arkitektum.no"
-                },
-                new ResourceLink()
-                {
-                    Description = "Description2",
-                    Url = "www.vg.no"
-                }
-            };
-            return Json(data);
+            IEnumerable<ResourceLink> resourceLinks = await _resourceLinkService.GetResourceLinksForApplication(applicationId);
+
+            IEnumerable<ResourceLinkViewModel> viewModels = new ResourceLinkViewModel().MapToEnumerable(resourceLinks);
+
+            return Json(viewModels);
         }
 
-        // POST: RecourceLinks for application
+        // POST: ResourceLinks for application
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         [Route("/ResourceLinks/Application/{applicationId}")]
-        public async Task<IActionResult> CreateApplicationLink([FromBody] ResourceLink resourceLink, int applicationId)
+        public async Task<IActionResult> CreateApplicationLink([FromBody] ResourceLinkViewModel resourceLink, int applicationId)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var resourceLinkToCreate = await _resourseLinkService.Create(new ResourceLinkViewModel().Map(resourceLink, applicationId));
-                    return new CreatedResult("", resourceLinkToCreate);
-                }
-            } catch (Exception e)
+                var model = new ResourceLinkViewModel().Map(resourceLink, applicationId);
+                var createdResourceLink = await _resourceLinkService.Create(model);
+                return Json(new ResourceLinkViewModel().Map(createdResourceLink));
+            } 
+            catch (Exception)
             {
-                throw;
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            return BadRequest();
+            
         }
 
-        // PUT: RecourceLinks/Application/5/10
+        // PUT: ResourceLinks/Application/5/10
         [HttpPut]
-       // [ValidateAntiForgeryToken]
         [Route("/ResourceLinks/Application/{applicationId}/{id}")]
-        public async Task<ActionResult> EditApplicationLink(int id, [FromBody] ResourceLinkViewModel resourceLink)
+        public async Task<ActionResult> EditApplicationLink(int applicationId, int id, [FromBody] ResourceLinkViewModel resourceLink)
         {
-            await _resourseLinkService.UpdateAsync(id, resourceLink.Map(resourceLink));
-            return Created("", resourceLink);
-        }
-
-        // GET: RecourceLinks for dataset
-        public IActionResult GetDatasetLinks(int datasetId = 1)
-        {
-            var data = new List<ResourceLink>()
+            try
             {
-                new ResourceLink()
-                {
-                    Description = "LinkDescription",
-                    Url = "wwww.arkitektum.no"
-                },
-                new ResourceLink()
-                {
-                    Description = "Description2",
-                    Url = "www.vg.no"
-                }
-            };
-            return Json(data);
-        }
+                var model = resourceLink.Map(resourceLink, applicationId);
+                model.Id = id;
 
+                await _resourceLinkService.UpdateAsync(model);
 
-        // POST: RecourceLinks/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,Url")] ResourceLink resourceLink, int applicationId)
-        {
-            if (ModelState.IsValid)
+                return Json(new ResourceLinkViewModel().Map(model));
+            } 
+            catch (Exception)
             {
-                var resourceLinkToCreate = await _resourseLinkService.Create(new ResourceLinkViewModel().Map(resourceLink, applicationId));
-                return new CreatedResult("", resourceLinkToCreate);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            return new BadRequestObjectResult(resourceLink);
-
         }
 
-        // POST: RecourceLinks/Edit/5
-        [HttpPut("{id}")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, [Bind("Id,Description,Url")] ResourceLinkViewModel resourceLink)
-        {
-
-            if (resourceLink.ApplicationId != id)
-            {
-                return NotFound();
-            }
-
-            await _resourseLinkService.UpdateAsync(id, resourceLink.Map(resourceLink));
-            return Created("", resourceLink);
-        }
-
-
-
-
-        //// GET: RecourceLinks/Edit/5
-        //public ActionResult Edit(JsonResult jsonResult)
-        //{
-        //    return View();
-        //}
-
-
-        //    // GET: RecourceLinks
-        //    public ActionResult GetDatasetLinks()
-        //    {
-        //        return View();
-        //    }
-
-
-
-        //    GET: RecourceLinks/Details/5
-        //    public ActionResult Details(int id)
-        //    {
-        //        return View();
-        //    }
-
-
-
-
-        //    // GET: RecourceLinks/Delete/5
-        //    public ActionResult Delete(int id)
-        //    {
-        //        return View();
-        //    }
-
-        //    // POST: RecourceLinks/Delete/5
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public ActionResult Delete(int id, IFormCollection collection)
-        //    {
-        //        try
-        //        {
-        //            // TODO: Add delete logic here
-
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        catch
-        //        {
-        //            return View();
-        //        }
-        //    }
     }
 }

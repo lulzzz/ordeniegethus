@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Services
 {
     public interface IResourceLinkService
     {
         Task<ResourceLink> GetAsync(int id);
-        Task<IEnumerable<ResourceLink>> GetAll();
         Task<IEnumerable<ResourceLink>> GetResourceLinksForApplication(int applicationId);
         Task<IEnumerable<ResourceLink>> GetResourceLinksForDataset(int datasetId);
         Task<ResourceLink> Create(ResourceLink resourceLink);
-        Task SaveChanges();
         Task Delete(int id);
-        Task UpdateAsync(int id, ResourceLink updatedResourceLink);
+        Task UpdateAsync(ResourceLink updatedResourceLink);
        
     }
 
@@ -29,26 +27,21 @@ namespace Arkitektum.Orden.Services
             _context = context;
         }
 
-        public Task<ResourceLink> GetAsync(int id)
+        public async Task<ResourceLink> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.ResourceLink.SingleOrDefaultAsync(l => l.Id == id);
         }
 
-        public Task<IEnumerable<ResourceLink>> GetAll()
+
+        public async Task<IEnumerable<ResourceLink>> GetResourceLinksForApplication(int applicationId)
         {
-            throw new NotImplementedException();
+            return await _context.ResourceLink.Where(l => l.ApplicationId == applicationId).ToListAsync();
         }
 
-        public Task<IEnumerable<ResourceLink>> GetResourceLinksForApplication(int applicationId)
+        public async Task<IEnumerable<ResourceLink>> GetResourceLinksForDataset(int datasetId)
         {
-            throw new NotImplementedException();
+            return await _context.ResourceLink.Where(l => l.DatasetResourceLinkId == datasetId).ToListAsync();
         }
-
-        public Task<IEnumerable<ResourceLink>> GetResourceLinksForDataset(int datasetId)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public async Task<ResourceLink> Create(ResourceLink resourceLink)
         {
@@ -58,22 +51,25 @@ namespace Arkitektum.Orden.Services
         }
 
 
-        public Task SaveChanges()
+        public async Task SaveChanges()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var resourceLink = await GetAsync(id);
+            _context.ResourceLink.Remove(resourceLink);
+
+            await SaveChanges();
         }
 
-        public async Task UpdateAsync(int id, ResourceLink updatedResourceLink)
+        public async Task UpdateAsync(ResourceLink updatedResourceLink)
         {
-            var resourceLinkToEdit = GetAsync(id);
+            var resourceLinkToEdit = await GetAsync(updatedResourceLink.Id);
             _context.Entry(resourceLinkToEdit).CurrentValues.SetValues(updatedResourceLink);
 
-            await _context.SaveChangesAsync();
+            await SaveChanges();
         }
     }
 }
