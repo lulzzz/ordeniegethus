@@ -27,9 +27,10 @@
             <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Orden i eget hus</a>
         </div>
         <div class="navbar-center">
-            <div class="navbar-search-container">
-                <input type="text" />
-            </div>
+        <div class="navbar-search-container">
+            <form asp-action="Index" asp-controller="Search" method="Get" class="form-inline">
+                <input type="text" name="query" placeholder="Søk"/>
+            </form>
         </div>
         <div class="navbar-right">
             @await Html.PartialAsync("_LoginPartial")
