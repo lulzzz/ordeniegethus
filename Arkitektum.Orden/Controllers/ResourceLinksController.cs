@@ -26,6 +26,8 @@ namespace Arkitektum.Orden.Controllers
         }
 
         // GET: RecourceLinks for application
+        [HttpGet]
+        [Route("/ResourceLinks/Application/{applicationId}")]
         public async Task<IActionResult> GetApplicationLinks(int applicationId = 1)
         {
             var data = new List<ResourceLink>()
@@ -42,6 +44,36 @@ namespace Arkitektum.Orden.Controllers
                 }
             };
             return Json(data);
+        }
+
+        // POST: RecourceLinks for application
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        [Route("/ResourceLinks/Application/{applicationId}")]
+        public async Task<IActionResult> CreateApplicationLink([FromBody] ResourceLink resourceLink, int applicationId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var resourceLinkToCreate = await _resourseLinkService.Create(new ResourceLinkViewModel().Map(resourceLink, applicationId));
+                    return new CreatedResult("", resourceLinkToCreate);
+                }
+            } catch (Exception e)
+            {
+                throw;
+            }
+            return BadRequest();
+        }
+
+        // PUT: RecourceLinks/Application/5/10
+        [HttpPut]
+       // [ValidateAntiForgeryToken]
+        [Route("/ResourceLinks/Application/{applicationId}/{id}")]
+        public async Task<ActionResult> EditApplicationLink(int id, [FromBody] ResourceLinkViewModel resourceLink)
+        {
+            await _resourseLinkService.UpdateAsync(id, resourceLink.Map(resourceLink));
+            return Created("", resourceLink);
         }
 
         // GET: RecourceLinks for dataset
