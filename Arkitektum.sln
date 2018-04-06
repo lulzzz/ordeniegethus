@@ -6,6 +6,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arkitektum.Orden", "Arkitek
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arkitektum.Orden.Test", "Arkitektum.Orden.Test\Arkitektum.Orden.Test.csproj", "{324B5377-A052-4057-B566-C6D55274EBBC}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0BC0E225-4FC7-4876-B425-D51CF1B841AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,18 @@ Global
 		{324B5377-A052-4057-B566-C6D55274EBBC}.Release|x64.Build.0 = Release|Any CPU
 		{324B5377-A052-4057-B566-C6D55274EBBC}.Release|x86.ActiveCfg = Release|Any CPU
 		{324B5377-A052-4057-B566-C6D55274EBBC}.Release|x86.Build.0 = Release|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Debug|x64.Build.0 = Debug|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Debug|x86.Build.0 = Debug|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Release|x64.ActiveCfg = Release|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Release|x64.Build.0 = Release|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Release|x86.ActiveCfg = Release|Any CPU
+		{0BC0E225-4FC7-4876-B425-D51CF1B841AB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

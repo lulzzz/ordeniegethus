@@ -1,0 +1,194 @@
+2018-04-06 08:56:07.026 +02:00 [Information] User profile is available. Using '"C:\Users\HenningJensen\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2018-04-06 08:56:10.172 +02:00 [Information] Running migrations and seeding data
+2018-04-06 08:56:10.617 +02:00 [Information] Entity Framework Core "2.0.1-rtm-125" initialized '"ApplicationDbContext"' using provider '"Npgsql.EntityFrameworkCore.PostgreSQL"' with options: "None"
+2018-04-06 08:56:13.223 +02:00 [Error] An error occurred while seeding the database.
+System.Net.Sockets.SocketException (0x80004005): Kjenner ingen slik vert
+   at System.Net.Dns.InternalGetHostByName(String hostName, Boolean includeIPv6)
+   at System.Net.Dns.GetHostAddresses(String hostNameOrAddress)
+   at Npgsql.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.NpgsqlConnector.<RawOpen>d__139.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Npgsql.NpgsqlConnector.<Open>d__136.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Npgsql.NpgsqlConnection.<Open>d__28.MoveNext()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.Internal.NpgsqlDatabaseCreator.Exists()
+   at Microsoft.EntityFrameworkCore.Migrations.HistoryRepository.Exists()
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.Migrate(String targetMigration)
+   at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.Migrate(DatabaseFacade databaseFacade)
+   at Arkitektum.Orden.Program.MigrateAndSeedDatabase(IWebHost host) in C:\dev\src\ordeniegethus\Arkitektum.Orden\Program.cs:line 86
+2018-04-06 08:56:13.283 +02:00 [Information] Starting web host
+2018-04-06 08:56:13.651 +02:00 [Information] webpack built dc28867b75d0c52e98d0 in 3632ms
+2018-04-06 08:56:14.046 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/  
+2018-04-06 08:56:14.831 +02:00 [Information] Authorization failed for user: null.
+2018-04-06 08:56:14.840 +02:00 [Information] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'.
+2018-04-06 08:56:14.846 +02:00 [Information] Executing ChallengeResult with authentication schemes ([]).
+2018-04-06 08:56:15.118 +02:00 [Information] AuthenticationScheme: "Identity.Application" was challenged.
+2018-04-06 08:56:15.124 +02:00 [Information] Executed action "Arkitektum.Orden.Controllers.HomeController.Index (Arkitektum.Orden)" in 300.7685ms
+2018-04-06 08:56:15.136 +02:00 [Information] Request finished in 1097.275ms 302 
+2018-04-06 08:56:15.147 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/Account/Login?ReturnUrl=%2F  
+2018-04-06 08:56:15.256 +02:00 [Information] Executing action method "Arkitektum.Orden.Controllers.AccountController.Login (Arkitektum.Orden)" with arguments (["/"]) - ModelState is Valid
+2018-04-06 08:56:15.286 +02:00 [Information] AuthenticationScheme: "Identity.External" signed out.
+2018-04-06 08:56:18.459 +02:00 [Information] Executing ViewResult, running view at path "/Views/Account/Login.cshtml".
+2018-04-06 08:56:18.652 +02:00 [Error] An exception was thrown while deserializing the token.
+System.InvalidOperationException: The antiforgery token could not be decrypted. ---> System.Security.Cryptography.CryptographicException: The key {2298cf01-201e-49a6-bb21-baacb3526039} was not found in the key ring.
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.DangerousUnprotect(Byte[] protectedData, Boolean ignoreRevocationErrors, Boolean& requiresMigration, Boolean& wasRevoked)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Antiforgery.Internal.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Antiforgery.Internal.DefaultAntiforgeryTokenSerializer.Deserialize(String serializedToken)
+   at Microsoft.AspNetCore.Antiforgery.Internal.DefaultAntiforgery.GetCookieTokenDoesNotThrow(HttpContext httpContext)
+2018-04-06 08:56:19.658 +02:00 [Information] Executed action "Arkitektum.Orden.Controllers.AccountController.Login (Arkitektum.Orden)" in 4471.1608ms
+2018-04-06 08:56:19.666 +02:00 [Information] Request finished in 4518.2486ms 200 text/html; charset=utf-8
+2018-04-06 08:56:19.675 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/dist/vendor.css?v=IqlxmDmrLyrpuRJlyT2IsHd-ypLVqw-3fhE-4RL9QU0  
+2018-04-06 08:56:19.679 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/dist/site.css  
+2018-04-06 08:56:19.679 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/dist/vendor.js?v=EHlL_1LmiJw4VA8DAirUfKAvirJu2Sl-8LMyQ_V6CsI  
+2018-04-06 08:56:19.687 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/dist/main.js?v=WLT05sjM5f-EuDqHedC1o7HhtmYK8BwxIthJ5kbVNdE  
+2018-04-06 08:56:19.689 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js  
+2018-04-06 08:56:19.689 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/lib/jquery-validation/dist/jquery.validate.js  
+2018-04-06 08:56:19.710 +02:00 [Information] Request finished in 20.9972ms 404 
+2018-04-06 08:56:19.715 +02:00 [Information] Request finished in 36.3791ms 200 text/css; charset=UTF-8
+2018-04-06 08:56:19.715 +02:00 [Information] Request finished in 25.5213ms 404 
+2018-04-06 08:56:19.718 +02:00 [Information] Sending file. Request path: '"/dist/vendor.css"'. Physical path: '"C:\dev\src\ordeniegethus\Arkitektum.Orden\wwwroot\dist\vendor.css"'
+2018-04-06 08:56:19.718 +02:00 [Information] Sending file. Request path: '"/dist/vendor.js"'. Physical path: '"C:\dev\src\ordeniegethus\Arkitektum.Orden\wwwroot\dist\vendor.js"'
+2018-04-06 08:56:19.755 +02:00 [Information] Request finished in 66.9277ms 200 application/javascript; charset=UTF-8
+2018-04-06 08:56:19.780 +02:00 [Information] Request finished in 104.979ms 200 text/css
+2018-04-06 08:56:19.780 +02:00 [Information] Request finished in 101.3523ms 200 application/javascript
+2018-04-06 08:56:19.838 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/dist/__webpack_hmr  
+2018-04-06 08:56:19.891 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/lib/jquery-validation/dist/jquery.validate.js  
+2018-04-06 08:56:19.893 +02:00 [Information] Request finished in 1.8794ms 404 
+2018-04-06 08:56:19.898 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js  
+2018-04-06 08:56:19.900 +02:00 [Information] Request finished in 1.4986ms 404 
+2018-04-06 08:56:20.018 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/favicon.ico  
+2018-04-06 08:56:20.018 +02:00 [Information] Request starting HTTP/1.1 GET http://localhost:59479/favicon.ico  
+2018-04-06 08:56:20.019 +02:00 [Information] Request finished in 1.5903ms 404 
+2018-04-06 08:56:20.022 +02:00 [Information] Request finished in 4.1682ms 404 
+2018-04-06 07:53:20.169 +00:00 [Information] User profile is available. Using '"/root/.aspnet/DataProtection-Keys"' as key repository; keys will not be encrypted at rest.
+2018-04-06 07:53:20.250 +00:00 [Information] Creating key {c46da499-fa88-47d5-9c04-e582a1efb0ce} with creation date 2018-04-06 07:53:20Z, activation date 2018-04-06 07:53:20Z, and expiration date 2018-07-05 07:53:20Z.
+2018-04-06 07:53:20.281 +00:00 [Warning] No XML encryptor configured. Key {c46da499-fa88-47d5-9c04-e582a1efb0ce} may be persisted to storage in unencrypted form.
+2018-04-06 07:53:20.286 +00:00 [Information] Writing data to file '"/root/.aspnet/DataProtection-Keys/key-c46da499-fa88-47d5-9c04-e582a1efb0ce.xml"'.
+2018-04-06 07:53:22.190 +00:00 [Fatal] Application startup exception
+System.AggregateException: One or more errors occurred. (Failed to start Node process. To resolve this:.
+
+[1] Ensure that Node.js is installed and can be found in one of the PATH directories.
+    Current PATH enviroment variable is: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    Make sure the Node executable is in one of those directories, or update your PATH.
+
+[2] See the InnerException for further details of the cause.) ---> System.InvalidOperationException: Failed to start Node process. To resolve this:.
+
+[1] Ensure that Node.js is installed and can be found in one of the PATH directories.
+    Current PATH enviroment variable is: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    Make sure the Node executable is in one of those directories, or update your PATH.
+
+[2] See the InnerException for further details of the cause. ---> System.ComponentModel.Win32Exception: No such file or directory
+   at System.Diagnostics.Process.ResolvePath(String filename)
+   at System.Diagnostics.Process.StartCore(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.LaunchNodeProcess(ProcessStartInfo startInfo)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.LaunchNodeProcess(ProcessStartInfo startInfo)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance..ctor(String entryPointScript, String projectPath, String[] watchFileExtensions, String commandLineArguments, CancellationToken applicationStoppingToken, ILogger nodeOutputLogger, IDictionary`2 environmentVars, Int32 invocationTimeoutMilliseconds, Boolean launchWithDebugging, Int32 debuggingPort)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.HttpNodeInstance..ctor(NodeServicesOptions options, Int32 port)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.NodeServicesOptionsExtensions.<>c__DisplayClass0_0.<UseHttpHosting>b__0()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.CreateNewNodeInstance()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.GetOrCreateCurrentNodeInstance()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.<InvokeExportWithPossibleRetryAsync>d__10`1.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at Microsoft.AspNetCore.Builder.WebpackDevMiddleware.UseWebpackDevMiddleware(IApplicationBuilder appBuilder, WebpackDevMiddlewareOptions options)
+   at Arkitektum.Orden.Startup.Configure(IApplicationBuilder app, IHostingEnvironment env) in C:\dev\src\ordeniegethus\Arkitektum.Orden\Startup.cs:line 98
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.Configure(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+---> (Inner Exception #0) System.InvalidOperationException: Failed to start Node process. To resolve this:.
+
+[1] Ensure that Node.js is installed and can be found in one of the PATH directories.
+    Current PATH enviroment variable is: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    Make sure the Node executable is in one of those directories, or update your PATH.
+
+[2] See the InnerException for further details of the cause. ---> System.ComponentModel.Win32Exception: No such file or directory
+   at System.Diagnostics.Process.ResolvePath(String filename)
+   at System.Diagnostics.Process.StartCore(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.LaunchNodeProcess(ProcessStartInfo startInfo)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.LaunchNodeProcess(ProcessStartInfo startInfo)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance..ctor(String entryPointScript, String projectPath, String[] watchFileExtensions, String commandLineArguments, CancellationToken applicationStoppingToken, ILogger nodeOutputLogger, IDictionary`2 environmentVars, Int32 invocationTimeoutMilliseconds, Boolean launchWithDebugging, Int32 debuggingPort)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.HttpNodeInstance..ctor(NodeServicesOptions options, Int32 port)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.NodeServicesOptionsExtensions.<>c__DisplayClass0_0.<UseHttpHosting>b__0()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.CreateNewNodeInstance()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.GetOrCreateCurrentNodeInstance()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.<InvokeExportWithPossibleRetryAsync>d__10`1.MoveNext()<---
+
+2018-04-06 07:53:22.550 +00:00 [Fatal] Host terminated unexpectedly
+System.AggregateException: One or more errors occurred. (Failed to start Node process. To resolve this:.
+
+[1] Ensure that Node.js is installed and can be found in one of the PATH directories.
+    Current PATH enviroment variable is: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    Make sure the Node executable is in one of those directories, or update your PATH.
+
+[2] See the InnerException for further details of the cause.) ---> System.InvalidOperationException: Failed to start Node process. To resolve this:.
+
+[1] Ensure that Node.js is installed and can be found in one of the PATH directories.
+    Current PATH enviroment variable is: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    Make sure the Node executable is in one of those directories, or update your PATH.
+
+[2] See the InnerException for further details of the cause. ---> System.ComponentModel.Win32Exception: No such file or directory
+   at System.Diagnostics.Process.ResolvePath(String filename)
+   at System.Diagnostics.Process.StartCore(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.LaunchNodeProcess(ProcessStartInfo startInfo)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.LaunchNodeProcess(ProcessStartInfo startInfo)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance..ctor(String entryPointScript, String projectPath, String[] watchFileExtensions, String commandLineArguments, CancellationToken applicationStoppingToken, ILogger nodeOutputLogger, IDictionary`2 environmentVars, Int32 invocationTimeoutMilliseconds, Boolean launchWithDebugging, Int32 debuggingPort)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.HttpNodeInstance..ctor(NodeServicesOptions options, Int32 port)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.NodeServicesOptionsExtensions.<>c__DisplayClass0_0.<UseHttpHosting>b__0()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.CreateNewNodeInstance()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.GetOrCreateCurrentNodeInstance()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.<InvokeExportWithPossibleRetryAsync>d__10`1.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at Microsoft.AspNetCore.Builder.WebpackDevMiddleware.UseWebpackDevMiddleware(IApplicationBuilder appBuilder, WebpackDevMiddlewareOptions options)
+   at Arkitektum.Orden.Startup.Configure(IApplicationBuilder app, IHostingEnvironment env) in C:\dev\src\ordeniegethus\Arkitektum.Orden\Startup.cs:line 98
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at Microsoft.AspNetCore.Hosting.ConventionBasedStartup.Configure(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.Internal.WebHost.BuildApplication()
+   at Microsoft.AspNetCore.Hosting.WebHostBuilder.Build()
+   at Arkitektum.Orden.Program.BuildWebHost(String[] args) in C:\dev\src\ordeniegethus\Arkitektum.Orden\Program.cs:line 99
+   at Arkitektum.Orden.Program.Main(String[] args) in C:\dev\src\ordeniegethus\Arkitektum.Orden\Program.cs:line 29
+---> (Inner Exception #0) System.InvalidOperationException: Failed to start Node process. To resolve this:.
+
+[1] Ensure that Node.js is installed and can be found in one of the PATH directories.
+    Current PATH enviroment variable is: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    Make sure the Node executable is in one of those directories, or update your PATH.
+
+[2] See the InnerException for further details of the cause. ---> System.ComponentModel.Win32Exception: No such file or directory
+   at System.Diagnostics.Process.ResolvePath(String filename)
+   at System.Diagnostics.Process.StartCore(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at System.Diagnostics.Process.Start(ProcessStartInfo startInfo)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.LaunchNodeProcess(ProcessStartInfo startInfo)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.LaunchNodeProcess(ProcessStartInfo startInfo)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance..ctor(String entryPointScript, String projectPath, String[] watchFileExtensions, String commandLineArguments, CancellationToken applicationStoppingToken, ILogger nodeOutputLogger, IDictionary`2 environmentVars, Int32 invocationTimeoutMilliseconds, Boolean launchWithDebugging, Int32 debuggingPort)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.HttpNodeInstance..ctor(NodeServicesOptions options, Int32 port)
+   at Microsoft.AspNetCore.NodeServices.HostingModels.NodeServicesOptionsExtensions.<>c__DisplayClass0_0.<UseHttpHosting>b__0()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.CreateNewNodeInstance()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.GetOrCreateCurrentNodeInstance()
+   at Microsoft.AspNetCore.NodeServices.NodeServicesImpl.<InvokeExportWithPossibleRetryAsync>d__10`1.MoveNext()<---
+
