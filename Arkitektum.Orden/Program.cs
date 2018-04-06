@@ -20,6 +20,7 @@ namespace Arkitektum.Orden
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
+                .WriteTo.RollingFile("log-{Date}.txt")
                 .WriteTo.Console()
                 .CreateLogger();
             
