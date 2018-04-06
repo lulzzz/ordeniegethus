@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Net;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -97,6 +99,15 @@ namespace Arkitektum.Orden
         public static IWebHost BuildWebHost(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(options => 
+                {
+                    options.Listen(IPAddress.Any, 443, listenOptions =>
+                    {
+                        var configuration = (IConfiguration)options.ApplicationServices.GetService(typeof(IConfiguration));
+
+                        listenOptions.UseHttps("cert.pfx", configuration["certPassword"]);
+                    });
+                })
                 .UseStartup<Startup>()
                 .UseSerilog()
                 .Build();
