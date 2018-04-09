@@ -43,7 +43,6 @@ namespace Arkitektum.Orden.Data
                 .HasForeignKey(oa => oa.OrganizationId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
             builder.Entity<Organization>().HasOne(o => o.DcatCatalog).WithOne(cat => cat.Organization).HasForeignKey<DcatCatalog>(cat => cat.OrganizationId);
             builder.Entity<Dataset>().HasMany(d => d.ContactPoints).WithOne(cp => cp.DatasetConnectionPoints)
                 .HasForeignKey(cp => cp.DatasetContactPointsId);
@@ -52,17 +51,14 @@ namespace Arkitektum.Orden.Data
             builder.Entity<Dataset>().HasMany(d => d.ResourceLinks).WithOne(rl => rl.DatasetResourceLink)
                 .HasForeignKey(rl => rl.DatasetResourceLinkId);
 
-
-
             builder.Entity<ApplicationDataset>().HasKey("ApplicationId", "DatasetId");
             builder.Entity<ApplicationNationalComponent>().HasKey("ApplicationId", "NationalComponentId");
             builder.Entity<ApplicationStandard>().HasKey("ApplicationId", "StandardId");
             builder.Entity<ApplicationSupportedIntegration>().HasKey("ApplicationId", "SupportedIntegrationId");
+            builder.Entity<ApplicationSuperUser>().HasKey("ApplicationId", "SuperUserId");
             builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId", "Role");
             builder.Entity<OrganizationAdministrators>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
-          
-            
         }
 
         public DbSet<Arkitektum.Orden.Models.Sector> Sector { get; set; }

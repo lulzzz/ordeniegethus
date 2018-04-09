@@ -9,6 +9,7 @@ import axios from 'axios';
 /* Views */
 import Application from './components/views/Application.vue';
 import Sector from './components/views/Sector.vue';
+import Organization from './components/views/Organization.vue';
 
 
 new Vue( {
@@ -16,6 +17,7 @@ new Vue( {
     components: {
         Application,
         Sector,
+        Organization
     },
     methods: {
         getApiData(url) {

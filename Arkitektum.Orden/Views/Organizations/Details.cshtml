@@ -7,23 +7,22 @@
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
-    <h4>Organisasjon</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.OrganizationNumber)
+            @Html.DisplayNameFor(model => model.OrganizationNumber):
         </dt>
         <dd>
             @Html.DisplayFor(model => model.OrganizationNumber)
         </dd>
     </dl>
 </div>
+
+<h4>Superbrukere</h4>
+<div id="app-root">
+    <organization api-url="/SuperUsers/organization/@Model.Id"></organization>
+</div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Rediger</a> |
     <a asp-action="Index">Tilbake til liste</a>

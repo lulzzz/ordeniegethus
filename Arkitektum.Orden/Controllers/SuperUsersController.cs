@@ -31,28 +31,36 @@ namespace Arkitektum.Orden.Controllers
         }
 
         [HttpPost]
-        [Route("/SuperUsers")]
-        public async Task<IActionResult> Create(SuperUser superUser)
+        [Route("/SuperUsers/organization/{organizationId}")]
+        public async Task<IActionResult> Create([FromBody] SuperUser superUser, int organizationId)
         {
-            if (superUser.OrganizationId == 0)
+            if (organizationId == 0)
                 return BadRequest();
 
-            if (CurrentOrganizationId() != superUser.OrganizationId)
+            if (CurrentOrganizationId() != organizationId)
                 return Forbid();
+
+            superUser.OrganizationId = organizationId;
 
             SuperUser createdSuperUser = await _superUsersService.AddSuperUserToOrganization(superUser);
             return Json(createdSuperUser);
         }
 
         [HttpPut]
-        [Route("/SuperUsers")]
-        public async Task<IActionResult>  Edit(SuperUser superUser)
+        [Route("/SuperUsers/organization/{organizationId}/{id}")]
+        public async Task<IActionResult> Edit(int organizationId, int id, [FromBody] SuperUser superUser)
         {
-            if (superUser.OrganizationId == 0)
+            if (organizationId == 0)
                 return BadRequest();
 
-            if (CurrentOrganizationId() != superUser.OrganizationId)
+            if (id == 0)
+                return BadRequest();
+
+            if (CurrentOrganizationId() != organizationId)
                 return Forbid();
+
+            superUser.Id = id;
+            superUser.OrganizationId = organizationId;
 
             SuperUser updatedUser = await _superUsersService.UpdateSuperUser(superUser);
             return Json(updatedUser);

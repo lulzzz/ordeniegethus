@@ -63,7 +63,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Superbrukere
         /// </summary>
-        public List<ApplicationUser> SuperUsers { get; set; }
+        public List<ApplicationSuperUser> SuperUsers { get; set; }
 
 
         /// <summary>

@@ -77,6 +77,7 @@ namespace Arkitektum.Orden
             services.AddTransient<ICookieHelper, CookieHelper>();
             services.AddTransient<IResourceLinkService, ResourceLinkService>();
             services.AddTransient<ISearchService, ElasticSearchService>();
+            services.AddTransient<ISuperUsersService, SuperUsersService>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));

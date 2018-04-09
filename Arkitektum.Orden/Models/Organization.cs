@@ -16,6 +16,11 @@ namespace Arkitektum.Orden.Models
 
         public List<OrganizationAdministrators> OrganizationAdministrators { get; set; }
 
+        /// <summary>
+        /// List of users available to be added as super users in an application entry
+        /// </summary>
+        public List<SuperUser> SuperUsers { get; set; }
+
         public virtual DcatCatalog DcatCatalog { get; set; }
     }
 }
