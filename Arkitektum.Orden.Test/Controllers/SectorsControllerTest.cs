@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Controllers;
 using Arkitektum.Orden.Data;
@@ -86,24 +84,6 @@ namespace Arkitektum.Orden.Test.Controllers
         }
 
         [Fact]
-        public async Task DetailsShouldReturnForbidIfCurrentOrganizationIdDoesntMatchGivenOrganizationId()
-        {
-            var sectorId = 11111;
-            var currentOrganizationId = 1;
-
-            _securityServiceMock = new SecurityServiceMock().ReturnCurrentOrganizationWithId(currentOrganizationId).Mock();
-
-            _sectorServiceMock.Setup(ssm => ssm.GetAsync(sectorId)).ReturnsAsync(new Sector()
-            {
-                Id = sectorId
-             
-            });
-            var result = await CreateController().Details(sectorId);
-
-            Assert.IsType<ForbidResult>(result);
-        }
-
-        [Fact]
         public async Task CreatePostShouldReturnRedirectToActionResultIfNewSectorIsCreated()
         {
             var currentOrganizationId = 1;
@@ -136,25 +116,6 @@ namespace Arkitektum.Orden.Test.Controllers
             var result = await CreateController().Edit(1111111111);
             Assert.IsType<NotFoundResult>(result);
         }
-
-        [Fact]
-        public async Task EditReturnsForbidIfOrganizationIdDoesntMatchGivenOrganizationId()
-        {
-            var currentOrganizationId = 1;
-            _securityServiceMock = new SecurityServiceMock().ReturnCurrentOrganizationWithId(currentOrganizationId).Mock();
-
-            var sectorId = 5;
-            var sectorToEdit = new Sector
-            {
-                Name = "Helse og omsorg"
-        
-            };
-            _sectorServiceMock.Setup(ssm => ssm.GetAsync(sectorId)).ReturnsAsync(sectorToEdit);
-            var controller = CreateController();
-            var result = await controller.Edit(sectorId);
-            Assert.IsType<ForbidResult>(result);
-        }
-
 
         private SectorsController CreateController()
         {

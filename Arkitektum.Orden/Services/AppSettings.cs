@@ -3,6 +3,7 @@
     public class AppSettings
     {
         public EmailSettings EmailSettings { get; set; }
+        public bool SearchEngineEnabled { get; set; }
     }
 
     public class EmailSettings

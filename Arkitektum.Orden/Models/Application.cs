@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Arkitektum.Orden.Models
 {
-    public class Application
+    public class Application : ChangeTrackingEntity
     {
         public int Id { get; set; }
 

@@ -1,0 +1,58 @@
+﻿@using Arkitektum.Orden.Services
+@using Arkitektum.Orden.Services.Search
+@model Arkitektum.Orden.Models.ViewModels.SearchResultViewModel
+@{
+    ViewData["Title"] = "Søkeresultat";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>Antall treff: @Model.NumberOfHits</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>@ModelsResource.Name</th>
+        <th>@ModelsResource.Vendor</th>
+        <th></th>
+        <th>@ModelsResource.SystemOwner</th>
+        <th>@ModelsResource.Sectors</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+
+                @if (item is ApplicationDocument)
+                {
+                    ApplicationDocument doc = item as ApplicationDocument;
+                    <td>
+                        <a asp-controller="Applications" asp-action="Details" asp-route-id="@doc.Id">@doc.Name</a>
+                    </td>
+                    <td>@doc.Vendor</td>
+                    <td> <span class="badge badge-info">Applikasjon</span></td>
+                    <td>@doc.SystemOwner?.Name</td>
+                    <td>
+                        @if (doc.Sectors != null)
+                        {
+                            foreach (var sector in doc.Sectors)
+                            {
+                                <text>@sector.Name</text>
+                            }
+                        }
+                    </td>
+                }
+                else if (item is DatasetDocument)
+                {
+                    DatasetDocument doc = item as DatasetDocument;
+                    <td colspan="5">
+                        <a asp-controller="Datasets" asp-action="Details" asp-route-id="@doc.Id">@doc.Name</a>
+                    </td>
+                }
+            </tr>
+            <tr><td colspan="5">@item.ToString()</td></tr>
+
+        }
+    </tbody>
+</table>

@@ -24,10 +24,14 @@ namespace Arkitektum.Orden.Services
     public class ApplicationService : IApplicationService
     {
         private readonly ApplicationDbContext _context;
+        private readonly ISecurityService _securityService;
+        private readonly ISearchIndexingService _searchIndexingService;
 
-        public ApplicationService(ApplicationDbContext context)
+        public ApplicationService(ApplicationDbContext context, ISecurityService securityService, ISearchIndexingService searchIndexingService)
         {
             _context = context;
+            _securityService = securityService;
+            _searchIndexingService = searchIndexingService;
         }
 
         public async Task<IEnumerable<Application>> GetAll()
@@ -39,6 +43,7 @@ namespace Arkitektum.Orden.Services
         {
             _context.Add(application);
             await SaveChanges();
+            await _searchIndexingService.AddToIndex(application);
             return application;
         }
 
@@ -60,6 +65,8 @@ namespace Arkitektum.Orden.Services
             currentApplication.UpdateNationalComponentsRelations(updatedApplication.ApplicationNationalComponent);
 
             await _context.SaveChangesAsync();
+
+            await _searchIndexingService.AddToIndex(currentApplication);
         }
 
         public async Task<int> GetApplicationCountForOrganization(int currentOrganizationId)
@@ -77,8 +84,6 @@ namespace Arkitektum.Orden.Services
                .Include(a => a.ApplicationDatasets).ThenInclude(ad => ad.Dataset)
                .SingleOrDefaultAsync(a => a.Id == id);
         }
-
-        
        
         public async Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId)
         {
@@ -87,7 +92,8 @@ namespace Arkitektum.Orden.Services
 
         public async Task SaveChanges()
         {
-            await _context.SaveChangesAsync();
+            string username = _securityService.GetCurrentUser().FullName();
+            await _context.SaveChangesAsync(username);
         }
 
     }

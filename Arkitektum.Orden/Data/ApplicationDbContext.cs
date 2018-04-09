@@ -1,4 +1,9 @@
-﻿using Arkitektum.Orden.Models;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Arkitektum.Orden.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +17,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<NationalComponent> NationalComponent { get; set; }
         public DbSet<ApplicationDataset> ApplicationDataset { get; set; }
         public DbSet<ResourceLink> ResourceLink { get; set; }
+        public DbSet<SuperUser> SuperUser { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -20,6 +26,7 @@ namespace Arkitektum.Orden.Data
 
         protected ApplicationDbContext()
         {
+            
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -61,5 +68,49 @@ namespace Arkitektum.Orden.Data
         public DbSet<Arkitektum.Orden.Models.Sector> Sector { get; set; }
 
         public DbSet<Arkitektum.Orden.Models.Dataset> Dataset { get; set; }
+        
+        public Task<int> SaveChangesAsync(string username, CancellationToken cancellationToken = new CancellationToken())
+        {
+            AddChangeTrackingInfo(username);
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        public Task<int> SaveChangesAsync(string username, bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+        {
+            AddChangeTrackingInfo(username);
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        public int SaveChanges(string username)
+        {
+            AddChangeTrackingInfo(username);
+            return base.SaveChanges();
+        }
+
+        public int SaveChanges(string username, bool acceptAllChangesOnSuccess)
+        {
+            AddChangeTrackingInfo(username);
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        private void AddChangeTrackingInfo(string username = null)
+        {
+            var entities = ChangeTracker.Entries().Where(x => x.Entity is ChangeTrackingEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+
+            var currentUsername = !string.IsNullOrEmpty(username) ? username : "Anonymous";
+
+            foreach (var entity in entities)
+            {
+                if (entity.State == EntityState.Added)
+                {
+                    ((ChangeTrackingEntity)entity.Entity).DateCreated = DateTime.UtcNow;
+                    ((ChangeTrackingEntity)entity.Entity).UserCreated = currentUsername;
+                }
+
+                ((ChangeTrackingEntity)entity.Entity).DateModified = DateTime.UtcNow;
+                ((ChangeTrackingEntity)entity.Entity).UserModified = currentUsername;
+            }
+        }
+
     }
 }

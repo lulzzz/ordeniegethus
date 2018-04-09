@@ -46,7 +46,8 @@ namespace Arkitektum.Orden.Services
         /// <returns></returns>
         public CurrentUser GetCurrentUser()
         {
-            return new CurrentUser(_principal);
+            ApplicationUser user = _userService.Get(_userManager.GetUserId(new ClaimsPrincipal(_principal))).Result;
+            return new CurrentUser(_principal, user);
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace Arkitektum.Orden.Services
         /// <returns>list of role names</returns>
         public List<string> GetDelegateableRoles()
         {
-            if (GetCurrentUser().IsInRole(Roles.Admin))
+            if (_principal.IsInRole(Roles.Admin))
                 return new List<string>(Roles.All);
 
             // TODO: Use organization membership to determine delegatable roles, except for administrator

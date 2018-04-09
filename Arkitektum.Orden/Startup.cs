@@ -9,6 +9,7 @@ using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services;
 using Arkitektum.Orden.Utils;
+using Arkitektum.Orden.Services.Search;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
@@ -67,6 +68,7 @@ namespace Arkitektum.Orden
             services.AddTransient<INationalComponentService, NationalComponentService>();
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IOrganizationService, OrganizationService>();
+            services.AddTransient<ISearchIndexingService, ElasticSearchIndexingService>();
             services.AddTransient<IApplicationService, ApplicationService>();
             services.AddTransient<ISecurityService, SecurityService>();
             services.AddTransient<ISecurityHelper, SecurityHelper>();
@@ -74,6 +76,7 @@ namespace Arkitektum.Orden
             services.AddTransient<IDatasetService, DatasetService>();
             services.AddTransient<ICookieHelper, CookieHelper>();
             services.AddTransient<IResourceLinkService, ResourceLinkService>();
+            services.AddTransient<ISearchService, ElasticSearchService>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));

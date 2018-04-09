@@ -31,12 +31,15 @@ namespace Arkitektum.Orden.Services
     public class DatasetService : IDatasetService
     {
         private readonly ApplicationDbContext _context;
-    
+        private readonly ISecurityService _securityService;
+        private readonly ISearchIndexingService _searchIndexingService;
 
-        public DatasetService(ApplicationDbContext context)
+
+        public DatasetService(ApplicationDbContext context, ISecurityService securityService, ISearchIndexingService searchIndexingService)
         {
             _context = context;
-          
+            _securityService = securityService;
+            _searchIndexingService = searchIndexingService;
         }
 
         public async Task<IEnumerable<Dataset>> GetAll()
@@ -48,6 +51,7 @@ namespace Arkitektum.Orden.Services
         {
             _context.Add(dataset);
             await SaveChanges();
+            await _searchIndexingService.AddToIndex(dataset);
             return dataset;
         }
          
@@ -80,7 +84,7 @@ namespace Arkitektum.Orden.Services
 
             currentDataset.UpdateApplicationRelation(updateDataset.ApplicationDatasets);
 
-            await _context.SaveChangesAsync();
+            await SaveChanges();
         }
 
         public async Task<int> GetDatasetsCountForOrganization(int currentOrganizationId)
@@ -111,7 +115,8 @@ namespace Arkitektum.Orden.Services
 
         public async Task SaveChanges()
         {
-            await _context.SaveChangesAsync();
+            string username = _securityService.GetCurrentUser().FullName();
+            await _context.SaveChangesAsync(username);
         }
 
     }
