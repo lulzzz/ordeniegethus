@@ -6,10 +6,6 @@ import Vue from 'vue';
 import axios from 'axios';
 
 
-
-/* Vuex store */
-//import store from './store'
-
 /* Views */
 import Application from './components/views/Application.vue';
 import Sector from './components/views/Sector.vue';
