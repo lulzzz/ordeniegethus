@@ -1,5 +1,6 @@
 ﻿using System.Security.Principal;
 using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Models.ViewModels;
 
 namespace Arkitektum.Orden.Services
 {
@@ -8,6 +9,8 @@ namespace Arkitektum.Orden.Services
         bool IsInRole(string role);
         IIdentity Identity();
         string FullName();
+        string Id();
+        bool IsOrganizationAdminForOrganization(SimpleOrganization organization);
     }
 
     public class CurrentUser : ICurrentUser
@@ -29,5 +32,16 @@ namespace Arkitektum.Orden.Services
         public IIdentity Identity() => _principal.Identity;
 
         public string FullName() => _applicationUser.FullName;
+
+        public string Id() => _applicationUser.Id;
+
+        public bool IsOrganizationAdminForOrganization(SimpleOrganization organization)
+        {
+            if (_applicationUser.HasAccessToOrganization(organization.Id) &&
+                _applicationUser.HasRoleInOrganization(organization.Id, Roles.OrganizationAdmin))
+                return true;
+
+            return false;
+        }
     }
 }

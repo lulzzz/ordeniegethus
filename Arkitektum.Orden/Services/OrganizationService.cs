@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
@@ -13,6 +14,7 @@ namespace Arkitektum.Orden.Services
         Task<Organization> Create(Organization organization);
         Task SaveChangesAsync();
         Task Delete(int id);
+        Task<IEnumerable<Organization>> GetAllAdministrableByUser(string userId);
     }
 
     /// <summary>
@@ -68,6 +70,22 @@ namespace Arkitektum.Orden.Services
             var organization = await _context.Organization.SingleOrDefaultAsync(m => m.Id == id);
             _context.Organization.Remove(organization);
             await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Organization>> GetAllAdministrableByUser(string userId)
+        {
+            ApplicationUser applicationUser = await _context.ApplicationUser.Where(u => u.Id == userId)
+                .AsNoTracking()
+                .Include(u => u.Organizations).ThenInclude(uo => uo.Organization)
+                .FirstAsync();
+
+            List<Organization> organizations = new List<Organization>();
+            foreach (var membership in applicationUser.Organizations)
+            {
+                if (membership.Role == Roles.OrganizationAdmin)
+                    organizations.Add(membership.Organization);
+            }
+            return organizations;
         }
     }
 }

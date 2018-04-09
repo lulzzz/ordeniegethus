@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
@@ -8,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Controllers
 {
-    [Authorize(Roles = Roles.Admin)]
-    public class OrganizationsController : Controller
+    [Authorize]
+    public class OrganizationsController : BaseController
     {
         private readonly IOrganizationService _organizationService;
 
-        public OrganizationsController(IOrganizationService organizationService)
+        public OrganizationsController(IOrganizationService organizationService, ISecurityService securityService) : base(securityService)
         {
             _organizationService = organizationService;
         }
@@ -21,8 +22,19 @@ namespace Arkitektum.Orden.Controllers
         // GET: Organizations
         public async Task<IActionResult> Index()
         {
-            var organizations = await _organizationService.GetAll();
-            return View(new OrganizationViewModel().MapToEnumerable(organizations));
+            if (User.IsInRole(Roles.Admin))
+            {
+                var organizations = await _organizationService.GetAll();
+                return View(new OrganizationViewModel().MapToEnumerable(organizations));
+            }
+
+            if (CurrentUser().IsOrganizationAdminForOrganization(CurrentOrganization()))
+            {
+                var organizations = await _organizationService.GetAllAdministrableByUser(CurrentUser().Id());
+                return View(new OrganizationViewModel().MapToEnumerable(organizations));
+            }
+        
+            return Forbid();
         }
 
         // GET: Organizations/Details/5
@@ -47,6 +59,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Create([Bind("Id,Name,OrganizationNumber")] OrganizationViewModel organization)
         {
             if (ModelState.IsValid)
@@ -101,6 +114,7 @@ namespace Arkitektum.Orden.Controllers
         }
 
         // GET: Organizations/Delete/5
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -115,6 +129,7 @@ namespace Arkitektum.Orden.Controllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _organizationService.Delete(id);

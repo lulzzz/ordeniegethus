@@ -35,5 +35,29 @@ namespace Arkitektum.Orden.Models
             }
             return false;
         }
+
+        public bool HasRoleInOrganization(int organizationId, string role)
+        {
+            foreach (var membership in GetOrganizationMembership(organizationId))
+            {
+                if (membership.Role == role)
+                    return true;
+            }
+            return false;
+        }
+
+        private List<OrganizationApplicationUser> GetOrganizationMembership(int organizationId)
+        {
+            var memberships = new List<OrganizationApplicationUser>();
+            if (Organizations != null)
+            {
+                foreach (var org in Organizations)
+                {
+                    if (org.OrganizationId == organizationId)
+                        memberships.Add(org);
+                }
+            }
+            return memberships;
+        }
     }
 }
