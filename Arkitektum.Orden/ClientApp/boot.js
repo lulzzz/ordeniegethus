@@ -11,12 +11,14 @@ import axios from 'axios';
 //import store from './store'
 
 /* Views */
+import Application from './components/views/Application.vue';
 import Sector from './components/views/Sector.vue';
 
 
 new Vue( {
     el: '#app-root',
     components: {
+        Application,
         Sector,
     },
     methods: {
