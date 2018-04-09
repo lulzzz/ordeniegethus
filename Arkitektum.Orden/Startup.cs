@@ -75,6 +75,7 @@ namespace Arkitektum.Orden
             services.AddTransient<ISectorService, SectorService>();
             services.AddTransient<IDatasetService, DatasetService>();
             services.AddTransient<ICookieHelper, CookieHelper>();
+            services.AddTransient<IResourceLinkService, ResourceLinkService>();
             services.AddTransient<ISearchService, ElasticSearchService>();
 
             services.AddMvc()

@@ -7,7 +7,7 @@
 <h1>@Model.Name  - versjon @Model.Version</h1>
 
 <div class="row">
-    <div class="col-8">
+    <div class="col-lg-8">
 
         <p>Leverandør: @Model.Vendor</p>
         <p>Systemansvarlig: <a href="" class="badge badge-info"><i class="fas fa-user"></i> @Model.SystemOwner</a></p>
@@ -18,10 +18,9 @@
 
         <h2>Lenker</h2>
         <hr />
-        <ul>
-            <li><a href="">Eksempel: Driftsdokumentasjon</a></li>
-            <li><a href="">Eksempel: Brukerundersøkelse 2017</a></li>
-        </ul>
+        <div id="app-root">
+            <application api-url="/ResourceLinks/Application/@Model.Id"></application>
+        </div>
 
         <h2>Kostnader</h2>
         <hr />
@@ -52,7 +51,7 @@
         <p>Skalerbarhet:</p>
 
     </div>
-    <div class="col-4">
+    <div class="col-lg-4">
         
         <div class="card">
             <div class="card-header bg-info text-white">@Html.DisplayNameFor(model => model.Sectors)</div>

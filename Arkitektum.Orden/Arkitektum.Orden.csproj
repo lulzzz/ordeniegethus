@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\store\**" />
+    <Content Remove="ClientApp\store\**" />
+    <EmbeddedResource Remove="ClientApp\store\**" />
+    <None Remove="ClientApp\store\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Data\Migrations\20180228140408_RenameSharedServiceToNationalComponent.cs" />
     <Compile Remove="Data\Migrations\20180228140408_RenameSharedServiceToNationalComponent.Designer.cs" />
     <Compile Remove="Data\Migrations\20180228205134_AddRoleAsKeyOnOrganizationApplicationUser.cs" />
@@ -67,11 +74,6 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\views\Sector.js" />
-    <TypeScriptCompile Include="ClientApp\store\Actions.js" />
-    <TypeScriptCompile Include="ClientApp\store\Getters.js" />
-    <TypeScriptCompile Include="ClientApp\store\index.js" />
-    <TypeScriptCompile Include="ClientApp\store\Mutations.js" />
-    <TypeScriptCompile Include="ClientApp\store\State.js" />
     <TypeScriptCompile Include="vue-module.d.ts" />
   </ItemGroup>
 
