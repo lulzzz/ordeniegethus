@@ -13,8 +13,18 @@ namespace Arkitektum.Orden.Services.Search
 
     public class ElasticSearchService : ISearchService
     {
+        private readonly AppSettings _appSettings;
+
+        public ElasticSearchService(AppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
+
         public async Task<ISearchResponse<object>> Search(string query)
         {
+            if (!_appSettings.SearchEngineEnabled)
+                return new SearchResponse<object>();
+
             var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
                 .DefaultIndex("application");
             var client = new ElasticClient(settings);

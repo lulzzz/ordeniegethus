@@ -14,8 +14,18 @@ namespace Arkitektum.Orden.Services
 
     public class ElasticSearchIndexingService : ISearchIndexingService
     {
+        private AppSettings _appSettings;
+
+        public ElasticSearchIndexingService(AppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
+
         public async Task AddToIndex(Application application)
         {
+            if (!_appSettings.SearchEngineEnabled)
+                return;
+
             var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
                 .DefaultIndex("application");
             var client = new ElasticClient(settings);
@@ -25,6 +35,9 @@ namespace Arkitektum.Orden.Services
         
         public async Task AddToIndex(Dataset dataset)
         {
+            if (!_appSettings.SearchEngineEnabled)
+                return;
+
             var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
                 .DefaultIndex("dataset");
             var client = new ElasticClient(settings);
