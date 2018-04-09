@@ -11,8 +11,7 @@ pipeline {
     stage('Build') {
       steps {
         dir("Arkitektum.Orden") {
-          bat 'npm install'
-          bat 'node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js'
+          bat 'yarn'
           bat 'node node_modules/webpack/bin/webpack.js'
         }
         bat "dotnet build --configuration \"Release\" /property:Version=${VERSION_NUMBER}"
