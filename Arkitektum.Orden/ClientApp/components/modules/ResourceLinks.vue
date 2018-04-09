@@ -6,10 +6,12 @@
 
             <!-- New resource links -->
             <resource-link v-if="newResourceLink" v-bind:api-url="apiUrl" v-bind:saved="false" v-on:remove="removeNewResourceLink()"></resource-link>
+
+            <div class="list-group-item">
+                <button v-show="!newResourceLink" v-on:click="createNewResourceLink()" class="float-right btn btn-primary"><span class="fas fa-plus"></span> Ny lenke</button>
+            </div>
         </div>
-        <div class="input-group">
-            <button v-show="!newResourceLink" v-on:click="createNewResourceLink()" class="float-right btn btn-primary">Ny lenke</button>
-        </div>
+        
 
     </div>
 </template>
