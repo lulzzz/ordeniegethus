@@ -42,5 +42,17 @@ pipeline {
         deleteDir()
       }
     }
+    failure {
+      slackSend 
+        channel: '#feed-ordeniegethus',
+        color: 'danger', 
+        message: "Build failed: '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+    }
+    changed {
+      slackSend 
+        channel: '#feed-ordeniegethus',
+        color: 'warning',
+        message: "Build state has changed: '${currentBuild.result} ${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})"
+    }
   }
 }
