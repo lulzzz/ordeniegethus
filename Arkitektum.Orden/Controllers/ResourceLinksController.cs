@@ -72,5 +72,21 @@ namespace Arkitektum.Orden.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("/ResourceLinks/Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0)
+                return BadRequest();
+
+            ResourceLink resourceLink = await _resourceLinkService.GetAsync(id);
+
+            //if (CurrentOrganizationId() != resourceLink.) //TODO: Security check
+            //    return Forbid();
+
+            await _resourceLinkService.Delete(id);
+
+            return Ok();
+        }
     }
 }
