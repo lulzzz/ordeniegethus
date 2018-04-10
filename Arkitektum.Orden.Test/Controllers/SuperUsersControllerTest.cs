@@ -52,7 +52,7 @@ namespace Arkitektum.Orden.Test.Controllers
         [Fact]
         public async Task CreateShouldReturnBadRequestWhenOrganizationIdIsZero()
         {
-            var result = await CreateController().Create(new SuperUser(), 1) as BadRequestResult;
+            var result = await CreateController().Create(new SuperUser(), 0) as BadRequestResult;
             result.Should().NotBeNull();
         }
 
@@ -67,7 +67,7 @@ namespace Arkitektum.Orden.Test.Controllers
         public async Task CreateShouldReturnJsonWhenCreated()
         {
             _superUsersService.Setup(s => s.AddSuperUserToOrganization(It.IsAny<SuperUser>())).ReturnsAsync(new SuperUser() { Name = "testname"});
-            var result = await CreateController().Create(new SuperUser() { OrganizationId = ValidOrganizationId}, 1) as JsonResult;
+            var result = await CreateController().Create(new SuperUser() { Name = "Hans Hansen"}, ValidOrganizationId) as JsonResult;
             result.Should().NotBeNull();
             result.Value.Should().NotBeNull();
         }
