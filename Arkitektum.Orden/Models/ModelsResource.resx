@@ -222,4 +222,7 @@
   <data name="NationalComponent" xml:space="preserve">
     <value>Nasjonal felleskomponent</value>
   </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Informasjonselementer</value>
+  </data>
 </root>

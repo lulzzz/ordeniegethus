@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Authorization;
+using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Services.AppRegistry;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -15,14 +17,16 @@ namespace Arkitektum.Orden.Controllers
         private readonly IUserService _userService;
         private readonly ISectorService _sectorService;
         private readonly INationalComponentService _nationalComponentsService;
+        private readonly IAppRegistry _appRegistry;
 
         public ApplicationsController(ISecurityService securityService, IApplicationService applicationService, IUserService userService, 
-            ISectorService sectorService, INationalComponentService nationalComponentsService) : base(securityService)
+            ISectorService sectorService, INationalComponentService nationalComponentsService, IAppRegistry appRegistry) : base(securityService)
         {
             _applicationService = applicationService;
             _userService = userService;
             _sectorService = sectorService;
             _nationalComponentsService = nationalComponentsService;
+            _appRegistry = appRegistry;
         }
 
 
@@ -197,5 +201,21 @@ namespace Arkitektum.Orden.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-       }
+        [HttpGet]
+        [Route("/applications/submit-app-registry")]
+        public async Task<IActionResult> SubmitAppRegistry(int id)
+        {
+            Application application = await _applicationService.GetAsync(id);
+            return View(new ApplicationViewModel().Map(application));
+        }
+
+        [HttpPost]
+        [Route("/applications/submit-app-registry")]
+        public async Task<IActionResult> SubmitAppRegistryConfirm(int id)
+        {
+            await _appRegistry.SubmitApplication(id);
+
+            return RedirectToAction(nameof(Details), new {id});
+        }
+    }
 }

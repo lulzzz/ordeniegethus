@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services;
+using Arkitektum.Orden.Services.AppRegistry;
 using Arkitektum.Orden.Utils;
 using Arkitektum.Orden.Services.Search;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -78,6 +79,7 @@ namespace Arkitektum.Orden
             services.AddTransient<IResourceLinkService, ResourceLinkService>();
             services.AddTransient<ISearchService, ElasticSearchService>();
             services.AddTransient<ISuperUsersService, SuperUsersService>();
+            services.AddTransient<IAppRegistry, AppRegistryService>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));

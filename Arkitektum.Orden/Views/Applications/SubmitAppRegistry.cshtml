@@ -1,0 +1,56 @@
+﻿@model Arkitektum.Orden.Models.ViewModels.ApplicationViewModel
+
+    @{
+    ViewData["Title"] = UIResource.SubmitApplicationToAppRegistry;
+    }
+
+    <h1>@ViewData["Title"]</h1>
+    <h2>@Model.Name  - versjon @Model.Version</h1>
+
+
+    <p>Din innsending til felles applikasjonsregister vil inneholde følgende informasjon:</p>
+    <form asp-action="SubmitAppRegistry" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <dl class="dl-horizontal">
+            <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+            <dd>@Html.DisplayFor(model => model.Name)</dd>
+            <dt>@Html.DisplayNameFor(model => model.Version)</dt>
+            <dd>@Html.DisplayFor(model => model.Version)</dd>
+            <dt>@Html.DisplayNameFor(model => model.Vendor)</dt>
+            <dd>@Html.DisplayFor(model => model.Vendor)</dd>
+
+            @if (Model.Datasets.Any())
+            {
+                <dt>@Html.DisplayNameFor(model => model.Datasets)</dt>
+                <dd>
+                    <div class="card-deck">
+                        @foreach (var dataset in Model.Datasets)
+                        {
+                            <div class="card">
+                                <div class="card-header">@dataset.Name</div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        <dl>
+                                            <dt>@ModelsResource.Name</dt>
+                                            <dd>@dataset.Name</dd>
+                                            <dt>@ModelsResource.Description</dt>
+                                            <dd>@dataset.Description</dd>
+                                            <dt>@ModelsResource.Purpose</dt>
+                                            <dd>@dataset.Purpose</dd>
+                                            <dt>@ModelsResource.HasPersonalData</dt>
+                                            <dd>@dataset.HasPersonalData</dd>
+                                            <dt>@ModelsResource.HasSensitivePersonalData</dt>
+                                            <dd>@dataset.HasSensitivePersonalData</dd>
+                                        </dl>
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </dd>
+            }
+        </dl>
+        <div class="input-group">
+            <button type="submit" class="btn btn-primary">@UIResource.AppRegistrySubmitSuggestion</button>
+        </div>
+    </form>

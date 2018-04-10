@@ -61,6 +61,24 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Felles applikasjonsregister.
+        /// </summary>
+        public static string AppRegistry {
+            get {
+                return ResourceManager.GetString("AppRegistry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send inn forslag.
+        /// </summary>
+        public static string AppRegistrySubmitSuggestion {
+            get {
+                return ResourceManager.GetString("AppRegistrySubmitSuggestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lagre.
         /// </summary>
         public static string ButtonSave {
@@ -231,6 +249,15 @@ namespace Arkitektum.Orden.Models {
         public static string SectorHeaderIndex {
             get {
                 return ResourceManager.GetString("SectorHeaderIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send inn forslag til felles applikasjonsregister.
+        /// </summary>
+        public static string SubmitApplicationToAppRegistry {
+            get {
+                return ResourceManager.GetString("SubmitApplicationToAppRegistry", resourceCulture);
             }
         }
         

@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Arkitektum.Orden.Models.CommonApplication>
+
+@{
+    ViewData["Title"] = UIResource.AppRegistry;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<ul>
+    @foreach(var item in Model)
+    {
+        <li><a asp-action="ApplicationDetails" asp-route-id="@item.Id">@item.Name</a></li>
+    }
+</ul>

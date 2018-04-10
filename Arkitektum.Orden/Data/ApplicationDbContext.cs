@@ -19,6 +19,8 @@ namespace Arkitektum.Orden.Data
         public DbSet<ResourceLink> ResourceLink { get; set; }
         public DbSet<SuperUser> SuperUser { get; set; }
 
+        public DbSet<CommonApplication> CommonApplications { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -59,6 +61,9 @@ namespace Arkitektum.Orden.Data
             builder.Entity<OrganizationApplicationUser>().HasKey("OrganizationId", "ApplicationUserId", "Role");
             builder.Entity<OrganizationAdministrators>().HasKey("OrganizationId", "ApplicationUserId");
             builder.Entity<SectorApplication>().HasKey("SectorId", "ApplicationId");
+
+            builder.Entity<CommonApplicationVersionNationalComponent>().HasKey("CommonApplicationVersionId", "NationalComponentId");
+            builder.Entity<CommonApplicationVersionStandard>().HasKey("CommonApplicationVersionId", "StandardId");
         }
 
         public DbSet<Arkitektum.Orden.Models.Sector> Sector { get; set; }
