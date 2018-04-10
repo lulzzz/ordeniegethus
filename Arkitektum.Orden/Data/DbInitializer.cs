@@ -63,13 +63,13 @@ namespace Arkitektum.Orden.Data
             
 
             //adding Kommuner
-            var boKommune = new Organization() {Name = "Bø kommune"};
+            var boKommune = new Organization() {Name = "Bø kommune", OrganizationNumber = "962276172"};
             context.Add(boKommune);
-            var sauheradKommune = new Organization() {Name = "Sauherad kommune"};
+            var sauheradKommune = new Organization() {Name = "Sauherad kommune", OrganizationNumber = "964963460"};
             context.Add(sauheradKommune);
-            var skienKommune = new Organization() {Name = "Skien kommune"};
+            var skienKommune = new Organization() {Name = "Skien kommune", OrganizationNumber = "938759839"};
             context.Add(skienKommune);
-            var kongsbergKommune = new Organization() {Name = "Kongsberg kommune"};
+            var kongsbergKommune = new Organization() {Name = "Kongsberg kommune", OrganizationNumber = "942402465"};
             context.Add(kongsbergKommune);
 
             
