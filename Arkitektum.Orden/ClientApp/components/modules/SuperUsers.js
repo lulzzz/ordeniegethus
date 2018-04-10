@@ -42,6 +42,12 @@ export default {
                     this.getSuperUsers();
                     this.removeNewSuperUser();
                 });
+        },
+        removeSuperUser(superUserId) {
+            Promise.resolve(this.$root.postApiData('/SuperUsers/Delete', { id: superUserId }))
+                .then(() => {
+                    this.getSuperUsers();
+                });
         }
     }
 }

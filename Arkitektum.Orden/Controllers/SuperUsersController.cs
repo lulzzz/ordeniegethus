@@ -68,17 +68,17 @@ namespace Arkitektum.Orden.Controllers
 
         [HttpPost]
         [Route("/SuperUsers/Delete")]
-        public async Task<IActionResult> Delete(int superUserId)
+        public async Task<IActionResult> Delete([FromBody] SuperUser superUser)
         {
-            if (superUserId == 0)
+            if (superUser.Id == 0)
                 return BadRequest();
 
-            SuperUser superUser = await _superUsersService.Get(superUserId);
+            SuperUser originalSuperUser = await _superUsersService.Get(superUser.Id);
             
-            if (CurrentOrganizationId() != superUser.OrganizationId)
+            if (CurrentOrganizationId() != originalSuperUser.OrganizationId)
                 return Forbid();
 
-            await _superUsersService.DeleteSuperUser(superUserId);
+            await _superUsersService.DeleteSuperUser(superUser.Id);
 
             return Ok();
         }

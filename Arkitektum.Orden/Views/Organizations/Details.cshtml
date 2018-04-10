@@ -3,27 +3,18 @@
 @{
     ViewData["Title"] = Model.Name;
 }
-
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.OrganizationNumber):
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.OrganizationNumber)
-        </dd>
-    </dl>
-</div>
+<hr />
+<p class="float-right"><a asp-action="Edit" asp-route-id="@Model.Id"><span class="fas fa-edit"></span> Rediger</a></p>
 
-<h4>Superbrukere</h4>
+
+
+<h5>@Html.DisplayNameFor(model => model.OrganizationNumber)</h5>
+<p>@Html.DisplayFor(model => model.OrganizationNumber)</p>
+
+<h5>Superbrukere</h5>
 <div id="app-root">
     <organization api-url="/SuperUsers/organization/@Model.Id"></organization>
 </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Rediger</a> |
-    <a asp-action="Index">Tilbake til liste</a>
-</div>

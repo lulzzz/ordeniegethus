@@ -12,13 +12,12 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OrganizationNumber)
-                </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationNumber)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -31,11 +30,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrganizationNumber)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Rediger</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Slett</a>
             </td>
         </tr>
 }
