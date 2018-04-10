@@ -10,6 +10,10 @@
     methods: {
         emailAsLink: function(email) {
             return 'mailto:' + email;
+        },
+        update: function() {
+            this.$parent.updateSuperUser(this.superUser.id, this.data);
+            this.editable = false;
         }
     }
 }
