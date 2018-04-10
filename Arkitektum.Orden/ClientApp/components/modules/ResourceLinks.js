@@ -38,6 +38,12 @@ export default {
         },
         updateResourceLink(resourceLinkId, data) {
             Promise.resolve(this.$root.putApiData(`${this.apiUrl}/${resourceLinkId}`, data));
+        },
+        removeResourceLink(resourceLinkId) {
+            Promise.resolve(this.$root.postApiData('/ResourceLinks/Delete', { id: resourceLinkId }))
+                .then(() => {
+                    this.getResourceLinks();
+                });
         }
     }
 }
