@@ -17,7 +17,7 @@
             </div>
             <div class="float-right">
                 <span class="btn btn-outline-secondary" v-on:click="editable = !editable"><span class="fas fa-times"></span> Avbryt</span>
-                <span class="btn btn-outline-success" v-on:click="$parent.updateResourceLink(resourceLink.id, data)"><span class="fas fa-check"></span> Oppdater</span>
+                <span class="btn btn-outline-success" v-on:click="update()"><span class="fas fa-check"></span> Oppdater</span>
             </div>
         </div>
         <div v-show="!editable" v-bind:class="{'d-flex justify-content-between align-items-center': !editable}">
