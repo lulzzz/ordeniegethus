@@ -41,6 +41,12 @@ pipeline {
       dir("Arkitektum.Orden\\output-app") {
         deleteDir()
       }
+      dir("Arkitektum.Orden\\bin") {
+        deleteDir()
+      }
+      dir("Arkitektum.Orden.Test\\bin") {
+        deleteDir()
+      }
     }
     failure {
       slackSend(channel: '#feed-ordeniegethus',
