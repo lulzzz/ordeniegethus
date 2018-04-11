@@ -8,8 +8,8 @@ namespace Arkitektum.Orden.Models
 
         public int ApplicationId { get; set; }
 
-        public Sector Sector { get; set; }
+        public virtual Sector Sector { get; set; }
 
-        public Application Application { get; set; }
+        public virtual Application Application { get; set; }
     }
 }

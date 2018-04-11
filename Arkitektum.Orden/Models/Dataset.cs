@@ -27,13 +27,13 @@ namespace Arkitektum.Orden.Models
         ///<summary>
         /// Inneholder emneord (eller tag) som beskriver datasettet
         /// </summary>
-        public List<Keyword> Keywords { get; set; }
+        public virtual List<Keyword> Keywords { get; set; }
 
         /// <summary>
         /// Hovedidentifikator for datasettet, for eksempel en URI 
         /// eller annen identifikator som er stabil og globalt unik
         /// </summary>
-        public List<Identifier> Identifiers { get; set; }
+        public virtual List<Identifier> Identifiers { get; set; }
 
         /// <summary>
         /// Dette feltet angir i hvilken grad datasettet kan bli gjort
@@ -53,7 +53,7 @@ namespace Arkitektum.Orden.Models
         ///  er anbefalt dersom «tilgangsnivå» har verdiene «restricted»
         ///  eller «non-public»
         /// </summary>
-        public List<AccessRightComment> AccessRightComments { get; set; }
+        public virtual List<AccessRightComment> AccessRightComments { get; set; }
 
         /// <summary>
         ///     Personopplysninger
@@ -83,25 +83,25 @@ namespace Arkitektum.Orden.Models
         /// og internasjonale vokabular kan brukes om de oppfyller denne
         /// standardens krav til kontrollerte vokabular.
         /// </summary>
-        public List<DcatConcept> Concepts { get; set; }
+        public virtual List<DcatConcept> Concepts { get; set; }
 
         ///<summary>
         /// Referanse til kontaktpunktsobjekt med kontaktopplysninger. 
         /// Disse kan brukes til å sende kommentarer om datasettet.
         /// </summary>
-        public List<ResourceLink> ContactPoints { get; set; }
+        public virtual List<ResourceLink> ContactPoints { get; set; }
 
 
         /// <summary>
         /// Lenker til eksterne ressurser
         /// </summary>
-        public List<ResourceLink> ResourceLinks { get; set; }
+        public virtual List<ResourceLink> ResourceLinks { get; set; }
 
 
         /// <summary>
         ///     Lovhjemmel/forskrift for forvaltning
         /// </summary>
-        public List<ResourceLink> LawReferences { get; set; }
+        public virtual List<ResourceLink> LawReferences { get; set; }
 
         /// <summary>
         ///     Publisert til felles datakatalog
@@ -114,13 +114,13 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         /// Informasjonselementer i datasettet
         /// </summary>
-        public List<Field> Fields { get; set; }
+        public virtual List<Field> Fields { get; set; }
 
 
         /// <summary>
         /// Applikasjoner
         /// </summary>
-        public List<ApplicationDataset> ApplicationDatasets { get; set; }
+        public virtual List<ApplicationDataset> ApplicationDatasets { get; set; }
 
 
         /// <summary>
@@ -128,12 +128,12 @@ namespace Arkitektum.Orden.Models
         /// av datasettene som er beskrevet.
         /// </summary>
 
-        public DcatCatalog DcatCatalog { get; set; }
+        public virtual DcatCatalog DcatCatalog { get; set; }
 
         /// <summary>
         /// Koblingen mellom datasettet og en tilgjengelig distribusjon
         /// </summary>
-        public List<Distribution> Distributions { get; set; }
+        public virtual List<Distribution> Distributions { get; set; }
 
         public void UpdateApplicationRelation(List<ApplicationDataset> updateDatasetApplicationDatasets)
         {

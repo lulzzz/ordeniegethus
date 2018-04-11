@@ -29,7 +29,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Støtter disse standardene
         /// </summary>
-        public List<ApplicationStandard> ApplicationStandards { get; set; }
+        public virtual List<ApplicationStandard> ApplicationStandards { get; set; }
 
         /// <summary>
         ///     Støtter disse felleskomponentene (svarUt, Id-port)
@@ -39,7 +39,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Tilgjengelig integrasjonsmuligheter (API)
         /// </summary>
-        public List<ApplicationSupportedIntegration> ApplicationSupportedIntegrations { get; set; }
+        public virtual List<ApplicationSupportedIntegration> ApplicationSupportedIntegrations { get; set; }
 
         /// <summary>
         ///     Årlig kostnad
@@ -56,20 +56,20 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Systemeier
         /// </summary>
-        public ApplicationUser SystemOwner { get; set; }
+        public virtual ApplicationUser SystemOwner { get; set; }
 
         public string SystemOwnerId { get; set; }
 
         /// <summary>
         ///     Superbrukere
         /// </summary>
-        public List<ApplicationSuperUser> SuperUsers { get; set; }
+        public virtual List<ApplicationSuperUser> SuperUsers { get; set; }
 
 
         /// <summary>
         ///     Lenker til eksterne ressurser
         /// </summary>
-        public List<ResourceLink> ResourceLinks { get; set; }
+        public virtual List<ResourceLink> ResourceLinks { get; set; }
 
         /// <summary>
         ///     Driftsplassering
@@ -90,20 +90,20 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Tjenesteområder
         /// </summary>
-        public List<SectorApplication> SectorApplications { get; set; }
+        public virtual List<SectorApplication> SectorApplications { get; set; }
 
         /// <summary>
         ///     Datasett
         /// </summary>
-        public List<ApplicationDataset> ApplicationDatasets { get; set; }
+        public virtual List<ApplicationDataset> ApplicationDatasets { get; set; }
 
         /// <summary>
         ///     Felleskomponenter
         /// </summary>
-        public List<ApplicationNationalComponent> ApplicationNationalComponent { get; set; }
+        public virtual List<ApplicationNationalComponent> ApplicationNationalComponent { get; set; }
        
         public int? OrganizationId { get; set; }
-        public Organization Organization { get; set; }
+        public virtual Organization Organization { get; set; }
 
 
         public string DecimalToString(decimal inputDecimal)

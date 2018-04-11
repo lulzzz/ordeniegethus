@@ -16,12 +16,12 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     The organizations this users is a part of.
         /// </summary>
-        public List<OrganizationApplicationUser> Organizations { get; set; }
+        public virtual List<OrganizationApplicationUser> Organizations { get; set; }
 
         /// <summary>
         ///     The organizations this user can administrate.
         /// </summary>
-        public List<OrganizationAdministrators> OrganizationAdministrators { get; set; }
+        public virtual List<OrganizationAdministrators> OrganizationAdministrators { get; set; }
 
         public bool HasAccessToOrganization(int organizationId)
         {

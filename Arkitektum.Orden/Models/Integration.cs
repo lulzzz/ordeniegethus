@@ -6,6 +6,6 @@ namespace Arkitektum.Orden.Models
     {
         public int Id { get; set; }
 
-        public List<ApplicationSupportedIntegration> ApplicationSupportedIntegrations { get; set; }
+        public virtual List<ApplicationSupportedIntegration> ApplicationSupportedIntegrations { get; set; }
     }
 }

@@ -46,6 +46,7 @@ namespace Arkitektum.Orden
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options
+                    .UseLazyLoadingProxies()
                     .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                     .EnableSensitiveDataLogging()
                 );

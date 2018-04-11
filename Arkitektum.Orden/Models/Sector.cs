@@ -18,9 +18,9 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Lovpålagt tjeneste, referanse til hjemmel/forskrift
         /// </summary>
-        public List<ResourceLink> LawReferences { get; set; } 
+        public virtual List<ResourceLink> LawReferences { get; set; } 
 
-        public List<SectorApplication> SectorApplications { get; set; }
+        public virtual List<SectorApplication> SectorApplications { get; set; }
 
         public IEnumerable<Application> ApplicationsAsEnumerable()
         {

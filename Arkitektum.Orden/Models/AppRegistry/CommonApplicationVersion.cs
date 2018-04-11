@@ -7,7 +7,7 @@ namespace Arkitektum.Orden.Models
         public int Id { get; set; }
         public string VersionNumber { get; set; }
 
-        public List<CommonApplicationVersionNationalComponent> SupportedNationalComponents { get; set;}
-        public List<CommonApplicationVersionStandard> SupportedStandards { get; set; }
+        public virtual List<CommonApplicationVersionNationalComponent> SupportedNationalComponents { get; set;}
+        public virtual List<CommonApplicationVersionStandard> SupportedStandards { get; set; }
     }
 }

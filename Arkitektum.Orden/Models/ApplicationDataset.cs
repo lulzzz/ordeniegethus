@@ -8,8 +8,8 @@
         public int ApplicationId { get; set; }
         public int DatasetId { get; set; }
 
-        public Application Application { get; set; }
+        public virtual Application Application { get; set; }
 
-        public Dataset Dataset { get; set; }
+        public virtual Dataset Dataset { get; set; }
     }
 }

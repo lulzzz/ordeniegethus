@@ -8,8 +8,8 @@
         public int ApplicationId { get; set; }
         public int NationalComponentId { get; set; }
 
-        public Application Application { get; set; }
+        public virtual Application Application { get; set; }
 
-        public NationalComponent NationalComponent { get; set; }
+        public virtual NationalComponent NationalComponent { get; set; }
     }
 }

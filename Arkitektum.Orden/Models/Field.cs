@@ -12,7 +12,7 @@
 
         public bool IsSensitivePersonalData { get; set; }
 
-        public Dataset Dataset { get; set; }
+        public virtual Dataset Dataset { get; set; }
 
         public int? DatasetId { get; set; }
     }

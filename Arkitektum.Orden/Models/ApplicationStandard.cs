@@ -8,8 +8,8 @@
         public int ApplicationId { get; set; }
         public int StandardId { get; set; }
 
-        public Application Application { get; set; }
+        public virtual Application Application { get; set; }
 
-        public Standard Standard { get; set; }
+        public virtual Standard Standard { get; set; }
     }
 }

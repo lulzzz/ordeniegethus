@@ -8,7 +8,7 @@
         public int ApplicationId { get; set; }
         public int SupportedIntegrationId { get; set; }
 
-        public Application Application { get; set; }
-        public Integration SupportedIntegration { get; set; }
+        public virtual Application Application { get; set; }
+        public virtual Integration SupportedIntegration { get; set; }
     }
 }

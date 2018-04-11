@@ -15,7 +15,7 @@ namespace Arkitektum.Orden.Models
         /// Ressursen det pekes til kan gi informasjon om hvordan en 
         /// kan få tilgang til i datasettet
         /// </summary>
-        public List<ResourceLink> Resources {get; set;}
+        public virtual List<ResourceLink> Resources {get; set;}
 
         ///<summary>
         /// Fritekstbeskrivelse av distribusjonen. 
@@ -27,7 +27,7 @@ namespace Arkitektum.Orden.Models
         /// for API-er og sluttbrukerapplikasjoner som leverer data 
         /// i flere formater.
         /// </summary>
-        public List<Format> Formats { get; set; }
+        public virtual List<Format> Formats { get; set; }
      // TODO FIX THIS
        
 
@@ -35,9 +35,9 @@ namespace Arkitektum.Orden.Models
         /// Referanse til lisensen distribusjonen er gjort tilgjengelig 
         /// under. Bør oppgis som URI
         /// </summary>
-        public LicenseDocument License { get; set; } //sjekke hvorsdan data ser ut for eventuelle endringer
+        public virtual LicenseDocument License { get; set; } //sjekke hvorsdan data ser ut for eventuelle endringer
 
-        public Dataset Dataset { get; set; }
+        public virtual Dataset Dataset { get; set; }
 
     }
 }

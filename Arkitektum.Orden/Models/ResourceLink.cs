@@ -11,13 +11,13 @@
         public int ApplicationId { get; set; }
 
         public int? DatasetContactPointsId { get; set; } 
-        public Dataset DatasetConnectionPoints { get; set; }
+        public virtual Dataset DatasetConnectionPoints { get; set; }
 
         public int? DatasetResourceLinkId { get; set; }
-        public  Dataset DatasetResourceLink { get; set; }
+        public virtual Dataset DatasetResourceLink { get; set; }
 
         public int? DatasetLawReferenceId { get; set; }
-        public Dataset DatasetLawReference { get; set; }
+        public virtual Dataset DatasetLawReference { get; set; }
 
         }
     }

@@ -28,7 +28,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Kobler katalogen til datasett som er en del av katalogen
         /// </summary>
-        public List<Dataset> Datasets { get; set; }
+        public virtual List<Dataset> Datasets { get; set; }
 
         /// <summary>
         /// Nettside som fungerer som hovedside for katalogen
