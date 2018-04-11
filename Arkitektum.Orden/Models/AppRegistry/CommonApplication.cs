@@ -9,5 +9,6 @@ namespace Arkitektum.Orden.Models
         public virtual Vendor Vendor { get; set; }
         public virtual List<CommonApplicationVersion> Versions { get; set; }
         public virtual List<CommonDataset> CommonDatasets { get; set; }
+        public int OriginalApplicationId { get; set; }
     }
 }
