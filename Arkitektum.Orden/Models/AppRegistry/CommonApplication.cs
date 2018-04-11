@@ -10,5 +10,11 @@ namespace Arkitektum.Orden.Models
         public virtual List<CommonApplicationVersion> Versions { get; set; }
         public virtual List<CommonDataset> CommonDatasets { get; set; }
         public int OriginalApplicationId { get; set; }
+
+        public CommonApplication()
+        {
+            Versions = new List<CommonApplicationVersion>();
+            CommonDatasets = new List<CommonDataset>();
+        }
     }
 }

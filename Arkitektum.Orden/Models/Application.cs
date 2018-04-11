@@ -41,10 +41,32 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public virtual List<ApplicationSupportedIntegration> ApplicationSupportedIntegrations { get; set; }
 
+        public CommonApplication CopyToCommonApplication()
+        {
+            var commonApp = new CommonApplication() {
+                Name = this.Name,
+                Versions = new List<CommonApplicationVersion>()
+                {
+                    new CommonApplicationVersion
+                    {
+                        VersionNumber = this.Version,
+                    }
+                },
+                OriginalApplicationId = this.Id
+            };
+
+            foreach(var appDataset in ApplicationDatasets)
+            {
+                commonApp.CommonDatasets.Add(appDataset.Dataset.CopyToCommonDataset());
+            }
+
+            return commonApp;
+        }
+
         /// <summary>
         ///     Årlig kostnad
         /// </summary>
-    
+
         public decimal AnnualFee { get; set; }
 
         /// <summary>

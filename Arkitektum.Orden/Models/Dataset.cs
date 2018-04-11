@@ -46,6 +46,18 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public AccessRight AccessRight { get; set; }
 
+        internal CommonDataset CopyToCommonDataset()
+        {
+            return new CommonDataset
+            {
+                Name = this.Name,
+                Description = this.Description,
+                Purpose = this.Purpose,
+                HasPersonalData = this.HasPersonalData,
+                HasSensitivePersonalData = this.HasSensitivePersonalData,
+            };
+        }
+
         /// <summary>
         /// Referanse til hjemmel (kilde for påstand) i offentlighetsloven,
         ///  sikkerhetsloven, beskyttelsesinstruksen eller annet lovverk

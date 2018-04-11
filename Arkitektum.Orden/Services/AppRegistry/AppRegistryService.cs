@@ -29,7 +29,13 @@ namespace Arkitektum.Orden.Services.AppRegistry
 
         public async Task SubmitApplication(int applicationId)
         {
-            //TODO: Implement copying of data from input application to CommonApplication
+            var application = await _context.Application
+                .SingleOrDefaultAsync(a => a.Id == applicationId);
+            
+            CommonApplication commonApplication = application.CopyToCommonApplication();
+
+            _context.CommonApplications.Add(commonApplication);
+            await _context.SaveChangesAsync();
         }
     }
 }
