@@ -32,5 +32,18 @@ namespace Arkitektum.Orden.Models
             LawReferences = new List<ResourceLink>();
             SectorApplications = new List<SectorApplication>();
         }
+
+        public void PopulateSectorApplications(IEnumerable<Application> applicationsForSector)
+        {
+            SectorApplications = new List<SectorApplication>();
+
+            foreach (var application in applicationsForSector)
+            {
+                SectorApplications.Add(new SectorApplication
+                {
+                    Application = application
+                });
+            }
+        }
     }
 }

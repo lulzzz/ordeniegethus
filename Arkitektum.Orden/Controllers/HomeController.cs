@@ -31,8 +31,7 @@ namespace Arkitektum.Orden.Controllers
             model.NumberOfDataset = await _datasetService.GetDatasetsCountForOrganization(CurrentOrganizationId());
             model.NumberOfPublishedDataset = 0; // TODO implement numberOfPublishedDataset
 
-            model.Sectors =
-               new  SectorViewModel().MapToEnumerable(await _sectorService.GetSectorsForOrganization(CurrentOrganizationId()));
+            model.Sectors =await _sectorService.GetSectorsWithApplicationsForOrganization(CurrentOrganizationId());
             return View(model);
         }
 

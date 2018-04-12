@@ -208,6 +208,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 Sectors.Add(availableSector);
             }
         }
+
     }
 
     public class CheckboxApplicationNationalComponents
