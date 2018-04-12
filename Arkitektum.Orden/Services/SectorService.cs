@@ -21,7 +21,8 @@ namespace Arkitektum.Orden.Services
         Task<IEnumerable<SectorInformationViewModel>> GetSectorsWithApplicationsForOrganization(int organizationId);
 
         Task<IEnumerable<Application>> GetApplicationsForSector(int id, int organizationId);
-        Task<Sector> Get(int id);
+        Task<Sector> GetSectorWithNoTracking(int id);
+        Task<Sector> GetSectorWithTracking(int id);
         Task<Sector> Create(Sector sector);
         Task Update(int id, Sector sectorToEdit);
         Task<IEnumerable<Sector>> GetAll();
@@ -69,7 +70,13 @@ namespace Arkitektum.Orden.Services
 
         }
 
-        public async Task<Sector> Get(int id)
+        public async Task<Sector> GetSectorWithNoTracking(int id)
+        {
+            return await _context.Sector.AsNoTracking()
+                .SingleOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<Sector> GetSectorWithTracking(int id)
         {
             return await _context.Sector
                 .SingleOrDefaultAsync(s => s.Id == id);
@@ -85,7 +92,7 @@ namespace Arkitektum.Orden.Services
         public async Task Update(int id, Sector sectorDataForEdit)
         {
            
-            var sectorToEdit = await Get(id);
+            var sectorToEdit = await GetSectorWithTracking(id);
 
             _context.Entry(sectorToEdit).CurrentValues.SetValues(sectorDataForEdit);
 
