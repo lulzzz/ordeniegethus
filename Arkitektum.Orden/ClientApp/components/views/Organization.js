@@ -1,5 +1,5 @@
 ﻿/* Components */
-import SuperUsers from '../modules/SuperUsers.vue';
+import SuperUsers from '../partials/SuperUsers.vue';
 
 export default {
     name: 'Organization',
