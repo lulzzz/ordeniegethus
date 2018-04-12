@@ -54,21 +54,21 @@ namespace Arkitektum.Orden.Test.Controllers
         }
 
         [Fact]
-        public async Task DetailsShouldReturnNotFoundWhenIdIsNull()
+        public async Task DetailsJsonShouldReturnNotFoundWhenIdIsNull()
         {
-            var result = await CreateController().Details(null);
+            var result = await CreateController().DetailsJson(null);
             Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
-        public async Task DetailsShouldReturnNotFoundWhenNoApplicationWithGivenIdExists()
+        public async Task DetailsJsonShouldReturnNotFoundWhenNoApplicationWithGivenIdExists()
         {
-            var result = await CreateController().Details(12345);
+            var result = await CreateController().DetailsJson(12345);
             Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
-        public async Task DetailsShouldReturnApplicationWithGivenId()
+        public async Task DetailsJsonShouldReturnApplicationWithGivenId()
         {
             var applicationId = 12345;
             _applicationServiceMock.Setup(m => m.GetAsync(applicationId)).ReturnsAsync(new Application()
@@ -76,12 +76,9 @@ namespace Arkitektum.Orden.Test.Controllers
                 Id = applicationId
             });
             
-            var result = await CreateController().Details(applicationId);
+            var result = await CreateController().DetailsJson(applicationId);
 
-            var viewResult = Assert.IsType<ViewResult>(result);
-            var model = Assert.IsAssignableFrom<ApplicationViewModel>(viewResult.ViewData.Model);
-
-            model.Id.Should().Be(applicationId);
+            var viewResult = Assert.IsType<JsonResult>(result);
         }
 
         private ApplicationsController CreateController()

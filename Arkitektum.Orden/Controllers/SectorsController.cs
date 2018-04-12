@@ -30,34 +30,33 @@ namespace Arkitektum.Orden.Controllers
         {
             var sectors = await _sectorService.GetAll();
             return View(new SectorViewModel().MapToEnumerable(sectors));
-       
+
         }
 
         // GET: Sectors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var currentOrganization = CurrentOrganizationId();
+            var currentOrganization = CurrentOrganization();
 
             if (id == null)
             {
                 return NotFound();
             }
-            
-            var applicationsForSector = await _sectorService.GetApplicationsForSector(id.Value, currentOrganization);
-            var sector = await _sectorService.Get(id.Value);
 
-            sector.PopulateSectorApplications(applicationsForSector);
-            
-            if (applicationsForSector == null)
+            var sector = await _sectorService.GetSectorWithNoTracking(id.Value);
+
+            if (sector == null)
             {
                 return NotFound();
             }
 
-            if (!HasAccessTo(sector))
-                return Forbid();
+           var applicationsForSector = await _sectorService.GetApplicationsForSector(id.Value, currentOrganization.Id);
 
+           sector.PopulateSectorApplications(applicationsForSector);
+
+   
             return View(new SectorViewModel().Map(sector));
-           
+
         }
 
 
@@ -72,8 +71,10 @@ namespace Arkitektum.Orden.Controllers
 
         public IActionResult EditJson()
         {
-            var data = new Sector() {
-                Id = 2, Name = "Helse og omsorg",
+            var data = new Sector()
+            {
+                Id = 2,
+                Name = "Helse og omsorg",
                 LawReferences = new List<ResourceLink>() {
                     new ResourceLink() {
                         Id = 0,
@@ -99,7 +100,7 @@ namespace Arkitektum.Orden.Controllers
         {
             var sectorToCreate = new SectorViewModel().Map(sector);
 
-            
+
 
             if (ModelState.IsValid)
             {
@@ -113,24 +114,20 @@ namespace Arkitektum.Orden.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
-          
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var sector = await _sectorService.Get(id.Value);
+            var sector = await _sectorService.GetSectorWithTracking(id.Value);
 
             if (sector == null)
             {
                 return NotFound();
             }
 
-            if (!HasAccessTo(sector))
-            {
-                return Forbid();
-            }
-
+           
             return View(new SectorViewModel().Map(sector));
         }
 
@@ -147,7 +144,7 @@ namespace Arkitektum.Orden.Controllers
             }
 
             var sectorToEdit = new SectorViewModel().Map(sector);
-            
+
 
             if (ModelState.IsValid)
             {
@@ -182,11 +179,6 @@ namespace Arkitektum.Orden.Controllers
 
             var sector = await _context.Sector.SingleOrDefaultAsync(m => m.Id == id);
 
-            if (!HasAccessTo(sector))
-            {
-                return Forbid();
-            }
-
             if (sector == null)
             {
                 return NotFound();
@@ -211,14 +203,14 @@ namespace Arkitektum.Orden.Controllers
             {
                 return Forbid();
             }
-            
+
         }
 
         [HttpGet]
         [Route("/sectors/application/{applicationId}")]
         public async Task<IActionResult> GetApplicationSectors(int applicationId)
         {
-            return Json(new List<SectorApplicationViewModel> { 
+            return  Json(new List<SectorApplicationViewModel> {
                 new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 1, SectorName = "Helse og omsorg"},
                 new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 2, SectorName = "Grunnskoleutdanning"},
                 new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 3, SectorName = "Vann og avløp"},

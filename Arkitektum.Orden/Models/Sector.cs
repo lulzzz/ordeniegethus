@@ -18,7 +18,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Lovpålagt tjeneste, referanse til hjemmel/forskrift
         /// </summary>
-        public virtual List<ResourceLink> LawReferences { get; set; } 
+        public virtual List<ResourceLink> LawReferences { get; set; }
 
         public virtual List<SectorApplication> SectorApplications { get; set; }
 
@@ -35,8 +35,7 @@ namespace Arkitektum.Orden.Models
 
         public void PopulateSectorApplications(IEnumerable<Application> applicationsForSector)
         {
-            SectorApplications = new List<SectorApplication>();
-
+          
             foreach (var application in applicationsForSector)
             {
                 SectorApplications.Add(new SectorApplication
