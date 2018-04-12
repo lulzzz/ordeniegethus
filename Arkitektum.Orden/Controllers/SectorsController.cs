@@ -205,6 +205,31 @@ namespace Arkitektum.Orden.Controllers
             
         }
 
+        [HttpGet]
+        [Route("/sectors/application/{applicationId}")]
+        public async Task<IActionResult> GetApplicationSectors(int applicationId)
+        {
+            return Json(new List<SectorApplicationViewModel> { 
+                new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 1, SectorName = "Helse og omsorg"},
+                new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 2, SectorName = "Grunnskoleutdanning"},
+                new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 3, SectorName = "Vann og avløp"},
+                });
+        }
+
+        [HttpPost]
+        [Route("/sectors/application")]
+        public async Task<IActionResult> CreateApplicationSector([FromBody] SectorApplicationViewModel model)
+        {
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("/sectors/application")]
+        public async Task<IActionResult> DeleteApplicationSector([FromBody] SectorApplicationViewModel model)
+        {
+            return Ok();
+        }
+
         private bool SectorExists(int id)
         {
             return _context.Sector.Any(e => e.Id == id);
