@@ -41,6 +41,12 @@ namespace Arkitektum.Orden.Controllers
         // GET: Applications/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            return View(id);
+        }
+
+        [Route("/applications/{id}")]
+        public async Task<IActionResult> DetailsJson(int? id)
+        {
             if (id == null)
             {
                 return NotFound();
@@ -52,7 +58,7 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
-            return View(new ApplicationViewModel().Map(application));
+            return Json(new ApplicationViewModel().Map(application));
         }
 
         // GET: Applications/Create

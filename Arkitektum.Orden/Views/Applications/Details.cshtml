@@ -1,117 +1,128 @@
-﻿@model Arkitektum.Orden.Models.ViewModels.ApplicationViewModel
+﻿@model int
+<p>applicationId=@Model</p>
+<p> insert Vue here - </p>
 
-@{
-    ViewData["Title"] = "Details";
-}
+ 
 
-<h1>@Model.Name  - versjon @Model.Version</h1>
+@*
 
-<div class="row">
-    <div class="col-lg-8">
+    @model Arkitektum.Orden.Models.ViewModels.ApplicationViewModel
 
-        <p>Leverandør: @Model.Vendor</p>
-        <p>Systemansvarlig: <a href="" class="badge badge-info"><i class="fas fa-user"></i> @Model.SystemOwner</a></p>
+    @{
+        ViewData["Title"] = "Details";
+    }
 
-        <h2>Lenker</h2>
-        <hr />
-        <div id="app-root">
-            <application api-url="/ResourceLinks/Application/@Model.Id"></application>
+    <h1>@Model.Name  - versjon @Model.Version</h1>
+
+    <div class="row">
+        <div class="col-lg-8">
+
+            <p>Leverandør: @Model.Vendor</p>
+            <p>Systemansvarlig: <a href="" class="badge badge-info"><i class="fas fa-user"></i> @Model.SystemOwner</a></p>
+
+            <h2>Lenker</h2>
+            <hr />
+            <div id="app-root">
+                <application api-url="/ResourceLinks/Application/@Model.Id"></application>
+            </div>
+
+            <h2>Kostnader</h2>
+            <hr />
+            <p>@Html.DisplayNameFor(model => model.AnnualFee): @Html.DisplayFor(model => model.AnnualFee)</p>
+            <p>@Html.DisplayNameFor(model => model.InitialCost): @Html.DisplayFor(model => model.InitialCost)</p>
+
+            <h2>Avtale</h2>
+            <hr />
+            <p>Detaljer om avtale.</p>
+
+            <h2>Drift</h2>
+            <hr />
+            <p>Driftsleverandør: *ukjent*</p>
+            <p>@Html.DisplayNameFor(model => model.HostingLocation): @Html.DisplayFor(model => model.HostingLocation)</p>
+            <p>@Html.DisplayNameFor(model => model.NumberOfUsers): @Html.DisplayFor(model => model.NumberOfUsers)</p>
+
+            <p>
+                Superbrukere:
+                <a href="" class="badge badge-info"><i class="fas fa-user"></i>Hans Hansen</a>
+                <a href="" class="badge badge-info"><i class="fas fa-user"></i>Jan Johansen</a>
+                <a href="" class="badge badge-info"><i class="fas fa-user"></i>Ole Olsen</a>
+            </p>
+
+            <h2>Vurderingskriterier</h2>
+            <hr />
+            <p>Brukertilfredshet:</p>
+            <p>Applikasjonsmodenhet:</p>
+            <p>Skalerbarhet:</p>
+
         </div>
+        <div class="col-lg-4">
 
-        <h2>Kostnader</h2>
-        <hr />
-        <p>@Html.DisplayNameFor(model => model.AnnualFee): @Html.DisplayFor(model => model.AnnualFee)</p>
-        <p>@Html.DisplayNameFor(model => model.InitialCost): @Html.DisplayFor(model => model.InitialCost)</p>
+            <div class="card">
+                <div class="card-header bg-info text-white">@Html.DisplayNameFor(model => model.Sectors)</div>
+                <div class="card-body">
+                    @if (Model.Sectors.Any())
+                    {
+                        <ul>
+                            @foreach (var sector in Model.Sectors)
+                            {
+                                <li><a asp-controller="Sectors" asp-action="Details" asp-route-id="@sector.SectorId">@sector.SectorName</a></li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Ingen tilknyttede tjenesteområder.</p>
+                    }
+                </div>
+            </div>
+            <br />
 
-        <h2>Avtale</h2>
-        <hr />
-        <p>Detaljer om avtale.</p>
-
-        <h2>Drift</h2>
-        <hr />
-        <p>Driftsleverandør: *ukjent*</p>
-        <p>@Html.DisplayNameFor(model => model.HostingLocation): @Html.DisplayFor(model => model.HostingLocation)</p>
-        <p>@Html.DisplayNameFor(model => model.NumberOfUsers): @Html.DisplayFor(model => model.NumberOfUsers)</p>
-
-        <p>
-            Superbrukere:
-            <a href="" class="badge badge-info"><i class="fas fa-user"></i>Hans Hansen</a>
-            <a href="" class="badge badge-info"><i class="fas fa-user"></i>Jan Johansen</a>
-            <a href="" class="badge badge-info"><i class="fas fa-user"></i>Ole Olsen</a>
-        </p>
-
-        <h2>Vurderingskriterier</h2>
-        <hr />
-        <p>Brukertilfredshet:</p>
-        <p>Applikasjonsmodenhet:</p>
-        <p>Skalerbarhet:</p>
-
-    </div>
-    <div class="col-lg-4">
-        
-        <div class="card">
-            <div class="card-header bg-info text-white">@Html.DisplayNameFor(model => model.Sectors)</div>
-            <div class="card-body">
-                @if (Model.Sectors.Any())
+            <div class="card">
+                <div class="card-header bg-info text-white">@Html.DisplayNameFor(model => model.Datasets)</div>
+                <div class="card-body">
+                    @if (Model.Datasets.Any())
                 {
                     <ul>
-                        @foreach (var sector in Model.Sectors)
-                        {
-                            <li><a asp-controller="Sectors" asp-action="Details" asp-route-id="@sector.SectorId">@sector.SectorName</a></li>
-                        }
+                        @foreach (var dataset in Model.Datasets)
+                    {
+                        <li><a asp-controller="Datasets" asp-action="Details" asp-route-id="@dataset.Id">@dataset.Name</a></li>
+                }
                     </ul>
-                }
-                else
-                {
-                    <p>Ingen tilknyttede tjenesteområder.</p>
-                }
-            </div>
-        </div>
-        <br />
-
-        <div class="card">
-            <div class="card-header bg-info text-white">@Html.DisplayNameFor(model => model.Datasets)</div>
-            <div class="card-body">
-                @if (Model.Datasets.Any())
-            {
-                <ul>
-                    @foreach (var dataset in Model.Datasets)
-                {
-                    <li><a asp-controller="Datasets" asp-action="Details" asp-route-id="@dataset.Id">@dataset.Name</a></li>
             }
-                </ul>
+            else
+            {
+                <p>Ingen tilknyttede datasett.</p>
         }
-        else
-        {
-            <p>Ingen tilknyttede datasett.</p>
-    }
+                </div>
             </div>
-        </div>
 
-        <br />
-        <div class="card">
-            <div class="card-header bg-info text-white">@Html.DisplayNameFor(model => model.NationalComponents)</div>
-            <div class="card-body">
-                @if (Model.NationalComponents.Any())
-                {
-                    <ul style="list-style-type: none">
-                        @foreach (var nationalComponent in Model.NationalComponents)
-                        {
-                            <li>@nationalComponent.NationalComponentName</li>
-                        }
-                    </ul>
-                }
-                else
-                {
-                    <p>Ingen tilknyttede felleskomponenter.</p>
-                }
+            <br />
+            <div class="card">
+                <div class="card-header bg-info text-white">@Html.DisplayNameFor(model => model.NationalComponents)</div>
+                <div class="card-body">
+                    @if (Model.NationalComponents.Any())
+                    {
+                        <ul style="list-style-type: none">
+                            @foreach (var nationalComponent in Model.NationalComponents)
+                            {
+                                <li>@nationalComponent.NationalComponentName</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>Ingen tilknyttede felleskomponenter.</p>
+                    }
+                </div>
             </div>
+
         </div>
-        
     </div>
-</div>
 
 
 
 
-<p><a asp-action="Edit" asp-route-id="@Model.Id">Rediger</a> | <a asp-action="SubmitAppRegistry" asp-route-id="@Model.Id">Send inn til felles applikasjonsregister</a></p>
+    <p><a asp-action="Edit" asp-route-id="@Model.Id">Rediger</a> | <a asp-action="SubmitAppRegistry" asp-route-id="@Model.Id">Send inn til felles applikasjonsregister</a></p>
+
+
+*@
