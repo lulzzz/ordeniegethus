@@ -3,7 +3,8 @@ export default {
     props: ['options', 'filterableProperties', 'primaryTextProperty', 'secondaryTextProperty', 'valueProperty'],
     data() {
         return {
-            filterResults: []
+            filterResults: [],
+            inputValue: ''
         }
     },
     methods: {
@@ -24,6 +25,10 @@ export default {
                 });
             }
             this.filterResults = filterResults;
+        },
+        selectFilterResult(filterResult){
+            this.inputValue = filterResult[this.primaryTextProperty];
+            this.$emit('select', filterResult);
         }
     }
 }

@@ -1,8 +1,8 @@
 <template>
     <div>
-        <input v-on:keyup="updateFilterResult($event.target.value)" placeholder="Søk etter tjenesteområde" class="form-control" />
+        <input v-model="inputValue" v-on:keyup="updateFilterResult($event.target.value)" placeholder="Søk etter tjenesteområde" class="form-control" />
         <div class="filter-results">
-            <div v-for="filterResult in filterResults" class="filter-results-item" v-on:click="$emit('select', filterResult)">
+            <div v-for="filterResult in filterResults" class="filter-results-item" v-on:click="selectFilterResult(filterResult)">
                 <span class="primary-text-property">{{ filterResult[primaryTextProperty] }}</span>
                 <span v-if="secondaryTextProperty !== undefined" class="secondary-text-property">{{ filterResult[secondaryTextProperty] }}</span>
             </div>
