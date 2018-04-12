@@ -1,5 +1,5 @@
 ﻿/* Components */
-import ResourceLinks from '../modules/ResourceLinks.vue';
+import ResourceLinks from '../partials/ResourceLinks.vue';
 
 export default {
     name: 'Application',

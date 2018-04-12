@@ -1,7 +1,7 @@
 ﻿import axios from 'axios';
 
 /* Components */
-import ResourceLink from '../modules/ResourceLinks.vue';
+import ResourceLink from '../partials/ResourceLinks.vue';
 
 export default {
     name: 'Sector',

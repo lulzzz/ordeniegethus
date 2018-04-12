@@ -3,14 +3,15 @@ import ResourceLink from './ResourceLinks/ResourceLink.vue';
 
 export default {
     name: 'ResourceLinks',
-    props: ['apiUrl'],
+    props: ['applicationId'],
     components: {
         ResourceLink
     },
     data() {
         return {
-            savedResourceLinks: null,
-            newResourceLink: false
+            apiData: null,
+            newResourceLink: false,
+            apiUrl: "/ResourceLinks/Application/" + this.applicationId
         }
     },
     mounted() {
@@ -20,7 +21,7 @@ export default {
         getResourceLinks() {
             Promise.resolve(this.$root.getApiData(this.apiUrl))
                 .then((apiData) => {
-                    this.savedResourceLinks = apiData;
+                    this.apiData = apiData;
                 });
         },
         createNewResourceLink() {
