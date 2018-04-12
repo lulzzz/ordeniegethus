@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using Microsoft.EntityFrameworkCore;
 
 namespace Arkitektum.Orden.Services
@@ -15,11 +18,13 @@ namespace Arkitektum.Orden.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <returns></returns>
-        Task<IEnumerable<Sector>> GetSectorsForOrganization(int organizationId);
+        Task<IEnumerable<SectorInformationViewModel>> GetSectorsWithApplicationsForOrganization(int organizationId);
 
-        Task<Sector> GetAsync(int id);
+        Task<IEnumerable<Application>> GetApplicationsForSector(int id, int organizationId);
+        Task<Sector> Get(int id);
         Task<Sector> Create(Sector sector);
-        Task UpdateAsync(int id, Sector sectorToEdit);
+        Task Update(int id, Sector sectorToEdit);
+        Task<IEnumerable<Sector>> GetAll();
     }
 
     public class SectorService : ISectorService
@@ -31,17 +36,42 @@ namespace Arkitektum.Orden.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<Sector>> GetSectorsForOrganization(int organizationId)
+        public async Task<IEnumerable<SectorInformationViewModel>> GetSectorsWithApplicationsForOrganization(int organizationId)
         {
-            return await _context.Sector
-                .Include(s => s.SectorApplications).ThenInclude(sa => sa.Application)
-                .ToListAsync();
+
+            var sectors = from sa in _context.SectorApplication
+                          join app in _context.Application on sa.ApplicationId equals app.Id
+                          where app.OrganizationId == organizationId
+                          group sa by sa.SectorId
+                into grp
+                          select new SectorInformationViewModel()
+                          {
+                              SectorId = grp.Key,
+                              ApplicationCount = grp.Select(x => x.ApplicationId).Distinct().Count(),
+                              Name = _context.Sector.SingleOrDefault(s => s.Id == grp.Key).Name
+                          };
+
+
+            return await sectors.ToListAsync();
+
         }
 
-        public async Task<Sector> GetAsync(int id)
+        public async Task<IEnumerable<Application>> GetApplicationsForSector(int id, int organizationId)
+        {
+            var applications = from sa in _context.SectorApplication
+                               join a in _context.Application on sa.ApplicationId equals a.Id
+                               where sa.SectorId == id
+                               where a.OrganizationId == organizationId
+                               select a;
+
+            return await applications.ToListAsync();
+
+
+        }
+
+        public async Task<Sector> Get(int id)
         {
             return await _context.Sector
-                .Include(s => s.SectorApplications).ThenInclude(sa => sa.Application)
                 .SingleOrDefaultAsync(s => s.Id == id);
         }
 
@@ -52,13 +82,19 @@ namespace Arkitektum.Orden.Services
             return sector;
         }
 
-        public async Task UpdateAsync(int id, Sector sectorDataForEdit)
+        public async Task Update(int id, Sector sectorDataForEdit)
         {
-            var sectorToEdit = await GetAsync(id);
+           
+            var sectorToEdit = await Get(id);
 
             _context.Entry(sectorToEdit).CurrentValues.SetValues(sectorDataForEdit);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Sector>> GetAll()
+        {
+            return await _context.Sector.ToListAsync();
         }
     }
 }

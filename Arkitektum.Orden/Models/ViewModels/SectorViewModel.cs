@@ -20,6 +20,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                     output.Add(Map(sector));
                 }
             }
+
             return output;
         }
 

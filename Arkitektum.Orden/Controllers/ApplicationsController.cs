@@ -99,8 +99,8 @@ namespace Arkitektum.Orden.Controllers
         private async Task<List<CheckboxApplicationSector>> GetAvailableSectors()
         {
             var availableSectors = new List<CheckboxApplicationSector>();
-
-            foreach (var sector in await _sectorService.GetSectorsForOrganization(CurrentOrganizationId()))
+            
+            foreach (var sector in await _sectorService.GetAll())
             {
                 availableSectors.Add(new CheckboxApplicationSector()
                 {
@@ -108,7 +108,7 @@ namespace Arkitektum.Orden.Controllers
                     SectorName = sector.Name,
                 });
             }
-
+            
             return availableSectors;
         }
 

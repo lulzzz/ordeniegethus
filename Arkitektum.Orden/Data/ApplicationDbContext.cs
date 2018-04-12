@@ -17,6 +17,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<NationalComponent> NationalComponent { get; set; }
         public DbSet<ApplicationDataset> ApplicationDataset { get; set; }
         public DbSet<ResourceLink> ResourceLink { get; set; }
+        public DbSet<SectorApplication> SectorApplication { get; set; }
         public DbSet<SuperUser> SuperUser { get; set; }
 
         public DbSet<CommonApplication> CommonApplications { get; set; }

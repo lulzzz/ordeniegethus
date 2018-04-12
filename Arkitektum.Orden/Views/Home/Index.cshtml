@@ -18,9 +18,10 @@
             <ul>
                 @foreach (var sector in Model.Sectors)
                 {
+                    
                     <li>
-                        <a asp-action="Details" asp-controller="Sectors" asp-route-id="@sector.Id">@sector.Name</a>
-                        <p>@sector.Applications.Count() applikasjoner</p>
+                        <a asp-action="Details" asp-controller="Sectors" asp-route-id="@sector.SectorId">@sector.Name</a>
+                        <p>@sector.ApplicationCount applikasjoner</p>
                     </li>
                 }
 

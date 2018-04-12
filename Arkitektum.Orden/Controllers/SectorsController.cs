@@ -28,21 +28,27 @@ namespace Arkitektum.Orden.Controllers
         // GET: Sectors
         public async Task<IActionResult> Index()
         {
-            SimpleOrganization currentOrganization = CurrentOrganization();
-            var sectors = await _sectorService.GetSectorsForOrganization(currentOrganization.Id);
+            var sectors = await _sectorService.GetAll();
             return View(new SectorViewModel().MapToEnumerable(sectors));
+       
         }
 
         // GET: Sectors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var currentOrganization = CurrentOrganizationId();
+
             if (id == null)
             {
                 return NotFound();
             }
             
-            var sector = await _sectorService.GetAsync(id.Value);
-            if (sector == null)
+            var applicationsForSector = await _sectorService.GetApplicationsForSector(id.Value, currentOrganization);
+            var sector = await _sectorService.Get(id.Value);
+
+            sector.PopulateSectorApplications(applicationsForSector);
+            
+            if (applicationsForSector == null)
             {
                 return NotFound();
             }
@@ -51,6 +57,7 @@ namespace Arkitektum.Orden.Controllers
                 return Forbid();
 
             return View(new SectorViewModel().Map(sector));
+           
         }
 
 
@@ -103,14 +110,16 @@ namespace Arkitektum.Orden.Controllers
         }
 
         // GET: Sectors/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
+          
             if (id == null)
             {
                 return NotFound();
             }
-        
-            var sector = await _sectorService.GetAsync(id.Value);
+
+            var sector = await _sectorService.Get(id.Value);
 
             if (sector == null)
             {
@@ -121,7 +130,7 @@ namespace Arkitektum.Orden.Controllers
             {
                 return Forbid();
             }
-            
+
             return View(new SectorViewModel().Map(sector));
         }
 
@@ -144,7 +153,7 @@ namespace Arkitektum.Orden.Controllers
             {
                 try
                 {
-                    await _sectorService.UpdateAsync(id, sectorToEdit);
+                    await _sectorService.Update(id, sectorToEdit);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
