@@ -10,6 +10,7 @@ using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -18,11 +19,15 @@ namespace Arkitektum.Orden.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ISectorService _sectorService;
+        private readonly IApplicationSectorService _applicationSectorService;
+        private readonly IApplicationService _applicationService;
 
-        public SectorsController(ApplicationDbContext context, ISectorService sectorService, ISecurityService securityService) : base(securityService)
+        public SectorsController(ApplicationDbContext context, ISectorService sectorService, ISecurityService securityService, IApplicationSectorService applicationSectorService, IApplicationService applicationService) : base(securityService)
         {
             _context = context;
             _sectorService = sectorService;
+            _applicationSectorService = applicationSectorService;
+            _applicationService = applicationService;
         }
 
         // GET: Sectors
@@ -213,29 +218,32 @@ namespace Arkitektum.Orden.Controllers
 
         }
 
-        [HttpGet]
-        [Route("/sectors/application/{applicationId}")]
+        [HttpGet("/sectors/application/{applicationId}")]
         public async Task<IActionResult> GetApplicationSectors(int applicationId)
         {
-            return  Json(new List<SectorApplicationViewModel> {
-                new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 1, SectorName = "Helse og omsorg"},
-                new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 2, SectorName = "Grunnskoleutdanning"},
-                new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = 3, SectorName = "Vann og avløp"},
-                });
+            if (applicationId == 0)
+                return NotFound();
+
+            var application = await _applicationService.GetAsync(applicationId);
+            if (application == null)
+                return NotFound();
+
+            var sectors = await _applicationSectorService.GetSectorsForApplication(applicationId);
+            return Json(SectorApplicationViewModel.Map(sectors, applicationId));
         }
 
-        [HttpPost]
-        [Route("/sectors/application")]
+        [HttpPost("/sectors/application")]
         public async Task<IActionResult> CreateApplicationSector([FromBody] SectorApplicationViewModel model)
         {
-            return Ok();
+            await _applicationSectorService.CreateApplicationSector(model.ApplicationId, model.SectorId);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [HttpDelete]
-        [Route("/sectors/application")]
-        public async Task<IActionResult> DeleteApplicationSector([FromBody] SectorApplicationViewModel model)
+        [HttpDelete("/sectors/application/{sectorId}/{applicationId}")]
+        public async Task<IActionResult> DeleteApplicationSector(int sectorId, int applicationId)
         {
-            return Ok();
+            await _applicationSectorService.DeleteApplicationSector(applicationId, sectorId);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         private bool SectorExists(int id)

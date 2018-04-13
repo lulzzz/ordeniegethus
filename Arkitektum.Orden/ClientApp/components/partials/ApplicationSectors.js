@@ -30,14 +30,14 @@ export default {
                 });
         },
         postApplicationSector(data) {
-            Promise.resolve(this.$root.postApiData(`/sectors/application/`, data))
+            Promise.resolve(this.$root.postApiData(`/sectors/application/`, { sectorId: data.id, applicationId: this.applicationId }))
                 .then(() => {
                     this.getApplicationSectors();
                     this.removeNewApplicationSector();
                 });
         },
-        removeApplicationSector(applicationSectorId) {
-            Promise.resolve(this.$root.deleteApiData(`/sectors/application/`, { id: applicationSectorId }))
+        removeApplicationSector(sectorId) {
+            Promise.resolve(this.$root.deleteApiData(`/sectors/application/${sectorId}/${this.applicationId}`))
                 .then(() => {
                     this.getApplicationSectors();
                 });

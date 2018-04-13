@@ -84,6 +84,7 @@ namespace Arkitektum.Orden
             services.AddTransient<IAppRegistry, AppRegistryService>();
             services.AddTransient<IFieldService, FieldService>();
             services.AddTransient<IVendorService, VendorService>();
+            services.AddTransient<IApplicationSectorService, ApplicationSectorService>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));

@@ -149,6 +149,18 @@ namespace Arkitektum.Orden.Models
                 }
             }
         }
+        
+        internal void RemoveSector(int sectorId)
+        {
+            foreach (var sector in SectorApplications)
+            {
+                if (sector.SectorId == sectorId)
+                {
+                    SectorApplications.Remove(sector);
+                    break;
+                }
+            }
+        }
 
         public string DecimalToString(decimal inputDecimal)
         {

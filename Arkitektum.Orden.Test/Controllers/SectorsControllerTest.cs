@@ -16,13 +16,19 @@ namespace Arkitektum.Orden.Test.Controllers
     {
         private readonly Mock<ApplicationDbContext> _contextMock;
         private readonly Mock<ISectorService> _sectorServiceMock;
-        private  Mock<ISecurityService> _securityServiceMock;
+        private Mock<ISecurityService> _securityServiceMock;
+        private readonly Mock<IApplicationSectorService> _applicationSectorServiceMock;
+        private readonly Mock<IApplicationService> _applicationServiceMock;
+
+        private int CurrentOrganizationId = 1;
 
         public SectorsControllerTest()
         {
             _contextMock = new Mock<ApplicationDbContext>();
             _sectorServiceMock = new Mock<ISectorService>();
-            _securityServiceMock = new Mock<ISecurityService>();
+            _securityServiceMock = new SecurityServiceMock().ReturnCurrentOrganizationWithId(CurrentOrganizationId).Mock();
+            _applicationSectorServiceMock = new Mock<IApplicationSectorService>();
+            _applicationServiceMock = new Mock<IApplicationService>();
         }
 
         [Fact]
@@ -127,7 +133,30 @@ namespace Arkitektum.Orden.Test.Controllers
 
         private SectorsController CreateController()
         {
-            return new SectorsController(_contextMock.Object, _sectorServiceMock.Object, _securityServiceMock.Object);
+            return new SectorsController(_contextMock.Object, _sectorServiceMock.Object, _securityServiceMock.Object, _applicationSectorServiceMock.Object, _applicationServiceMock.Object);
+        }
+
+        [Fact]
+        public async void GetApplicationSectorsShouldReturnNotFoundWhenIdIsZero()
+        {
+            var result = await CreateController().GetApplicationSectors(0);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async void GetApplicationSectorsShouldReturnNotFoundWhenApplicationDoesNotExist()
+        {
+            var result = await CreateController().GetApplicationSectors(1);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async void GetApplicationSectorsShouldReturnForbiddenWhenUserDoesNotHaveAccessToApplication()
+        {
+            int applicationId = 42;
+            _applicationServiceMock.Setup(a => a.GetAsync(applicationId)).ReturnsAsync(new Application() { Id = applicationId });
+            var result = await CreateController().GetApplicationSectors(applicationId);
+            Assert.IsType<ForbidResult>(result);
         }
     }
 }
