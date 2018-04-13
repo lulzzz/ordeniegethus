@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.WindowsAzure.Storage;
 using Serilog;
 using Serilog.Events;
 
@@ -16,11 +17,14 @@ namespace Arkitektum.Orden
     {
         public static int Main(string[] args)
         {
+  //          var storage = CloudStorageAccount.FromConfigurationSetting("MyStorage");
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
+//                .WriteTo.AzureTableStorage
                 .CreateLogger();
             
             try
