@@ -22,9 +22,12 @@ pipeline {
         bat 'dotnet test Arkitektum.Orden.Test'
       }
     }
-    stage('Deploy') {
+    stage('Build package') {
       when {
-        branch 'master'
+        anyOf {
+          branch 'master'
+          branch 'hj_azure-logging'
+        }
       }
       steps {
         bat 'dotnet publish --configuration "Release" Arkitektum.Orden/Arkitektum.Orden.csproj  --output output-app'
@@ -32,6 +35,13 @@ pipeline {
           bat "octo pack --id ${PACKAGE_NAME} --version ${VERSION_NUMBER}"
           bat "octo push --package ${PACKAGE_NAME}.${VERSION_NUMBER}.nupkg --replace-existing --server http://localhost:8081 --apiKey ${OCTOPUS_API_KEY}"
         }
+      }
+    }
+    stage('Deploy') {
+      when {
+        branch 'master'
+      }
+      steps {
         bat "octo create-release --project \"${OCTOPUS_PROJECT_NAME}\" --version ${VERSION_NUMBER} --packageversion ${VERSION_NUMBER} --server http://localhost:8081/ --apiKey ${OCTOPUS_API_KEY} --releaseNotes \"Jenkins build [${VERSION_NUMBER}](https://ci.arkitektum.no/blue/organizations/jenkins/ordeniegethus/detail/master/${currentBuild.getNumber()}/changes/)\" --deployto=Dev --progress"
       }
     }
