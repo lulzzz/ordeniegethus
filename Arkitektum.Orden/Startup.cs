@@ -80,6 +80,7 @@ namespace Arkitektum.Orden
             services.AddTransient<ISearchService, ElasticSearchService>();
             services.AddTransient<ISuperUsersService, SuperUsersService>();
             services.AddTransient<IAppRegistry, AppRegistryService>();
+            services.AddTransient<IFieldService, FieldService>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));
