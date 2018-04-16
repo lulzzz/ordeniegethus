@@ -1,64 +1,86 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
+using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Arkitektum.Orden.Controllers
 {
     public class DatasetFieldsController : Controller
     {
+        private readonly IFieldService _fieldService;
+
+        public DatasetFieldsController(IFieldService fieldService)
+        {
+            _fieldService = fieldService;
+        }
 
         [Route("/datasets/{id}/fields")]
-        public async Task<IActionResult> GetFields([FromQuery] int id)
+        public async Task<IActionResult> GetFields(int id)
         {
-            return Json(new List<DatasetFieldViewModel>() {
-                new DatasetFieldViewModel
-                {
-                    Id = 1,
-                    Name = "Personnummer",
-                    Description = "Personnummer eller D-nummer",
-                    IsPersonalData = true
-                },
-                new DatasetFieldViewModel
-                {
-                    Id = 2,
-                    Name = "Navn",
-                    Description = "Fullt navn",
-                    IsPersonalData = true
-                },
-                new DatasetFieldViewModel
-                {
-                    Id = 3,
-                    Name = "Fagforeningsmedlem",
-                    IsPersonalData = true,
-                    IsSensitivePersonalData = true
-                },
-            });
+            IEnumerable<Field> fields = await _fieldService.GetAllFieldsForDataset(id);
+            IEnumerable<DatasetFieldViewModel> viewModels = new DatasetFieldViewModel().MapToEnumerable(fields);
+
+            return Json(viewModels);
+
         }
 
         [HttpPost]
         [Route("/datasets/{id}/fields")]
-        public async Task<IActionResult> Create([FromQuery] int id, [FromBody] DatasetFieldViewModel model)
+        public async Task<IActionResult> CreateFieldForDataset(int id, [FromBody] DatasetFieldViewModel model)
         {
-            model.Id = 42;
-            var result = Json(model);
-            result.StatusCode = StatusCodes.Status201Created;
-            return result;
+            try
+            {
+                var field = new DatasetFieldViewModel().Map(model, id);
+                var fieldToCreate = await _fieldService.Create(field);
+                var result = Json(new DatasetFieldViewModel().Map(fieldToCreate));
+                result.StatusCode = StatusCodes.Status201Created;
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
         }
 
         [HttpPut]
         [Route("/datasets/{id}/fields")]
-        public async Task<IActionResult> Update([FromQuery] int id, [FromBody] DatasetFieldViewModel model)
+        public async Task<IActionResult> Update(int id, [FromBody] DatasetFieldViewModel datasetFieldModel)
         {
-            return Json(model);
+            try
+            {
+                var field = new DatasetFieldViewModel().Map(datasetFieldModel, id);
+
+                await _fieldService.Update(field.Id, field);
+
+                return Json(datasetFieldModel);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpDelete]
         [Route("/datasets/{id}/fields/{fieldId}")]
-        public async Task<IActionResult> Delete([FromQuery] int id, [FromQuery] int fieldId)
+        public async Task<IActionResult> Delete(int id,  int fieldId)
         {
-            return StatusCode(StatusCodes.Status204NoContent);
+            if (id == 0 || fieldId == 0)
+            {
+                return BadRequest();
+            }
+
+            await _fieldService.Delete(fieldId);
+
+            return Ok();
+
         }
 
     }
