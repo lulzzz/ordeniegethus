@@ -10,15 +10,15 @@
                     <a v-bind:href="apiUrls.submitAppRegistry" class="btn btn-sm btn-outline-primary"><i class="fas fa-warehouse"></i> Send inn til felles applikasjonsregister</a>
                   </div>
                 </p>
-              
+                
                 <p v-if="apiData.userModified">Sist endret av {{ apiData.userModified }} - {{ apiData.dateModified | formatDate }}</p>
                 <p v-if="apiData.userCreated">Opprettet av: {{ apiData.userCreated }} - {{ apiData.dateCreated | formatDate }}</p>
                 <p>Leverandør: {{ apiData.vendor }}</p>
                 <p>Systemansvarlig: <span class="badge badge-info"><i class="fas fa-user"></i> {{ apiData.systemOwner }}</span></p>
 
                 <h2>Lenker</h2>
-                    <resource-links v-bind:application-id="applicationId"></resource-links>
                 <hr />
+                <resource-links v-bind:application-id="applicationId"></resource-links>
 
                 <h2>Kostnader</h2>
                 <hr />
