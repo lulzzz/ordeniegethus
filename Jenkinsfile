@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    VERSION_PREFIX = "0.2."
+    VERSION_PREFIX = "0.3."
     VERSION_NUMBER = "${VERSION_PREFIX}${currentBuild.getNumber()}"
     PACKAGE_NAME = "OrdenIEgetHus"
     OCTOPUS_API_KEY = credentials('arkitektum-octopus-api-key')
