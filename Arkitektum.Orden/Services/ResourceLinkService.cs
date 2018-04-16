@@ -14,7 +14,7 @@ namespace Arkitektum.Orden.Services
         Task<IEnumerable<ResourceLink>> GetResourceLinksForDataset(int datasetId);
         Task<ResourceLink> Create(ResourceLink resourceLink);
         Task Delete(int id);
-        Task UpdateAsync(ResourceLink updatedResourceLink);
+        Task<ResourceLink> UpdateAsync(ResourceLink updatedResourceLink);
        
     }
 
@@ -64,12 +64,14 @@ namespace Arkitektum.Orden.Services
             await SaveChanges();
         }
 
-        public async Task UpdateAsync(ResourceLink updatedResourceLink)
+        public async Task<ResourceLink> UpdateAsync(ResourceLink updatedResourceLink)
         {
             var resourceLinkToEdit = await GetAsync(updatedResourceLink.Id);
             _context.Entry(resourceLinkToEdit).CurrentValues.SetValues(updatedResourceLink);
-
             await SaveChanges();
+            var resourceLink = await GetAsync(updatedResourceLink.Id);
+
+            return resourceLink;
         }
     }
 }

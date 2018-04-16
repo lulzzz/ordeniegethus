@@ -62,9 +62,9 @@ namespace Arkitektum.Orden.Controllers
                 var model = resourceLink.Map(resourceLink, applicationId);
                 model.Id = id;
 
-                await _resourceLinkService.UpdateAsync(model);
+                var updatedResourceLink = _resourceLinkService.UpdateAsync(model);
 
-                return Json(new ResourceLinkViewModel().Map(model));
+                return Json(new ResourceLinkViewModel().Map(updatedResourceLink.Result));
             } 
             catch (Exception)
             {
