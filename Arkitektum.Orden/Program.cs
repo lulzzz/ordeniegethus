@@ -17,37 +17,15 @@ namespace Arkitektum.Orden
     {
         public static int Main(string[] args)
         {
-  //          var storage = CloudStorageAccount.FromConfigurationSetting("MyStorage");
-
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-//                .WriteTo.AzureTableStorage
-                .CreateLogger();
-            
-            try
-            {
                 var host = BuildWebHost(args);
 
                 //DropAndRecreateDatabase(host);
                 MigrateAndSeedDatabase(host);
 
-                Log.Information("Starting web host");
                 host.Run();
 
                 return 0;
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "Host terminated unexpectedly");
-                return 1;
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
+         
         }
         
         private static void DropAndRecreateDatabase(IWebHost host)
@@ -101,7 +79,6 @@ namespace Arkitektum.Orden
         {
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseSerilog()
                 .Build();
         }
     }
