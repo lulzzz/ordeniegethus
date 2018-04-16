@@ -1,4 +1,4 @@
-pipeline {
+  pipeline {
   agent any
   environment {
     VERSION_PREFIX = "0.3."
@@ -24,16 +24,13 @@ pipeline {
     }
     stage('Build package') {
       when {
-        anyOf {
-          branch 'master'
-          branch 'hj_azure-logging'
-        }
+        branch 'master'
       }
       steps {
         bat 'dotnet publish --configuration "Release" Arkitektum.Orden/Arkitektum.Orden.csproj  --output output-app'
         dir("Arkitektum.Orden\\output-app") {
-          bat "octo pack --id ${PACKAGE_NAME}-${BRANCH_NAME} --version ${VERSION_NUMBER}"
-          bat "octo push --package ${PACKAGE_NAME}-${BRANCH_NAME}.${VERSION_NUMBER}.nupkg --replace-existing --server http://localhost:8081 --apiKey ${OCTOPUS_API_KEY}"
+          bat "octo pack --id ${PACKAGE_NAME} --version ${VERSION_NUMBER}"
+          bat "octo push --package ${PACKAGE_NAME}.${VERSION_NUMBER}.nupkg --replace-existing --server http://localhost:8081 --apiKey ${OCTOPUS_API_KEY}"
         }
       }
     }
