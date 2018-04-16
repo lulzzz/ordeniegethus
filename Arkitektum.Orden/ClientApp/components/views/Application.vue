@@ -1,12 +1,20 @@
 ﻿<template>
     <div v-if="apiData">
-       <!-- <h1>{{ apiData.name }}  - versjon {{ apiData.version }}</h1> -->
-
+        <h1>{{ apiData.name }}  - versjon {{ apiData.version }}</h1>
+        <hr/>
         <div class="row">
             <div class="col-lg-8">
-
-                <p>Leverandør: {{ apiData.Vendor }}</p>
-                <p>Systemansvarlig: <a href="" class="badge badge-info"><i class="fas fa-user"></i> {{ apiData.SystemOwner }}</a></p>
+                <p>
+                  <div class="btn-group">
+                    <a v-bind:href="apiUrls.edit" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i> Rediger</a>
+                    <a v-bind:href="apiUrls.submitAppRegistry" class="btn btn-sm btn-outline-primary"><i class="fas fa-warehouse"></i> Send inn til felles applikasjonsregister</a>
+                  </div>
+                </p>
+              
+                <p v-if="apiData.userModified">Sist endret av {{ apiData.userModified }} - {{ apiData.dateModified | formatDate }}</p>
+                <p v-if="apiData.userCreated">Opprettet av: {{ apiData.userCreated }} - {{ apiData.dateCreated | formatDate }}</p>
+                <p>Leverandør: {{ apiData.vendor }}</p>
+                <p>Systemansvarlig: <span class="badge badge-info"><i class="fas fa-user"></i> {{ apiData.systemOwner }}</span></p>
 
                 <h2>Lenker</h2>
                     <resource-links v-bind:application-id="applicationId"></resource-links>
@@ -14,8 +22,9 @@
 
                 <h2>Kostnader</h2>
                 <hr />
-                <p>@Html.DisplayNameFor(model => model.AnnualFee): @Html.DisplayFor(model => model.AnnualFee)</p>
-                <p>@Html.DisplayNameFor(model => model.InitialCost): @Html.DisplayFor(model => model.InitialCost)</p>
+              <p>{{apidata}}</p>
+                <p>Årlige kostnad: {{ apiData.annualFee }}</p>
+                <p>Innkjøpskostnad: {{ apiData.initialCost }}</p>
 
                 <h2>Avtale</h2>
                 <hr />
@@ -24,8 +33,8 @@
                 <h2>Drift</h2>
                 <hr />
                 <p>Driftsleverandør: *ukjent*</p>
-                <p>@Html.DisplayNameFor(model => model.HostingLocation): @Html.DisplayFor(model => model.HostingLocation)</p>
-                <p>@Html.DisplayNameFor(model => model.NumberOfUsers): @Html.DisplayFor(model => model.NumberOfUsers)</p>
+                <p>Driftsplassering: {{ apiData.hostingLocation }}</p>
+                <p>Antall brukere: {{ apiData.numberOfUsers }}</p>
 
                 <p>
                     Superbrukere:
@@ -43,7 +52,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="card">
-                    <div class="card-header bg-info text-white">@Html.DisplayNameFor(model => model.Sectors)</div>
+                    <div class="card-header bg-info text-white">Tjenesteområder</div>
                     <div class="card-body">
                         <application-sectors v-bind:apiData="apiData.sectors" v-bind:applicationId="applicationId"></application-sectors>
                     </div>

@@ -15,6 +15,7 @@ module.exports = (env) => {
                 'isomorphic-fetch',
                 'bootstrap',
                 'bootstrap/dist/css/bootstrap.css',
+                'date-fns',
                 'jquery',
                 'vue'
             ],

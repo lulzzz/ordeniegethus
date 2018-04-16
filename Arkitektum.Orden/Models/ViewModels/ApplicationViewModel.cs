@@ -42,6 +42,11 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public List<DatasetViewModel> Datasets { get;set; }
 
+        public DateTime? DateCreated { get; set; }
+        public string UserCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        public string UserModified { get; set; }
+
         public override IEnumerable<ApplicationViewModel> MapToEnumerable(IEnumerable<Application> inputs)
         {
             var viewModels = new List<ApplicationViewModel>();
@@ -67,7 +72,11 @@ namespace Arkitektum.Orden.Models.ViewModels
                OrganizationId = input.OrganizationId,
                Sectors = Map(input.SectorApplications),
                NationalComponents = Map(input.ApplicationNationalComponent),
-               Datasets = Map(input.ApplicationDatasets)
+               Datasets = Map(input.ApplicationDatasets),
+               DateCreated = input.DateCreated,
+               DateModified = input.DateModified,
+               UserCreated = input.UserCreated,
+               UserModified = input.UserModified
            };
         }
 

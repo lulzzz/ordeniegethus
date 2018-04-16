@@ -59,12 +59,14 @@ namespace Arkitektum.Orden.Services
             var currentApplication = await GetAsync(id);
             
             _context.Entry(currentApplication).CurrentValues.SetValues(updatedApplication);
-
+            
             currentApplication.UpdateSectorRelations(updatedApplication.SectorApplications);
 
             currentApplication.UpdateNationalComponentsRelations(updatedApplication.ApplicationNationalComponent);
+            
+            _context.Entry(currentApplication).State = EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+            await SaveChanges();
 
             await _searchIndexingService.AddToIndex(currentApplication);
         }

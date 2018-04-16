@@ -1,4 +1,4 @@
 ﻿import fontawesome from '@fortawesome/fontawesome';
-import { faUser, faUsers, faEdit, faTimes, faCheck, faTrash, faPlus } from '@fortawesome/fontawesome-free-solid';
+import { faUser, faUsers, faEdit, faTimes, faCheck, faTrash, faPlus, faWarehouse } from '@fortawesome/fontawesome-free-solid';
 
-fontawesome.library.add([faUser, faUsers, faEdit, faTimes, faCheck, faTrash, faPlus]);
+fontawesome.library.add([faUser, faUsers, faEdit, faTimes, faCheck, faTrash, faPlus, faWarehouse]);
