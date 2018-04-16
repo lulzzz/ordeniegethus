@@ -79,6 +79,12 @@ namespace Arkitektum.Orden
         {
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .ConfigureLogging(builder =>
+                    builder
+                        .AddAzureWebAppDiagnostics()
+                        .AddDebug()
+                        .AddConsole()
+                )
                 .Build();
         }
     }
