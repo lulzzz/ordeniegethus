@@ -5,7 +5,7 @@
 @inject ISecurityHelper SecurityHelper
 
 <script>
-    function changeOrganization() { // TODO: Move to separate script file
+    function changeOrganization(event) { // TODO: Move to separate script file
         document.getElementById('navbar-organization-input').value = event.target.dataset.organizationId;
         document.getElementById('navbar-organization-input').form.submit();
     }
@@ -30,7 +30,7 @@
                             <ul class="navbar-dropdown-list">
                                 @foreach (var org in currentOrganization.AvailableOrganizations)
                                 {
-                                    <li onclick="changeOrganization()" data-organization-id="@org.Id">@org.Name</li>
+                                    <li onclick="changeOrganization(event)" data-organization-id="@org.Id">@org.Name</li>
                                 }
                             </ul>
                         </form>
