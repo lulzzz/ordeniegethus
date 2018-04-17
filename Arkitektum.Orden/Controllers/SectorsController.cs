@@ -33,6 +33,13 @@ namespace Arkitektum.Orden.Controllers
 
         }
 
+        [HttpGet("/sectors/all")]
+        public async Task<IActionResult> All()
+        {
+            var sectors = await _sectorService.GetAll();
+            return Json(new SectorViewModel().MapToEnumerable(sectors));
+        }
+
         // GET: Sectors/Details/5
         public async Task<IActionResult> Details(int? id)
         {

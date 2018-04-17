@@ -101,7 +101,7 @@ namespace Arkitektum.Orden.Services
 
         public async Task<IEnumerable<Sector>> GetAll()
         {
-            return await _context.Sector.ToListAsync();
+            return await _context.Sector.OrderBy(s => s.Name).ToListAsync();
         }
     }
 }
