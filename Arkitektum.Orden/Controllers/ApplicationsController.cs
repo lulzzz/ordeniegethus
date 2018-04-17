@@ -7,7 +7,6 @@ using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Authorization;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services.AppRegistry;
-using System;
 using Arkitektum.Orden.Utils;
 
 namespace Arkitektum.Orden.Controllers
@@ -38,6 +37,9 @@ namespace Arkitektum.Orden.Controllers
         [HttpGet("")]
         public async Task<IActionResult> Index()
         {            
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+
             SimpleOrganization currentOrganization = CurrentOrganization();
             var applications = await _applicationService.GetAllApplicationsForOrganisation(currentOrganization.Id);
             return View(new ApplicationViewModel().MapToEnumerable(applications));
@@ -46,12 +48,18 @@ namespace Arkitektum.Orden.Controllers
         [HttpGet("details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+
             return View(id);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> DetailsJson(int? id)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+
             if (id == null)
             {
                 return NotFound();
@@ -69,6 +77,9 @@ namespace Arkitektum.Orden.Controllers
         [HttpGet("create")]
         public async Task<IActionResult> Create()
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
+                return Forbid();
+
             var model = new ApplicationViewModel();
             model.OrganizationId = CurrentOrganizationId();
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
@@ -167,6 +178,9 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwner,Sectors,NationalComponents")] ApplicationViewModel model)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
+                return Forbid();
+
             // always set organizationId to currentOrganization to prevent any security issues
             model.OrganizationId = CurrentOrganizationId();
             
@@ -189,15 +203,15 @@ namespace Arkitektum.Orden.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var application = await _applicationService.GetAsync(id.Value);
             if (application == null)
-            {
                 return NotFound();
-            }
+
+            if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
+                return Forbid();
+            
             var model = new ApplicationViewModel().Map(application);
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
@@ -213,10 +227,20 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwner,Sectors,NationalComponents")] ApplicationViewModel model)
         {
+            if (id == 0) 
+                return NotFound();
+
             if (id != model.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
+            
+            Application application = await _applicationService.GetAsync(id);
+            if (application == null) 
+                return NotFound();
+
+            if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
+                return Forbid();
 
             model.OrganizationId = CurrentOrganizationId();
 
@@ -239,11 +263,16 @@ namespace Arkitektum.Orden.Controllers
         [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) 
+                return NotFound();
             
             var applicationToDelete = await _applicationService.GetAsync(id.Value);
-            if (applicationToDelete == null) return NotFound();
+            if (applicationToDelete == null) 
+                return NotFound();
             
+            if (!_securityService.CurrrentUserHasAccessToApplication(applicationToDelete, AccessLevel.Write))
+                return Forbid();
+
             return View(applicationToDelete);
         }
 
@@ -251,6 +280,16 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (id == 0) 
+                return NotFound();
+            
+            var applicationToDelete = await _applicationService.GetAsync(id);
+            if (applicationToDelete == null) 
+                return NotFound();
+
+            if (!_securityService.CurrrentUserHasAccessToApplication(applicationToDelete, AccessLevel.Write))
+                return Forbid();
+
             await _applicationService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
@@ -258,13 +297,32 @@ namespace Arkitektum.Orden.Controllers
         [HttpGet("submit-app-registry/{id}")]
         public async Task<IActionResult> SubmitAppRegistry(int id)
         {
+            if (id == 0) 
+                return NotFound();
+
             Application application = await _applicationService.GetAsync(id);
+            if (application == null) 
+                return NotFound();
+
+            if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
+                return Forbid();
+
             return View(new ApplicationViewModel().Map(application));
         }
 
         [HttpPost("submit-app-registry/{id}")]
         public async Task<IActionResult> SubmitAppRegistryConfirm(int id)
         {
+            if (id == 0) 
+                return NotFound();
+
+            Application application = await _applicationService.GetAsync(id);
+            if (application == null) 
+                return NotFound();
+
+            if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
+                return Forbid();
+
             await _appRegistry.SubmitApplication(id);
 
             FlashSuccess(UIResource.FlashApplicationSubmittedToAppRegistry);
