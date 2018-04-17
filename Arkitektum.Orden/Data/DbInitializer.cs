@@ -67,6 +67,15 @@ namespace Arkitektum.Orden.Data
             context.Add(new Sector { Name = "Tekniske tjenester" });
             context.Add(new Sector { Name = "Administrasjon" });
 
+            // add national components
+            context.Add(new NationalComponent { Name = "Altinn"});
+            context.Add(new NationalComponent { Name = "Det sentrale folkeregisteret"});
+            context.Add(new NationalComponent { Name = "Digital postkasse til innbyggere"});
+            context.Add(new NationalComponent { Name = "Enhetsregisteret"});
+            context.Add(new NationalComponent { Name = "ID-porten"});
+            context.Add(new NationalComponent { Name = "Kontakt- og reservasjonsregisteret"});
+            context.Add(new NationalComponent { Name = "Matrikkelen"});
+
             context.SaveChanges();
         }
     }
