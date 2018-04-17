@@ -1,6 +1,6 @@
 ﻿export default {
     name: 'ResourceLink',
-    props: ['apiUrl', 'resourceLink', 'saved'],
+    props: ['resourceLink', 'saved'],
     data() {
         return {
             editable: false,
@@ -8,7 +8,7 @@
         }
     },
     methods: {
-        update: function() {
+        update() {
             this.$parent.updateResourceLink(this.resourceLink.id, this.data);
             this.editable = false;
         }

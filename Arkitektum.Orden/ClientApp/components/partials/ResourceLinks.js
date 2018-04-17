@@ -11,7 +11,6 @@ export default {
         return {
             apiData: null,
             newResourceLink: false,
-            apiUrl: "/ResourceLinks/Application/" + this.applicationId
         }
     },
     mounted() {
@@ -19,7 +18,7 @@ export default {
     },
     methods: {
         getResourceLinks() {
-            Promise.resolve(this.$root.getApiData(this.apiUrl))
+            Promise.resolve(this.$root.getApiData(`/ResourceLinks/Application/${this.applicationId}`))
                 .then((apiData) => {
                     this.apiData = apiData;
                 });
@@ -31,17 +30,17 @@ export default {
             this.newResourceLink = false;
         },
         postResourceLink(data) {
-            Promise.resolve(this.$root.postApiData(this.apiUrl, data))
+            Promise.resolve(this.$root.postApiData(`/ResourceLinks/Application/${this.applicationId}`, data))
                 .then(() => {
                     this.getResourceLinks();
                     this.removeNewResourceLink();
                 });
         },
         updateResourceLink(resourceLinkId, data) {
-            Promise.resolve(this.$root.putApiData(`${this.apiUrl}/${resourceLinkId}`, data));
+            Promise.resolve(this.$root.putApiData(`/ResourceLinks/Application/${this.applicationId}/${resourceLinkId}`, data));
         },
         removeResourceLink(resourceLinkId) {
-            Promise.resolve(this.$root.postApiData('/ResourceLinks/Delete', { id: resourceLinkId }))
+            Promise.resolve(this.$root.postApiData(`/ResourceLinks/Delete`, { id: resourceLinkId }))
                 .then(() => {
                     this.getResourceLinks();
                 });
