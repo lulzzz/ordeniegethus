@@ -7,10 +7,12 @@ using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Authorization;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services.AppRegistry;
+using System;
 
 namespace Arkitektum.Orden.Controllers
 {
     [Authorize]
+    [Route("/applications")]
     public class ApplicationsController : BaseController
     {
         private readonly IApplicationService _applicationService;
@@ -18,19 +20,21 @@ namespace Arkitektum.Orden.Controllers
         private readonly ISectorService _sectorService;
         private readonly INationalComponentService _nationalComponentsService;
         private readonly IAppRegistry _appRegistry;
+        private readonly IVendorService _vendorService;
 
         public ApplicationsController(ISecurityService securityService, IApplicationService applicationService, IUserService userService, 
-            ISectorService sectorService, INationalComponentService nationalComponentsService, IAppRegistry appRegistry) : base(securityService)
+            ISectorService sectorService, INationalComponentService nationalComponentsService, IAppRegistry appRegistry, IVendorService vendorService) : base(securityService)
         {
             _applicationService = applicationService;
             _userService = userService;
             _sectorService = sectorService;
             _nationalComponentsService = nationalComponentsService;
             _appRegistry = appRegistry;
+            _vendorService = vendorService;
         }
 
 
-        // GET: Applications
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {            
             SimpleOrganization currentOrganization = CurrentOrganization();
@@ -38,13 +42,13 @@ namespace Arkitektum.Orden.Controllers
             return View(new ApplicationViewModel().MapToEnumerable(applications));
         }
 
-        // GET: Applications/Details/5
+        [HttpGet("details")]
         public async Task<IActionResult> Details(int? id)
         {
             return View(id);
         }
 
-        [Route("/applications/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> DetailsJson(int? id)
         {
             if (id == null)
@@ -61,29 +65,45 @@ namespace Arkitektum.Orden.Controllers
             return Json(new ApplicationViewModel().Map(application));
         }
 
-        // GET: Applications/Create
+        [HttpGet("create")]
         public async Task<IActionResult> Create()
         {
             var model = new ApplicationViewModel();
             model.OrganizationId = CurrentOrganizationId();
+            model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
+            model.AvailableVendors = await GetAvailableVendors();
+            model.Sectors = await GetAvailableSectors();
+            model.NationalComponents = await GetNationalComponents();
+            return View(model);
+        }
 
-            model.AvailableSystemOwners = new List<SelectListItem>();
-
+        private async Task<List<SelectListItem>> GetAvailableSystemOwners(ApplicationViewModel model)
+        {
+            var availableSystemOwners = new List<SelectListItem>();
             foreach (var applicationUser in await _userService.GetAll())
             {
-                model.AvailableSystemOwners.Add(new SelectListItem()
+                availableSystemOwners.Add(new SelectListItem()
                 {
                     Text = applicationUser.FullName,
                     Value = applicationUser.Id
                 });
             }
+            return availableSystemOwners;
+        }
 
-            model.Sectors = await GetAvailableSectors();
+        private async Task<List<SelectListItem>> GetAvailableVendors()
+        {
+            var vendors = new List<SelectListItem>();
+            vendors.Add(new SelectListItem{ Text = UIResource.SelectVendorFromList, Value = "0"});
 
-            model.NationalComponents = await GetNationalComponents();
-
-            return View(model);
-
+            foreach (var vendor in await _vendorService.GetAll())
+            {
+                vendors.Add(new SelectListItem {
+                    Text = vendor.Name,
+                    Value = vendor.Id.ToString() 
+                    });
+            }
+            return vendors;
         }
 
         private async Task<List<CheckboxApplicationNationalComponents>> GetNationalComponents()
@@ -118,23 +138,28 @@ namespace Arkitektum.Orden.Controllers
             return availableSectors;
         }
 
-        // POST: Applications/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,Vendor,SystemOwner,Version,OrganizationId,Sectors,NationalComponents")] ApplicationViewModel application)
+        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,VendorId,VendorName,SystemOwner,Version,OrganizationId,Sectors,NationalComponents")] ApplicationViewModel model)
         {
+            // always set organizationId to currentOrganization to prevent any security issues
+            model.OrganizationId = CurrentOrganizationId();
+            
             if (ModelState.IsValid)
             {
-                var createApplication = await _applicationService.Create(new ApplicationViewModel().Map(application));
+                var createApplication = await _applicationService.Create(new ApplicationViewModel().Map(model));
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(application);
+            model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
+            model.AvailableVendors = await GetAvailableVendors();
+            model.Sectors = await GetAvailableSectors();
+            model.NationalComponents = await GetNationalComponents();
+
+            return View(model);
         }
 
-        // GET: Applications/Edit/5
+        [HttpGet("edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -169,10 +194,7 @@ namespace Arkitektum.Orden.Controllers
             return View(model);
         }
 
-        // POST: Applications/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers," +
                                                             "Vendor,OrganizationId,Sectors,NationalComponents,SystemOwner")] ApplicationViewModel application)
@@ -187,7 +209,7 @@ namespace Arkitektum.Orden.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Applications/Delete/5
+        [HttpGet("delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -198,8 +220,7 @@ namespace Arkitektum.Orden.Controllers
             return View(applicationToDelete);
         }
 
-        // POST: Applications/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("delete"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -207,16 +228,14 @@ namespace Arkitektum.Orden.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        [Route("/applications/submit-app-registry")]
+        [HttpGet("submit-app-registry")]
         public async Task<IActionResult> SubmitAppRegistry(int id)
         {
             Application application = await _applicationService.GetAsync(id);
             return View(new ApplicationViewModel().Map(application));
         }
 
-        [HttpPost]
-        [Route("/applications/submit-app-registry")]
+        [HttpPost("submit-app-registry")]
         public async Task<IActionResult> SubmitAppRegistryConfirm(int id)
         {
             await _appRegistry.SubmitApplication(id);

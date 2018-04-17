@@ -8,7 +8,7 @@
             <resource-link v-if="newResourceLink" v-bind:api-url="apiUrl" v-bind:saved="false" v-on:remove="removeNewResourceLink()"></resource-link>
 
             <div class="list-group-item">
-                <button v-show="!newResourceLink" v-on:click="createNewResourceLink()" class="float-right btn btn-primary"><span class="fas fa-plus"></span> Ny lenke</button>
+                <button v-show="!newResourceLink" v-on:click="createNewResourceLink()" class="btn btn-outline-primary"><span class="fas fa-plus"></span> Ny lenke</button>
             </div>
         </div>
         

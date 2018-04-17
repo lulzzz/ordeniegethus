@@ -253,6 +253,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to - Velg leverandør fra listen -.
+        /// </summary>
+        public static string SelectVendorFromList {
+            get {
+                return ResourceManager.GetString("SelectVendorFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send inn forslag til felles applikasjonsregister.
         /// </summary>
         public static string SubmitApplicationToAppRegistry {

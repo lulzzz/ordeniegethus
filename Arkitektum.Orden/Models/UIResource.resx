@@ -184,6 +184,9 @@
   <data name="SectorHeaderIndex" xml:space="preserve">
     <value>Tjenesteområder</value>
   </data>
+  <data name="SelectVendorFromList" xml:space="preserve">
+    <value>- Velg leverandør fra listen -</value>
+  </data>
   <data name="SubmitApplicationToAppRegistry" xml:space="preserve">
     <value>Send inn forslag til felles applikasjonsregister</value>
   </data>

@@ -10,7 +10,9 @@ export default {
     data() {
         return {
             apiUrls: {
-                get: `/Applications/${this.applicationId}`
+                get: `/Applications/${this.applicationId}`,
+                edit: `/applications/edit/${this.applicationId}`,
+                submitAppRegistry: `/applications/submit-app-registry/${this.applicationId}`,
             },
             apiData: null
         }

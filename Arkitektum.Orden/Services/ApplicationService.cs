@@ -84,6 +84,7 @@ namespace Arkitektum.Orden.Services
                .Include(a => a.ApplicationNationalComponent).ThenInclude(anc => anc.NationalComponent)
                .Include(a => a.SectorApplications).ThenInclude(sa => sa.Sector)
                .Include(a => a.ApplicationDatasets).ThenInclude(ad => ad.Dataset)
+               .Include(a => a.Vendor)
                .SingleOrDefaultAsync(a => a.Id == id);
         }
        

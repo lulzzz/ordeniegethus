@@ -16,7 +16,11 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public string Version { get; set; }
 
-        public string Vendor {get; set;}
+        public int VendorId { get; set; }
+
+        public string VendorName {get;set;}
+
+        public VendorViewModel Vendor { get; set; }
 
         [Range(0, double.MaxValue)]
         [DataType(DataType.Currency, ErrorMessage = "Du kan bruke kun tall")]
@@ -47,6 +51,8 @@ namespace Arkitektum.Orden.Models.ViewModels
         public DateTime? DateModified { get; set; }
         public string UserModified { get; set; }
 
+        public List<SelectListItem> AvailableVendors {get;set;}
+
         public override IEnumerable<ApplicationViewModel> MapToEnumerable(IEnumerable<Application> inputs)
         {
             var viewModels = new List<ApplicationViewModel>();
@@ -64,7 +70,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                Name = input.Name,
                AnnualFee = input.DecimalToString(input.AnnualFee),
                SystemOwner = input.SystemOwner?.FullName,
-               Vendor = input.Vendor != null ? input.Vendor.Name : null,
+               Vendor = Map(input.Vendor),
                Version = input.Version,
                InitialCost = input.DecimalToString(input.InitialCost),
                HostingLocation = input.HostingLocation,
@@ -78,6 +84,21 @@ namespace Arkitektum.Orden.Models.ViewModels
                UserCreated = input.UserCreated,
                UserModified = input.UserModified
            };
+        }
+
+        private VendorViewModel Map(Vendor vendor)
+        {
+            VendorViewModel viewModel = null;
+            if (vendor != null)
+            {
+                viewModel = new VendorViewModel
+                {
+                    Id = vendor.Id,
+                    Name = vendor.Name,
+                    HomepageUrl = vendor.HomepageUrl
+                };
+            }
+            return viewModel;
         }
 
         private List<DatasetViewModel> Map(List<ApplicationDataset> datasets)
@@ -164,8 +185,18 @@ namespace Arkitektum.Orden.Models.ViewModels
                 OrganizationId = input.OrganizationId,
                 SectorApplications = Map(input.Sectors, input.Id),
                 ApplicationNationalComponent = Map(input.NationalComponents, input.Id),
-                
+                VendorId = input.VendorId,
+                Vendor = CreateNewVendor(input.VendorId, input.VendorName)
             };
+        }
+
+        private Vendor CreateNewVendor(int vendorId, string vendorName)
+        {
+            if (vendorId == 0 && !string.IsNullOrWhiteSpace(vendorName))
+            {
+                return new Vendor { Name = vendorName };
+            }
+            return null;
         }
 
         private List<ApplicationNationalComponent> Map(List<CheckboxApplicationNationalComponents> input, int id)

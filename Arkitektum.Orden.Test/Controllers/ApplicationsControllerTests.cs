@@ -84,7 +84,7 @@ namespace Arkitektum.Orden.Test.Controllers
         private ApplicationsController CreateController()
         {
             return new ApplicationsController(_securityServiceMock.Object, _applicationServiceMock.Object, _userServiceMock.Object,
-              _sectorServiceMock.Object, null, null);
+              _sectorServiceMock.Object, null, null, null);
         }
     }
 }

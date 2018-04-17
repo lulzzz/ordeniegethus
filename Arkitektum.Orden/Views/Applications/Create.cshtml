@@ -10,22 +10,32 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <input type="hidden" asp-for="OrganizationId"/>
+            <input type="hidden" asp-for="OrganizationId" />
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control"/>
+                <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Version" class="control-label"></label>
-                <input asp-for="Version" class="form-control"/>
+                <input asp-for="Version" class="form-control" />
                 <span asp-validation-for="Version" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="VendorId" class="control-label"></label>
+                <select asp-for="VendorId" asp-items="Model.AvailableVendors" class="form-control"></select>
+                <span asp-validation-for="VendorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VendorName" class="control-label"></label>
+                <input asp-for="VendorName" class="form-control"></input>
+                <span asp-validation-for="VendorName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="AnnualFee" class="control-label"></label>
-                <input asp-for="AnnualFee" class="form-control"/>
+                <input asp-for="AnnualFee" class="form-control" />
                 <span asp-validation-for="AnnualFee" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -33,20 +43,16 @@
                 <select asp-for="SystemOwner" asp-items="Model.AvailableSystemOwners" class="form-control"></select>
                 <span asp-validation-for="SystemOwner" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Vendor" class="control-label"></label>
-                <input asp-for="Vendor" class="form-control"/>
-                <span asp-validation-for="Vendor" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Sectors" class="control-label"></label>
                 <ul style="list-style-type: none">
                     @for (var i = 0; i < Model.Sectors.Count; i++)
                     {
                         <li>
-                            <input type="hidden" asp-for="@Model.Sectors[i].SectorId"/>
-                            <input type="hidden" asp-for="@Model.Sectors[i].SectorName"/>
-                            <input type="checkbox" asp-for="@Model.Sectors[i].Selected"/>
+                            <input type="hidden" asp-for="@Model.Sectors[i].SectorId" />
+                            <input type="hidden" asp-for="@Model.Sectors[i].SectorName" />
+                            <input type="checkbox" asp-for="@Model.Sectors[i].Selected" />
                             <label asp-for="@Model.Sectors[i].SectorName">@Model.Sectors[i].SectorName</label>
                         </li>
                     }
@@ -58,16 +64,16 @@
                     @for (var i = 0; i < Model.NationalComponents.Count; i++)
                     {
                         <li>
-                            <input type="hidden" asp-for="@Model.NationalComponents[i].NationalComponentId"/>
-                            <input type="hidden" asp-for="@Model.NationalComponents[i].NationalComponentName"/>
-                            <input type="checkbox" asp-for="@Model.NationalComponents[i].Selected"/>
+                            <input type="hidden" asp-for="@Model.NationalComponents[i].NationalComponentId" />
+                            <input type="hidden" asp-for="@Model.NationalComponents[i].NationalComponentName" />
+                            <input type="checkbox" asp-for="@Model.NationalComponents[i].Selected" />
                             <label asp-for="@Model.NationalComponents[i].NationalComponentName">@Model.NationalComponents[i].NationalComponentName</label>
                         </li>
                     }
                 </ul>
             </div>
             <div class="form-group">
-                <input type="submit" value="@UIResource.ButtonSave" class="btn btn-default"/>
+                <input type="submit" value="@UIResource.ButtonSave" class="btn btn-default" />
             </div>
         </form>
     </div>

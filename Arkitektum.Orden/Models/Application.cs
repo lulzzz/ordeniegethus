@@ -24,7 +24,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Leverandør
         /// </summary>
-        public Vendor Vendor { get; set; }
+        public virtual Vendor Vendor { get; set; }
         public int VendorId {get;set;}
 
         /// <summary>
