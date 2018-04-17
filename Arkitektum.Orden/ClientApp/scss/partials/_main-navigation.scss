@@ -1,41 +1,33 @@
 ﻿.main-navigation {
     background-color: $primary-color;
-    color: #FFF;
+    color: #fff;
     position: fixed;
     width: 100%;
-    z-index: 1020;
-    @include box-shadow(0 4px 5px -2px rgba(0,0,0,.26));
-
+    z-index: 2;
+    @include box-shadow(0 4px 5px -2px rgba(0, 0, 0, 0.26));
     .main-navigation-content {
         .navbar {
             display: block;
             width: 100%;
         }
-
         ul {
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            border-top: 1px solid rgba(0,0,0,.05);
-
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
             &:first-child {
                 border-top: none;
             }
-
             &:last-child {
                 border-bottom: none;
             }
-
             li {
                 padding: 0.25rem 1rem;
                 color: #000;
-
                 &:hover {
-                    background-color: rgba(255,255,255,.05);
+                    background-color: rgba(255, 255, 255, 0.05);
                 }
-
                 a {
                     display: block;
                     padding: 8px 0;
-
                     &:hover {
                         text-decoration: none;
                     }
@@ -69,11 +61,9 @@
     .navbar-left {
         width: 275px;
     }
-
     .navbar-center {
         width: calc(100% - 550px);
     }
-
     .navbar-right {
         width: 275px;
     }
@@ -83,47 +73,40 @@
     width: 100%;
     max-width: 400px;
     display: inline-block;
-
     input {
         width: 100%;
         height: 39px;
         border-radius: 4px;
-        border: 1px solid rgba(0,0,0,0.2);
+        border: 1px solid rgba(0, 0, 0, 0.2);
     }
 }
 
 .navbar-account {
-    padding: .25rem .75rem;
-
+    padding: 0.25rem 0.75rem;
     .navbar-account-menu-item {
         display: inline-block;
         vertical-align: bottom;
-
         .navbar-icon,
         .navbar-text-toggle {
             height: 35px;
-            @include transition(all .2s);
+            @include transition(all 0.2s);
             color: #fff;
         }
-
         .navbar-icon {
             width: 35px;
             border-radius: 50%;
             overflow: hidden;
-
             svg.svg-inline--fa {
                 width: 34px;
                 height: 34px;
             }
         }
-
         .navbar-text-toggle {
             display: none;
             font-size: 18px;
             line-height: 31px;
             padding: 0 6px;
             border-radius: 3px;
-
             &:after {
                 content: "\25BC";
                 display: inline-block;
@@ -132,37 +115,30 @@
                 margin-left: 6px;
             }
         }
-
         @media (min-width: $screen-sm) {
             .navbar-text-toggle {
                 display: inline-block;
             }
-
             &.navbar-organization .navbar-icon {
                 display: none;
             }
         }
-
-
         &:hover {
             .navbar-icon,
             .navbar-text-toggle {
-                background-color: rgba(255,255,255,.2);
+                background-color: rgba(255, 255, 255, 0.2);
             }
         }
-
         &.active {
             .navbar-icon,
             .navbar-text-toggle {
-                background-color: rgba(255,255,255,.2);
+                background-color: rgba(255, 255, 255, 0.2);
             }
         }
     }
-
     a {
         color: #fff;
     }
-
     form {
         display: inline-block;
         color: #fff;
@@ -170,33 +146,62 @@
 }
 
 @media (min-width: $screen-sm) {
+    .navbar {
+        @include box-shadow(none);
+    }
     .main-navigation {
         padding: 0;
-        width: 245px;
-        height: 1px;
+        width: 100%;
         left: 0;
         display: block;
-        float: left;
-
+        background-color: #fbfcfd;
         .main-navigation-content {
-            height: 100% !important;
-            width: 245px;
-            position: fixed;
-            background-color: #fbfcfd;
-            @include box-shadow(2px 3px 5px 0 rgba(0, 0, 0, .26));
-
+            width: 100%;
+            margin: auto;
+            @include box-shadow(2px 3px 5px 0 rgba(0, 0, 0, 0.26));
             &.show {
                 left: 0;
             }
-
+            .main-navigation-item {
+                width: 25%;
+                float: left;
+                >a,
+                >.dropdown-box-toggle>span {
+                    display: block;
+                    padding: 0.5rem 1rem;
+                    color: #007bff;
+                    text-decoration: none;
+                    text-align: center;
+                }
+                >.dropdown-box-toggle>span {
+                    &:after {
+                        content: "\25BC";
+                        display: inline-block;
+                        font-size: 14px;
+                        margin-left: 6px;
+                    }
+                }
+                .dropdown-box-toggle {
+                    &.active>span {
+                        background-color: #007bff;
+                        color: #fff;
+                    }
+                    .dropdown-box-container {
+                        top: 0;
+                        .dropdown-box-content {
+                            right: initial;
+                            width: 100%;
+                            border-radius: 0 0 3px 3px;
+                        }
+                    }
+                }
+            }
             ul {
-
-
+                list-style: none;
                 li {
                     &:hover {
-                        background-color: rgba(0,0,0,.05);
+                        background-color: rgba(0, 0, 0, 0.05);
                     }
-
                     a {
                         color: #333;
                     }

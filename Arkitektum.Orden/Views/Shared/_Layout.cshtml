@@ -43,18 +43,37 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="main-navigation navbar-collapse collapse">
-            <div class="main-navigation-content">
-                <ul class="navbar-nav mr-auto">
-                    @if (User.IsInRole(Roles.Admin))
-                    {
-                        <li class="nav-item"><a asp-area="" asp-controller="Organizations" asp-action="Index" class="nav-link">@ModelsResource.Organizations</a></li>
-                        <li class="nav-item"><a asp-area="" asp-controller="NationalComponents" asp-action="Index" class="nav-link">@ModelsResource.NationalComponents</a></li>
-                    }
-                    <li class="nav-item"><a asp-area="" asp-controller="Applications" asp-action="Index" class="nav-link">@ModelsResource.Applications</a></li>
-                    <li class="nav-item"><a asp-area="" asp-controller="Sectors" asp-action="Index" class="nav-link">@ModelsResource.Sectors</a></li>
-                    <li class="nav-item"><a asp-area="" asp-controller="Datasets" asp-action="Index" class="nav-link">@ModelsResource.Datasets</a></li>
-                    <li class="nav-item"><a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link">Brukere</a></li>
-                </ul>
+            <div class="main-navigation-content container">
+                <div class="main-navigation-item"><a asp-area="" asp-controller="Applications" asp-action="Index" class="nav-link">@ModelsResource.Applications</a></div>
+                <div class="main-navigation-item"><a asp-area="" asp-controller="Datasets" asp-action="Index" class="nav-link">@ModelsResource.Datasets</a></div>
+                <div class="main-navigation-item">
+                    <div class="dropdown-box-toggle">
+                    <span>Innsikt</span>
+                    <div class="dropdown-box-container">
+                        <div class="dropdown-box-content">
+                        </div>    
+                    </div>
+                    </div>
+                </div>
+                <div class="main-navigation-item">
+                    <div class="dropdown-box-toggle">
+                        <span>Administrator</span>
+                        <div class="dropdown-box-container">
+                            <div class="dropdown-box-content">
+                                <ul class="navbar-dropdown-list">
+                                    <li class=""><a asp-area="" asp-controller="Sectors" asp-action="Index" class="nav-link">@ModelsResource.Sectors</a></li>
+                                    <li class=""><a asp-area="" asp-controller="Users" asp-action="Index" class="nav-link">Brukere</a></li>
+                                    @if (User.IsInRole(Roles.Admin))
+                                    {
+                                        <li class=""><a asp-area="" asp-controller="Organizations" asp-action="Index" class="nav-link">@ModelsResource.Organizations</a></li>
+                                        <li class=""><a asp-area="" asp-controller="NationalComponents" asp-action="Index" class="nav-link">@ModelsResource.NationalComponents</a></li>
+                                    }
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     }

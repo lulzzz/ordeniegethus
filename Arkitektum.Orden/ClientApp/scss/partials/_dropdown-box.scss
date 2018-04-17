@@ -33,9 +33,6 @@
                 color: $default-text-color;
 
                 li {
-                    display: block;
-                    padding: 4px 8px;
-
                     &:hover {
                         background-color: rgba(0,0,0,.05);
                     }

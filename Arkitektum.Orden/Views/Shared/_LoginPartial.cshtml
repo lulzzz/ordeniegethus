@@ -30,7 +30,7 @@
                             <ul class="navbar-dropdown-list">
                                 @foreach (var org in currentOrganization.AvailableOrganizations)
                                 {
-                                    <li onclick="changeOrganization(event)" data-organization-id="@org.Id">@org.Name</li>
+                                    <li onclick="changeOrganization(event)" data-organization-id="@org.Id" class="nav-link">@org.Name</li>
                                 }
                             </ul>
                         </form>
