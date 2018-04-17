@@ -48,97 +48,24 @@ namespace Arkitektum.Orden.Data
             };
             IdentityResult result = userManager.CreateAsync(adminUser, "Test123").Result;
             if (result.Succeeded) await userManager.AddToRolesAsync(adminUser, Roles.All);
-            
-            
-            var emailRegularUser = "henning@arkitektum.no";
-            var regularUser = new ApplicationUser
-            {
-                UserName = emailRegularUser,
-                Email = emailRegularUser,
-                FullName = "Administrator"
-            };
-            IdentityResult resultRegularUser = userManager.CreateAsync(regularUser, "Test123").Result;
-            if (result.Succeeded) await userManager.AddToRoleAsync(regularUser, Roles.User);
 
-            
-
-            //adding Kommuner
-            var boKommune = new Organization() {Name = "Bø kommune", OrganizationNumber = "962276172"};
-            context.Add(boKommune);
-            var sauheradKommune = new Organization() {Name = "Sauherad kommune", OrganizationNumber = "964963460"};
-            context.Add(sauheradKommune);
-            var skienKommune = new Organization() {Name = "Skien kommune", OrganizationNumber = "938759839"};
-            context.Add(skienKommune);
-            var kongsbergKommune = new Organization() {Name = "Kongsberg kommune", OrganizationNumber = "942402465"};
-            context.Add(kongsbergKommune);
-
-            
-            regularUser.Organizations = new List<OrganizationApplicationUser>()
-            {
-                new OrganizationApplicationUser()
-                {
-                    ApplicationUser = regularUser,
-                    Organization = boKommune,
-                    Role = Roles.OrganizationAdmin
-                },
-                new OrganizationApplicationUser()
-                {
-                    ApplicationUser = regularUser,
-                    Organization = skienKommune,
-                    Role = Roles.OrganizationAdmin
-                },
-            };
-            
-
-            // bø kommune
-            var sectorBoBarnehage = new Sector() { Name = "Barnehage"};
-            context.Add(sectorBoBarnehage);
-
-            var sectorBoKultur = new Sector() { Name = "Kultur"};
-            context.Add(sectorBoKultur);
-
-            var sectorBoGrunnskole = new Sector() { Name = "Grunnskole"};
-            context.Add(sectorBoGrunnskole);
-
-            var sectorBoSosialtjenesten = new Sector() { Name = "Sosialtjenesten"};
-            context.Add(sectorBoSosialtjenesten);
-
-            var sectorBoBarnevern = new Sector() { Name = "Barnevern"};
-            context.Add(sectorBoBarnevern);
-            
-            context.Add(AddApplication("itsLearning", boKommune, sectorBoGrunnskole));
-            context.Add(AddApplication("Docebo LMS", boKommune, sectorBoGrunnskole));
-            context.Add(AddApplication("LearnUpon", boKommune, sectorBoGrunnskole));
-            context.Add(AddApplication("Schoology LMS", boKommune, sectorBoGrunnskole));
-            context.Add(AddApplication("Google Classroom", boKommune, sectorBoGrunnskole));
-
-            context.Add(AddApplication("vismaBarnehage", boKommune, sectorBoBarnehage));
-            context.Add(AddApplication("IST barnehage", boKommune, sectorBoBarnehage));
-            context.Add(AddApplication("Fagsystem Oppvekst", boKommune, sectorBoBarnehage));
-
-            context.Add(AddApplication("Fagsystem Kultur", boKommune, sectorBoKultur));
-            context.Add(AddApplication("IST Extens", boKommune, sectorBoKultur));
-
-            context.Add(AddApplication("Fagsystem Sosial", boKommune, sectorBoSosialtjenesten));
-
-
-            // skien
-
-            var sectorSkienKultur = new Sector() { Name = "Kultur"};
-            context.Add(sectorBoKultur);
-
-            var sectorSkienGrunnskole = new Sector() { Name = "Grunnskole"};
-            context.Add(sectorBoGrunnskole);
-
-            var sectorSkienSosialtjenesten = new Sector() { Name = "Sosialtjenesten"};
-            context.Add(sectorBoSosialtjenesten);
-
-            context.Add(AddApplication("itsLearning", skienKommune, sectorSkienGrunnskole));
-            context.Add(AddApplication("Schoology LMS", skienKommune, sectorSkienGrunnskole));
-            
-            context.Add(AddApplication("Fagsystem Kultur", skienKommune, sectorSkienKultur));
-
-            context.Add(AddApplication("Fagsystem Sosial", skienKommune, sectorSkienSosialtjenesten));
+            // add organizations
+            context.Add(new Organization() { Name = "Bø kommune", OrganizationNumber = "962276172" });
+            context.Add(new Organization() { Name = "Sauherad kommune", OrganizationNumber = "964963460" });
+            context.Add(new Organization() { Name = "Skien kommune", OrganizationNumber = "938759839" });
+            context.Add(new Organization() { Name = "Kongsberg kommune", OrganizationNumber = "942402465" });
+           
+            // add sectors
+            context.Add(new Sector { Name = "Plan, bygg og geodata" });
+            context.Add(new Sector { Name = "Helse, sosial og omsorg" });
+            context.Add(new Sector { Name = "Oppvekst og utdanning" });
+            context.Add(new Sector { Name = "Kultur, idrett og fritid" });
+            context.Add(new Sector { Name = "Trafikk, reiser og samferdsel" });
+            context.Add(new Sector { Name = "Natur og miljø" });
+            context.Add(new Sector { Name = "Næringsutvikling" });
+            context.Add(new Sector { Name = "Skatter og avgifter" });
+            context.Add(new Sector { Name = "Tekniske tjenester" });
+            context.Add(new Sector { Name = "Administrasjon" });
 
             context.SaveChanges();
         }
