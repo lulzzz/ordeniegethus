@@ -128,6 +128,16 @@ namespace Arkitektum.Orden.Models
         public int? OrganizationId { get; set; }
         public virtual Organization Organization { get; set; }
 
+        public Application()
+        {
+            ApplicationStandards = new List<ApplicationStandard>();
+            ApplicationSupportedIntegrations = new List<ApplicationSupportedIntegration>();
+            SuperUsers = new List<ApplicationSuperUser>();
+            ResourceLinks = new List<ResourceLink>();
+            SectorApplications = new List<SectorApplication>();
+            ApplicationDatasets = new List<ApplicationDataset>();
+            ApplicationNationalComponent = new List<ApplicationNationalComponent>();
+        }
 
         public string DecimalToString(decimal inputDecimal)
         {
