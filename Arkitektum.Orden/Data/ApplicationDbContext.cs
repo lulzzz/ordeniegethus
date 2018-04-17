@@ -21,6 +21,7 @@ namespace Arkitektum.Orden.Data
         public DbSet<SuperUser> SuperUser { get; set; }
         public DbSet<CommonApplication> CommonApplications { get; set; }
         public DbSet<Field> Fields { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

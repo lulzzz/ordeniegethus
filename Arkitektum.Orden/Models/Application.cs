@@ -24,7 +24,8 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Leverandør
         /// </summary>
-        public string Vendor { get; set; }
+        public Vendor Vendor { get; set; }
+        public int VendorId {get;set;}
 
         /// <summary>
         ///     Støtter disse standardene

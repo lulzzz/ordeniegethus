@@ -26,7 +26,7 @@ namespace Arkitektum.Orden.Services.Search
             Id = application.Id;
             Name = application.Name;
             Version = application.Version;
-            Vendor = application.Vendor;
+            Vendor = application.Vendor != null ? application.Vendor.Name : null;
             AnnualFee = application.AnnualFee;
             InitialCost = application.InitialCost;
             Organization = new OrganizationDoc(application.Organization);

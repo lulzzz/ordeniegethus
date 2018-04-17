@@ -13,9 +13,10 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180416191809_UpgradeVendorAsSeparateEntityInApplication")]
+    partial class UpgradeVendorAsSeparateEntityInApplication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -659,7 +660,7 @@ namespace Arkitektum.Orden.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vendors");
+                    b.ToTable("Vendor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -788,7 +789,7 @@ namespace Arkitektum.Orden.Migrations
                         .HasForeignKey("SystemOwnerId");
 
                     b.HasOne("Arkitektum.Orden.Models.Vendor", "Vendor")
-                        .WithMany("Applications")
+                        .WithMany()
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
