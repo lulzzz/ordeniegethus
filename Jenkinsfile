@@ -61,14 +61,16 @@
         message: "Build failed: '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
     }
     changed {
-      if (currentBuild.result == null) {
-        slackSend(channel: '#feed-ordeniegethus',
-          color: 'good',
-          message: "Build state has changed: 'Success ${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-      } else {
-        slackSend(channel: '#feed-ordeniegethus',
-          color: 'warning',
-          message: "Build state has changed: '${currentBuild.result} ${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+      script {
+        if (currentBuild.result == null) {
+          slackSend(channel: '#feed-ordeniegethus',
+            color: 'good',
+            message: "Build state has changed: 'Success ${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        } else {
+          slackSend(channel: '#feed-ordeniegethus',
+            color: 'warning',
+            message: "Build state has changed: '${currentBuild.result} ${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        }
       }
     }
   }
