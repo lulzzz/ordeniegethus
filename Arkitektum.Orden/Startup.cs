@@ -58,6 +58,8 @@ namespace Arkitektum.Orden
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             // get configuration from appsettings.json - use as singleton
             AppSettings appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
             services.AddSingleton(appSettings);
