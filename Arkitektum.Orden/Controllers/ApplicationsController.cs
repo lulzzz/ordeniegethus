@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Services.AppRegistry;
 using System;
+using Arkitektum.Orden.Utils;
 
 namespace Arkitektum.Orden.Controllers
 {
+    
     [Authorize]
     [Route("/applications")]
     public class ApplicationsController : BaseController
@@ -32,8 +34,7 @@ namespace Arkitektum.Orden.Controllers
             _appRegistry = appRegistry;
             _vendorService = vendorService;
         }
-
-
+       
         [HttpGet("")]
         public async Task<IActionResult> Index()
         {            
@@ -222,7 +223,8 @@ namespace Arkitektum.Orden.Controllers
             if (ModelState.IsValid)
             {
                 await _applicationService.UpdateAsync(id, new ApplicationViewModel().Map(model));
-                return RedirectToAction(nameof(Index));
+                FlashSuccess(UIResource.FlashApplicationUpdated);
+                return RedirectToAction(nameof(Details), new { id });
             }
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);

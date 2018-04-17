@@ -145,6 +145,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Applikasjonen ble oppdatert..
+        /// </summary>
+        public static string FlashApplicationUpdated {
+            get {
+                return ResourceManager.GetString("FlashApplicationUpdated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Glemt passord?.
         /// </summary>
         public static string ForgotPasswordHeader {
