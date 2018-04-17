@@ -157,6 +157,15 @@
   <data name="HelpTextConfirmDeleteItem" xml:space="preserve">
     <value>Er du sikker på at du vil slette dette elementet?</value>
   </data>
+  <data name="HostingLocationCloud" xml:space="preserve">
+    <value>Skytjeneste</value>
+  </data>
+  <data name="HostingLocationExternalServer" xml:space="preserve">
+    <value>Ekstern server</value>
+  </data>
+  <data name="HostingLocationLocalServer" xml:space="preserve">
+    <value>Lokal server</value>
+  </data>
   <data name="LinkBackToList" xml:space="preserve">
     <value>Tilbake til liste</value>
   </data>
@@ -183,6 +192,9 @@
   </data>
   <data name="SectorHeaderIndex" xml:space="preserve">
     <value>Tjenesteområder</value>
+  </data>
+  <data name="SelectHostingLocationFromList" xml:space="preserve">
+    <value>- Velg driftsplassering fra listen - </value>
   </data>
   <data name="SelectVendorFromList" xml:space="preserve">
     <value>- Velg leverandør fra listen -</value>

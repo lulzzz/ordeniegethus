@@ -187,6 +187,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Driftsleverandør.
+        /// </summary>
+        public static string HostingVendor {
+            get {
+                return ResourceManager.GetString("HostingVendor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Innkjøpskostnad.
         /// </summary>
         public static string InitialCost {

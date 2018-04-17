@@ -42,7 +42,7 @@ namespace Arkitektum.Orden.Controllers
             return View(new ApplicationViewModel().MapToEnumerable(applications));
         }
 
-        [HttpGet("details")]
+        [HttpGet("details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             return View(id);
@@ -74,7 +74,30 @@ namespace Arkitektum.Orden.Controllers
             model.AvailableVendors = await GetAvailableVendors();
             model.Sectors = await GetAvailableSectors();
             model.NationalComponents = await GetNationalComponents();
+            model.AvailableHostingLocations = GetAvailableHostingLocations();
             return View(model);
+        }
+
+        private List<SelectListItem> GetAvailableHostingLocations(string currentValue = null)
+        {
+            var items = new List<SelectListItem>()
+            {
+                new SelectListItem{ Text = UIResource.SelectHostingLocationFromList, Value = null },
+                new SelectListItem{ Text = UIResource.HostingLocationCloud, Value = HostingLocation.Cloud.ToString()},
+                new SelectListItem{ Text = UIResource.HostingLocationLocalServer, Value = HostingLocation.LocalServer.ToString()},
+                new SelectListItem{ Text = UIResource.HostingLocationExternalServer, Value = HostingLocation.ExternalServer.ToString()},
+            };
+
+            if (currentValue != null)
+            {
+                foreach(var item in items)
+                {
+                    if (item.Value == currentValue)
+                        item.Selected = true;
+                }
+            }
+
+            return items;
         }
 
         private async Task<List<SelectListItem>> GetAvailableSystemOwners(ApplicationViewModel model)
@@ -91,7 +114,7 @@ namespace Arkitektum.Orden.Controllers
             return availableSystemOwners;
         }
 
-        private async Task<List<SelectListItem>> GetAvailableVendors()
+        private async Task<List<SelectListItem>> GetAvailableVendors(int currentVendorId = 0)
         {
             var vendors = new List<SelectListItem>();
             vendors.Add(new SelectListItem{ Text = UIResource.SelectVendorFromList, Value = "0"});
@@ -100,7 +123,8 @@ namespace Arkitektum.Orden.Controllers
             {
                 vendors.Add(new SelectListItem {
                     Text = vendor.Name,
-                    Value = vendor.Id.ToString() 
+                    Value = vendor.Id.ToString(),
+                    Selected = vendor.Id == currentVendorId
                     });
             }
             return vendors;
@@ -140,7 +164,7 @@ namespace Arkitektum.Orden.Controllers
 
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,AnnualFee,VendorId,VendorName,SystemOwner,Version,OrganizationId,Sectors,NationalComponents")] ApplicationViewModel model)
+        public async Task<IActionResult> Create([Bind("Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwner,Sectors,NationalComponents")] ApplicationViewModel model)
         {
             // always set organizationId to currentOrganization to prevent any security issues
             model.OrganizationId = CurrentOrganizationId();
@@ -155,11 +179,12 @@ namespace Arkitektum.Orden.Controllers
             model.AvailableVendors = await GetAvailableVendors();
             model.Sectors = await GetAvailableSectors();
             model.NationalComponents = await GetNationalComponents();
+            model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
 
             return View(model);
         }
 
-        [HttpGet("edit")]
+        [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -172,44 +197,44 @@ namespace Arkitektum.Orden.Controllers
             {
                 return NotFound();
             }
-
             var model = new ApplicationViewModel().Map(application);
 
-            model.AvailableSystemOwners = new List<SelectListItem>();
-
-            foreach (var applicationUser in await _userService.GetAll())
-            {
-                model.AvailableSystemOwners.Add(new SelectListItem()
-                {
-                    Text = applicationUser.FullName,
-                    Value = applicationUser.Id,
-                    Selected = applicationUser.Id == application.SystemOwnerId
-                });
-            }
-
-            model.MergeSectors(await GetAvailableSectors());
-
+            model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
+            model.AvailableVendors = await GetAvailableVendors(model.VendorId);
             model.NationalComponents = await GetNationalComponents();
+            model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
+            model.MergeSectors(await GetAvailableSectors());
 
             return View(model);
         }
 
-        [HttpPost("edit")]
+        [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,AnnualFee,InitialCost,HostingLocation,NumberOfUsers," +
-                                                            "Vendor,OrganizationId,Sectors,NationalComponents,SystemOwner")] ApplicationViewModel application)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwner,Sectors,NationalComponents")] ApplicationViewModel model)
         {
-            if (id != application.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
 
-            await _applicationService.UpdateAsync(id, application.Map(application));
-            
-            return RedirectToAction(nameof(Index));
+            model.OrganizationId = CurrentOrganizationId();
+
+            if (ModelState.IsValid)
+            {
+                await _applicationService.UpdateAsync(id, new ApplicationViewModel().Map(model));
+                return RedirectToAction(nameof(Index));
+            }
+
+            model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
+            model.AvailableVendors = await GetAvailableVendors(model.VendorId);
+            model.NationalComponents = await GetNationalComponents();
+            model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
+            model.MergeSectors(await GetAvailableSectors());
+
+            return View(model);
         }
 
-        [HttpGet("delete")]
+        [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -220,7 +245,7 @@ namespace Arkitektum.Orden.Controllers
             return View(applicationToDelete);
         }
 
-        [HttpPost("delete"), ActionName("Delete")]
+        [HttpPost("delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -228,14 +253,14 @@ namespace Arkitektum.Orden.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet("submit-app-registry")]
+        [HttpGet("submit-app-registry/{id}")]
         public async Task<IActionResult> SubmitAppRegistry(int id)
         {
             Application application = await _applicationService.GetAsync(id);
             return View(new ApplicationViewModel().Map(application));
         }
 
-        [HttpPost("submit-app-registry")]
+        [HttpPost("submit-app-registry/{id}")]
         public async Task<IActionResult> SubmitAppRegistryConfirm(int id)
         {
             await _appRegistry.SubmitApplication(id);

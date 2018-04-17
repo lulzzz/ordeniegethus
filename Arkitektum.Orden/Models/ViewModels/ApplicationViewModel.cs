@@ -34,7 +34,11 @@ namespace Arkitektum.Orden.Models.ViewModels
         [DataType(DataType.Currency, ErrorMessage = "Du kan bruke kun tall")]
         public string InitialCost { get; set; }
 
+        public string HostingVendor { get; set; }
+
         public string HostingLocation { get; set; }
+
+        public List<SelectListItem> AvailableHostingLocations { get; set; }
 
         public int NumberOfUsers { get; set; }
 
@@ -71,8 +75,10 @@ namespace Arkitektum.Orden.Models.ViewModels
                AnnualFee = input.DecimalToString(input.AnnualFee),
                SystemOwner = input.SystemOwner?.FullName,
                Vendor = Map(input.Vendor),
+               VendorId = input.VendorId,
                Version = input.Version,
                InitialCost = input.DecimalToString(input.InitialCost),
+               HostingVendor = input.HostingVendor,
                HostingLocation = input.HostingLocation,
                NumberOfUsers = input.NumberOfUsers,
                OrganizationId = input.OrganizationId,
@@ -180,6 +186,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 SystemOwnerId = input.SystemOwner,
                 Version = input.Version,
                 InitialCost = System.Convert.ToDecimal(input.InitialCost),
+                HostingVendor = input.HostingVendor,
                 HostingLocation = input.HostingLocation,
                 NumberOfUsers = input.NumberOfUsers,
                 OrganizationId = input.OrganizationId,

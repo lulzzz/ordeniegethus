@@ -172,6 +172,33 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skytjeneste.
+        /// </summary>
+        public static string HostingLocationCloud {
+            get {
+                return ResourceManager.GetString("HostingLocationCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ekstern server.
+        /// </summary>
+        public static string HostingLocationExternalServer {
+            get {
+                return ResourceManager.GetString("HostingLocationExternalServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lokal server.
+        /// </summary>
+        public static string HostingLocationLocalServer {
+            get {
+                return ResourceManager.GetString("HostingLocationLocalServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tilbake til liste.
         /// </summary>
         public static string LinkBackToList {
@@ -249,6 +276,15 @@ namespace Arkitektum.Orden.Models {
         public static string SectorHeaderIndex {
             get {
                 return ResourceManager.GetString("SectorHeaderIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Velg driftsplassering fra listen - .
+        /// </summary>
+        public static string SelectHostingLocationFromList {
+            get {
+                return ResourceManager.GetString("SelectHostingLocationFromList", resourceCulture);
             }
         }
         

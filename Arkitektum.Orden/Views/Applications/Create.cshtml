@@ -39,6 +39,26 @@
                 <span asp-validation-for="AnnualFee" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="InitialCost" class="control-label"></label>
+                <input asp-for="InitialCost" class="form-control" />
+                <span asp-validation-for="InitialCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HostingVendor" class="control-label"></label>
+                <input asp-for="HostingVendor" class="form-control" />
+                <span asp-validation-for="HostingVendor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HostingLocation" class="control-label"></label>
+                <select asp-for="HostingLocation" asp-items="Model.AvailableHostingLocations" class="form-control"></select>
+                <span asp-validation-for="HostingLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfUsers" class="control-label"></label>
+                <input asp-for="NumberOfUsers" class="form-control" />
+                <span asp-validation-for="NumberOfUsers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="SystemOwner" class="control-label"></label>
                 <select asp-for="SystemOwner" asp-items="Model.AvailableSystemOwners" class="form-control"></select>
                 <span asp-validation-for="SystemOwner" class="text-danger"></span>

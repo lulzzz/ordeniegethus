@@ -225,4 +225,7 @@
   <data name="Fields" xml:space="preserve">
     <value>Informasjonselementer</value>
   </data>
+  <data name="HostingVendor" xml:space="preserve">
+    <value>Driftsleverandør</value>
+  </data>
 </root>

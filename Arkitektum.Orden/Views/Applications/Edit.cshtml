@@ -25,6 +25,11 @@
                 <span asp-validation-for="Version" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="VendorId" class="control-label"></label>
+                <select asp-for="VendorId" asp-items="Model.AvailableVendors" class="form-control"></select>
+                <span asp-validation-for="VendorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="AnnualFee" class="control-label"></label>
                 <input asp-for="AnnualFee" class="form-control" />
                 <span asp-validation-for="AnnualFee" class="text-danger"></span>
@@ -35,8 +40,13 @@
                 <span asp-validation-for="InitialCost" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="HostingVendor" class="control-label"></label>
+                <input asp-for="HostingVendor" class="form-control" />
+                <span asp-validation-for="HostingVendor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="HostingLocation" class="control-label"></label>
-                <input asp-for="HostingLocation" class="form-control" />
+                <select asp-for="HostingLocation" asp-items="Model.AvailableHostingLocations" class="form-control"></select>
                 <span asp-validation-for="HostingLocation" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,11 +59,7 @@
                 <select asp-for="SystemOwner" class="form-control" asp-items="Model.AvailableSystemOwners"></select>
                 <span asp-validation-for="SystemOwner" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Vendor" class="control-label"></label>
-                <input asp-for="Vendor" class="form-control" />
-                <span asp-validation-for="Vendor" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Sectors" class="control-label"></label>
                 <ul style="list-style-type: none">
@@ -68,7 +74,7 @@
                     }
                 </ul>
             </div>
-            
+
             <div class="form-group">
                 <label asp-for="NationalComponents" class="control-label"></label>
                 <ul style="list-style-type: none">
