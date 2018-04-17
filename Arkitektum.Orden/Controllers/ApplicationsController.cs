@@ -267,6 +267,8 @@ namespace Arkitektum.Orden.Controllers
         {
             await _appRegistry.SubmitApplication(id);
 
+            FlashSuccess(UIResource.FlashApplicationSubmittedToAppRegistry);
+
             return RedirectToAction(nameof(Details), new {id});
         }
     }
