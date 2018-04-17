@@ -84,6 +84,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\scss\modules\" />
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Pages\Applications\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

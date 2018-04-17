@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,7 +24,7 @@ namespace Arkitektum.Orden.Controllers
         private readonly IAppRegistry _appRegistry;
         private readonly IVendorService _vendorService;
 
-        public ApplicationsController(ISecurityService securityService, IApplicationService applicationService, IUserService userService, 
+        public ApplicationsController(ISecurityService securityService, IApplicationService applicationService, IUserService userService,
             ISectorService sectorService, INationalComponentService nationalComponentsService, IAppRegistry appRegistry, IVendorService vendorService) : base(securityService)
         {
             _applicationService = applicationService;
@@ -41,7 +42,7 @@ namespace Arkitektum.Orden.Controllers
                 return Forbid();
 
             SimpleOrganization currentOrganization = CurrentOrganization();
-            var applications = await _applicationService.GetAllApplicationsForOrganisation(currentOrganization.Id);
+            var applications = await _applicationService.GetAllApplicationsForOrganization(currentOrganization.Id);
             return View(new ApplicationViewModel().MapToEnumerable(applications));
         }
 
@@ -129,11 +130,12 @@ namespace Arkitektum.Orden.Controllers
         private async Task<List<SelectListItem>> GetAvailableVendors(int currentVendorId = 0)
         {
             var vendors = new List<SelectListItem>();
-            vendors.Add(new SelectListItem{ Text = UIResource.SelectVendorFromList, Value = "0"});
+            vendors.Add(new SelectListItem { Text = UIResource.SelectVendorFromList, Value = "0" });
 
             foreach (var vendor in await _vendorService.GetAll())
             {
-                vendors.Add(new SelectListItem {
+                vendors.Add(new SelectListItem
+                {
                     Text = vendor.Name,
                     Value = vendor.Id.ToString(),
                     Selected = vendor.Id == currentVendorId
@@ -161,7 +163,7 @@ namespace Arkitektum.Orden.Controllers
         private async Task<List<CheckboxApplicationSector>> GetAvailableSectors()
         {
             var availableSectors = new List<CheckboxApplicationSector>();
-            
+
             foreach (var sector in await _sectorService.GetAll())
             {
                 availableSectors.Add(new CheckboxApplicationSector()
@@ -170,7 +172,7 @@ namespace Arkitektum.Orden.Controllers
                     SectorName = sector.Name,
                 });
             }
-            
+
             return availableSectors;
         }
 
@@ -183,7 +185,7 @@ namespace Arkitektum.Orden.Controllers
 
             // always set organizationId to currentOrganization to prevent any security issues
             model.OrganizationId = CurrentOrganizationId();
-            
+
             if (ModelState.IsValid)
             {
                 var createApplication = await _applicationService.Create(new ApplicationViewModel().Map(model));
@@ -328,6 +330,20 @@ namespace Arkitektum.Orden.Controllers
             FlashSuccess(UIResource.FlashApplicationSubmittedToAppRegistry);
 
             return RedirectToAction(nameof(Details), new {id});
+        }
+
+        [HttpGet]
+        [Route("/applications/sector/{sectorId}")]
+        [Route("/applications/nationalComponents/{nationalComponentId}")]
+        public async Task<IActionResult> FilterApplications(int sectorId = 0, int nationalComponentId = 0)
+        {
+            var applications = await _applicationService.GetApplicationsWithFilter(CurrentOrganizationId(),
+                sectorId, nationalComponentId);
+
+            
+
+            return View(new ApplicationViewModel().MapToEnumerable(applications));
+
         }
     }
 }

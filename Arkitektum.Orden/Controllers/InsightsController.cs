@@ -25,7 +25,7 @@ namespace Arkitektum.Orden.Controllers
         {
             var model = new InsightsViewModel();
            
-            model.Applications = await _applicationService.GetAllApplicationsForOrganisation(CurrentOrganizationId());
+            model.Applications = await _applicationService.GetAllApplicationsForOrganization(CurrentOrganizationId());
             model.Sectors = await _sectorService.GetAll();
 
             return View(model);

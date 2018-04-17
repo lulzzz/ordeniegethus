@@ -11,12 +11,13 @@ namespace Arkitektum.Orden.Services
     {
         Task<Application> GetAsync(int id);
         Task<IEnumerable<Application>> GetAll();
-        Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId);
+        Task<IEnumerable<Application>> GetAllApplicationsForOrganization(int orgId);
         Task<Application> Create(Application application);
         Task SaveChanges();
         Task Delete(int id);
         Task UpdateAsync(int id, Application updatedApplication);
         Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
+        Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId, int nationalComponentId);
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -76,6 +77,62 @@ namespace Arkitektum.Orden.Services
             return await _context.Application.Where(a => a.OrganizationId == currentOrganizationId).CountAsync();
         }
 
+        public List<Application> GetAllApplicationsBySector(int sectorId, IEnumerable<Application> applications)
+        {
+         
+            List<Application> filteredApplications = new List<Application>();
+
+            foreach (var application in applications)
+            {
+                if (application.SectorApplications != null && application.SectorApplications.Any())
+                {
+                    foreach (var sectorApplication in application.SectorApplications)
+                    {
+                        if (sectorApplication.SectorId == sectorId)
+                        {
+                            filteredApplications.Add(application);
+                        }
+                    }
+                }
+               
+            }
+
+            return filteredApplications;
+        }
+
+        public async Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId,
+            int nationalComponentId)
+        {
+            var applications = await GetAllApplicationsForOrganization(currentOrganizationId);
+            if (sectorId != 0)
+            {
+                applications = GetAllApplicationsBySector(sectorId, applications);
+            }
+            else if (nationalComponentId != 0)
+            {
+                applications = GetAllApplicationsByNationalComponent(nationalComponentId, applications);
+            }
+
+            return applications;
+        }
+
+        private IEnumerable<Application> GetAllApplicationsByNationalComponent(int nationalComponentId, IEnumerable<Application> applications)
+        {
+            List<Application> applicationsByNationalComponent = new List<Application>();
+            foreach (var application in applications)
+            {
+                foreach (var applicationNationalComponent in application.ApplicationNationalComponent)
+                {
+                    if (applicationNationalComponent.NationalComponentId == nationalComponentId)
+                    {
+                        applicationsByNationalComponent.Add(application);
+                    }
+                }
+            }
+
+            return applicationsByNationalComponent;
+        }
+
         public async Task<Application> GetAsync(int id)
         {
            return await _context.Application
@@ -88,7 +145,7 @@ namespace Arkitektum.Orden.Services
                .SingleOrDefaultAsync(a => a.Id == id);
         }
        
-        public async Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId)
+        public async Task<IEnumerable<Application>> GetAllApplicationsForOrganization(int orgId)
         {
             return await _context.Application.Where(a => a.OrganizationId == orgId).ToListAsync();
         }
