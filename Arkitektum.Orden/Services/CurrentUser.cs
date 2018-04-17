@@ -1,6 +1,8 @@
-﻿using System.Security.Principal;
+﻿using System.Collections.Generic;
+using System.Security.Principal;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
+using Arkitektum.Orden.Utils;
 
 namespace Arkitektum.Orden.Services
 {
@@ -42,6 +44,17 @@ namespace Arkitektum.Orden.Services
                 return true;
 
             return false;
+        }
+
+        public bool HasAccessToOrganization(int organizationId, AccessLevel accessLevel)
+        {
+            if (IsInRole(Roles.Admin))
+                return true;
+
+            IEnumerable<string> roles = accessLevel.RequiredRoles;
+
+            return _applicationUser.HasAccessToOrganization(organizationId) && 
+                _applicationUser.HasAnyRoleInOrganization(organizationId, roles);
         }
     }
 }

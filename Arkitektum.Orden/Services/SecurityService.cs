@@ -21,6 +21,8 @@ namespace Arkitektum.Orden.Services
 
         SimpleOrganization GetCurrentOrganization(int? organizationId);
         SimpleOrganization GetCurrentOrganization(HttpContext httpContext);
+        bool CurrrentUserHasAccessToApplication(Application application, AccessLevel accessLevel);
+        bool CurrrentUserHasAccessToOrganization(int organizationId, AccessLevel accessLevel);
     }
     
     public class SecurityService : ISecurityService
@@ -103,5 +105,19 @@ namespace Arkitektum.Orden.Services
 
             return null;
         }
+
+        public bool CurrrentUserHasAccessToApplication(Application application, AccessLevel accessLevel)
+        {
+            CurrentUser currentUser = GetCurrentUser();
+            return currentUser.HasAccessToOrganization(application.OrganizationId.Value, accessLevel);
+        }
+
+        public bool CurrrentUserHasAccessToOrganization(int organizationId, AccessLevel accessLevel)
+        {
+            CurrentUser currentUser = GetCurrentUser();
+            return currentUser.HasAccessToOrganization(organizationId, accessLevel);
+        }
     }
+
+    
 }

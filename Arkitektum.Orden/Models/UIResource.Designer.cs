@@ -61,6 +61,24 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tilgang avvist.
+        /// </summary>
+        public static string AccessDenied {
+            get {
+                return ResourceManager.GetString("AccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Du har ikke tilgang til denne ressursen. Ta kontakt med systemansvarlig dersom dette er feil. .
+        /// </summary>
+        public static string AccessDeniedExplanation {
+            get {
+                return ResourceManager.GetString("AccessDeniedExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Felles applikasjonsregister.
         /// </summary>
         public static string AppRegistry {
@@ -141,6 +159,15 @@ namespace Arkitektum.Orden.Models {
         public static string EmailConfirmationSubject {
             get {
                 return ResourceManager.GetString("EmailConfirmationSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applikasjonen ble send inn til felles applikasjonsregister..
+        /// </summary>
+        public static string FlashApplicationSubmittedToAppRegistry {
+            get {
+                return ResourceManager.GetString("FlashApplicationSubmittedToAppRegistry", resourceCulture);
             }
         }
         

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace Arkitektum.Orden.Models
@@ -58,6 +59,19 @@ namespace Arkitektum.Orden.Models
                 }
             }
             return memberships;
+        }
+
+        internal bool HasAnyRoleInOrganization(int organizationId, IEnumerable<string> roles)
+        {
+            foreach (var membership in GetOrganizationMembership(organizationId))
+            {
+                foreach(var role in roles)
+                {
+                    if (membership.Role == role)
+                        return true;
+                }
+            }
+            return false;
         }
     }
 }

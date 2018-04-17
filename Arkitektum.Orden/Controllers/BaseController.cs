@@ -9,7 +9,7 @@ namespace Arkitektum.Orden.Controllers
 
     public abstract class BaseController : Controller
     {
-        private readonly ISecurityService _securityService;
+        protected readonly ISecurityService _securityService;
 
         protected BaseController(ISecurityService securityService)
         {

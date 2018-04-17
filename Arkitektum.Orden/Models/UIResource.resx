@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Tilgang avvist</value>
+  </data>
+  <data name="AccessDeniedExplanation" xml:space="preserve">
+    <value>Du har ikke tilgang til denne ressursen. Ta kontakt med systemansvarlig dersom dette er feil. </value>
+  </data>
   <data name="AppRegistry" xml:space="preserve">
     <value>Felles applikasjonsregister</value>
   </data>
@@ -147,6 +153,9 @@
   </data>
   <data name="EmailConfirmationSubject" xml:space="preserve">
     <value>Din brukerkonto hos Orden i eget hus er nå opprettet</value>
+  </data>
+  <data name="FlashApplicationSubmittedToAppRegistry" xml:space="preserve">
+    <value>Applikasjonen ble send inn til felles applikasjonsregister.</value>
   </data>
   <data name="FlashApplicationUpdated" xml:space="preserve">
     <value>Applikasjonen ble oppdatert.</value>
