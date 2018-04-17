@@ -231,4 +231,7 @@
   <data name="VendorName" xml:space="preserve">
     <value>Leverandørnavn</value>
   </data>
+  <data name="Insight" xml:space="preserve">
+    <value>Innsikt</value>
+  </data>
 </root>
