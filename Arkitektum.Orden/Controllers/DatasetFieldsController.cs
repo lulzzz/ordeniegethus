@@ -56,11 +56,11 @@ namespace Arkitektum.Orden.Controllers
         {
             try
             {
-                var field = new DatasetFieldViewModel().Map(datasetFieldModel, id);
+                var fieldToUpdate = new DatasetFieldViewModel().Map(datasetFieldModel, id);
 
-                await _fieldService.Update(field.Id, field);
+                var field = await _fieldService.Update(fieldToUpdate.Id, fieldToUpdate);
 
-                return Json(datasetFieldModel);
+                return Json(new DatasetFieldViewModel().Map(field));
             }
             catch (Exception)
             {

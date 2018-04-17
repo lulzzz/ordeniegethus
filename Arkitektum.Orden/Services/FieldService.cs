@@ -14,7 +14,7 @@ namespace Arkitektum.Orden.Services
         Task<IEnumerable<Field>> GetAllFieldsForDataset(int datasetId);
         Task<Field> Get(int id);
         Task<Field> Create(Field field);
-        Task Update(int id, Field newFieldData);
+        Task<Field> Update(int id, Field newFieldData);
         Task Delete(int fieldId);
     }
 
@@ -43,12 +43,14 @@ namespace Arkitektum.Orden.Services
             return field;
         }
 
-        public async Task Update(int id, Field newFieldData)
+        public async Task<Field> Update(int id, Field newFieldData)
         {
             var fieldToEdit = await Get(id);
             _context.Entry(fieldToEdit).CurrentValues.SetValues(newFieldData);
-
             await SaveChanges();
+
+            var field = await Get(id);
+            return field;
         }
 
         public async Task Delete(int fieldId)
