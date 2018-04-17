@@ -385,6 +385,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Leverandørnavn.
+        /// </summary>
+        public static string VendorName {
+            get {
+                return ResourceManager.GetString("VendorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Versjon.
         /// </summary>
         public static string Version {

@@ -228,4 +228,7 @@
   <data name="HostingVendor" xml:space="preserve">
     <value>Driftsleverandør</value>
   </data>
+  <data name="VendorName" xml:space="preserve">
+    <value>Leverandørnavn</value>
+  </data>
 </root>

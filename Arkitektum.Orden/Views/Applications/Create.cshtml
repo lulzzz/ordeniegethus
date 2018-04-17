@@ -24,13 +24,15 @@
                 <span asp-validation-for="Version" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="VendorId" class="control-label"></label>
+                <label class="control-label">@ModelsResource.Vendor</label>
                 <select asp-for="VendorId" asp-items="Model.AvailableVendors" class="form-control"></select>
+                <small class="form-text text-muted">@UIResource.VendorHelp</small>
                 <span asp-validation-for="VendorId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="VendorName" class="control-label"></label>
-                <input asp-for="VendorName" class="form-control"></input>
+                <input asp-for="VendorName" class="form-control" />
+                <small class="form-text text-muted">@UIResource.VendorNameHelp</small>
                 <span asp-validation-for="VendorName" class="text-danger"></span>
             </div>
             <div class="form-group">

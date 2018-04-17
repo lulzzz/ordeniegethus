@@ -217,4 +217,10 @@
   <data name="UserHeaderList" xml:space="preserve">
     <value>Brukere</value>
   </data>
+  <data name="VendorHelp" xml:space="preserve">
+    <value>Velg leverandør fra listen eller opprett ny leverandør nedenfor.</value>
+  </data>
+  <data name="VendorNameHelp" xml:space="preserve">
+    <value>Skriv inn navn på leverandør dersom du ønsker å opprette en ny leverandør.</value>
+  </data>
 </root>

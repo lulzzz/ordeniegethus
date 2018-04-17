@@ -25,7 +25,7 @@
               <h2>Drift</h2>
               <hr />
               <p>Driftsleverandør: {{ apiData.hostingVendor }}</p>
-              <p>Driftsplassering: {{ apiData.hostingLocation }}</p>
+              <p>Driftsplassering: {{ apiData.hostingLocationText }}</p>
               <p>Antall brukere: {{ apiData.numberOfUsers }}</p>
 
               <p>

@@ -36,7 +36,15 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public string HostingVendor { get; set; }
 
+        /// <summary>
+        /// Contains enum value of HostingLocation
+        /// </summary>
         public string HostingLocation { get; set; }
+
+        /// <summary>
+        /// Translated value of HostingLocation to use when displaying data
+        /// </summary>
+        public string HostingLocationText { get; set; }
 
         public List<SelectListItem> AvailableHostingLocations { get; set; }
 
@@ -80,6 +88,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                InitialCost = input.DecimalToString(input.InitialCost),
                HostingVendor = input.HostingVendor,
                HostingLocation = input.HostingLocation,
+               HostingLocationText = TranslateHostingLocation(input.HostingLocation),
                NumberOfUsers = input.NumberOfUsers,
                OrganizationId = input.OrganizationId,
                Sectors = Map(input.SectorApplications),
@@ -90,6 +99,18 @@ namespace Arkitektum.Orden.Models.ViewModels
                UserCreated = input.UserCreated,
                UserModified = input.UserModified
            };
+        }
+
+        private string TranslateHostingLocation(string value)
+        {
+            if (value == Models.HostingLocation.Cloud.ToString())
+                return UIResource.HostingLocationCloud;
+            else if (value == Models.HostingLocation.LocalServer.ToString())
+                return UIResource.HostingLocationLocalServer;
+            else if (value == Models.HostingLocation.ExternalServer.ToString())
+                return UIResource.HostingLocationExternalServer;
+            else
+                return "";
         }
 
         private VendorViewModel Map(Vendor vendor)

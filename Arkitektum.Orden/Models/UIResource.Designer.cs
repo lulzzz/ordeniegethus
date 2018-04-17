@@ -350,5 +350,23 @@ namespace Arkitektum.Orden.Models {
                 return ResourceManager.GetString("UserHeaderList", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg leverandør fra listen eller opprett ny leverandør nedenfor..
+        /// </summary>
+        public static string VendorHelp {
+            get {
+                return ResourceManager.GetString("VendorHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skriv inn navn på leverandør dersom du ønsker å opprette en ny leverandør..
+        /// </summary>
+        public static string VendorNameHelp {
+            get {
+                return ResourceManager.GetString("VendorNameHelp", resourceCulture);
+            }
+        }
     }
 }
