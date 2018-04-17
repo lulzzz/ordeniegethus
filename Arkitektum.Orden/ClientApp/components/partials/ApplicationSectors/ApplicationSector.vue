@@ -13,10 +13,10 @@
         <div class="form-group">
             <filter-select 
                 v-bind:options="availableApplicationSectors" 
-                v-bind:filterable-properties="['sectorName']"
-                primary-text-property="sectorName"
-                secondary-text-property="sectorId"
-                value-property="sectorId"
+                v-bind:filterable-properties="['name']"
+                primary-text-property="name"
+                secondary-text-property="id"
+                value-property="id"
                 v-on:select="selectApplicationSector($event)">
                 </filter-select>
         </div>

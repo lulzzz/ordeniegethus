@@ -11,9 +11,6 @@ export default {
         return {
             editable: false,
             data: this.applicationSector !== undefined ? this.applicationSector : { sectorName: '' },
-            apiUrls: {
-                get: `/sectors/application/${this.applicationId}`
-            },
             availableApplicationSectors: []
         }
     },
@@ -24,7 +21,7 @@ export default {
     },
     methods: {
         getAvailableApplicationSectors() {
-            Promise.resolve(this.$root.getApiData(this.apiUrls.get))
+            Promise.resolve(this.$root.getApiData(`/sectors/all`))
             .then((apiData) => {
                 this.availableApplicationSectors = apiData;
             });
