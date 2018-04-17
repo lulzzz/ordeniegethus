@@ -1,0 +1,22 @@
+﻿@{
+    string text = (string)TempData["FlashMessage.Text"];
+    string cssClass = null;
+    if (!string.IsNullOrWhiteSpace(text))
+    {
+        Arkitektum.Orden.Utils.FlashMessageType type = (Arkitektum.Orden.Utils.FlashMessageType)TempData["FlashMessage.Type"];
+        if (type == Arkitektum.Orden.Utils.FlashMessageType.Error)
+        {
+            cssClass = "danger";
+        }
+        else
+        {
+            cssClass = "success";
+        }
+    }
+}
+@if (!string.IsNullOrWhiteSpace(text))
+{
+<div class="alert alert-@cssClass" role="alert">
+    @text
+</div>
+}
