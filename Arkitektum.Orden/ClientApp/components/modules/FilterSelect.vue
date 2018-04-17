@@ -1,7 +1,7 @@
 <template>
     <div>
         <input v-model="inputValue" v-on:keyup="updateFilterResult($event.target.value)" placeholder="Søk etter tjenesteområde" class="form-control" />
-        <div class="filter-results">
+        <div class="filter-results" v-bind:class="{active: filterResults.length}">
             <div v-for="filterResult in filterResults" class="filter-results-item" v-on:click="selectFilterResult(filterResult)">
                 <span class="primary-text-property">{{ filterResult[primaryTextProperty] }}</span>
                 <span v-if="secondaryTextProperty !== undefined" class="secondary-text-property">{{ filterResult[secondaryTextProperty] }}</span>
@@ -11,4 +11,4 @@
 </template>
 
 <script src="./FilterSelect.js"></script>
-<style src="./FilterSelect.scss"></style>
+<style lang="scss" src="./FilterSelect.scss"></style>

@@ -1,10 +1,19 @@
-.filter-results{
-    .filter-results-item{
-        .primary-text-property{
-
+@import "../../scss/abstracts/all";
+.filter-results {
+    &.active {
+        background-color: #fff;
+        border-radius: 0 0 3px 3px;
+        margin-top: -3px;
+        border: 1px solid #ced4da;
+        @include box-shadow(0 2px 5px rgba(0, 0, 0, .26));
+    }
+    .filter-results-item {
+        padding: 4px 8px;
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, .05);
         }
-        .secondary-text-property{
-            
-        }
+        .primary-text-property {}
+        .secondary-text-property {}
     }
 }
