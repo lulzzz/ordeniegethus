@@ -62,7 +62,7 @@
                 <div class="card">
                     <div class="card-header bg-info text-white">Tjenesteområder</div>
                     <div class="card-body">
-                        <application-sectors v-bind:apiData="apiData.sectors" v-bind:applicationId="applicationId"></application-sectors>
+                        <application-sectors v-bind:application-sectors="apiData.sectors" v-bind:applicationId="applicationId"></application-sectors>
                     </div>
                 </div>
             </div>

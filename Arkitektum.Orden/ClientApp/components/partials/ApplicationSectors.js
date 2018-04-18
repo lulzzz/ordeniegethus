@@ -3,18 +3,18 @@ import ApplicationSector from './ApplicationSectors/ApplicationSector.vue';
 
 export default {
     name: 'ApplicationSectors',
-    props: ['apiData', 'applicationId', 'availableApplicationSectors'],
+    props: ['applicationSectors', 'applicationId', 'availableApplicationSectors'],
     components: {
         ApplicationSector
     },
     data() {
         return {
+            apiData: null,            
             newApplicationSector: false,
-            apiUrls: {
-                post: `/sectors/application/`,
-                delete: `/sectors/application/`
-            }
         }
+    },
+    mounted() {
+        this.apiData = this.applicationSectors;
     },
     methods: {
         createNewApplicationSector() {
@@ -23,15 +23,21 @@ export default {
         removeNewApplicationSector() {
             this.newApplicationSector = false;
         },
+        getApplicationSectors() {
+            Promise.resolve(this.$root.getApiData(`/sectors/application/${this.applicationId}`))
+                .then((apiData) => {
+                    this.apiData = apiData;
+                });
+        },
         postApplicationSector(data) {
-            Promise.resolve(this.$root.postApiData(this.apiUrls.post, data))
+            Promise.resolve(this.$root.postApiData(`/sectors/application/`, data))
                 .then(() => {
                     this.getApplicationSectors();
                     this.removeNewApplicationSector();
                 });
         },
         removeApplicationSector(applicationSectorId) {
-            Promise.resolve(this.$root.deleteApiData(this.apiUrls.delete, { id: applicationSectorId }))
+            Promise.resolve(this.$root.deleteApiData(`/sectors/application/`, { id: applicationSectorId }))
                 .then(() => {
                     this.getApplicationSectors();
                 });
