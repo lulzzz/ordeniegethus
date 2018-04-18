@@ -65,6 +65,12 @@
                         <application-sectors v-bind:application-sectors="apiData.sectors" v-bind:applicationId="applicationId"></application-sectors>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header bg-info text-white">Datasett</div>
+                    <div class="card-body">
+                        <application-datasets v-bind:application-datasets="apiData.datasets" v-bind:applicationId="applicationId"></application-datasets>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
