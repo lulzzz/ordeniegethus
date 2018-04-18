@@ -114,16 +114,21 @@ namespace Arkitektum.Orden.Services
             }
             else if (sortingOrder != null && sortingOrder.Any())
             {
-                if (sortingOrder.Equals("desc"))
-                {
-                    applications = applications.OrderByDescending(a => a.AnnualFee);
-                }
-
-                applications = applications.OrderBy(a => a.AnnualFee);
+                applications = SortApplicationsByPrice(applications, sortingOrder);
             }
 
             return applications;
         }
+
+        private IEnumerable<Application> SortApplicationsByPrice(IEnumerable<Application> applications, string sortingOrder)
+        {
+            IEnumerable<Application> sortedApplications = new List<Application>();
+
+            sortedApplications = sortingOrder.Equals("desc") ? applications.OrderByDescending(a => a.AnnualFee) : applications.OrderBy(a => a.AnnualFee);
+
+            return sortedApplications;
+        }
+
 
         private IEnumerable<Application> GetAllApplicationsByNationalComponent(int nationalComponentId, IEnumerable<Application> applications)
         {
@@ -159,6 +164,8 @@ namespace Arkitektum.Orden.Services
             return await _context.Application
                 .Include(a => a.SectorApplications)
                 .ThenInclude(sa => sa.Sector)
+                .Include(a => a.ApplicationNationalComponent)
+                .ThenInclude(anc => anc.NationalComponent)
                 .Where(a => a.OrganizationId == orgId).ToListAsync();
         }
 
