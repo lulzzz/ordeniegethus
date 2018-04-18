@@ -1,10 +1,10 @@
 ﻿.main-navigation {
-    background-color: $primary-color;
+    background-color: $navbar-color;
     color: #fff;
     position: fixed;
     width: 100%;
     z-index: 2;
-    @include box-shadow(0 4px 5px -2px rgba(0, 0, 0, 0.26));
+    @include raised(2);
     .main-navigation-content {
         .navbar {
             display: block;
@@ -147,7 +147,7 @@
 
 @media (min-width: $screen-sm) {
     .navbar {
-        @include box-shadow(none);
+        @include raised(0);
     }
     .main-navigation {
         padding: 0;
@@ -158,7 +158,7 @@
         .main-navigation-content {
             width: 100%;
             margin: auto;
-            @include box-shadow(2px 3px 5px 0 rgba(0, 0, 0, 0.26));
+            @include raised(2);
             &.show {
                 left: 0;
             }
@@ -169,7 +169,7 @@
                 >.dropdown-box-toggle>span {
                     display: block;
                     padding: 0.5rem 1rem;
-                    color: #007bff;
+                    color: $primary-color;
                     text-decoration: none;
                     text-align: center;
                 }
@@ -183,7 +183,7 @@
                 }
                 .dropdown-box-toggle {
                     &.active>span {
-                        background-color: #007bff;
+                        background-color: $primary-color;
                         color: #fff;
                     }
                     .dropdown-box-container {

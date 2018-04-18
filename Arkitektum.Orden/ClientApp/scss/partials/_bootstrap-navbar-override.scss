@@ -2,10 +2,10 @@
     display: block;
     padding: 0;
     height: 51px;
-    @include box-shadow(0 2px 5px rgba(0,0,0,.26));
+    @include raised(2);
 
     &.navbar-inverse {
-        background-color: $primary-color;
+        background-color: $navbar-color;
 
         .navbar-toggler {
             border-color: rgba(255,255,255,.1);
