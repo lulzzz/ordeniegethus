@@ -71,6 +71,12 @@
                         <application-datasets v-bind:application-datasets="apiData.datasets" v-bind:applicationId="applicationId"></application-datasets>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-header bg-info text-white">Felleskomponenter</div>
+                    <div class="card-body">
+                        <application-national-components v-bind:application-national-components="apiData.nationalComponents" v-bind:applicationId="applicationId"></application-national-components>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

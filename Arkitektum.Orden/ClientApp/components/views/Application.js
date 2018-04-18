@@ -2,6 +2,7 @@
 import ResourceLinks from '../partials/ResourceLinks.vue';
 import ApplicationSectors from '../partials/ApplicationSectors.vue';
 import ApplicationDatasets from '../partials/ApplicationDatasets.vue';
+import ApplicationNationalComponents from '../partials/ApplicationNationalComponents.vue';
 import { format } from 'date-fns';
 
 
@@ -22,6 +23,7 @@ export default {
         ResourceLinks,
         ApplicationSectors,
         ApplicationDatasets,
+        ApplicationNationalComponents
     },
     mounted() {
         this.getApiData();
