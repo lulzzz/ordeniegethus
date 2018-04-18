@@ -334,16 +334,14 @@ namespace Arkitektum.Orden.Controllers
 
         [HttpGet]
         [Route("/applications/sector/{sectorId}")]
+        [Route("/applications/orderByPrice/{sortingOrder}")]
         [Route("/applications/nationalComponents/{nationalComponentId}")]
-        public async Task<IActionResult> FilterApplications(int sectorId = 0, int nationalComponentId = 0)
+        public async Task<IActionResult> FilterApplications(int sectorId = 0, int nationalComponentId = 0, string sortingOrder = null)
         {
             var applications = await _applicationService.GetApplicationsWithFilter(CurrentOrganizationId(),
-                sectorId, nationalComponentId);
-
+                sectorId, nationalComponentId, sortingOrder);
             
-
             return View(new ApplicationViewModel().MapToEnumerable(applications));
-
         }
     }
 }

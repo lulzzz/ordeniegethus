@@ -17,7 +17,7 @@ namespace Arkitektum.Orden.Services
         Task Delete(int id);
         Task UpdateAsync(int id, Application updatedApplication);
         Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
-        Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId, int nationalComponentId);
+        Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId, int nationalComponentId, string sortingOrder);
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -101,7 +101,7 @@ namespace Arkitektum.Orden.Services
         }
 
         public async Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId,
-            int nationalComponentId)
+            int nationalComponentId, string sortingOrder)
         {
             var applications = await GetAllApplicationsForOrganization(currentOrganizationId);
             if (sectorId != 0)
@@ -111,6 +111,15 @@ namespace Arkitektum.Orden.Services
             else if (nationalComponentId != 0)
             {
                 applications = GetAllApplicationsByNationalComponent(nationalComponentId, applications);
+            }
+            else if (sortingOrder != null && sortingOrder.Any())
+            {
+                if (sortingOrder.Equals("desc"))
+                {
+                    applications = applications.OrderByDescending(a => a.AnnualFee);
+                }
+
+                applications = applications.OrderBy(a => a.AnnualFee);
             }
 
             return applications;
