@@ -58,13 +58,13 @@ namespace Arkitektum.Orden.Services
         public async Task UpdateAsync(int id, Application updatedApplication)
         {
             var currentApplication = await GetAsync(id);
-            
+
             _context.Entry(currentApplication).CurrentValues.SetValues(updatedApplication);
-            
+
             currentApplication.UpdateSectorRelations(updatedApplication.SectorApplications);
 
             currentApplication.UpdateNationalComponentsRelations(updatedApplication.ApplicationNationalComponent);
-            
+
             _context.Entry(currentApplication).State = EntityState.Modified;
 
             await SaveChanges();
@@ -79,7 +79,7 @@ namespace Arkitektum.Orden.Services
 
         public List<Application> GetAllApplicationsBySector(int sectorId, IEnumerable<Application> applications)
         {
-         
+
             List<Application> filteredApplications = new List<Application>();
 
             foreach (var application in applications)
@@ -94,7 +94,7 @@ namespace Arkitektum.Orden.Services
                         }
                     }
                 }
-               
+
             }
 
             return filteredApplications;
@@ -135,19 +135,22 @@ namespace Arkitektum.Orden.Services
 
         public async Task<Application> GetAsync(int id)
         {
-           return await _context.Application
-               .Include(a => a.SystemOwner)
-               .Include(a => a.Organization)
-               .Include(a => a.ApplicationNationalComponent).ThenInclude(anc => anc.NationalComponent)
-               .Include(a => a.SectorApplications).ThenInclude(sa => sa.Sector)
-               .Include(a => a.ApplicationDatasets).ThenInclude(ad => ad.Dataset)
-               .Include(a => a.Vendor)
-               .SingleOrDefaultAsync(a => a.Id == id);
+            return await _context.Application
+                .Include(a => a.SystemOwner)
+                .Include(a => a.Organization)
+                .Include(a => a.ApplicationNationalComponent).ThenInclude(anc => anc.NationalComponent)
+                .Include(a => a.SectorApplications).ThenInclude(sa => sa.Sector)
+                .Include(a => a.ApplicationDatasets).ThenInclude(ad => ad.Dataset)
+                .Include(a => a.Vendor)
+                .SingleOrDefaultAsync(a => a.Id == id);
         }
-       
+
         public async Task<IEnumerable<Application>> GetAllApplicationsForOrganization(int orgId)
         {
-            return await _context.Application.Where(a => a.OrganizationId == orgId).ToListAsync();
+            return await _context.Application
+                .Include(a => a.SectorApplications)
+                .ThenInclude(sa => sa.Sector)
+                .Where(a => a.OrganizationId == orgId).ToListAsync();
         }
 
         public async Task SaveChanges()

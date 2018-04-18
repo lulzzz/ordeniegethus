@@ -51,7 +51,7 @@ namespace Arkitektum.Orden.Test.Controllers
                 }
             };
             
-            _applicationServiceMock.Setup(m => m.GetAllApplicationsForOrganisation(OrganizationId)).ReturnsAsync(applications);
+            _applicationServiceMock.Setup(m => m.GetAllApplicationsForOrganization(OrganizationId)).ReturnsAsync(applications);
             
             var controller = CreateController();
 
