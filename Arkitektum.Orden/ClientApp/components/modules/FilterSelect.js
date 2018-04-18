@@ -6,7 +6,8 @@ export default {
     "primaryTextProperty",
     "secondaryTextProperty",
     "valueProperty",
-    "minSearchLength"
+    "minSearchLength",
+    "placeholder"
   ],
   data() {
     return {
