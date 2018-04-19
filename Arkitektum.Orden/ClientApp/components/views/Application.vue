@@ -74,7 +74,7 @@
                 </div>
                 <div class="mt-3"></div>
                 <div class="card">
-                    <div class="card-header bg-info text-white">Felleskomponenter</div>
+                    <div class="card-header bg-info text-white">Nasjonale felleskomponenter</div>
                     <div class="card-body">
                         <application-national-components v-bind:application-national-components="apiData.nationalComponents" v-bind:applicationId="applicationId"></application-national-components>
                     </div>
