@@ -2,6 +2,7 @@ export default {
   name: "FilterSelect",
   props: [
     "options",
+    "selectedOptions",
     "filterableProperties",
     "primaryTextProperty",
     "secondaryTextProperty",
@@ -21,17 +22,23 @@ export default {
       if (!this.minSearchLength) {
         this.updateFilterResult("");
       }
+    },
+    selectedOptions() {
+      if (!this.minSearchLength) {
+        this.updateFilterResult("");
+      }
     }
   },
   methods: {
     updateFilterResult(filterValue) {
       let filterResults = [];
+      let unselectedOptions = this.getUnselectedOptions();
       let minSearchLength =
         this.minSearchLength !== undefined ? this.minSearchLength : 0;
       if (!filterValue.length) {
-        filterResults = this.options;
+        filterResults = unselectedOptions;
       } else if (filterValue.length >= minSearchLength) {
-        this.options.forEach(option => {
+        unselectedOptions.forEach(option => {
           let optionHasMatch = false;
           this.filterableProperties.forEach(filterableProperty => {
             if (
@@ -49,6 +56,29 @@ export default {
         });
       }
       this.filterResults = filterResults;
+    },
+    optionIsSelectedById(option) {
+      let optionIsSelected = false;
+      if (this.selectedOptions) {
+        this.selectedOptions.forEach(selectedOption => {
+          if (option.id == selectedOption.id) {
+            optionIsSelected = true;
+            return;
+          }
+        });
+      }
+      return optionIsSelected;
+    },
+    getUnselectedOptions() {
+      let selectedOptions =
+        this.selectedOptions !== undefined ? this.selectedOptions : [];
+      let unselectedOptions = [];
+      this.options.forEach(option => {
+        if (!this.optionIsSelectedById(option)) {
+          unselectedOptions.push(option);
+        }
+      });
+      return unselectedOptions;
     },
     selectFilterResult(filterResult) {
       this.inputValue = filterResult[this.primaryTextProperty];
