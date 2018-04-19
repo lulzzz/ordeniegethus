@@ -13,6 +13,7 @@
         <div class="form-group">
             <filter-select 
                 v-bind:options="availableNationalComponents"
+                v-bind:selected-options="selectedApplicationNationalComponents" 
                 v-bind:filterable-properties="['name']"
                 primary-text-property="name"
                 secondary-text-property="id"

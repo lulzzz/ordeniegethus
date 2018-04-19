@@ -3,7 +3,7 @@ import FilterSelect from '../../modules/FilterSelect.vue';
 
 export default {
     name: 'ApplicationDataset',
-    props: ['applicationDataset', 'applicationId', 'saved'],
+    props: ['applicationDataset', 'selectedApplicationDatasets', 'applicationId', 'saved'],
     components: {
         FilterSelect
     },

@@ -3,7 +3,7 @@ import FilterSelect from '../../modules/FilterSelect.vue';
 
 export default {
     name: 'ApplicationNationalComponent',
-    props: ['applicationNationalComponent', 'applicationId', 'saved'],
+    props: ['applicationNationalComponent', 'selectedApplicationNationalComponents', 'applicationId', 'saved'],
     components: {
         FilterSelect
     },

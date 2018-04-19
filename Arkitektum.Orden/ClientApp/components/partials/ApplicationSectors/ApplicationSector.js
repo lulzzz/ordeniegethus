@@ -3,7 +3,7 @@ import FilterSelect from '../../modules/FilterSelect.vue';
 
 export default {
     name: 'ApplicationSector',
-    props: ['applicationSector', 'applicationId', 'saved'],
+    props: ['applicationSector', 'selectedApplicationSectors', 'applicationId', 'saved'],
     components: {
         FilterSelect
     },
