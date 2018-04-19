@@ -2,7 +2,7 @@
 
     <!-- Saved application sector -->
     <div v-if="saved" class="list-group-item d-flex justify-content-between align-items-center">
-        <a>{{ applicationSector.sectorName}}</a>
+        <a>{{ applicationSector.name }}</a>
         <div class="float-right">
             <span class="btn btn-outline-danger" v-on:click="$emit('remove')"><span class="fas fa-trash"></span></span>
         </div>
