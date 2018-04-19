@@ -86,10 +86,10 @@
                     @for (var i = 0; i < Model.NationalComponents.Count; i++)
                     {
                         <li>
-                            <input type="hidden" asp-for="@Model.NationalComponents[i].NationalComponentId" />
-                            <input type="hidden" asp-for="@Model.NationalComponents[i].NationalComponentName" />
+                            <input type="hidden" asp-for="@Model.NationalComponents[i].Id" />
+                            <input type="hidden" asp-for="@Model.NationalComponents[i].Name" />
                             <input type="checkbox" asp-for="@Model.NationalComponents[i].Selected" />
-                            <label asp-for="@Model.NationalComponents[i].NationalComponentName">@Model.NationalComponents[i].NationalComponentName</label>
+                            <label asp-for="@Model.NationalComponents[i].Name">@Model.NationalComponents[i].Name</label>
                         </li>
                     }
                 </ul>

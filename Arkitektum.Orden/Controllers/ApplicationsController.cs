@@ -150,8 +150,8 @@ namespace Arkitektum.Orden.Controllers
             {
                 nationalComponents.Add(new CheckboxApplicationNationalComponents()
                 {
-                    NationalComponentId = nationalComponent.Id,
-                    NationalComponentName = nationalComponent.Name
+                    Id = nationalComponent.Id,
+                    Name = nationalComponent.Name
                 });
             }
 

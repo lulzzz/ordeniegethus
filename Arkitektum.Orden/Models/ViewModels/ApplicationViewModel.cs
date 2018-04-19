@@ -167,8 +167,8 @@ namespace Arkitektum.Orden.Models.ViewModels
         {
             return new CheckboxApplicationNationalComponents()
             {
-                NationalComponentId = input.NationalComponentId,
-                NationalComponentName = input.NationalComponent.Name,
+                Id = input.NationalComponentId,
+                Name = input.NationalComponent.Name,
                 Selected = true
             };
         }
@@ -238,7 +238,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                     nationalComponents.Add(new ApplicationNationalComponent()
                     {
                         ApplicationId = id,
-                        NationalComponentId = item.NationalComponentId
+                        NationalComponentId = item.Id
                     });
                 }
             }
@@ -280,8 +280,8 @@ namespace Arkitektum.Orden.Models.ViewModels
 
     public class CheckboxApplicationNationalComponents
     {
-        public int NationalComponentId { get; set; }
-        public string NationalComponentName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public bool Selected { get; set; }
     }
 
