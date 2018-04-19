@@ -3,7 +3,7 @@ import ApplicationNationalComponent from './ApplicationNationalComponents/Applic
 
 export default {
     name: 'ApplicationNationalComponents',
-    props: ['applicationNationalComponents', 'applicationId', 'availableNationalComponents'],
+    props: ['applicationNationalComponents', 'applicationId'],
     components: {
         ApplicationNationalComponent
     },

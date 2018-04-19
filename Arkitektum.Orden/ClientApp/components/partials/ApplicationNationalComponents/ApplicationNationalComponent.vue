@@ -12,7 +12,7 @@
     <div v-else class="list-group-item">
         <div class="form-group">
             <filter-select 
-                v-bind:options="availableNationalComponents" 
+                v-bind:options="availableNationalComponents"
                 v-bind:filterable-properties="['name']"
                 primary-text-property="name"
                 secondary-text-property="id"
@@ -23,7 +23,7 @@
         </div>
         <div class="float-right">
             <span class="btn btn-outline-danger" v-on:click="$emit('remove')"><span class="fas fa-trash"></span> Fjern</span>
-            <span class="btn btn-outline-success" v-on:click="AddNationalComponentToApplication()"><span class="fas fa-check"></span> Legg til</span>
+            <span class="btn btn-outline-success" v-on:click="addApplicationNationalComponentToApplication()"><span class="fas fa-check"></span> Legg til</span>
         </div>
     </div>
 

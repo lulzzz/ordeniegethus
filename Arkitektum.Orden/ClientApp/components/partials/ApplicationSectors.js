@@ -3,7 +3,7 @@ import ApplicationSector from './ApplicationSectors/ApplicationSector.vue';
 
 export default {
     name: 'ApplicationSectors',
-    props: ['applicationSectors', 'applicationId', 'availableApplicationSectors'],
+    props: ['applicationSectors', 'applicationId'],
     components: {
         ApplicationSector
     },

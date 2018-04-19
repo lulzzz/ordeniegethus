@@ -3,7 +3,7 @@ import ApplicationDataset from './ApplicationDatasets/ApplicationDataset.vue';
 
 export default {
     name: 'ApplicationDatasets',
-    props: ['applicationDatasets', 'applicationId', 'availableApplicationDatasets'],
+    props: ['applicationDatasets', 'applicationId'],
     components: {
         ApplicationDataset
     },

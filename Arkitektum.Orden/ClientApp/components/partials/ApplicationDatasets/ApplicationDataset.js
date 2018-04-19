@@ -11,19 +11,19 @@ export default {
         return {
             editable: false,
             data: this.applicationDataset !== undefined ? this.applicationDataset : { datasetName: '' },
-            availableApplicationDatasets: []
+            availableDatasets: []
         }
     },
     mounted() {
         if (!this.saved){
-            this.getAvailableApplicationDatasets();
+            this.getAvailableDatasets();
         }
     },
     methods: {
-        getAvailableApplicationDatasets() {
+        getAvailableDatasets() {
             Promise.resolve(this.$root.getApiData(`/datasets/all`))
             .then((apiData) => {
-                this.availableApplicationDatasets = apiData;
+                this.availableDatasets = apiData;
             });
         },
         selectApplicationDataset(applicationDataset) {

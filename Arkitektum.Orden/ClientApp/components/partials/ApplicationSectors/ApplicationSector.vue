@@ -12,7 +12,7 @@
     <div v-else class="list-group-item">
         <div class="form-group">
             <filter-select 
-                v-bind:options="availableApplicationSectors" 
+                v-bind:options="availableSectors"
                 v-bind:filterable-properties="['name']"
                 primary-text-property="name"
                 secondary-text-property="id"

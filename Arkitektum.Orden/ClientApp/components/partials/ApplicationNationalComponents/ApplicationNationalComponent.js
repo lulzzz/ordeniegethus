@@ -29,7 +29,7 @@ export default {
         selectApplicationNationalComponent(applicationNationalComponent) {
             this.data = applicationNationalComponent;
         },
-        AddNationalComponentToApplication() {
+        addApplicationNationalComponentToApplication() {
             this.$parent.postApplicationNationalComponent({ applicationId: this.applicationId, nationalComponentId: this.data.id });
         }        
     }
