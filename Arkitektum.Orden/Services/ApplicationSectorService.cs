@@ -39,7 +39,11 @@ namespace Arkitektum.Orden.Services
 
         public async Task<IEnumerable<Sector>> GetSectorsForApplication(int applicationId)
         {
-            return await _context.SectorApplication.Where(sa => sa.ApplicationId == applicationId).Select(sa => sa.Sector).ToListAsync();
+            return await _context.SectorApplication
+                .Where(sa => sa.ApplicationId == applicationId)
+                .Select(sa => sa.Sector)
+                .OrderBy(sa => sa.Name)
+                .ToListAsync();
         }
 
         private async Task<Application> GetApplication(int applicationId)

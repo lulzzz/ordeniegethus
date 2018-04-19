@@ -133,7 +133,8 @@ namespace Arkitektum.Orden.Models.ViewModels
             var output = new List<DatasetViewModel>();
             if (datasets != null && datasets.Any())
             {
-                foreach (var item in datasets)
+                var sortedDatasets = datasets.OrderBy(d => d.Dataset.Name);
+                foreach (var item in sortedDatasets)
                 {
                     output.Add(new DatasetViewModel()
                     {
@@ -148,13 +149,14 @@ namespace Arkitektum.Orden.Models.ViewModels
             return output;
         }
 
-        private List<CheckboxApplicationNationalComponents> Map(List<ApplicationNationalComponent> applicationNationalComponent)
+        private List<CheckboxApplicationNationalComponents> Map(List<ApplicationNationalComponent> input)
         {
             var output = new List<CheckboxApplicationNationalComponents>();
 
-            if (applicationNationalComponent != null)
+            if (input != null)
             {
-                foreach (var item in applicationNationalComponent)
+                var sortedInput = input.OrderBy(a => a.NationalComponent.Name);
+                foreach (var item in input)
                 {
                     output.Add(Map(item));
                 }
@@ -178,7 +180,8 @@ namespace Arkitektum.Orden.Models.ViewModels
             var output = new List<CheckboxApplicationSector>();
             if (input != null)
             {
-                foreach (var item in input)
+                var sortedInput = input.OrderBy(a => a.Sector.Name);
+                foreach (var item in sortedInput)
                 {
                     output.Add(Map(item));
                 }
