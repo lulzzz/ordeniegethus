@@ -77,7 +77,7 @@ namespace Arkitektum.Orden.Controllers
 
 
         [HttpGet("details/{id}")]
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
                 return Forbid();
