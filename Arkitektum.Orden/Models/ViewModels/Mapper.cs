@@ -11,8 +11,17 @@ namespace Arkitektum.Orden.Models.ViewModels
     public abstract class Mapper<TInput, TOutput>
     {
         public abstract IEnumerable<TOutput> MapToEnumerable(IEnumerable<TInput> inputs);
-        
 
         public abstract TOutput Map(TInput input);
+
+        public IEnumerable<TOutput> Map(IEnumerable<TInput> inputs)
+        {
+            var output = new List<TOutput>();
+            foreach(var input in inputs)
+            {
+                output.Add(Map(input));
+            }
+            return output;
+        }
     }
 }
