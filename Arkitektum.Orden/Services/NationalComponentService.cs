@@ -16,6 +16,9 @@ namespace Arkitektum.Orden.Services
         Task SaveChangesAsync();
         Task Delete(int id);
 
+        Task<List<NationalComponent>> GetComponentsForApplication(int applicationId);
+        Task AddComponentToApplication(int nationalComponentId, int applicationId);
+        Task RemoveComponentFromApplication(int nationalComponentId, int applicationId);
     }
     /// <summary>
     /// Handles operations on NationalComponent entity
@@ -77,6 +80,43 @@ namespace Arkitektum.Orden.Services
             var nationalComponent = await _context.NationalComponent.SingleOrDefaultAsync(ss => ss.Id == id);
             _context.NationalComponent.Remove(nationalComponent);
             await SaveChangesAsync();
+        }
+
+        public async Task<List<NationalComponent>> GetComponentsForApplication(int applicationId)
+        {
+             var components = await _context.ApplicationNationalComponents
+                .Where(a => a.ApplicationId == applicationId)
+                .Include(x => x.NationalComponent)
+                .Select(x => x.NationalComponent).ToListAsync();
+
+            return components;
+        }
+
+        public async Task AddComponentToApplication(int nationalComponentId, int applicationId)
+        {
+            var application = await GetApplication(applicationId);
+            application.ApplicationNationalComponent.Add(
+                new ApplicationNationalComponent { 
+                    NationalComponentId = nationalComponentId,
+                    ApplicationId = applicationId
+                }
+            );
+            await SaveChangesAsync();
+        }
+
+        public async Task RemoveComponentFromApplication(int nationalComponentId, int applicationId)
+        {
+            var application = await GetApplication(applicationId);
+            application.RemoveNationalComponent(nationalComponentId);
+                         
+            await SaveChangesAsync();
+            
+        }
+
+        private async Task<Application> GetApplication(int applicationId)
+        {
+            return await _context.Application.Include(a => a.ApplicationNationalComponent)
+                .SingleOrDefaultAsync(a => a.Id == applicationId);
         }
     }
 }

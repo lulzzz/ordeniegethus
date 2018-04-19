@@ -27,6 +27,13 @@ namespace Arkitektum.Orden.Controllers
             return View(await _context.NationalComponent.ToListAsync());
         }
 
+        [Authorize(Roles = Roles.User)]
+        public async Task<IActionResult> All()
+        {
+            var components = await _context.NationalComponent.OrderBy(c => c.Name).ToListAsync();
+            return Json(components);
+        }
+
         // GET: NationalComponents/Details/5
         public async Task<IActionResult> Details(int? id)
         {

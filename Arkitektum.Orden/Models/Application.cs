@@ -139,6 +139,17 @@ namespace Arkitektum.Orden.Models
             ApplicationNationalComponent = new List<ApplicationNationalComponent>();
         }
 
+        internal void RemoveNationalComponent(int nationalComponentId)
+        {
+            foreach (var component in ApplicationNationalComponent) {
+                if (component.NationalComponentId == nationalComponentId)
+                {
+                    ApplicationNationalComponent.Remove(component);
+                    break;
+                }
+            }
+        }
+
         public string DecimalToString(decimal inputDecimal)
         {
             string priceAsString = decimal.Round(inputDecimal, 0, MidpointRounding.AwayFromZero).ToString();
