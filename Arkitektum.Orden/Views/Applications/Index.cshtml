@@ -1,53 +1,62 @@
-﻿@model IEnumerable<Arkitektum.Orden.Models.ViewModels.ApplicationViewModel>
+﻿@model Arkitektum.Orden.Models.ViewModels.ApplicationListViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 <h2>Applikasjoner</h2>
+<form asp-action="Index" method="get">
+    <div class="form-group">
+        <select name="SectorId" asp-items="@Model.Sectors" class="form-control" onchange="this.form.submit()">
+            <option selected="selected" value="">Velg tjenesteområde fra listen</option>
+        </select>
+    </div>
+</form>
 <p>
     <a asp-action="Create">Registrer en ny applikasjon</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @ModelsResource.Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Version)
+                @ModelsResource.Version
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnnualFee)
+                @ModelsResource.Vendor
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Vendor)
+                @ModelsResource.AnnualFee
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SystemOwner)
+                @ModelsResource.SystemOwner
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.Id">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Version)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnualFee)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vendor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SystemOwner)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Applications)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Version)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vendor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnualFee)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SystemOwner)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -84,7 +84,7 @@ namespace Arkitektum.Orden.Controllers
 
         private async Task<List<SelectListItem>> GetAvailableApplications(int currentOrganizationId)
         {
-            var applicationsForOrganisation = await _applicationService.GetAllApplicationsForOrganisation(currentOrganizationId);
+            var applicationsForOrganisation = await _applicationService.GetAllApplicationsForOrganization(currentOrganizationId);
 
             List<SelectListItem> selectListItems = new List<SelectListItem>();
 
@@ -129,7 +129,7 @@ namespace Arkitektum.Orden.Controllers
             var datasets = await _datasetService.GetAsync(id.Value);
     
             SimpleOrganization currentOrganization = CurrentOrganization();
-            var applications = await _applicationService.GetAllApplicationsForOrganisation(currentOrganization.Id);
+            var applications = await _applicationService.GetAllApplicationsForOrganization(currentOrganization.Id);
             
 
             if (datasets == null)

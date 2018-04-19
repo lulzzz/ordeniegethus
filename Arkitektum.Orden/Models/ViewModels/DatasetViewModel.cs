@@ -25,6 +25,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         public bool HasPersonalData { get; set; }
         public bool HasSensitivePersonalData { get; set; }
         public int? OrganizationId { get; set; }
+        public string AccessPermission { get; set; }
 
 
 
@@ -96,7 +97,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasMasterData = input.HasMasterData,
                 HasPersonalData = input.HasPersonalData,
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
-                PublishedToSharedDataCatalog = DateTime.Now,
+                PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog?.Date,
                 DataLocation = input.DataLocation,
                 ApplicationDatasets = Map(input.Application, input.Id),
                 AccessRight = Map(input.AccessRight)

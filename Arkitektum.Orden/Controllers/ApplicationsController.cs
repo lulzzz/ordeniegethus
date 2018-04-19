@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,7 +12,7 @@ using Arkitektum.Orden.Utils;
 
 namespace Arkitektum.Orden.Controllers
 {
-    
+
     [Authorize]
     [Route("/applications")]
     public class ApplicationsController : BaseController
@@ -23,7 +24,7 @@ namespace Arkitektum.Orden.Controllers
         private readonly IAppRegistry _appRegistry;
         private readonly IVendorService _vendorService;
 
-        public ApplicationsController(ISecurityService securityService, IApplicationService applicationService, IUserService userService, 
+        public ApplicationsController(ISecurityService securityService, IApplicationService applicationService, IUserService userService,
             ISectorService sectorService, INationalComponentService nationalComponentsService, IAppRegistry appRegistry, IVendorService vendorService) : base(securityService)
         {
             _applicationService = applicationService;
@@ -33,17 +34,47 @@ namespace Arkitektum.Orden.Controllers
             _appRegistry = appRegistry;
             _vendorService = vendorService;
         }
-       
+
         [HttpGet("")]
-        public async Task<IActionResult> Index()
-        {            
+        public async Task<IActionResult> Index([FromQuery] int? sectorId)
+        {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
                 return Forbid();
 
             SimpleOrganization currentOrganization = CurrentOrganization();
-            var applications = await _applicationService.GetAllApplicationsForOrganisation(currentOrganization.Id);
-            return View(new ApplicationViewModel().MapToEnumerable(applications));
+           
+            IEnumerable<Application> applications = new List<Application>();
+
+            var model = new ApplicationListViewModel();
+
+            if (sectorId.HasValue)
+            {
+                applications =  await _applicationService.GetApplicationsWithFilter(currentOrganization.Id, sectorId.Value, 0, null);
+            }
+            else
+            {
+                applications = await _applicationService.GetAllApplicationsForOrganization(currentOrganization.Id);
+            }
+
+            model.Applications = new ApplicationListDetailViewModel().Map(applications);
+            model.Sectors = await GetSectorViewModel();
+
+            return View(model);
         }
+
+        private async Task<List<SelectListItem>> GetSectorViewModel()
+        {
+            var sectors = await _sectorService.GetAll();
+            return new SectorViewModel().Map(sectors);
+        }
+
+        private async Task<IEnumerable<ApplicationListDetailViewModel>> GetApplicationListViewModel(SimpleOrganization currentOrganization)
+        {
+            var applications = await _applicationService.GetAllApplicationsForOrganization(currentOrganization.Id);
+
+            return new ApplicationListDetailViewModel().Map(applications);
+        }
+
 
         [HttpGet("details/{id}")]
         public async Task<IActionResult> Details(int? id)
@@ -100,7 +131,7 @@ namespace Arkitektum.Orden.Controllers
 
             if (currentValue != null)
             {
-                foreach(var item in items)
+                foreach (var item in items)
                 {
                     if (item.Value == currentValue)
                         item.Selected = true;
@@ -127,15 +158,16 @@ namespace Arkitektum.Orden.Controllers
         private async Task<List<SelectListItem>> GetAvailableVendors(int currentVendorId = 0)
         {
             var vendors = new List<SelectListItem>();
-            vendors.Add(new SelectListItem{ Text = UIResource.SelectVendorFromList, Value = "0"});
+            vendors.Add(new SelectListItem { Text = UIResource.SelectVendorFromList, Value = "0" });
 
             foreach (var vendor in await _vendorService.GetAll())
             {
-                vendors.Add(new SelectListItem {
+                vendors.Add(new SelectListItem
+                {
                     Text = vendor.Name,
                     Value = vendor.Id.ToString(),
                     Selected = vendor.Id == currentVendorId
-                    });
+                });
             }
             return vendors;
         }
@@ -159,7 +191,7 @@ namespace Arkitektum.Orden.Controllers
         private async Task<List<CheckboxApplicationSector>> GetAvailableSectors()
         {
             var availableSectors = new List<CheckboxApplicationSector>();
-            
+
             foreach (var sector in await _sectorService.GetAll())
             {
                 availableSectors.Add(new CheckboxApplicationSector()
@@ -168,7 +200,7 @@ namespace Arkitektum.Orden.Controllers
                     SectorName = sector.Name,
                 });
             }
-            
+
             return availableSectors;
         }
 
@@ -181,7 +213,7 @@ namespace Arkitektum.Orden.Controllers
 
             // always set organizationId to currentOrganization to prevent any security issues
             model.OrganizationId = CurrentOrganizationId();
-            
+
             if (ModelState.IsValid)
             {
                 var createApplication = await _applicationService.Create(new ApplicationViewModel().Map(model));
@@ -207,7 +239,7 @@ namespace Arkitektum.Orden.Controllers
 
             if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
                 return Forbid();
-            
+
             var model = new ApplicationViewModel().Map(application);
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
@@ -221,16 +253,16 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwner,Sectors,NationalComponents")] ApplicationViewModel model)
         {
-            if (id == 0) 
+            if (id == 0)
                 return NotFound();
 
             if (id != model.Id)
             {
                 return BadRequest();
             }
-            
+
             Application application = await _applicationService.GetAsync(id);
-            if (application == null) 
+            if (application == null)
                 return NotFound();
 
             if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
@@ -255,13 +287,13 @@ namespace Arkitektum.Orden.Controllers
         [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) 
+            if (id == null)
                 return NotFound();
-            
+
             var applicationToDelete = await _applicationService.GetAsync(id.Value);
-            if (applicationToDelete == null) 
+            if (applicationToDelete == null)
                 return NotFound();
-            
+
             if (!_securityService.CurrrentUserHasAccessToApplication(applicationToDelete, AccessLevel.Write))
                 return Forbid();
 
@@ -272,11 +304,11 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (id == 0) 
+            if (id == 0)
                 return NotFound();
-            
+
             var applicationToDelete = await _applicationService.GetAsync(id);
-            if (applicationToDelete == null) 
+            if (applicationToDelete == null)
                 return NotFound();
 
             if (!_securityService.CurrrentUserHasAccessToApplication(applicationToDelete, AccessLevel.Write))
@@ -289,11 +321,11 @@ namespace Arkitektum.Orden.Controllers
         [HttpGet("submit-app-registry/{id}")]
         public async Task<IActionResult> SubmitAppRegistry(int id)
         {
-            if (id == 0) 
+            if (id == 0)
                 return NotFound();
 
             Application application = await _applicationService.GetAsync(id);
-            if (application == null) 
+            if (application == null)
                 return NotFound();
 
             if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
@@ -305,11 +337,11 @@ namespace Arkitektum.Orden.Controllers
         [HttpPost("submit-app-registry/{id}")]
         public async Task<IActionResult> SubmitAppRegistryConfirm(int id)
         {
-            if (id == 0) 
+            if (id == 0)
                 return NotFound();
 
             Application application = await _applicationService.GetAsync(id);
-            if (application == null) 
+            if (application == null)
                 return NotFound();
 
             if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
@@ -319,7 +351,19 @@ namespace Arkitektum.Orden.Controllers
 
             FlashSuccess(UIResource.FlashApplicationSubmittedToAppRegistry);
 
-            return RedirectToAction(nameof(Details), new {id});
+            return RedirectToAction(nameof(Details), new { id });
+        }
+
+        [HttpGet]
+        [Route("/applications/sector/{sectorId}")]
+        [Route("/applications/orderByPrice/{sortingOrder}")]
+        [Route("/applications/nationalComponents/{nationalComponentId}")]
+        public async Task<IActionResult> FilterApplications(int sectorId = 0, int nationalComponentId = 0, string sortingOrder = null)
+        {
+            var applications = await _applicationService.GetApplicationsWithFilter(CurrentOrganizationId(),
+                sectorId, nationalComponentId, sortingOrder);
+
+            return View(new ApplicationViewModel().MapToEnumerable(applications));
         }
     }
 }

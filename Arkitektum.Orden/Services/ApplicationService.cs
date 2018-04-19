@@ -11,12 +11,13 @@ namespace Arkitektum.Orden.Services
     {
         Task<Application> GetAsync(int id);
         Task<IEnumerable<Application>> GetAll();
-        Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId);
+        Task<IEnumerable<Application>> GetAllApplicationsForOrganization(int orgId);
         Task<Application> Create(Application application);
         Task SaveChanges();
         Task Delete(int id);
         Task UpdateAsync(int id, Application updatedApplication);
         Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
+        Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId, int nationalComponentId, string sortingOrder);
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -57,13 +58,13 @@ namespace Arkitektum.Orden.Services
         public async Task UpdateAsync(int id, Application updatedApplication)
         {
             var currentApplication = await GetAsync(id);
-            
+
             _context.Entry(currentApplication).CurrentValues.SetValues(updatedApplication);
-            
+
             currentApplication.UpdateSectorRelations(updatedApplication.SectorApplications);
 
             currentApplication.UpdateNationalComponentsRelations(updatedApplication.ApplicationNationalComponent);
-            
+
             _context.Entry(currentApplication).State = EntityState.Modified;
 
             await SaveChanges();
@@ -76,21 +77,96 @@ namespace Arkitektum.Orden.Services
             return await _context.Application.Where(a => a.OrganizationId == currentOrganizationId).CountAsync();
         }
 
+        public List<Application> GetAllApplicationsBySector(int sectorId, IEnumerable<Application> applications)
+        {
+
+            List<Application> filteredApplications = new List<Application>();
+
+            foreach (var application in applications)
+            {
+                if (application.SectorApplications != null && application.SectorApplications.Any())
+                {
+                    foreach (var sectorApplication in application.SectorApplications)
+                    {
+                        if (sectorApplication.SectorId == sectorId)
+                        {
+                            filteredApplications.Add(application);
+                        }
+                    }
+                }
+
+            }
+
+            return filteredApplications;
+        }
+
+        public async Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId,
+            int nationalComponentId, string sortingOrder)
+        {
+            var applications = await GetAllApplicationsForOrganization(currentOrganizationId);
+            if (sectorId != 0)
+            {
+                applications = GetAllApplicationsBySector(sectorId, applications);
+            }
+            else if (nationalComponentId != 0)
+            {
+                applications = GetAllApplicationsByNationalComponent(nationalComponentId, applications);
+            }
+            else if (sortingOrder != null && sortingOrder.Any())
+            {
+                applications = SortApplicationsByPrice(applications, sortingOrder);
+            }
+
+            return applications;
+        }
+
+        private IEnumerable<Application> SortApplicationsByPrice(IEnumerable<Application> applications, string sortingOrder)
+        {
+            IEnumerable<Application> sortedApplications = new List<Application>();
+
+            sortedApplications = sortingOrder.Equals("desc") ? applications.OrderByDescending(a => a.AnnualFee) : applications.OrderBy(a => a.AnnualFee);
+
+            return sortedApplications;
+        }
+
+
+        private IEnumerable<Application> GetAllApplicationsByNationalComponent(int nationalComponentId, IEnumerable<Application> applications)
+        {
+            List<Application> applicationsByNationalComponent = new List<Application>();
+            foreach (var application in applications)
+            {
+                foreach (var applicationNationalComponent in application.ApplicationNationalComponent)
+                {
+                    if (applicationNationalComponent.NationalComponentId == nationalComponentId)
+                    {
+                        applicationsByNationalComponent.Add(application);
+                    }
+                }
+            }
+
+            return applicationsByNationalComponent;
+        }
+
         public async Task<Application> GetAsync(int id)
         {
-           return await _context.Application
-               .Include(a => a.SystemOwner)
-               .Include(a => a.Organization)
-               .Include(a => a.ApplicationNationalComponent).ThenInclude(anc => anc.NationalComponent)
-               .Include(a => a.SectorApplications).ThenInclude(sa => sa.Sector)
-               .Include(a => a.ApplicationDatasets).ThenInclude(ad => ad.Dataset)
-               .Include(a => a.Vendor)
-               .SingleOrDefaultAsync(a => a.Id == id);
+            return await _context.Application
+                .Include(a => a.SystemOwner)
+                .Include(a => a.Organization)
+                .Include(a => a.ApplicationNationalComponent).ThenInclude(anc => anc.NationalComponent)
+                .Include(a => a.SectorApplications).ThenInclude(sa => sa.Sector)
+                .Include(a => a.ApplicationDatasets).ThenInclude(ad => ad.Dataset)
+                .Include(a => a.Vendor)
+                .SingleOrDefaultAsync(a => a.Id == id);
         }
-       
-        public async Task<IEnumerable<Application>> GetAllApplicationsForOrganisation(int orgId)
+
+        public async Task<IEnumerable<Application>> GetAllApplicationsForOrganization(int orgId)
         {
-            return await _context.Application.Where(a => a.OrganizationId == orgId).ToListAsync();
+            return await _context.Application
+                .Include(a => a.SectorApplications)
+                .ThenInclude(sa => sa.Sector)
+                .Include(a => a.ApplicationNationalComponent)
+                .ThenInclude(anc => anc.NationalComponent)
+                .Where(a => a.OrganizationId == orgId).ToListAsync();
         }
 
         public async Task SaveChanges()

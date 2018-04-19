@@ -205,6 +205,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Innsikt.
+        /// </summary>
+        public static string Insight {
+            get {
+                return ResourceManager.GetString("Insight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lovhjemler.
         /// </summary>
         public static string LawReferences {

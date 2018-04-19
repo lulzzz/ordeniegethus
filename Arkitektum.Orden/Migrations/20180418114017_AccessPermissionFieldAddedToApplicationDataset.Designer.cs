@@ -13,9 +13,10 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180418114017_AccessPermissionFieldAddedToApplicationDataset")]
+    partial class AccessPermissionFieldAddedToApplicationDataset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +108,7 @@ namespace Arkitektum.Orden.Migrations
 
                     b.HasIndex("NationalComponentId");
 
-                    b.ToTable("ApplicationNationalComponents");
+                    b.ToTable("ApplicationNationalComponent");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.ApplicationStandard", b =>
