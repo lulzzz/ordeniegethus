@@ -39,7 +39,7 @@ namespace Arkitektum.Orden.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> CreateApplicationSector([FromBody] ApplicationDatasetViewModel model)
+        public async Task<IActionResult> CreateApplicationDataset([FromBody] ApplicationDatasetViewModel model)
         {
             if (model.ApplicationId == 0)
                 return NotFound();
@@ -56,7 +56,7 @@ namespace Arkitektum.Orden.Controllers
         }
 
         [HttpDelete("{datasetId}/{applicationId}")]
-        public async Task<IActionResult> DeleteApplicationSector(int datasetId, int applicationId)
+        public async Task<IActionResult> DeleteApplicationDataset(int datasetId, int applicationId)
         {   
             if (applicationId == 0)
                 return NotFound();
