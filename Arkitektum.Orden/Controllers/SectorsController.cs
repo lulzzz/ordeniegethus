@@ -11,6 +11,7 @@ using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Net;
+using Arkitektum.Orden.Utils;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -227,6 +228,9 @@ namespace Arkitektum.Orden.Controllers
             var application = await _applicationService.GetAsync(applicationId);
             if (application == null)
                 return NotFound();
+
+            if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Read))
+                return Forbid();
 
             var sectors = await _applicationSectorService.GetSectorsForApplication(applicationId);
             return Json(SectorApplicationViewModel.Map(sectors, applicationId));
