@@ -1,22 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Arkitektum.Orden.Models.ViewModels
 {
-
-    public class SectorApplicationViewModel
+    public class SectorApiViewModel : Mapper<Sector, SectorApiViewModel>
     {
-        public int ApplicationId { get;set;}
-        public int SectorId { get; set; }
-        public string SectorName { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
-        internal static IEnumerable<SectorApplicationViewModel> Map(IEnumerable<Sector> sectors, int applicationId)
+        public override SectorApiViewModel Map(Sector input)
         {
-            var viewModels = new List<SectorApplicationViewModel>();
-            foreach (var sector in sectors)
-            {
-                viewModels.Add(new SectorApplicationViewModel { ApplicationId = applicationId, SectorId = sector.Id, SectorName = sector.Name });
-            }
-            return viewModels;
+            return new SectorApiViewModel { Id = input.Id, Name = input.Name };
         }
+
+        public override IEnumerable<SectorApiViewModel> MapToEnumerable(IEnumerable<Sector> inputs)
+        {
+            throw new NotImplementedException();
+        }
+
+       
     }
 }

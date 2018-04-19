@@ -43,7 +43,7 @@ namespace Arkitektum.Orden.Controllers
         public async Task<IActionResult> All()
         {
             var sectors = await _sectorService.GetAll();
-            return Json(new SectorViewModel().MapToEnumerable(sectors));
+            return Json(new SectorApiViewModel().Map(sectors));
         }
 
         // GET: Sectors/Details/5
@@ -233,7 +233,7 @@ namespace Arkitektum.Orden.Controllers
                 return Forbid();
 
             var sectors = await _applicationSectorService.GetSectorsForApplication(applicationId);
-            return Json(SectorApplicationViewModel.Map(sectors, applicationId));
+            return Json(new SectorApiViewModel().Map(sectors));
         }
 
         [HttpPost("/sectors/application")]
