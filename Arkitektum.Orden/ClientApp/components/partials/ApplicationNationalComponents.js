@@ -3,7 +3,7 @@ import ApplicationNationalComponent from './ApplicationNationalComponents/Applic
 
 export default {
     name: 'ApplicationNationalComponents',
-    props: ['applicationNationalComponents', 'applicationId', 'availableApplicationNationalComponents'],
+    props: ['applicationNationalComponents', 'applicationId', 'availableNationalComponents'],
     components: {
         ApplicationNationalComponent
     },
@@ -24,20 +24,20 @@ export default {
             this.newApplicationNationalComponent = false;
         },
         getApplicationNationalComponents() {
-            Promise.resolve(this.$root.getApiData(`/national-components/application/${this.applicationId}`))
+            Promise.resolve(this.$root.getApiData(`/nationalcomponents/application/${this.applicationId}`))
                 .then((apiData) => {
                     this.apiData = apiData;
                 });
         },
         postApplicationNationalComponent(data) {
-            Promise.resolve(this.$root.postApiData(`/national-components/application/`, data))
+            Promise.resolve(this.$root.postApiData(`/nationalcomponents/application/`, data))
                 .then(() => {
                     this.getApplicationNationalComponents();
                     this.removeNewApplicationNationalComponent();
                 });
         },
         removeApplicationNationalComponent(applicationNationalComponentId) {
-            Promise.resolve(this.$root.deleteApiData(`/national-components/application/`, { id: applicationNationalComponentId }))
+            Promise.resolve(this.$root.deleteApiData(`/nationalcomponents/application/${applicationNationalComponentId}/${this.applicationId}`))
                 .then(() => {
                     this.getApplicationNationalComponents();
                 });

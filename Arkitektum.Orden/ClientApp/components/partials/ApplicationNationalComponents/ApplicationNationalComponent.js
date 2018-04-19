@@ -10,24 +10,27 @@ export default {
     data() {
         return {
             editable: false,
-            data: this.applicationNationalComponent !== undefined ? this.applicationNationalComponent : { nationalComponentName: '' },
-            availableApplicationNationalComponents: []
+            data: this.applicationNationalComponent !== undefined ? this.applicationNationalComponent : { name: '' },
+            availableNationalComponents: []
         }
     },
     mounted() {
         if (!this.saved){
-            this.getAvailableApplicationNationalComponents();
+            this.getAvailableNationalComponents();
         }
     },
     methods: {
-        getAvailableApplicationNationalComponents() {
-            Promise.resolve(this.$root.getApiData(`/national-components/all`))
+        getAvailableNationalComponents() {
+            Promise.resolve(this.$root.getApiData(`/nationalcomponents/all`))
             .then((apiData) => {
-                this.availableApplicationSectors = apiData;
+                this.availableNationalComponents = apiData;
             });
         },
         selectApplicationNationalComponent(applicationNationalComponent) {
             this.data = applicationNationalComponent;
-        }
+        },
+        AddNationalComponentToApplication() {
+            this.$parent.postApplicationNationalComponent({ applicationId: this.applicationId, nationalComponentId: this.data.id });
+        }        
     }
 }

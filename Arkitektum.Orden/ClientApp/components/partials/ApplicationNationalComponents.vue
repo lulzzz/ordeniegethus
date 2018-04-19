@@ -2,7 +2,7 @@
     <div>
         <div class="list-group list-group-flush">
             <!-- Saved application national components -->
-            <application-national-component v-bind:application-national-component="applicationNationalComponent" v-bind:saved="true" v-on:remove="removeApplicationNationalComponent(applicationSector.id)" v-for="applicationNationalComponent in apiData" :key="applicationNationalComponent.id"></application-national-component>
+            <application-national-component v-bind:application-national-component="applicationNationalComponent" v-bind:saved="true" v-on:remove="removeApplicationNationalComponent(applicationNationalComponent.id)" v-for="applicationNationalComponent in apiData" :key="applicationNationalComponent.id"></application-national-component>
 
             <!-- New application national components -->
             <application-national-component v-if="newApplicationNationalComponent" v-bind:application-id="applicationId" v-bind:saved="false" v-on:remove="removeNewApplicationNationalComponent()"></application-national-component>
