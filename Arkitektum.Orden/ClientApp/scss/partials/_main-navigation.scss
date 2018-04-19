@@ -6,12 +6,13 @@
     z-index: 2;
     @include raised(2);
     .main-navigation-content {
+        padding: 0;
         .navbar {
             display: block;
             width: 100%;
         }
         ul {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid $hover-light-background-color;
             border-top: 1px solid rgba(0, 0, 0, 0.05);
             &:first-child {
                 border-top: none;
@@ -23,7 +24,7 @@
                 padding: 0.25rem 1rem;
                 color: #000;
                 &:hover {
-                    background-color: rgba(255, 255, 255, 0.05);
+                    background-color: $hover-light-background-color;
                 }
                 a {
                     display: block;
@@ -169,9 +170,12 @@
                 >.dropdown-box-toggle>span {
                     display: block;
                     padding: 0.5rem 1rem;
-                    color: $primary-color;
+                    color: $default-text-color;
                     text-decoration: none;
                     text-align: center;
+                    &:hover{
+                        background-color: $hover-dark-background-color;
+                    }
                 }
                 >.dropdown-box-toggle>span {
                     &:after {
@@ -200,7 +204,7 @@
                 list-style: none;
                 li {
                     &:hover {
-                        background-color: rgba(0, 0, 0, 0.05);
+                        background-color: $hover-dark-background-color;
                     }
                     a {
                         color: #333;

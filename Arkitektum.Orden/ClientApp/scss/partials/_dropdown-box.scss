@@ -31,6 +31,9 @@
                 margin: -4px -8px;
                 display: block;
                 color: $default-text-color;
+                a {
+                    color: $default-text-color;
+                }
 
                 li {
                     &:hover {
