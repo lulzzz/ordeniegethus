@@ -16,7 +16,7 @@
             <dt>@Html.DisplayNameFor(model => model.Version)</dt>
             <dd>@Html.DisplayFor(model => model.Version)</dd>
             <dt>@Html.DisplayNameFor(model => model.Vendor)</dt>
-            <dd>@Html.DisplayFor(model => model.Vendor)</dd>
+            <dd>@Html.DisplayFor(model => model.Vendor.Name)</dd>
 
             @if (Model.Datasets.Any())
             {

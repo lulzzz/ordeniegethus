@@ -136,11 +136,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 var sortedDatasets = datasets.OrderBy(d => d.Dataset.Name);
                 foreach (var item in sortedDatasets)
                 {
-                    output.Add(new DatasetApiViewModel()
-                    {
-                        Id = item.Dataset.Id,
-                        Name = item.Dataset.Name,
-                    });
+                    output.Add(new DatasetApiViewModel().Map(item.Dataset));
                 }
             }
             return output;
