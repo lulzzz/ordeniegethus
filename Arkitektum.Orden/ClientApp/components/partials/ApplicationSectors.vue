@@ -8,7 +8,7 @@
             <application-sector v-if="newApplicationSector" v-bind:selected-application-sectors="apiData" v-bind:application-id="applicationId" v-bind:saved="false" v-on:remove="removeNewApplicationSector()"></application-sector>
 
             <div class="list-group-item">
-                <button v-show="!newApplicationSector" v-on:click="createNewApplicationSector()" class="float-right btn btn-primary"><span class="fas fa-plus"></span> Legg til tjenesteområde</button>
+                <button v-show="!newApplicationSector" v-on:click="createNewApplicationSector()" class="float-right btn btn-outline-primary"><span class="fas fa-plus"></span> Legg til tjenesteområde</button>
             </div>
         </div>
     </div>
