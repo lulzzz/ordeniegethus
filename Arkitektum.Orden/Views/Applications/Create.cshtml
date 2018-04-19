@@ -65,35 +65,6 @@
                 <select asp-for="SystemOwner" asp-items="Model.AvailableSystemOwners" class="form-control"></select>
                 <span asp-validation-for="SystemOwner" class="text-danger"></span>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Sectors" class="control-label"></label>
-                <ul style="list-style-type: none">
-                    @for (var i = 0; i < Model.Sectors.Count; i++)
-                    {
-                        <li>
-                            <input type="hidden" asp-for="@Model.Sectors[i].SectorId" />
-                            <input type="hidden" asp-for="@Model.Sectors[i].SectorName" />
-                            <input type="checkbox" asp-for="@Model.Sectors[i].Selected" />
-                            <label asp-for="@Model.Sectors[i].SectorName">@Model.Sectors[i].SectorName</label>
-                        </li>
-                    }
-                </ul>
-            </div>
-            <div class="form-group">
-                <label asp-for="NationalComponents" class="control-label"></label>
-                <ul style="list-style-type: none">
-                    @for (var i = 0; i < Model.NationalComponents.Count; i++)
-                    {
-                        <li>
-                            <input type="hidden" asp-for="@Model.NationalComponents[i].Id" />
-                            <input type="hidden" asp-for="@Model.NationalComponents[i].Name" />
-                            <input type="checkbox" asp-for="@Model.NationalComponents[i].Selected" />
-                            <label asp-for="@Model.NationalComponents[i].Name">@Model.NationalComponents[i].Name</label>
-                        </li>
-                    }
-                </ul>
-            </div>
             <div class="form-group">
                 <input type="submit" value="@UIResource.ButtonSave" class="btn btn-default" />
             </div>

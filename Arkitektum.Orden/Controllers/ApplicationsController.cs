@@ -84,8 +84,6 @@ namespace Arkitektum.Orden.Controllers
             model.OrganizationId = CurrentOrganizationId();
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
             model.AvailableVendors = await GetAvailableVendors();
-            model.Sectors = await GetAvailableSectors();
-            model.NationalComponents = await GetNationalComponents();
             model.AvailableHostingLocations = GetAvailableHostingLocations();
             return View(model);
         }
@@ -192,8 +190,6 @@ namespace Arkitektum.Orden.Controllers
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
             model.AvailableVendors = await GetAvailableVendors();
-            model.Sectors = await GetAvailableSectors();
-            model.NationalComponents = await GetNationalComponents();
             model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
 
             return View(model);
@@ -216,9 +212,7 @@ namespace Arkitektum.Orden.Controllers
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
             model.AvailableVendors = await GetAvailableVendors(model.VendorId);
-            model.NationalComponents = await GetNationalComponents();
             model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
-            model.MergeSectors(await GetAvailableSectors());
 
             return View(model);
         }
@@ -253,9 +247,7 @@ namespace Arkitektum.Orden.Controllers
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
             model.AvailableVendors = await GetAvailableVendors(model.VendorId);
-            model.NationalComponents = await GetNationalComponents();
             model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
-            model.MergeSectors(await GetAvailableSectors());
 
             return View(model);
         }
