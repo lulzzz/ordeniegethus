@@ -52,11 +52,11 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public int? OrganizationId { get; set; }
 
-        public List<CheckboxApplicationSector> Sectors { get; set; }
+        public List<SectorApiViewModel> Sectors { get; set; }
 
-        public List<CheckboxApplicationNationalComponents> NationalComponents { get; set; }
+        public List<NationalComponentApiViewModel> NationalComponents { get; set; }
 
-        public List<DatasetViewModel> Datasets { get;set; }
+        public List<DatasetApiViewModel> Datasets { get;set; }
 
         public DateTime? DateCreated { get; set; }
         public string UserCreated { get; set; }
@@ -128,76 +128,53 @@ namespace Arkitektum.Orden.Models.ViewModels
             return viewModel;
         }
 
-        private List<DatasetViewModel> Map(List<ApplicationDataset> datasets)
+        private List<DatasetApiViewModel> Map(List<ApplicationDataset> datasets)
         {
-            var output = new List<DatasetViewModel>();
+            var output = new List<DatasetApiViewModel>();
             if (datasets != null && datasets.Any())
             {
                 var sortedDatasets = datasets.OrderBy(d => d.Dataset.Name);
                 foreach (var item in sortedDatasets)
                 {
-                    output.Add(new DatasetViewModel()
+                    output.Add(new DatasetApiViewModel()
                     {
                         Id = item.Dataset.Id,
                         Name = item.Dataset.Name,
-                        HasMasterData = item.Dataset.HasMasterData,
-                        HasPersonalData = item.Dataset.HasPersonalData,
-                        HasSensitivePersonalData = item.Dataset.HasSensitivePersonalData
                     });
                 }
             }
             return output;
         }
 
-        private List<CheckboxApplicationNationalComponents> Map(List<ApplicationNationalComponent> input)
+        private List<NationalComponentApiViewModel> Map(List<ApplicationNationalComponent> input)
         {
-            var output = new List<CheckboxApplicationNationalComponents>();
+            var output = new List<NationalComponentApiViewModel>();
 
             if (input != null)
             {
                 var sortedInput = input.OrderBy(a => a.NationalComponent.Name);
                 foreach (var item in input)
                 {
-                    output.Add(Map(item));
+                    output.Add(new NationalComponentApiViewModel { Id = item.NationalComponentId, Name = item.NationalComponent.Name });
                 }
             }
 
             return output;
         }
 
-        private CheckboxApplicationNationalComponents Map(ApplicationNationalComponent input)
+        private List<SectorApiViewModel> Map(List<SectorApplication> input)
         {
-            return new CheckboxApplicationNationalComponents()
-            {
-                Id = input.NationalComponentId,
-                Name = input.NationalComponent.Name,
-                Selected = true
-            };
-        }
-
-        private List<CheckboxApplicationSector> Map(List<SectorApplication> input)
-        {
-            var output = new List<CheckboxApplicationSector>();
+            var output = new List<SectorApiViewModel>();
             if (input != null)
             {
                 var sortedInput = input.OrderBy(a => a.Sector.Name);
                 foreach (var item in sortedInput)
                 {
-                    output.Add(Map(item));
+                    output.Add(new SectorApiViewModel { Id = item.SectorId, Name = item.Sector.Name });
                 }
             }
 
             return output;
-        }
-
-        private CheckboxApplicationSector Map(SectorApplication input)
-        {
-            return new CheckboxApplicationSector()
-            {
-                SectorId = input.SectorId,
-                SectorName = input.Sector.Name,
-                Selected = true
-            };
         }
 
         public Application Map(ApplicationViewModel input)
@@ -214,8 +191,6 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HostingLocation = input.HostingLocation,
                 NumberOfUsers = input.NumberOfUsers,
                 OrganizationId = input.OrganizationId,
-                SectorApplications = Map(input.Sectors, input.Id),
-                ApplicationNationalComponent = Map(input.NationalComponents, input.Id),
                 VendorId = input.VendorId,
                 Vendor = CreateNewVendor(input.VendorId, input.VendorName)
             };
@@ -266,19 +241,6 @@ namespace Arkitektum.Orden.Models.ViewModels
 
             return sectorApplications;
         }
-
-        public void MergeSectors(List<CheckboxApplicationSector> availableSectors)
-        {
-            List<int> sectorIds = Sectors.Select(s => s.SectorId).ToList();
-            foreach (var availableSector in availableSectors)
-            {
-                if (sectorIds.Contains(availableSector.SectorId))
-                    continue;
-
-                Sectors.Add(availableSector);
-            }
-        }
-
     }
 
     public class CheckboxApplicationNationalComponents
