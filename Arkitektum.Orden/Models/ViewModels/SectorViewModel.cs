@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Arkitektum.Orden.Models.ViewModels
 {
@@ -41,6 +42,22 @@ namespace Arkitektum.Orden.Models.ViewModels
                 Id = sector.Id,
                 Name = sector.Name
             };
+        }
+
+        public List<SelectListItem> Map(IEnumerable<Sector> sectors)
+        {
+            List<SelectListItem> sectorItems = new List<SelectListItem>();
+
+            foreach (var sector in sectors)
+            {
+                sectorItems.Add(new SelectListItem
+                {
+                    Text = sector.Name,
+                    Value = sector.Id.ToString()
+                });
+            }
+
+            return sectorItems;
         }
     }
 }
