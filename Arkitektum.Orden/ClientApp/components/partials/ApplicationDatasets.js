@@ -30,14 +30,14 @@ export default {
                 });
         },
         postApplicationDataset(data) {
-            Promise.resolve(this.$root.postApiData(`/datasets/application/`, data))
+            Promise.resolve(this.$root.postApiData(`/datasets/application/`, { datasetId: data.id, applicationId: this.applicationId } ))
                 .then(() => {
                     this.getApplicationDatasets();
                     this.removeNewApplicationDataset();
                 });
         },
-        removeApplicationDataset(applicationDatasetId) {
-            Promise.resolve(this.$root.deleteApiData(`/datasets/application/`, { id: applicationDatasetId }))
+        removeApplicationDataset(datasetId) {
+            Promise.resolve(this.$root.deleteApiData(`/datasets/application/${datasetId}/${this.applicationId}`))
                 .then(() => {
                     this.getApplicationDatasets();
                 });

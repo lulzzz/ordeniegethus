@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             editable: false,
-            data: this.applicationDataset !== undefined ? this.applicationDataset : { datasetName: '' },
+            data: this.applicationDataset !== undefined ? this.applicationDataset : { name: '' },
             availableDatasets: []
         }
     },

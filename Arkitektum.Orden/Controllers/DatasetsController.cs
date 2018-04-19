@@ -10,6 +10,7 @@ using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Arkitektum.Orden.Utils;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -35,6 +36,16 @@ namespace Arkitektum.Orden.Controllers
             SimpleOrganization currentOrganization = CurrentOrganization();
             var datasets = await _datasetService.GetAllDatasetsForOrganization(currentOrganization.Id);
             return View(new DatasetViewModel().MapToEnumerable(datasets));
+        }
+
+        [HttpGet("/datasets/all")]
+        public async Task<IActionResult> All()
+        {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+
+            var datasets = await _datasetService.GetAllDatasetsForOrganization(CurrentOrganizationId());
+            return Json(new DatasetApiViewModel().Map(datasets));
         }
 
         // GET: Datasets/Details/5

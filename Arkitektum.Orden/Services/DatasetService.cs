@@ -68,6 +68,7 @@ namespace Arkitektum.Orden.Services
             var datasets = from ad in _context.ApplicationDataset
                 join app in _context.Application on ad.ApplicationId equals app.Id
                            where app.OrganizationId == currentOrganizationId
+                           orderby ad.Dataset.Name
                 select ad.Dataset;
 
             

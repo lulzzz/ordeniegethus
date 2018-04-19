@@ -161,6 +161,17 @@ namespace Arkitektum.Orden.Models
                 }
             }
         }
+        internal void RemoveDataset(int datasetId)
+        {
+            foreach (var dataset in ApplicationDatasets)
+            {
+                if (dataset.DatasetId == datasetId)
+                {
+                    ApplicationDatasets.Remove(dataset);
+                    break;
+                }
+            }
+        }
 
         public string DecimalToString(decimal inputDecimal)
         {
