@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Arkitektum.Orden.Controllers
 {
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     public class NationalComponentsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,7 +21,7 @@ namespace Arkitektum.Orden.Controllers
             _context = context;
         }
 
-        // GET: NationalComponents
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Index()
         {
             return View(await _context.NationalComponent.ToListAsync());
@@ -34,7 +34,7 @@ namespace Arkitektum.Orden.Controllers
             return Json(components);
         }
 
-        // GET: NationalComponents/Details/5
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,7 +52,7 @@ namespace Arkitektum.Orden.Controllers
             return View(nationalComponent);
         }
 
-        // GET: NationalComponents/Create
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Create()
         {
             return View();
@@ -63,6 +63,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Create([Bind("Id,Name")] NationalComponent nationalComponent)
         {
             if (ModelState.IsValid)
@@ -75,6 +76,7 @@ namespace Arkitektum.Orden.Controllers
         }
 
         // GET: NationalComponents/Edit/5
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +97,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] NationalComponent nationalComponent)
         {
             if (id != nationalComponent.Id)
@@ -126,6 +129,7 @@ namespace Arkitektum.Orden.Controllers
         }
 
         // GET: NationalComponents/Delete/5
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,6 +150,7 @@ namespace Arkitektum.Orden.Controllers
         // POST: NationalComponents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var nationalComponent = await _context.NationalComponent.SingleOrDefaultAsync(m => m.Id == id);
