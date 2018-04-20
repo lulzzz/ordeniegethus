@@ -81,6 +81,8 @@ namespace Arkitektum.Orden.Controllers
                     var result = await _userManager.CreateAsync(user); // Create without password.
                     if (result.Succeeded)
                     {
+                        await _userManager.AddToRoleAsync(user, Roles.User);
+
                         List<OrganizationApplicationUser> memberships = CreateOrganizationMemberships(user, model.OrganizationRoles);
                         await _userService.AddOrganizationRolesAsync(memberships);
 
@@ -180,7 +182,10 @@ namespace Arkitektum.Orden.Controllers
             var user = await _userService.Get(id);
             if (user == null) return NotFound();
 
+            IList<string> userSystemRoles = await _userManager.GetRolesAsync(user);
+
             var userViewModel = new UserViewModel().Map(user);
+            userViewModel.SystemRoles.AddRange(userSystemRoles);
             userViewModel.OrganizationRoles = new List<CheckboxOrganizationRole>();
             foreach (var organizationMembership in user.Organizations)
             {

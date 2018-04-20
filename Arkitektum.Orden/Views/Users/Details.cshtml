@@ -23,6 +23,21 @@
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.SystemRoles)
+        </dt>
+        <dd>
+            <ul>
+                @if (!Model.SystemRoles.Any())
+                {
+                    <li>Ingen systemroller tilordnet!</li>
+                }
+            @foreach (var role in Model.SystemRoles)
+            {
+                <li>@role</li>
+            }
+            </ul>
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.OrganizationRoles)
         </dt>
         <dd>
