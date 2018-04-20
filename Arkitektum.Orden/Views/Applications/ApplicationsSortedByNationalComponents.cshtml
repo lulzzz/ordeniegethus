@@ -1,0 +1,25 @@
+﻿@model Arkitektum.Orden.Models.ViewModels.ApplicationNationalComponentViewModel
+@{
+    ViewData["Title"] = "ApplicationsSortedByNationalComponents";
+}
+
+<h2>ApplicationsSortedByNationalComponents</h2>
+<table>
+    @foreach (var item in Model.ApplicationsForNationalComponent)
+    {
+        <tr>
+            @item.Key
+        </tr>
+        foreach (var application in item.Value)
+        {
+            <tr>
+                @foreach (var app in application)
+                {
+                    
+                }
+            </tr>
+        }
+    }
+</table>
+
+

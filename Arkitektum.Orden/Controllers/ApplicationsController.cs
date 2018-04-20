@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,7 @@ namespace Arkitektum.Orden.Controllers
                 applications = await _applicationService.GetAllApplicationsForOrganization(currentOrganization.Id);
             }
 
-            model.Applications = new ApplicationListDetailViewModel().Map(applications);
+            model.Applications = new ApplicationListDetailViewModel().MapToEnumerable(applications);
             model.Sectors = await GetSectorViewModel();
 
             return View(model);
@@ -72,7 +73,7 @@ namespace Arkitektum.Orden.Controllers
         {
             var applications = await _applicationService.GetAllApplicationsForOrganization(currentOrganization.Id);
 
-            return new ApplicationListDetailViewModel().Map(applications);
+            return new ApplicationListDetailViewModel().MapToEnumerable(applications);
         }
 
 
@@ -364,6 +365,16 @@ namespace Arkitektum.Orden.Controllers
                 sectorId, nationalComponentId, sortingOrder);
 
             return View(new ApplicationViewModel().MapToEnumerable(applications));
+        }
+
+        [HttpGet]
+        [Route("/applications/sortedByNationalComponents")]
+        public async Task<IActionResult> ApplicationsSortedByNationalComponents()
+        {
+            var applications = await _applicationService.GetApplicationsGroupedByNationalComponents();
+ 
+
+            return View(new ApplicationNationalComponentViewModel());
         }
     }
 }
