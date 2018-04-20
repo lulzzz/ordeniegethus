@@ -35,8 +35,8 @@ namespace Arkitektum.Orden.Controllers
             _vendorService = vendorService;
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> Index([FromQuery] int? sectorId)
+        [HttpGet("applicationsJson/{sectorId?}")]
+       public async Task<IActionResult> ApplicationsJson([FromQuery] int? sectorId)
         {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
                 return Forbid();
@@ -59,8 +59,16 @@ namespace Arkitektum.Orden.Controllers
             model.Applications = new ApplicationListDetailViewModel().Map(applications);
             model.Sectors = await GetSectorViewModel();
 
-            return View(model);
+            return Json(model);
         }
+
+        [HttpGet("")]
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+
+     
 
         private async Task<List<SelectListItem>> GetSectorViewModel()
         {

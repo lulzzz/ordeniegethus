@@ -50,9 +50,9 @@ namespace Arkitektum.Orden.Test.Controllers
         //            Name = "Test application"
         //        }
         //    };
-            
+
         //    _applicationServiceMock.Setup(m => m.GetAllApplicationsForOrganization(OrganizationId)).ReturnsAsync(applications);
-            
+
         //    var controller = CreateController();
 
         //    var result = await controller.Index(null);
@@ -62,13 +62,13 @@ namespace Arkitektum.Orden.Test.Controllers
         //    model.Should().Be(applications);
         //}
 
-        [Fact]
-        public async Task IndexShouldReturnForbiddenWhenUserDontHaveReadAccess()
-        {
-            UserHasAccessToOrganization(AccessLevel.Read, false);
-            var result = await CreateController().Index(null);
-            Assert.IsType<ForbidResult>(result);
-        }
+        //[Fact]
+        //public async Task IndexShouldReturnForbiddenWhenUserDontHaveReadAccess()
+        //{
+        //    UserHasAccessToOrganization(AccessLevel.Read, false);
+        //    var result = await CreateController().Index(null);
+        //    Assert.IsType<ForbidResult>(result);
+        //}
 
         [Fact]
         public async Task DetailsJsonShouldReturnNotFoundWhenIdIsNull()
