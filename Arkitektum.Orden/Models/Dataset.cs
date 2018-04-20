@@ -147,6 +147,20 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public virtual List<Distribution> Distributions { get; set; }
 
+        public Dataset()
+        {
+            Keywords = new List<Keyword>();
+            Identifiers = new List<Identifier>();
+            AccessRightComments = new List<AccessRightComment>();
+            Concepts = new List<DcatConcept>();
+            ContactPoints = new List<ResourceLink>();
+            ResourceLinks = new List<ResourceLink>();
+            LawReferences = new List<ResourceLink>();
+            Fields = new List<Field>();
+            ApplicationDatasets = new List<ApplicationDataset>();
+            Distributions = new List<Distribution>();
+        }
+
         public void UpdateApplicationRelation(List<ApplicationDataset> updateDatasetApplicationDatasets)
         {
             var updatedApplicationIds = updateDatasetApplicationDatasets.Select(udad => udad.ApplicationId).ToList();

@@ -15,6 +15,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Arkitektum.Orden.Services.Insights;
 
 namespace Arkitektum.Orden
 {
@@ -86,6 +87,7 @@ namespace Arkitektum.Orden
             services.AddTransient<IVendorService, VendorService>();
             services.AddTransient<IApplicationSectorService, ApplicationSectorService>();
             services.AddTransient<IApplicationDatasetService, ApplicationDatasetService>();
+            services.AddTransient<IDatasetInsightsService, DatasetInsightsService>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));

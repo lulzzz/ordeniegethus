@@ -235,6 +235,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datasett med personopplysninger.
+        /// </summary>
+        public static string InsightsDatasetPrivacyHeader {
+            get {
+                return ResourceManager.GetString("InsightsDatasetPrivacyHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tilbake til liste.
         /// </summary>
         public static string LinkBackToList {
@@ -330,6 +339,15 @@ namespace Arkitektum.Orden.Models {
         public static string SelectVendorFromList {
             get {
                 return ResourceManager.GetString("SelectVendorFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sensitiv.
+        /// </summary>
+        public static string SensitivePersonalDataBadgeText {
+            get {
+                return ResourceManager.GetString("SensitivePersonalDataBadgeText", resourceCulture);
             }
         }
         

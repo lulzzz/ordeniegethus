@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Arkitektum.Orden.Models.ViewModels.DatasetViewModel>
+@{
+    ViewData["Title"] = UIResource.InsightsDatasetPrivacyHeader;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card-deck">
+@foreach (var dataset in Model) 
+{
+    <div class="card">
+        <div class="card-header">
+            @dataset.Name
+            @if (dataset.HasSensitivePersonalData)
+            {
+                <span class="badge badge-danger">@UIResource.SensitivePersonalDataBadgeText</span>
+            }
+        </div>
+        <div class="card-body">
+            <strong>@ModelsResource.Fields:</strong>
+            <ul>
+            @foreach(var field in dataset.Fields)
+            {
+                <li>
+                    @field.Name
+                    @if (field.IsPersonalData)
+                    {
+                        <span class="badge badge-info" title="Personopplysning">P</span>
+                    }
+                    @if (field.IsSensitivePersonalData)
+                    {
+                    <span class="badge badge-danger" title="Sensitiv personopplysning">S</span>
+                    }
+                </li>
+            }
+            </ul>
+        </div>
+    </div>
+}
+</div>
+

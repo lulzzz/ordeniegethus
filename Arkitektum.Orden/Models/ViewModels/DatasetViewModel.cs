@@ -26,9 +26,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         public bool HasSensitivePersonalData { get; set; }
         public int? OrganizationId { get; set; }
         public string AccessPermission { get; set; }
-
-
-
+        public IEnumerable<DatasetFieldViewModel> Fields { get; set; }
 
         public override IEnumerable<DatasetViewModel> MapToEnumerable(IEnumerable<Dataset> inputs)
         {
@@ -56,8 +54,8 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog,
                 DataLocation = input.DataLocation,
-                Applications = new ApplicationViewModel().MapToEnumerable(input.ApplicationsAsEnumerable())
-
+                Applications = new ApplicationViewModel().MapToEnumerable(input.ApplicationsAsEnumerable()),
+                Fields = new DatasetFieldViewModel().Map(input.Fields)
             };
         }
 
