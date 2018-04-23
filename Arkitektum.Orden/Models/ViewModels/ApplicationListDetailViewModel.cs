@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Arkitektum.Orden.Models.ViewModels
 {
-    public class ApplicationListDetailViewModel
+    public class ApplicationListDetailViewModel : Mapper<Application, ApplicationListDetailViewModel>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,10 +14,11 @@ namespace Arkitektum.Orden.Models.ViewModels
         public string SystemOwner { get; set; }
         public string Vendor { get; set; }
 
-        public IEnumerable<ApplicationListDetailViewModel> Map(IEnumerable<Application> applications)
+        
+        public override IEnumerable<ApplicationListDetailViewModel> MapToEnumerable(IEnumerable<Application> inputs)
         {
             var model = new List<ApplicationListDetailViewModel>();
-            foreach (var application in applications)
+            foreach (var application in inputs)
             {
                 model.Add(Map(application));
             }
@@ -25,7 +26,7 @@ namespace Arkitektum.Orden.Models.ViewModels
             return model;
         }
 
-        private ApplicationListDetailViewModel Map(Application input)
+        public override ApplicationListDetailViewModel Map(Application input)
         {
             return new ApplicationListDetailViewModel
             {
@@ -37,5 +38,6 @@ namespace Arkitektum.Orden.Models.ViewModels
                 Vendor = input.Vendor?.Name,
             };
         }
+
     }
 }

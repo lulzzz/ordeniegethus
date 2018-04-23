@@ -1,9 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
+using Arkitektum.Orden.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Nest;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace Arkitektum.Orden.Services
 {
@@ -18,6 +24,8 @@ namespace Arkitektum.Orden.Services
         Task UpdateAsync(int id, Application updatedApplication);
         Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
         Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId, int nationalComponentId, string sortingOrder);
+        Task<InsightsViewModel> GetApplicationsGroupedByNationalComponents(int currentOrganizationId);
+        
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -145,6 +153,45 @@ namespace Arkitektum.Orden.Services
             }
 
             return applicationsByNationalComponent;
+        }
+
+        public async Task<InsightsViewModel> GetApplicationsGroupedByNationalComponents(int currentOrganizationId)
+        {
+            var models = _context.Application.Where(a => a.OrganizationId == currentOrganizationId)
+                .SelectMany(a => a.ApplicationNationalComponent)
+                .GroupBy(anc => anc.NationalComponentId)
+                .Select(g => new
+                {
+                    Name = g.First().NationalComponent.Name,
+                    Applications = g.Select(m => new ApplicationListDetailViewModel
+                    {
+                        AnnualFee = m.Application.DecimalToString(m.Application.AnnualFee),
+                        Id = m.Application.Id,
+                        Name = m.Application.Name,
+                        SystemOwner = m.Application.SystemOwner.FullName,
+                        Vendor = m.Application.Vendor.Name,
+                        Version = m.Application.Version
+                    })
+
+                });
+
+           InsightsViewModel viewModel = new InsightsViewModel();
+
+            Dictionary<string, IEnumerable<ApplicationListDetailViewModel>> nationalComponentsWithApplications = new Dictionary<string, IEnumerable<ApplicationListDetailViewModel>>();
+          
+
+            foreach (var model in models)
+            {
+                nationalComponentsWithApplications.Add(
+                        model.Name,
+                        model.Applications
+                        );
+                      
+            }
+
+            viewModel.ApplicationsForNationalComponent = nationalComponentsWithApplications;
+
+            return viewModel;
         }
 
         public async Task<Application> GetAsync(int id)
