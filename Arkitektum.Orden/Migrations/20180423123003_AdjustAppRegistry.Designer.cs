@@ -13,9 +13,10 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180423123003_AdjustAppRegistry")]
+    partial class AdjustAppRegistry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,8 +45,6 @@ namespace Arkitektum.Orden.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("AnnualFee");
-
-                    b.Property<int?>("CreatedFromCommonApplicationId");
 
                     b.Property<DateTime?>("DateCreated");
 

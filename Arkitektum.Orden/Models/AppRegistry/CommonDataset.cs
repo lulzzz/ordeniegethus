@@ -11,11 +11,8 @@ namespace Arkitektum.Orden.Models
         public bool HasPersonalData { get; set; }
         public bool HasSensitivePersonalData { get; set; }
         public bool HasMasterData { get; set; }
-        public virtual List<CommonDatasetField> Fields { get; set; }
+        public virtual List<CommonDatasetField> Fields { get; set; } = new List<CommonDatasetField>();
 
-        public CommonDataset()
-        {
-            Fields = new List<CommonDatasetField>();
-        }
+        public int CommonApplicationId { get; set; }
     }
 }

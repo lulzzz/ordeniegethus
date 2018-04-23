@@ -44,14 +44,17 @@ namespace Arkitektum.Orden.Models
 
         public CommonApplication CopyToCommonApplication()
         {
+            var currentVersionDetails = new CommonApplicationVersion
+            {
+                VersionNumber = this.Version,
+            };
+
             var commonApp = new CommonApplication() {
                 Name = this.Name,
+                VendorId = this.VendorId,
                 Versions = new List<CommonApplicationVersion>()
                 {
-                    new CommonApplicationVersion
-                    {
-                        VersionNumber = this.Version,
-                    }
+                    currentVersionDetails
                 },
                 OriginalApplicationId = this.Id
             };
@@ -59,6 +62,14 @@ namespace Arkitektum.Orden.Models
             foreach(var appDataset in ApplicationDatasets)
             {
                 commonApp.CommonDatasets.Add(appDataset.Dataset.CopyToCommonDataset());
+            }
+
+            foreach (var component in ApplicationNationalComponent)
+            {
+                currentVersionDetails.SupportedNationalComponents.Add(new CommonApplicationVersionNationalComponent()
+                {
+                    NationalComponentId = component.NationalComponentId
+                });
             }
 
             return commonApp;
@@ -127,6 +138,11 @@ namespace Arkitektum.Orden.Models
        
         public int? OrganizationId { get; set; }
         public virtual Organization Organization { get; set; }
+
+        /// <summary>
+        /// References an application id in the common application registry
+        /// </summary>
+        public int? CreatedFromCommonApplicationId { get; set; }
 
         public Application()
         {
