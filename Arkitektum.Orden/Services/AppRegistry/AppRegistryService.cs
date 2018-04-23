@@ -42,7 +42,11 @@ namespace Arkitektum.Orden.Services.AppRegistry
 
         public Task<List<CommonApplication>> GetApplicationsAsync()
         {
-            return _context.CommonApplications.OrderBy(a => a.Name).ToListAsync();
+            return _context.CommonApplications
+                .Include(a => a.Vendor)
+                .Include(a => a.Versions)
+                .OrderBy(a => a.Name)
+                .ToListAsync();
         }
 
         public async Task SubmitApplication(int applicationId)

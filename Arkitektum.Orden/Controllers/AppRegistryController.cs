@@ -7,6 +7,7 @@ using Arkitektum.Orden.Services.AppRegistry;
 using Arkitektum.Orden.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite.Internal;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -36,7 +37,13 @@ namespace Arkitektum.Orden.Controllers
 
             return Json(applications);
         }
-     
+
+        [HttpGet("create")]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> CreateApplicationForOrganization([FromBody] CreateOrganizationApplicationViewModel model)
         {
@@ -44,8 +51,10 @@ namespace Arkitektum.Orden.Controllers
                 return Forbid();
 
             Application application = await _appRegistry.CreateApplicationForOrganization(model.CommonApplicationId, model.VersionNumber, CurrentOrganizationId());
-                
-            return RedirectToAction("Details", "Applications", new {id = application.Id });
+
+            var applicationDetailsUrl = Url.Action("Details", "Applications", new {id = application.Id});
+            
+            return Json(new {location = applicationDetailsUrl });
         }
     }
 }

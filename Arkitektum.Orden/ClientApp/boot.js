@@ -5,17 +5,17 @@ import 'bootstrap';
 import Vue from 'vue';
 import axios from 'axios';
 
-
 /* Views */
 import Application from './components/views/Application.vue';
+import ApplicationRegistry from './components/views/ApplicationRegistry.vue';
 import Sector from './components/views/Sector.vue';
 import Organization from './components/views/Organization.vue';
-
 
 new Vue( {
     el: '#app-root',
     components: {
         Application,
+        ApplicationRegistry,
         Sector,
         Organization
     },
