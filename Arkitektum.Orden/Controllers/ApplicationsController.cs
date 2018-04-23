@@ -367,14 +367,6 @@ namespace Arkitektum.Orden.Controllers
             return View(new ApplicationViewModel().MapToEnumerable(applications));
         }
 
-        [HttpGet]
-        [Route("/applications/sortedByNationalComponents")]
-        public async Task<IActionResult> ApplicationsSortedByNationalComponents()
-        {
-            var applications = await _applicationService.GetApplicationsGroupedByNationalComponents();
- 
-
-            return View(new ApplicationNationalComponentViewModel());
-        }
+     
     }
 }
