@@ -24,7 +24,7 @@ namespace Arkitektum.Orden.Services
         Task UpdateAsync(int id, Application updatedApplication);
         Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
         Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId, int nationalComponentId, string sortingOrder);
-        Task<Dictionary<string, IEnumerable<ApplicationListDetailViewModel>>> GetApplicationsGroupedByNationalComponents();
+        Task<InsightsViewModel> GetApplicationsGroupedByNationalComponents(int currentOrganizationId);
         
     }
     /// <summary>
@@ -155,9 +155,9 @@ namespace Arkitektum.Orden.Services
             return applicationsByNationalComponent;
         }
 
-        public async Task<Dictionary<string, IEnumerable<ApplicationListDetailViewModel>>> GetApplicationsGroupedByNationalComponents()
+        public async Task<InsightsViewModel> GetApplicationsGroupedByNationalComponents(int currentOrganizationId)
         {
-            var models = _context.Application.Where(a => a.OrganizationId == 1)
+            var models = _context.Application.Where(a => a.OrganizationId == currentOrganizationId)
                 .SelectMany(a => a.ApplicationNationalComponent)
                 .GroupBy(anc => anc.NationalComponentId)
                 .Select(g => new
@@ -175,22 +175,23 @@ namespace Arkitektum.Orden.Services
 
                 });
 
+           InsightsViewModel viewModel = new InsightsViewModel();
 
-
-            Dictionary<string, IEnumerable<ApplicationListDetailViewModel>> applicationsWithNC = new Dictionary<string, IEnumerable<ApplicationListDetailViewModel>>();
+            Dictionary<string, IEnumerable<ApplicationListDetailViewModel>> nationalComponentsWithApplications = new Dictionary<string, IEnumerable<ApplicationListDetailViewModel>>();
+          
 
             foreach (var model in models)
             {
-                applicationsWithNC.Add(
+                nationalComponentsWithApplications.Add(
                         model.Name,
                         model.Applications
                         );
                       
-
-               
             }
 
-            return applicationsWithNC;
+            viewModel.ApplicationsForNationalComponent = nationalComponentsWithApplications;
+
+            return viewModel;
         }
 
         public async Task<Application> GetAsync(int id)
