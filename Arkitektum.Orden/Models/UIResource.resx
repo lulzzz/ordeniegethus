@@ -181,6 +181,9 @@
   <data name="InsightsDatasetPrivacyHeader" xml:space="preserve">
     <value>Datasett med personopplysninger</value>
   </data>
+  <data name="InsightsNationalComponentsUsageHeader" xml:space="preserve">
+    <value>Bruk av felleskomponenter</value>
+  </data>
   <data name="LinkBackToList" xml:space="preserve">
     <value>Tilbake til liste</value>
   </data>

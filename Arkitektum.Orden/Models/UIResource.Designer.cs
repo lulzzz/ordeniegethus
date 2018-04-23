@@ -244,6 +244,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bruk av felleskomponenter.
+        /// </summary>
+        public static string InsightsNationalComponentsUsageHeader {
+            get {
+                return ResourceManager.GetString("InsightsNationalComponentsUsageHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tilbake til liste.
         /// </summary>
         public static string LinkBackToList {
