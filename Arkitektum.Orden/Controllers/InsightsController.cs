@@ -62,5 +62,17 @@ namespace Arkitektum.Orden.Controllers
 
             return View(nationalComponentsWithApplicationsView);
         }
+
+        [HttpGet]
+        [Route("application-costs")]
+        public async Task<IActionResult> ApplicationCosts()
+        {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+
+            var applications = await _applicationService.GetAllApplicationsForOrganization(CurrentOrganizationId());
+
+            return View(new ApplicationCostViewModel().MapToEnumerable(applications));
+        }
     }
 }

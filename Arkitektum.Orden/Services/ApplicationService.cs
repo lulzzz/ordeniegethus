@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -194,6 +195,8 @@ namespace Arkitektum.Orden.Services
             return viewModel;
         }
 
+      
+
         public async Task<Application> GetAsync(int id)
         {
             return await _context.Application
@@ -208,12 +211,15 @@ namespace Arkitektum.Orden.Services
 
         public async Task<IEnumerable<Application>> GetAllApplicationsForOrganization(int orgId)
         {
-            return await _context.Application
+           var applications = await _context.Application
                 .Include(a => a.SectorApplications)
                 .ThenInclude(sa => sa.Sector)
                 .Include(a => a.ApplicationNationalComponent)
                 .ThenInclude(anc => anc.NationalComponent)
-                .Where(a => a.OrganizationId == orgId).ToListAsync();
+                .Where(a => a.OrganizationId == orgId).OrderBy(a => a.Name)
+                .ToListAsync();
+
+            return applications;
         }
 
         public async Task SaveChanges()
