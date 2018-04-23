@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
@@ -8,7 +6,6 @@ using Arkitektum.Orden.Services;
 using Arkitektum.Orden.Services.Insights;
 using Arkitektum.Orden.Utils;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arkitektum.Orden.Controllers
@@ -54,16 +51,13 @@ namespace Arkitektum.Orden.Controllers
             return View(new DatasetViewModel().Map(datasets));
         }
 
-
-        //// GET: Insights/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
         [HttpGet]
-        [Route("/insights/nationalComponentsUsage")]
+        [Route("national-components-usage")]
         public async Task<IActionResult> NationalComponentsUsage()
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+
             var nationalComponentsWithApplicationsView = await _applicationService.GetApplicationsGroupedByNationalComponents(CurrentOrganizationId());
 
             return View(nationalComponentsWithApplicationsView);
