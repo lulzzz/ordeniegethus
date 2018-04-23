@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Arkitektum.Orden.Models.ViewModels.ApplicationCostViewModel>
+
+@{
+    ViewData["Title"] = "ApplicationCosts";
+}
+
+<h2>@UIResource.InsightsApplicationCostsHeader</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @ModelsResource.Name
+        </th>
+        <th>
+            @ModelsResource.InitialCost
+        </th>
+        <th>
+            @ModelsResource.AnnualFee
+        </th>
+       
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a asp-action="Details" asp-controller="Applications" asp-route-id="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InitialCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnnualFee)
+            </td>
+          
+        </tr>
+    }
+    </tbody>
+</table>
+
+
