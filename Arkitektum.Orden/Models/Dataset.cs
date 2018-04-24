@@ -44,7 +44,7 @@ namespace Arkitektum.Orden.Models
         /// av verdiene ":restricted" og ":non-public" er egenskapen 
         /// skjermingshjemmel anbefalt.
         /// </summary>
-        public AccessRight AccessRight { get; set; }
+        public AccessRight? AccessRight { get; set; }
 
         internal CommonDataset CopyToCommonDataset()
         {

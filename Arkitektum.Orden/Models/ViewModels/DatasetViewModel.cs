@@ -15,7 +15,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         public string Description { get; set; }
         public string Purpose { get; set; }
         public List<SelectListItem> AvailableAccessRights { get; set; }
-        public string AccessRight { get; set; }
+        public AccessRight? AccessRight { get; set; }
         public List<SelectListItem> AvailableApplications { get; set; }
         public IEnumerable<ApplicationViewModel> Applications { get; set; }
         public int Application { get; set; }
@@ -48,7 +48,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 Name = input.Name,
                 Description = input.Description,
                 Purpose = input.Purpose,
-                AccessRight = input.AccessRight.ToString(),
+                AccessRight = input.AccessRight,
                 HasMasterData = input.HasMasterData,
                 HasPersonalData = input.HasPersonalData,
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
@@ -100,7 +100,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                     PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog?.Date,
                     HostingLocation = input.HostingLocation,
                     ApplicationDatasets = Map(input.Application, input.Id),
-                    AccessRight = Map(input.AccessRight),
+                    AccessRight = input.AccessRight,
                     OrganizationId = input.OrganizationId.Value
                 };
             }
@@ -116,7 +116,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog?.Date,
                 HostingLocation = input.HostingLocation,
-                AccessRight = Map(input.AccessRight),
+                AccessRight = input.AccessRight,
                 OrganizationId = input.OrganizationId.Value
             };
 
@@ -159,7 +159,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 Name = input.Name,
                 Description = input.Description,
                 Purpose = input.Purpose,
-                AccessRight = input.AccessRight.ToString(),
+                AccessRight = input.AccessRight,
                 HasMasterData = input.HasMasterData,
                 HasPersonalData = input.HasPersonalData,
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
