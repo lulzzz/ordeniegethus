@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Net;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
@@ -78,6 +80,13 @@ namespace Arkitektum.Orden
         public static IWebHost BuildWebHost(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(options =>  
+                { 
+                    options.Listen(IPAddress.Loopback, 5000, listenOptions => 
+                    { 
+                        listenOptions.UseHttps("development.arkitektum.pfx", "password"); 
+                    }); 
+                }) 
                 .UseStartup<Startup>()
                 .ConfigureLogging(builder =>
                     builder
@@ -85,6 +94,7 @@ namespace Arkitektum.Orden
                         .AddDebug()
                         .AddConsole()
                 )
+                .UseUrls("https://localhost:5000")
                 .Build();
         }
     }
