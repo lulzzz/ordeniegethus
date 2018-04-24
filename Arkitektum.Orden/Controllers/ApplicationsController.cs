@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -123,30 +121,7 @@ namespace Arkitektum.Orden.Controllers
             model.OrganizationId = CurrentOrganizationId();
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
             model.AvailableVendors = await GetAvailableVendors();
-            model.AvailableHostingLocations = GetAvailableHostingLocations();
             return View(model);
-        }
-
-        private List<SelectListItem> GetAvailableHostingLocations(string currentValue = null)
-        {
-            var items = new List<SelectListItem>()
-            {
-                new SelectListItem{ Text = UIResource.SelectHostingLocationFromList, Value = null },
-                new SelectListItem{ Text = UIResource.HostingLocationCloud, Value = HostingLocation.Cloud.ToString()},
-                new SelectListItem{ Text = UIResource.HostingLocationLocalServer, Value = HostingLocation.LocalServer.ToString()},
-                new SelectListItem{ Text = UIResource.HostingLocationExternalServer, Value = HostingLocation.ExternalServer.ToString()},
-            };
-
-            if (currentValue != null)
-            {
-                foreach (var item in items)
-                {
-                    if (item.Value == currentValue)
-                        item.Selected = true;
-                }
-            }
-
-            return items;
         }
 
         private async Task<List<SelectListItem>> GetAvailableSystemOwners(ApplicationViewModel model)
@@ -230,8 +205,6 @@ namespace Arkitektum.Orden.Controllers
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
             model.AvailableVendors = await GetAvailableVendors();
-            model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
-
             return View(model);
         }
 
@@ -252,8 +225,6 @@ namespace Arkitektum.Orden.Controllers
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
             model.AvailableVendors = await GetAvailableVendors(model.VendorId);
-            model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
-
             return View(model);
         }
 
@@ -287,8 +258,6 @@ namespace Arkitektum.Orden.Controllers
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
             model.AvailableVendors = await GetAvailableVendors(model.VendorId);
-            model.AvailableHostingLocations = GetAvailableHostingLocations(model.HostingLocation);
-
             return View(model);
         }
 

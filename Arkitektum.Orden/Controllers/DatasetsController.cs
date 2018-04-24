@@ -67,7 +67,7 @@ namespace Arkitektum.Orden.Controllers
         }
 
         // GET: Datasets/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             SimpleOrganization currentOrganization = CurrentOrganization();
 

@@ -41,7 +41,8 @@ namespace Arkitektum.Orden.Models.ViewModels
         /// <summary>
         /// Contains enum value of HostingLocation
         /// </summary>
-        public string HostingLocation { get; set; }
+        [EnumDataType(typeof(Models.HostingLocation))]
+        public Models.HostingLocation? HostingLocation { get; set; }
 
         /// <summary>
         /// Translated value of HostingLocation to use when displaying data
@@ -103,13 +104,16 @@ namespace Arkitektum.Orden.Models.ViewModels
            };
         }
 
-        private string TranslateHostingLocation(string value)
+        private string TranslateHostingLocation(HostingLocation? location)
         {
-            if (value == Models.HostingLocation.Cloud.ToString())
+            if (location == null)
+                return "";
+            
+            if (location.Value == Models.HostingLocation.Cloud)
                 return UIResource.HostingLocationCloud;
-            else if (value == Models.HostingLocation.LocalServer.ToString())
+            else if (location.Value == Models.HostingLocation.LocalServer)
                 return UIResource.HostingLocationLocalServer;
-            else if (value == Models.HostingLocation.ExternalServer.ToString())
+            else if (location.Value == Models.HostingLocation.ExternalServer)
                 return UIResource.HostingLocationExternalServer;
             else
                 return "";
@@ -192,6 +196,12 @@ namespace Arkitektum.Orden.Models.ViewModels
                 VendorId = input.VendorId,
                 Vendor = CreateNewVendor(input.VendorId, input.VendorName)
             };
+        }
+
+        private HostingLocation GetEnumHostingLocation(string input)
+        {
+            Enum.TryParse(input, out Models.HostingLocation result);
+            return result;
         }
 
         private Vendor CreateNewVendor(int vendorId, string vendorName)

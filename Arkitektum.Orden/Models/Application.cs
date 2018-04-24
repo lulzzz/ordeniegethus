@@ -108,7 +108,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Driftsplassering
         /// </summary>
-        public string HostingLocation { get; set; }
+        public HostingLocation? HostingLocation { get; set; }
 
         /// <summary>
         ///     Driftsleverandør

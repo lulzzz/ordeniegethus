@@ -111,7 +111,6 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public virtual List<ResourceLink> ResourceLinks { get; set; }
 
-
         /// <summary>
         ///     Lovhjemmel/forskrift for forvaltning
         /// </summary>
