@@ -8,7 +8,13 @@ import { format } from 'date-fns';
 
 export default {
     name: 'Application',
-    props: ['applicationId'],
+    props: {
+        applicationId: String,
+        writeAccess: {
+            type: Boolean,
+            default: false
+        }
+    }, 
     data() {
         return {
             apiUrls: {

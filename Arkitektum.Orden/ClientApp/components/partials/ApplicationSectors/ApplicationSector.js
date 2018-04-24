@@ -3,7 +3,16 @@ import FilterSelect from '../../modules/FilterSelect.vue';
 
 export default {
     name: 'ApplicationSector',
-    props: ['applicationSector', 'selectedApplicationSectors', 'applicationId', 'saved'],
+    props: {
+        applicationSector: Object,
+        selectedApplicationSectors: Array,
+        applicationId: String,
+        saved: Boolean,
+        writeAccess: {
+            type: Boolean,
+            default: false
+        }
+    },    
     components: {
         FilterSelect
     },
@@ -28,6 +37,9 @@ export default {
         },
         selectApplicationSector(applicationSector) {
             this.data = applicationSector;
+        },
+        sectorDetailsPageUrl() {
+            return `/applications?sectorId=${this.applicationSector.id}`;
         }
     }
 }

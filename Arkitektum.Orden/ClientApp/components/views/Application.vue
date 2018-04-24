@@ -4,13 +4,11 @@
         <hr/>
         <div class="row">
           <div class="col-lg-8">
-              <p>
-                <div class="btn-group">
-                  <a v-bind:href="apiUrls.edit" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i> Rediger</a>
-                  <a v-bind:href="apiUrls.submitAppRegistry" class="btn btn-sm btn-outline-primary"><i class="fas fa-warehouse"></i> Send inn til felles applikasjonsregister</a>
-                </div>
-              </p>
-                
+              <div class="btn-group" v-if="writeAccess">
+                <a v-bind:href="apiUrls.edit" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i> Rediger</a>
+                <a v-bind:href="apiUrls.submitAppRegistry" class="btn btn-sm btn-outline-primary"><i class="fas fa-warehouse"></i> Send inn til felles applikasjonsregister</a>
+              </div>
+              
               <p v-if="apiData.userModified">Sist endret av {{ apiData.userModified }} - {{ apiData.dateModified | formatDate }}</p>
               <p v-if="apiData.userCreated">Opprettet av: {{ apiData.userCreated }} - {{ apiData.dateCreated | formatDate }}</p>
               <p>Leverandør: {{ apiData.vendor.name }}</p>
@@ -27,7 +25,7 @@
               <p>Driftsleverandør: {{ apiData.hostingVendor }}</p>
               <p>Driftsplassering: {{ apiData.hostingLocationText }}</p>
               <p>Antall brukere: {{ apiData.numberOfUsers }}</p>
-
+<!--
               <p>
                 Superbrukere:
                 <a href="" class="badge badge-info">
@@ -40,10 +38,10 @@
                   <i class="fas fa-user"></i>Ole Olsen
                 </a>
               </p>
-
+-->
               <h2>Lenker</h2>
                 <hr />
-                <resource-links v-bind:application-id="applicationId"></resource-links>
+                <resource-links v-bind:application-id="applicationId" v-bind:write-access="writeAccess"></resource-links>
 
 <!--                
                 <h2>Avtale</h2>
@@ -62,21 +60,21 @@
                 <div class="card">
                     <div class="card-header bg-info text-white">Tjenesteområder</div>
                     <div class="card-body">
-                        <application-sectors v-bind:application-sectors="apiData.sectors" v-bind:applicationId="applicationId"></application-sectors>
+                        <application-sectors v-bind:application-sectors="apiData.sectors" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-sectors>
                     </div>
                 </div>
                 <div class="mt-3"></div>
                 <div class="card">
                     <div class="card-header bg-info text-white">Datasett</div>
                     <div class="card-body">
-                        <application-datasets v-bind:application-datasets="apiData.datasets" v-bind:applicationId="applicationId"></application-datasets>
+                        <application-datasets v-bind:application-datasets="apiData.datasets" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-datasets>
                     </div>
                 </div>
                 <div class="mt-3"></div>
                 <div class="card">
                     <div class="card-header bg-info text-white">Nasjonale felleskomponenter</div>
                     <div class="card-body">
-                        <application-national-components v-bind:application-national-components="apiData.nationalComponents" v-bind:applicationId="applicationId"></application-national-components>
+                        <application-national-components v-bind:application-national-components="apiData.nationalComponents" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-national-components>
                     </div>
                 </div>
             </div>

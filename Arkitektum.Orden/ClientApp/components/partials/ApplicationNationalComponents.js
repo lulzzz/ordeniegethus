@@ -3,7 +3,14 @@ import ApplicationNationalComponent from './ApplicationNationalComponents/Applic
 
 export default {
     name: 'ApplicationNationalComponents',
-    props: ['applicationNationalComponents', 'applicationId'],
+    props: {
+        applicationNationalComponents: Array,
+        applicationId: String,
+        writeAccess: {
+            type: Boolean,
+            default: false
+        }
+    },
     components: {
         ApplicationNationalComponent
     },

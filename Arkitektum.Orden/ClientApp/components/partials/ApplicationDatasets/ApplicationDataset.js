@@ -3,7 +3,16 @@ import FilterSelect from '../../modules/FilterSelect.vue';
 
 export default {
     name: 'ApplicationDataset',
-    props: ['applicationDataset', 'selectedApplicationDatasets', 'applicationId', 'saved'],
+    props: {
+        applicationDataset: Object,
+        selectedApplicationDatasets: Array,
+        applicationId: String,
+        saved: Boolean,
+        writeAccess: {
+            type: Boolean,
+            default: false
+        }
+    },
     components: {
         FilterSelect
     },
@@ -28,6 +37,9 @@ export default {
         },
         selectApplicationDataset(applicationDataset) {
             this.data = applicationDataset;
+        },
+        datasetDetailsPageUrl() {
+            return `/datasets/details/${this.applicationDataset.id}`;
         }
     }
 }

@@ -22,7 +22,7 @@
         </div>
         <div v-show="!editable" v-bind:class="{'d-flex justify-content-between align-items-center': !editable}">
             <a v-bind:href="resourceLink.url">{{ resourceLink.description}}</a>
-            <div class="float-right">
+            <div class="float-right" v-if="writeAccess">
                 <span class="btn btn-outline-secondary" v-on:click="editable = !editable"><span class="fas fa-edit"></span></span>
                 <span class="btn btn-outline-danger" v-on:click="$emit('remove')"><span class="fas fa-trash"></span></span>
             </div>

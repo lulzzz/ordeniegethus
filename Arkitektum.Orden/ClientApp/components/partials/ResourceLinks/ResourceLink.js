@@ -1,6 +1,14 @@
 ﻿export default {
     name: 'ResourceLink',
     props: ['resourceLink', 'saved'],
+    props: {
+        resourceLink: Object,
+        saved: Boolean,
+        writeAccess: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             editable: false,

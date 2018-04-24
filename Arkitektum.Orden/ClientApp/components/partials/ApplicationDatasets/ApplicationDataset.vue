@@ -2,8 +2,8 @@
 
     <!-- Saved application dataset -->
     <div v-if="saved" class="list-group-item d-flex justify-content-between align-items-center">
-        <a>{{ applicationDataset.name}}</a>
-        <div class="float-right">
+        <a v-bind:href="datasetDetailsPageUrl()">{{ applicationDataset.name}}</a>
+        <div class="float-right" v-if="writeAccess">
             <span class="btn btn-outline-danger" v-on:click="$emit('remove')"><span class="fas fa-trash"></span></span>
         </div>
     </div>

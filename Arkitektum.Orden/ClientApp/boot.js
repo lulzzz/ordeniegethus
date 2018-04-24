@@ -39,6 +39,6 @@ new Vue( {
             return axios.delete(url, apiData)
                 .then(response => { console.log(response); })
                 .catch(error => { throw error });
-        },
+        }
     }
 });

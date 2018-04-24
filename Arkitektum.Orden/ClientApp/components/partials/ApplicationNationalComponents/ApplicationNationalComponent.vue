@@ -3,12 +3,12 @@
     <!-- Saved application national component -->
     <div v-if="saved" class="list-group-item d-flex justify-content-between align-items-center">
         <a>{{ applicationNationalComponent.name}}</a>
-        <div class="float-right">
+        <div class="float-right" v-if="writeAccess">
             <span class="btn btn-outline-danger" v-on:click="$emit('remove')"><span class="fas fa-trash"></span></span>
         </div>
     </div>
 
-    <!-- New application datan national component -->
+    <!-- New application national component -->
     <div v-else class="list-group-item">
         <div class="form-group">
             <filter-select 

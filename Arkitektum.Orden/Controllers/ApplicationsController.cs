@@ -80,10 +80,17 @@ namespace Arkitektum.Orden.Controllers
         [HttpGet("details/{id}")]
         public IActionResult Details(int? id)
         {
+            if (id == null)
+                return NotFound();
+
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
                 return Forbid();
 
-            return View(id);
+            bool hasWriteAccess =
+                _securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write);
+
+
+            return View(new ApplicationDetailsViewModel() { ApplicationId = id.Value, HasWriteAccess = hasWriteAccess});
         }
 
         [HttpGet("{id}")]

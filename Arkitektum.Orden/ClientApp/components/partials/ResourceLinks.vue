@@ -7,12 +7,10 @@
             <!-- New resource links -->
             <resource-link v-if="newResourceLink" v-bind:saved="false" v-on:remove="removeNewResourceLink()"></resource-link>
 
-            <div class="list-group-item">
+            <div class="list-group-item" v-if="writeAccess">
                 <button v-show="!newResourceLink" v-on:click="createNewResourceLink()" class="btn btn-outline-primary"><span class="fas fa-plus"></span> Ny lenke</button>
             </div>
         </div>
-        
-
     </div>
 </template>
 

@@ -3,7 +3,13 @@ import ResourceLink from './ResourceLinks/ResourceLink.vue';
 
 export default {
     name: 'ResourceLinks',
-    props: ['applicationId'],
+    props: {
+        applicationId: String,
+        writeAccess: {
+            type: Boolean,
+            default: false
+        }
+    },
     components: {
         ResourceLink
     },
