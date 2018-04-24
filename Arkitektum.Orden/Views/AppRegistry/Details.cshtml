@@ -1,0 +1,53 @@
+﻿@model CommonApplication
+
+@{
+    ViewData["Title"] = UIResource.AppRegistry;
+}
+
+<h2>@Model.Name</h2>
+<p><strong>@ModelsResource.Vendor:</strong> @Model.Vendor.Name</p>
+
+@foreach (var version in Model.Versions)
+{
+    <div class="card">
+        <div class="card-header">
+            <strong>@ModelsResource.Version:</strong> @version.VersionNumber</div>
+        <div class="card-body">
+            <h3>@ModelsResource.NationalComponents</h3>
+            <ul>
+                @foreach (var component in version.SupportedNationalComponents)
+                {
+                    <li>@component.NationalComponent.Name</li>
+                }
+            </ul>
+            <h3>@ModelsResource.Datasets</h3>
+            <div class="card-deck">
+                @foreach (var dataset in Model.CommonDatasets)
+                {
+                    <div class="card">
+                        <div class="card-header">@dataset.Name</div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                <li class="list-group-item"><strong>@ModelsResource.Description:</strong> @dataset.Description</li>
+                                <li class="list-group-item"><strong>@ModelsResource.Purpose:</strong> @dataset.Purpose</li>
+                                <li class="list-group-item"><strong>@ModelsResource.HasPersonalData:</strong> @dataset.HasPersonalData</li>
+                                <li class="list-group-item"><strong>@ModelsResource.HasSensitivePersonalData:</strong> @dataset.HasSensitivePersonalData</li>
+                                <li class="list-group-item"><strong>@ModelsResource.HasMasterData:</strong> @dataset.HasMasterData</li>
+                                <li class="list-group-item">
+                                    <strong>@ModelsResource.Fields:</strong>
+                                    <ul class="list-group">
+                                        @foreach (var field in dataset.Fields)
+                                        {
+                                            <li class="list-group-item">@field.Name</li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+}

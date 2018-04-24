@@ -12,6 +12,7 @@ namespace Arkitektum.Orden.Services.AppRegistry
         Task<List<CommonApplication>> GetApplicationsAsync();
         Task SubmitApplication(int applicationId);
         Task<Application> CreateApplicationForOrganization(int commonApplicationId, string versionNumber, int organizationId);
+        Task<CommonApplication> Get(int id);
     }
 
     public class AppRegistryService : IAppRegistry
@@ -27,17 +28,23 @@ namespace Arkitektum.Orden.Services.AppRegistry
 
         public async Task<Application> CreateApplicationForOrganization(int commonApplicationId, string versionNumber, int organizationId)
         {
-            CommonApplication commonApplication = await _context.CommonApplications
-                .Include(a => a.Versions).ThenInclude(v => v.SupportedStandards)
-                .Include(a => a.Versions).ThenInclude(v => v.SupportedNationalComponents)
-                .Include(a => a.CommonDatasets).ThenInclude(d => d.Fields)
-                .SingleOrDefaultAsync(a => a.Id == commonApplicationId);
+            CommonApplication commonApplication = await Get(commonApplicationId);
 
             Application application = commonApplication.CreateApplicationForOrganization(organizationId, versionNumber);
             _context.Application.Add(application);
             await _context.SaveChangesAsync(_securityService.GetCurrentUser().FullName());
 
             return application;
+        }
+
+        public async Task<CommonApplication> Get(int id)
+        {
+            return await _context.CommonApplications
+                .Include(a => a.Versions).ThenInclude(v => v.SupportedStandards).ThenInclude(s => s.Standard)
+                .Include(a => a.Versions).ThenInclude(v => v.SupportedNationalComponents).ThenInclude(c => c.NationalComponent)
+                .Include(a => a.CommonDatasets).ThenInclude(d => d.Fields)
+                .Include(a => a.Vendor)
+                .SingleOrDefaultAsync(a => a.Id == id);
         }
 
         public Task<List<CommonApplication>> GetApplicationsAsync()

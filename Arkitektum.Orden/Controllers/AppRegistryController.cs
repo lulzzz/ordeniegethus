@@ -56,5 +56,12 @@ namespace Arkitektum.Orden.Controllers
             
             return Json(new {location = applicationDetailsUrl });
         }
+
+        [HttpGet("details")]
+        public async Task<IActionResult> Details(int id)
+        {
+            CommonApplication commonApplication = await _appRegistry.Get(id);
+            return View(commonApplication);
+        }
     }
 }
