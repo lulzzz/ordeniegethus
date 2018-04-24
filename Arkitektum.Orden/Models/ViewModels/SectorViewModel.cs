@@ -44,7 +44,7 @@ namespace Arkitektum.Orden.Models.ViewModels
             };
         }
 
-        public List<SelectListItem> Map(IEnumerable<Sector> sectors)
+        public List<SelectListItem> MapToSelectListItems(IEnumerable<Sector> sectors)
         {
             List<SelectListItem> sectorItems = new List<SelectListItem>();
 

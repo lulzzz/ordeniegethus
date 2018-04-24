@@ -66,7 +66,7 @@ namespace Arkitektum.Orden.Controllers
         private async Task<List<SelectListItem>> GetSectorViewModel()
         {
             var sectors = await _sectorService.GetAll();
-            return new SectorViewModel().Map(sectors);
+            return new SectorViewModel().MapToSelectListItems(sectors);
         }
 
         private async Task<IEnumerable<ApplicationListDetailViewModel>> GetApplicationListViewModel(SimpleOrganization currentOrganization)

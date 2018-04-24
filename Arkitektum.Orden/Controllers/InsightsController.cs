@@ -53,12 +53,12 @@ namespace Arkitektum.Orden.Controllers
 
         [HttpGet]
         [Route("national-components-usage")]
-        public async Task<IActionResult> NationalComponentsUsage()
+        public IActionResult NationalComponentsUsage()
         {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
                 return Forbid();
 
-            var nationalComponentsWithApplicationsView = await _applicationService.GetApplicationsGroupedByNationalComponents(CurrentOrganizationId());
+            var nationalComponentsWithApplicationsView = _applicationService.GetApplicationsGroupedByNationalComponents(CurrentOrganizationId());
 
             return View(nationalComponentsWithApplicationsView);
         }

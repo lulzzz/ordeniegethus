@@ -25,7 +25,7 @@ namespace Arkitektum.Orden.Services
         Task UpdateAsync(int id, Application updatedApplication);
         Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
         Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId, int nationalComponentId, string sortingOrder);
-        Task<InsightsViewModel> GetApplicationsGroupedByNationalComponents(int currentOrganizationId);
+        InsightsViewModel GetApplicationsGroupedByNationalComponents(int currentOrganizationId);
         
     }
     /// <summary>
@@ -156,7 +156,7 @@ namespace Arkitektum.Orden.Services
             return applicationsByNationalComponent;
         }
 
-        public async Task<InsightsViewModel> GetApplicationsGroupedByNationalComponents(int currentOrganizationId)
+        public InsightsViewModel GetApplicationsGroupedByNationalComponents(int currentOrganizationId)
         {
             var models = _context.Application.Where(a => a.OrganizationId == currentOrganizationId)
                 .SelectMany(a => a.ApplicationNationalComponent)
