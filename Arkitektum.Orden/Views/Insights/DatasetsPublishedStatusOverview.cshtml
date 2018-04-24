@@ -1,0 +1,52 @@
+﻿@model Arkitektum.Orden.Models.ViewModels.DatasetsOverviewViewModel
+@{
+    ViewData["Title"] = "DatasetsPublishedStatusOverview";
+}
+
+<h2>@UIResource.InsightDatasetOverview</h2>
+<h4>Publiserte dataset: @Model.PublishedDatasets.Count()</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@ModelsResource.Name</th>
+            <th>@ModelsResource.PublishedToSharedDataCatalog</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PublishedDatasets)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-controller="Datasets" asp-route-id="@item.Id">
+                        @item.Name
+                    </a>
+                </td>
+                <td>
+                    @item.PublishedToSharedDataCatalog
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Ikke publiserte dataset: @Model.NotPublishedDatasets.Count()</h4>
+<table class="table">
+    <thead>
+    <tr>
+        <th>@ModelsResource.Name</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.NotPublishedDatasets)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-controller="Datasets" asp-route-id="@item.Id">
+                        @item.Name
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

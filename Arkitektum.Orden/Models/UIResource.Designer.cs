@@ -244,6 +244,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oversikt over datasett.
+        /// </summary>
+        public static string InsightDatasetOverview {
+            get {
+                return ResourceManager.GetString("InsightDatasetOverview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oversikt over kostnader til applikasjoner.
         /// </summary>
         public static string InsightsApplicationCostsHeader {
