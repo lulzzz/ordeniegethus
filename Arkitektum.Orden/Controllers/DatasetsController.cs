@@ -111,7 +111,9 @@ namespace Arkitektum.Orden.Controllers
         {
             if (ModelState.IsValid)
             {
-                var createDataset = await _datasetService.Create(new DatasetViewModel().Map(dataset));
+                dataset.OrganizationId = CurrentOrganizationId();
+                await _datasetService.Create(new DatasetViewModel().Map(dataset));
+            
                 return RedirectToAction(nameof(Index));
             }
 
@@ -152,9 +154,11 @@ namespace Arkitektum.Orden.Controllers
                 return NotFound();
             }
 
+            dataset.OrganizationId = CurrentOrganizationId();
+
             await _datasetService.UpdateAsync(id, dataset.Map(dataset));
 
-            return View(dataset);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Datasets/Delete/5

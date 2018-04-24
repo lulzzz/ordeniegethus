@@ -20,9 +20,8 @@ namespace Arkitektum.Orden.Services
         Task<Dataset> Create(Dataset Dataset);
         Task SaveChanges();
         Task Delete(int id);
-        Task <IEnumerable<Dataset>> GetAllDatasetsForOrganization(int currentOrganizationId);
-        Task UpdateAsync(int id, Dataset dataset);
-
+        Task<IEnumerable<Dataset>> GetAllDatasetsForOrganization(int currentOrganizationId);
+        Task UpdateAsync(int id, Dataset updatedDataset);
         Task<int> GetDatasetsCountForOrganization(int currentOrganizationId);
     }
     /// <summary>
@@ -54,7 +53,7 @@ namespace Arkitektum.Orden.Services
             await _searchIndexingService.AddToIndex(dataset);
             return dataset;
         }
-         
+
         public async Task Delete(int id)
         {
             var Dataset = await _context.Dataset.SingleOrDefaultAsync(a => a.Id == id);
@@ -64,27 +63,22 @@ namespace Arkitektum.Orden.Services
 
         public async Task<IEnumerable<Dataset>> GetAllDatasetsForOrganization(int currentOrganizationId)
         {
+            var datasets = _context.Dataset.Where(d => d.OrganizationId == currentOrganizationId).ToListAsync();
 
-            var datasets = from ad in _context.ApplicationDataset
-                join app in _context.Application on ad.ApplicationId equals app.Id
-                           where app.OrganizationId == currentOrganizationId
-                           orderby ad.Dataset.Name
-                select ad.Dataset;
-
-            
-            return await datasets.ToListAsync();
-
-
+            return await datasets;
         }
 
-        public async Task UpdateAsync(int id, Dataset updateDataset)
+        public async Task UpdateAsync(int id, Dataset updatedDataset)
         {
             var currentDataset = await GetAsync(id);
 
-            _context.Entry(currentDataset).CurrentValues.SetValues(updateDataset);
+            _context.Entry(currentDataset).CurrentValues.SetValues(updatedDataset);
 
-            currentDataset.UpdateApplicationRelation(updateDataset.ApplicationDatasets);
-
+            if (updatedDataset.ApplicationDatasets != null)
+            {
+                currentDataset.UpdateApplicationRelation(updatedDataset.ApplicationDatasets);
+            }
+           
             await SaveChanges();
         }
 
@@ -107,7 +101,7 @@ namespace Arkitektum.Orden.Services
 
         }
 
-    
+
 
         public async Task<IEnumerable<Dataset>> GetAllDatasetsForOrganisation(int orgId)
         {

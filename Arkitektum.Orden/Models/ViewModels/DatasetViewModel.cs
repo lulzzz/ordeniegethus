@@ -54,6 +54,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog,
                 DataLocation = input.DataLocation,
+                OrganizationId = input.OrganizationId,
                 Applications = new ApplicationViewModel().MapToEnumerable(input.ApplicationsAsEnumerable()),
                 Fields = new DatasetFieldViewModel().Map(input.Fields)
             };
@@ -85,6 +86,24 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public Dataset Map(DatasetViewModel input)
         {
+            if (input.Application != 0)
+            {
+                return new Dataset
+                {
+                    Id = input.Id,
+                    Name = input.Name,
+                    Description = input.Description,
+                    Purpose = input.Purpose,
+                    HasMasterData = input.HasMasterData,
+                    HasPersonalData = input.HasPersonalData,
+                    HasSensitivePersonalData = input.HasSensitivePersonalData,
+                    PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog?.Date,
+                    DataLocation = input.DataLocation,
+                    ApplicationDatasets = Map(input.Application, input.Id),
+                    AccessRight = Map(input.AccessRight),
+                    OrganizationId = input.OrganizationId.Value
+                };
+            }
 
             return new Dataset
             {
@@ -97,13 +116,12 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog?.Date,
                 DataLocation = input.DataLocation,
-                ApplicationDatasets = Map(input.Application, input.Id),
-                AccessRight = Map(input.AccessRight)
-
+                AccessRight = Map(input.AccessRight),
+                OrganizationId = input.OrganizationId.Value
             };
 
-
         }
+
 
         private AccessRight Map(string input)
         {
