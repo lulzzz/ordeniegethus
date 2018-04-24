@@ -87,6 +87,8 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public string DataLocation { get; set; }
 
+        public int OrganizationId { get; set; }
+
         /// <summary>
         /// Referanse til et hovedtema for datasettet. Et datasett 
         /// kan assosieres med flere tema. Bruk av vokabularet Data 

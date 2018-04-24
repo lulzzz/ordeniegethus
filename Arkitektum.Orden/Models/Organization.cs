@@ -12,6 +12,8 @@ namespace Arkitektum.Orden.Models
 
         public virtual List<Application> Applications { get; set; }
 
+        public virtual List<Dataset> Datasets { get; set; }
+
         public virtual List<OrganizationApplicationUser> Users { get; set; }
 
         public virtual List<OrganizationAdministrators> OrganizationAdministrators { get; set; }

@@ -13,9 +13,10 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180424062340_ConnectionOrganizationDatasetAdded")]
+    partial class ConnectionOrganizationDatasetAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,8 +45,6 @@ namespace Arkitektum.Orden.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<decimal>("AnnualFee");
-
-                    b.Property<int?>("CreatedFromCommonApplicationId");
 
                     b.Property<DateTime?>("DateCreated");
 
@@ -211,7 +210,7 @@ namespace Arkitektum.Orden.Migrations
 
                     b.Property<int>("OriginalApplicationId");
 
-                    b.Property<int>("VendorId");
+                    b.Property<int?>("VendorId");
 
                     b.HasKey("Id");
 
@@ -225,7 +224,7 @@ namespace Arkitektum.Orden.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CommonApplicationId");
+                    b.Property<int?>("CommonApplicationId");
 
                     b.Property<string>("VersionNumber");
 
@@ -263,7 +262,7 @@ namespace Arkitektum.Orden.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CommonApplicationId");
+                    b.Property<int?>("CommonApplicationId");
 
                     b.Property<string>("Description");
 
@@ -865,16 +864,14 @@ namespace Arkitektum.Orden.Migrations
                 {
                     b.HasOne("Arkitektum.Orden.Models.Vendor", "Vendor")
                         .WithMany()
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("VendorId");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.CommonApplicationVersion", b =>
                 {
                     b.HasOne("Arkitektum.Orden.Models.CommonApplication")
                         .WithMany("Versions")
-                        .HasForeignKey("CommonApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CommonApplicationId");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.CommonApplicationVersionNationalComponent", b =>
@@ -897,8 +894,7 @@ namespace Arkitektum.Orden.Migrations
                 {
                     b.HasOne("Arkitektum.Orden.Models.CommonApplication")
                         .WithMany("CommonDatasets")
-                        .HasForeignKey("CommonApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("CommonApplicationId");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.CommonDatasetField", b =>
