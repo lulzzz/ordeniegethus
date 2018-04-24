@@ -20,7 +20,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         public IEnumerable<ApplicationViewModel> Applications { get; set; }
         public int Application { get; set; }
         public DateTime? PublishedToSharedDataCatalog { get; set; }
-        public string DataLocation { get; set; }
+        public HostingLocation? HostingLocation { get; set; }
         public bool HasMasterData { get; set; }
         public bool HasPersonalData { get; set; }
         public bool HasSensitivePersonalData { get; set; }
@@ -53,7 +53,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasPersonalData = input.HasPersonalData,
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog,
-                DataLocation = input.DataLocation,
+                HostingLocation = input.HostingLocation,
                 OrganizationId = input.OrganizationId,
                 Applications = new ApplicationViewModel().MapToEnumerable(input.ApplicationsAsEnumerable()),
                 Fields = new DatasetFieldViewModel().Map(input.Fields)
@@ -98,7 +98,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                     HasPersonalData = input.HasPersonalData,
                     HasSensitivePersonalData = input.HasSensitivePersonalData,
                     PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog?.Date,
-                    DataLocation = input.DataLocation,
+                    HostingLocation = input.HostingLocation,
                     ApplicationDatasets = Map(input.Application, input.Id),
                     AccessRight = Map(input.AccessRight),
                     OrganizationId = input.OrganizationId.Value
@@ -115,7 +115,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasPersonalData = input.HasPersonalData,
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog?.Date,
-                DataLocation = input.DataLocation,
+                HostingLocation = input.HostingLocation,
                 AccessRight = Map(input.AccessRight),
                 OrganizationId = input.OrganizationId.Value
             };
@@ -164,7 +164,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasPersonalData = input.HasPersonalData,
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog,
-                DataLocation = input.DataLocation,
+                HostingLocation = input.HostingLocation,
                 AvailableApplications = Map(applications)
 
             };

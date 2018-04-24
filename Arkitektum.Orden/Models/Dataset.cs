@@ -85,7 +85,7 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         ///     Dataplassering
         /// </summary>
-        public string DataLocation { get; set; }
+        public HostingLocation? HostingLocation { get; set; }
 
         public int OrganizationId { get; set; }
 

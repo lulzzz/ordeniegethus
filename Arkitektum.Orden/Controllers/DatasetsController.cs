@@ -84,7 +84,7 @@ namespace Arkitektum.Orden.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData,DataLocation,PublishedToSharedDataCatalog," +
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData,HostingLocation,PublishedToSharedDataCatalog," +
                                                       "Application,OrganizationId")] DatasetViewModel dataset)
         {
             if (ModelState.IsValid)
@@ -123,7 +123,7 @@ namespace Arkitektum.Orden.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData," +
-                                                            "DataLocation,PublishedToSharedDataCatalog,Application")] DatasetViewModel dataset)
+                                                            "HostingLocation,PublishedToSharedDataCatalog,Application")] DatasetViewModel dataset)
         {
             if (id != dataset.Id)
             {
