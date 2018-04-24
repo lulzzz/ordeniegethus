@@ -46,7 +46,7 @@ namespace Arkitektum.Orden.Controllers
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
                 return Forbid();
 
-            List<Dataset> datasets = await _datasetInsightsService.DatasetsWithPrivacyConcerns();
+            List<Dataset> datasets = await _datasetInsightsService.DatasetsWithPrivacyConcerns(CurrentOrganizationId());
 
             return View(new DatasetViewModel().Map(datasets));
         }
@@ -74,5 +74,19 @@ namespace Arkitektum.Orden.Controllers
 
             return View(new ApplicationCostViewModel().MapToEnumerable(applications));
         }
+
+        [HttpGet]
+        [Route("datasets-published-overview")]
+        public async Task<IActionResult> DatasetsPublishedStatusOverview()
+        {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+
+            var model = await _datasetInsightsService.GetDatasetWithPublishingStatus(CurrentOrganizationId());
+
+            return View(model);
+        }
+
+
     }
 }

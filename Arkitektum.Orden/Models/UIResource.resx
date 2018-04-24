@@ -181,6 +181,9 @@
   <data name="HostingLocationLocalServer" xml:space="preserve">
     <value>Lokal server</value>
   </data>
+  <data name="InsightDatasetOverview" xml:space="preserve">
+    <value>Oversikt over datasett</value>
+  </data>
   <data name="InsightsApplicationCostsHeader" xml:space="preserve">
     <value>Oversikt over kostnader til applikasjoner</value>
   </data>

@@ -10,45 +10,47 @@
 @foreach (var item in Model.ApplicationsForNationalComponent)
 {
     <table class="table">
-<thead>
-    <tr>
-        <h4>@item.Key</h4>
-    </tr>
+        <thead>
+            <tr>
+                <h4>@item.Key</h4>
+            </tr>
 
-    <tr>
-        <th>
-            @ModelsResource.Name
-        </th>
-        <th>
-            @ModelsResource.Version
-        </th>
-        <th>
-            @ModelsResource.Vendor
-        </th>
-        <th>
-            @ModelsResource.AnnualFee
-        </th>
-        <th>
-            @ModelsResource.SystemOwner
-        </th>
-    </tr>
-</thead>
-    <tbody>
-    @foreach (var application in item.Value)
-    {
-        <tr>
-            <td><a asp-action="Details" asp-controller="Applications" asp-route-id="@application.Id">
-                @application.Name
-            </a></td>
-            <td>@application.Version</td>
-            <td>@application.Vendor</td>
-            <td>@application.AnnualFee</td>
-            <td>@application.SystemOwner</td>
+            <tr>
+                <th>
+                    @ModelsResource.Name
+                </th>
+                <th>
+                    @ModelsResource.Version
+                </th>
+                <th>
+                    @ModelsResource.Vendor
+                </th>
+                <th>
+                    @ModelsResource.AnnualFee
+                </th>
+                <th>
+                    @ModelsResource.SystemOwner
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var application in item.Value)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-controller="Applications" asp-route-id="@application.Id">
+                            @application.Name
+                        </a>
+                    </td>
+                    <td>@application.Version</td>
+                    <td>@application.Vendor</td>
+                    <td>@application.AnnualFee</td>
+                    <td>@application.SystemOwner</td>
 
-        </tr>
+                </tr>
 
-    }
-    </tbody>
+            }
+        </tbody>
     </table>
 }
 
