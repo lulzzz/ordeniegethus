@@ -75,31 +75,9 @@ namespace Arkitektum.Orden.Controllers
          
             model.OrganizationId = currentOrganization.Id;
 
-            model.AvailableApplications = await GetAvailableApplications(currentOrganization.Id);
-            
-
             return View(model);
 
         }
-
-        private async Task<List<SelectListItem>> GetAvailableApplications(int currentOrganizationId)
-        {
-            var applicationsForOrganisation = await _applicationService.GetAllApplicationsForOrganization(currentOrganizationId);
-
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
-
-            foreach (var application in applicationsForOrganisation)
-            {
-                selectListItems.Add(new SelectListItem
-                {
-                    Text = application.Name,
-                    Value = application.Id.ToString()
-                });
-            }
- 
-            return selectListItems;
-        }
-
 
         // POST: Datasets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -117,7 +95,7 @@ namespace Arkitektum.Orden.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View();
+            return View(dataset);
         }
 
         // GET: Datasets/Edit/5
@@ -131,14 +109,12 @@ namespace Arkitektum.Orden.Controllers
             var datasets = await _datasetService.GetAsync(id.Value);
     
             SimpleOrganization currentOrganization = CurrentOrganization();
-            var applications = await _applicationService.GetAllApplicationsForOrganization(currentOrganization.Id);
-            
 
             if (datasets == null)
             {
                 return NotFound();
             }
-            return View(new DatasetViewModel().Map(datasets, applications));
+            return View(new DatasetViewModel().Map(datasets));
         }
 
         // POST: Datasets/Edit/5
