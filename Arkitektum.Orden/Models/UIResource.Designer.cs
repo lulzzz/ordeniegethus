@@ -79,6 +79,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Du må velge en leverandør fra listen eller skrive inn navn på en ny leverandør..
+        /// </summary>
+        public static string ApplicationCreateModelVendorNotDefined {
+            get {
+                return ResourceManager.GetString("ApplicationCreateModelVendorNotDefined", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Felles applikasjonsregister.
         /// </summary>
         public static string AppRegistry {

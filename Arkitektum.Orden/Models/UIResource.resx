@@ -123,6 +123,9 @@
   <data name="AccessDeniedExplanation" xml:space="preserve">
     <value>Du har ikke tilgang til denne ressursen. Ta kontakt med systemansvarlig dersom dette er feil. </value>
   </data>
+  <data name="ApplicationCreateModelVendorNotDefined" xml:space="preserve">
+    <value>Du må velge en leverandør fra listen eller skrive inn navn på en ny leverandør.</value>
+  </data>
   <data name="AppRegistry" xml:space="preserve">
     <value>Felles applikasjonsregister</value>
   </data>

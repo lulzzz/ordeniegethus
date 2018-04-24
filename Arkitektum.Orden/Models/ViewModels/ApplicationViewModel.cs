@@ -7,13 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Arkitektum.Orden.Models.ViewModels
 {
-    public class ApplicationViewModel : Mapper<Application, ApplicationViewModel>
+    public class ApplicationViewModel : Mapper<Application, ApplicationViewModel>, IValidatableObject
     {
    
         public int Id { get; set; }
+        
         [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Version { get; set; }
 
         public int VendorId { get; set; }
@@ -236,6 +238,14 @@ namespace Arkitektum.Orden.Models.ViewModels
             }
 
             return sectorApplications;
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (VendorId == 0 && string.IsNullOrWhiteSpace(VendorName))
+            {
+                yield return new ValidationResult(UIResource.ApplicationCreateModelVendorNotDefined, new List<string>() { "VendorId" });
+            }
         }
     }
 
