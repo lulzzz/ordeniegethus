@@ -18,8 +18,7 @@ export default {
         return {
             apiUrls: {
                 get: `/datasets/${this.datasetId}`,
-                edit: `/datasets/edit/${this.datasetId}`,
-                submitAppRegistry: `/datasets/submit-app-registry/${this.datasetId}`,
+                edit: `/datasets/edit/${this.datasetId}`
             },
             apiData: null
         }
