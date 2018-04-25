@@ -124,16 +124,11 @@ namespace Arkitektum.Orden
         public static IWebHost BuildWebHost(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(options =>  
-                { 
-                    options.Listen(IPAddress.Loopback, 5000, listenOptions => 
-                    { 
-                        listenOptions.UseHttps("development.arkitektum.pfx", "password"); 
-                    }); 
-                }) 
+                .UseKestrel(options => options.ConfigureEndpoints())
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseSerilog()
-                .UseUrls("https://localhost:5000")
+                //.UseUrls("https://localhost:5000")
                 .Build();
         }
     }
