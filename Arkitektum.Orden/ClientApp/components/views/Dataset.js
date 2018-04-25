@@ -20,7 +20,7 @@ export default {
                 get: `/datasets/${this.datasetId}`,
                 edit: `/datasets/edit/${this.datasetId}`
             },
-            apiData: null
+            apiData: {}
         }
     },
     components: {
@@ -42,9 +42,15 @@ export default {
     },
     filters: {
         formatDate: function (value) {
-            if (!value) return ''
-            return format(value, 'D. MMMM YYYY HH:mm:ss')
-        }
+            if (!value) return '';
+            return format(value, 'D. MMMM YYYY HH:mm:ss');
+        },
+        formatBoolean: function (value) {
+            if (value) 
+                return 'Ja';
+            else 
+                return 'Nei';
+        }        
     }
 }
 

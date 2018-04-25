@@ -21,13 +21,18 @@ namespace Arkitektum.Orden.Models.ViewModels
         public int Application { get; set; }
         public DateTime? PublishedToSharedDataCatalog { get; set; }
         public HostingLocation? HostingLocation { get; set; }
+        public string HostingLocationText { get; set; }
         public bool HasMasterData { get; set; }
         public bool HasPersonalData { get; set; }
         public bool HasSensitivePersonalData { get; set; }
         public int? OrganizationId { get; set; }
         public string AccessPermission { get; set; }
         public IEnumerable<DatasetFieldViewModel> Fields { get; set; }
-
+        public DateTime? DateCreated { get; set; }
+        public string UserCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        public string UserModified { get; set; }
+        
         public override IEnumerable<DatasetViewModel> MapToEnumerable(IEnumerable<Dataset> inputs)
         {
             var viewModels = new List<DatasetViewModel>();
@@ -54,9 +59,14 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HasSensitivePersonalData = input.HasSensitivePersonalData,
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog,
                 HostingLocation = input.HostingLocation,
+                HostingLocationText = ApplicationViewModel.TranslateHostingLocation(input.HostingLocation),
                 OrganizationId = input.OrganizationId,
                 Applications = new ApplicationViewModel().MapToEnumerable(input.ApplicationsAsEnumerable()),
-                Fields = new DatasetFieldViewModel().Map(input.Fields)
+                Fields = new DatasetFieldViewModel().Map(input.Fields),
+                DateCreated = input.DateCreated,
+                UserCreated = input.UserCreated,
+                DateModified = input.DateModified,
+                UserModified = input.UserModified
             };
         }
 
@@ -166,7 +176,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 PublishedToSharedDataCatalog = input.PublishedToSharedDataCatalog,
                 HostingLocation = input.HostingLocation,
                 AvailableApplications = Map(applications)
-
+                
             };
 
         }

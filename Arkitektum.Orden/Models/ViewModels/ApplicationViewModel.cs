@@ -104,7 +104,7 @@ namespace Arkitektum.Orden.Models.ViewModels
            };
         }
 
-        private string TranslateHostingLocation(HostingLocation? location)
+        public static string TranslateHostingLocation(HostingLocation? location)
         {
             if (location == null)
                 return "";
