@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Arkitektum.Orden.Data;
-using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
-using Microsoft.AspNetCore.Hosting.Internal;
 using Arkitektum.Orden.Utils;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Arkitektum.Orden.Controllers
 {
+    [Authorize]
+    [Route("/datasets")]
     public class DatasetsController : BaseController
     {
         private readonly IUserService _userService;
@@ -30,15 +26,18 @@ namespace Arkitektum.Orden.Controllers
             _context = context;
         }
 
-        // GET: Datasets
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+            
             SimpleOrganization currentOrganization = CurrentOrganization();
             var datasets = await _datasetService.GetAllDatasetsForOrganization(currentOrganization.Id);
             return View(new DatasetViewModel().MapToEnumerable(datasets));
         }
 
-        [HttpGet("/datasets/all")]
+        [HttpGet("all")]
         public async Task<IActionResult> All()
         {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
@@ -48,27 +47,45 @@ namespace Arkitektum.Orden.Controllers
             return Json(new DatasetApiViewModel().Map(datasets));
         }
 
-        // GET: Datasets/Details/5
+        [HttpGet("details/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+            
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var dataset = await _datasetService.GetAsync(id.Value);
                
             if (dataset == null)
-            {
                 return NotFound();
-            }
 
             return View(new DatasetViewModel().Map(dataset));
         }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> DetailsJson(int? id)
+        {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
 
-        // GET: Datasets/Create
+            if (id == null)
+                return NotFound();
+
+            var dataset = await _datasetService.GetAsync(id.Value);
+            if (dataset == null)
+                return NotFound();
+
+            return Json(new DatasetViewModel().Map(dataset));
+        }
+        
+        [HttpGet("create")]
         public IActionResult Create()
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
+                return Forbid();
+            
             SimpleOrganization currentOrganization = CurrentOrganization();
 
             var model = new DatasetViewModel();
@@ -79,14 +96,16 @@ namespace Arkitektum.Orden.Controllers
 
         }
 
-        // POST: Datasets/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData,HostingLocation,PublishedToSharedDataCatalog," +
                                                       "Application,OrganizationId")] DatasetViewModel dataset)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
+                return Forbid();
+            
             if (ModelState.IsValid)
             {
                 dataset.OrganizationId = CurrentOrganizationId();
@@ -98,9 +117,12 @@ namespace Arkitektum.Orden.Controllers
             return View(dataset);
         }
 
-        // GET: Datasets/Edit/5
+        [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
+                return Forbid();
+            
             if (id == null)
             {
                 return NotFound();
@@ -117,14 +139,14 @@ namespace Arkitektum.Orden.Controllers
             return View(new DatasetViewModel().Map(datasets));
         }
 
-        // POST: Datasets/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Purpose,AccessRight,HasPersonalData,HasSensitivePersonalData,HasMasterData," +
                                                             "HostingLocation,PublishedToSharedDataCatalog,Application")] DatasetViewModel dataset)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
+                return Forbid();
+            
             if (id != dataset.Id)
             {
                 return NotFound();
@@ -137,9 +159,12 @@ namespace Arkitektum.Orden.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Datasets/Delete/5
+        [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
+                return Forbid();
+            
             if (id == null) return NotFound();
 
             var dataset = await _datasetService.GetAsync(id.Value);
@@ -149,11 +174,13 @@ namespace Arkitektum.Orden.Controllers
             return View(new DatasetViewModel().Map(dataset));
         }
 
-        // POST: Datasets/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost("delete/{id}"), ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
+                return Forbid();
+            
             await _datasetService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
