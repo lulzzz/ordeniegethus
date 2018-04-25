@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
@@ -19,15 +20,48 @@ namespace Arkitektum.Orden
     {
         public static int Main(string[] args)
         {
+            var loggerConfiguration = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+                .WriteTo.Console();
+                
+            var appConfiguration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+                .Build();
+
+            string azureTableStorge = appConfiguration["ConnectionStrings:StorageAccount"];
+            if (azureTableStorge != null)
+            {
+                string tableName = appConfiguration["ConnectionStrings:StorageTableLogging"];
+                loggerConfiguration.WriteTo.AzureTableStorage(azureTableStorge, storageTableName: tableName);
+            }
+
+            Log.Logger = loggerConfiguration.CreateLogger();
+            
+            try
+            {
+                Log.Information("Starting web host");
                 var host = BuildWebHost(args);
 
                 //DropAndRecreateDatabase(host);
                 MigrateAndSeedDatabase(host);
 
                 host.Run();
-
+                
                 return 0;
-         
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Host terminated unexpectedly");
+                return 1;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
         
         private static void DropAndRecreateDatabase(IWebHost host)
@@ -88,12 +122,7 @@ namespace Arkitektum.Orden
                     }); 
                 }) 
                 .UseStartup<Startup>()
-                .ConfigureLogging(builder =>
-                    builder
-                        .AddAzureWebAppDiagnostics()
-                        .AddDebug()
-                        .AddConsole()
-                )
+                .UseSerilog()
                 .UseUrls("https://localhost:5000")
                 .Build();
         }

@@ -48,7 +48,6 @@ namespace Arkitektum.Orden
             services.AddDbContext<ApplicationDbContext>(options =>
                 options
                     .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                    .EnableSensitiveDataLogging()
                 );
 
             services.AddIdentity<ApplicationUser, IdentityRole>(
@@ -119,6 +118,8 @@ namespace Arkitektum.Orden
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseMiddleware<SerilogMiddleware>();
+            
             app.UseSession();
 
             app.UseStaticFiles();
