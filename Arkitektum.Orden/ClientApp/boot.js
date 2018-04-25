@@ -8,6 +8,7 @@ import axios from 'axios';
 /* Views */
 import Application from './components/views/Application.vue';
 import ApplicationRegistry from './components/views/ApplicationRegistry.vue';
+import Dataset from './components/views/Dataset.vue';
 import Sector from './components/views/Sector.vue';
 import Organization from './components/views/Organization.vue';
 
@@ -16,6 +17,7 @@ new Vue( {
     components: {
         Application,
         ApplicationRegistry,
+        Dataset,
         Sector,
         Organization
     },
