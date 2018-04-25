@@ -39,8 +39,8 @@ namespace Arkitektum.Orden
                 loggerConfiguration.WriteTo.AzureTableStorage(azureTableStorge, storageTableName: tableName);
             }
 
-            string logToFile = appConfiguration["LogToFile"];
-            if (logToFile != null )
+            string logToFile = appConfiguration["Logging:LogToFile"];
+            if (!string.IsNullOrWhiteSpace(logToFile) )
             {
                 loggerConfiguration.WriteTo.File(logToFile,
                     fileSizeLimitBytes: 1_000_000,
