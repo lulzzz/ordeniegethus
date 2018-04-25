@@ -27,12 +27,18 @@ new Vue( {
         },
         postApiData(url, apiData) {
             return axios.post(url, apiData)
-                .then(response => { console.log(response); })
+                .then(response => { 
+                    console.log(response);
+                    return response.data;
+                })
                 .catch(error => { throw error });
         },
         putApiData(url, apiData) {
             return axios.put(url, apiData)
-                .then(response => { console.log(response); })
+                .then(response => { 
+                    console.log(response); 
+                    return response.data;
+                })
                 .catch(error => { throw error });
         },
         deleteApiData(url, apiData) {
