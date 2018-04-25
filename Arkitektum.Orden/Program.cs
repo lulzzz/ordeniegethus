@@ -33,7 +33,7 @@ namespace Arkitektum.Orden
                 .Build();
 
             string azureTableStorge = appConfiguration["ConnectionStrings:StorageAccount"];
-            if (azureTableStorge != null)
+            if (!string.IsNullOrWhiteSpace(azureTableStorge))
             {
                 string tableName = appConfiguration["ConnectionStrings:StorageTableLogging"];
                 loggerConfiguration.WriteTo.AzureTableStorage(azureTableStorge, storageTableName: tableName);
