@@ -24,6 +24,9 @@
         <th>
             @Html.DisplayNameFor(model => model.HasMasterData)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Applications)
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -43,6 +46,14 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HasMasterData)
+            </td>
+            <td>
+                <ul>
+                @foreach (var app in item.Applications)
+                {
+                    <li>@app.Name</li>
+                }
+                </ul>
             </td>
         </tr>
     }

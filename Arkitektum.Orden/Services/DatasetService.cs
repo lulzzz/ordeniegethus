@@ -64,7 +64,10 @@ namespace Arkitektum.Orden.Services
 
         public async Task<IEnumerable<Dataset>> GetAllDatasetsForOrganization(int currentOrganizationId)
         {
-            var datasets = _context.Dataset.Where(d => d.OrganizationId == currentOrganizationId).ToListAsync();
+            var datasets = _context.Dataset
+                .Where(d => d.OrganizationId == currentOrganizationId)
+                .Include(d => d.ApplicationDatasets).ThenInclude(ad => ad.Application)
+                .ToListAsync();
 
             return await datasets;
         }
