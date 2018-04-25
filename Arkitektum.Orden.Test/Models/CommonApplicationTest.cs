@@ -66,6 +66,7 @@ namespace Arkitektum.Orden.Test.Models
             app.ApplicationDatasets[0].Dataset.HasPersonalData.Should().BeTrue();
             app.ApplicationDatasets[0].Dataset.HasSensitivePersonalData.Should().BeTrue();
             app.ApplicationDatasets[0].Dataset.HasMasterData.Should().BeTrue();
+            app.ApplicationDatasets[0].Dataset.OrganizationId.Should().Be(OrganizationId);
         }
 
         [Fact]

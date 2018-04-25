@@ -44,7 +44,8 @@ namespace Arkitektum.Orden.Models
                         Purpose = dataset.Purpose,
                         HasPersonalData = dataset.HasPersonalData,
                         HasSensitivePersonalData = dataset.HasSensitivePersonalData,
-                        HasMasterData = dataset.HasMasterData
+                        HasMasterData = dataset.HasMasterData,
+                        OrganizationId = organizationId
                     }
                 });
             return application;
