@@ -111,7 +111,7 @@ namespace Arkitektum.Orden.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("Index", model);
             }
 
             var user = await _userManager.GetUserAsync(User);
