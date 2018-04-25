@@ -39,6 +39,16 @@ namespace Arkitektum.Orden
                 loggerConfiguration.WriteTo.AzureTableStorage(azureTableStorge, storageTableName: tableName);
             }
 
+            string logToFile = appConfiguration["LogToFile"];
+            if (logToFile != null )
+            {
+                loggerConfiguration.WriteTo.File(logToFile,
+                    fileSizeLimitBytes: 1_000_000,
+                    rollOnFileSizeLimit: true,
+                    shared: true,
+                    flushToDiskInterval: TimeSpan.FromSeconds(1));
+            }
+
             Log.Logger = loggerConfiguration.CreateLogger();
             
             try
