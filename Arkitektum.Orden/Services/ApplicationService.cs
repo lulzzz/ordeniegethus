@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Nest;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
+using Serilog;
 
 namespace Arkitektum.Orden.Services
 {
@@ -33,6 +35,8 @@ namespace Arkitektum.Orden.Services
     /// </summary>
     public class ApplicationService : IApplicationService
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+        
         private readonly ApplicationDbContext _context;
         private readonly ISecurityService _securityService;
         private readonly ISearchIndexingService _searchIndexingService;
@@ -51,6 +55,8 @@ namespace Arkitektum.Orden.Services
 
         public async Task<Application> Create(Application application)
         {
+            Log.Information("Create new application {application} for organization {organization}", application.Name, application.OrganizationId);
+            
             _context.Add(application);
             await SaveChanges();
             await _searchIndexingService.AddToIndex(application);
@@ -60,6 +66,9 @@ namespace Arkitektum.Orden.Services
         public async Task Delete(int id)
         {
             var application = await _context.Application.SingleOrDefaultAsync(a => a.Id == id);
+            
+            Log.Information("Deleting {application} for organization {organization}", application.Name, application.OrganizationId);
+            
             _context.Application.Remove(application);
             await SaveChanges();
         }
