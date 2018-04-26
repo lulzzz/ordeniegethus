@@ -7,9 +7,7 @@
             <!-- New dataset applications -->
             <dataset-application v-if="newDatasetApplication" v-bind:selected-dataset-applications="apiData" v-bind:dataset-id="datasetId" v-bind:saved="false" v-on:remove="removeNewDatasetApplication()"></dataset-application>
 
-            <div class="list-group-item" v-if="writeAccess">
-                <button v-show="!newDatasetApplication" v-on:click="createNewDatasetApplication()" class="float-right btn btn-outline-primary"><span class="fas fa-plus"></span> Legg til applikasjon</button>
-            </div>
+            <button v-if="writeAccess" v-show="!newDatasetApplication" v-on:click="createNewDatasetApplication()" class="float-right btn btn-outline-primary list-group-item-button"><span class="fas fa-plus"></span> Legg til applikasjon</button>
         </div>
     </div>
 </template>

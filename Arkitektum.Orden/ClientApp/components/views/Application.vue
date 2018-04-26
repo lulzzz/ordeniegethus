@@ -58,24 +58,18 @@
             </div>
             <div class="col-lg-4">
                 <div class="card">
-                    <div class="card-header bg-info text-white">Tjenesteområder</div>
-                    <div class="card-body">
-                        <application-sectors v-bind:application-sectors="apiData.sectors" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-sectors>
-                    </div>
+                    <div class="card-header">Tjenesteområder</div>
+                    <application-sectors v-bind:application-sectors="apiData.sectors" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-sectors>
                 </div>
                 <div class="mt-3"></div>
                 <div class="card">
-                    <div class="card-header bg-info text-white">Datasett</div>
-                    <div class="card-body">
-                        <application-datasets v-bind:application-datasets="apiData.datasets" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-datasets>
-                    </div>
+                    <div class="card-header">Datasett</div>
+                    <application-datasets v-bind:application-datasets="apiData.datasets" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-datasets>
                 </div>
                 <div class="mt-3"></div>
                 <div class="card">
-                    <div class="card-header bg-info text-white">Nasjonale felleskomponenter</div>
-                    <div class="card-body">
-                        <application-national-components v-bind:application-national-components="apiData.nationalComponents" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-national-components>
-                    </div>
+                    <div class="card-header">Nasjonale felleskomponenter</div>
+                    <application-national-components v-bind:application-national-components="apiData.nationalComponents" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-national-components>
                 </div>
             </div>
         </div>

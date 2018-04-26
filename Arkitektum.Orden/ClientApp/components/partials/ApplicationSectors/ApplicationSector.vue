@@ -9,21 +9,24 @@
     </div>
 
     <!-- New application sector -->
-    <div v-else class="list-group-item">
-        <div class="form-group">
-            <filter-select 
-                v-bind:options="availableSectors"
-                v-bind:selected-options="selectedApplicationSectors"
-                v-bind:filterable-properties="['name']"
-                primary-text-property="name"
-                value-property="id"
-                placeholder="Søk etter tjenesteområde"
-                v-on:select="selectApplicationSector($event)">
-                </filter-select>
-        </div>
-        <div class="float-right">
-            <span class="btn btn-outline-danger" v-on:click="$emit('remove')"><span class="fas fa-trash"></span> Fjern</span>
-            <span class="btn btn-outline-success" v-on:click="$parent.postApplicationSector(data)"><span class="fas fa-check"></span> Legg til</span>
+    <div v-else>
+        <filter-select 
+            v-bind:options="availableSectors"
+            v-bind:selected-options="selectedApplicationSectors"
+            v-bind:filterable-properties="['name']"
+            primary-text-property="name"
+            value-property="id"
+            placeholder="Søk etter tjenesteområde"
+            v-on:select="selectApplicationSector($event)"
+            class="list-group-item-input-field">
+        </filter-select>
+        <div class="row">
+            <div class="col-sm-6">
+                <span class="btn btn-outline-danger list-group-item-button" v-on:click="$emit('remove')"><span class="fas fa-trash"></span> Fjern</span>
+            </div>
+            <div class="col-sm-6">
+                <span class="btn btn-outline-success list-group-item-button" v-on:click="$parent.postApplicationSector(data)"><span class="fas fa-check"></span> Legg til</span>
+            </div>
         </div>
     </div>
 

@@ -38,12 +38,9 @@
                 <dataset-fields v-bind:dataset-id="datasetId" v-bind:dataset-fields="apiData.fields" v-bind:write-access="writeAccess"></dataset-fields>
             </div>
             <div class="col-lg-4">
-                
                 <div class="card">
-                    <div class="card-header bg-info text-white">Applikasjoner</div>
-                    <div class="card-body">
-                        <dataset-applications v-bind:dataset-id="datasetId" v-bind:dataset-applications="apiData.applications" v-bind:write-access="writeAccess"></dataset-applications>
-                    </div>
+                    <div class="card-header">Applikasjoner</div>
+                    <dataset-applications v-bind:dataset-id="datasetId" v-bind:dataset-applications="apiData.applications" v-bind:write-access="writeAccess"></dataset-applications>
                 </div>
             </div>
         </div>
