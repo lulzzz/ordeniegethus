@@ -2,7 +2,7 @@
     <div>
         <div class="list-group list-group-flush">
             <!-- Saved resource links -->
-            <resource-link v-bind:resource-link="resourceLink" v-bind:saved="true" v-on:remove="removeResourceLink(resourceLink.id)" v-for="resourceLink in apiData" :key="resourceLink.id"></resource-link>
+            <resource-link v-bind:resource-link="resourceLink" v-bind:write-access="writeAccess" v-bind:saved="true" v-on:remove="removeResourceLink(resourceLink.id)" v-for="resourceLink in apiData" :key="resourceLink.id"></resource-link>
 
             <!-- New resource links -->
             <resource-link v-if="newResourceLink" v-bind:saved="false" v-on:remove="removeNewResourceLink()"></resource-link>
