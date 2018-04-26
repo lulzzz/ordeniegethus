@@ -2,6 +2,8 @@
 import './assets/icons';
 import './scripts/init';
 import 'bootstrap';
+import jQuery from 'jquery';
+window.jQuery = jQuery;
 import Vue from 'vue';
 import axios from 'axios';
 
