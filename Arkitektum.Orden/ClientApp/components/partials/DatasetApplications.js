@@ -20,8 +20,10 @@ export default {
             newDatasetApplication: false,
         }
     },
-    mounted() {
-        this.apiData = this.datasetApplications;
+    watch: {
+        datasetApplications() {
+            this.apiData = this.datasetApplications;
+        }
     },
     methods: {
         createNewDatasetApplication() {
@@ -36,7 +38,7 @@ export default {
                     this.apiData = apiData;
                 });
         },
-        postApplicationDataset(data) {
+        postDatasetApplication(data) {
             Promise.resolve(this.$root.postApiData(`/applications/dataset/`, { applicationId: data.id, datasetId: this.datasetId } ))
                 .then(() => {
                     this.getDatasetApplications();

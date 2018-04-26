@@ -2,7 +2,7 @@
     <div>
         <div class="list-group list-group-flush">
             <!-- Saved dataset applications -->
-            <dataset-application v-bind:dataset-application="datasetApplication" v-bind:saved="true" v-on:remove="removeDatasetApplication(datasetApplication.id)" v-for="datasetApplication in apiData" :key="datasetApplication.id"></dataset-application>
+            <dataset-application v-bind:dataset-application="datasetApplication" v-bind:write-access="writeAccess" v-bind:saved="true" v-on:remove="removeDatasetApplication(datasetApplication.id)" v-for="datasetApplication in apiData" :key="datasetApplication.id"></dataset-application>
 
             <!-- New dataset applications -->
             <dataset-application v-if="newDatasetApplication" v-bind:selected-dataset-applications="apiData" v-bind:dataset-id="datasetId" v-bind:saved="false" v-on:remove="removeNewDatasetApplication()"></dataset-application>
