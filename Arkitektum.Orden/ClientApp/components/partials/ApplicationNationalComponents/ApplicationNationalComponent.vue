@@ -16,7 +16,6 @@
                 v-bind:selected-options="selectedApplicationNationalComponents" 
                 v-bind:filterable-properties="['name']"
                 primary-text-property="name"
-                secondary-text-property="id"
                 value-property="id"
                 placeholder="Søk etter nasjonale felleskomponenter"
                 v-on:select="selectApplicationNationalComponent($event)">

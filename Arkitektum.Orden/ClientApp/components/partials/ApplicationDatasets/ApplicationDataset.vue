@@ -16,7 +16,6 @@
                 v-bind:selected-options="selectedApplicationDatasets"
                 v-bind:filterable-properties="['name']"
                 primary-text-property="name"
-                secondary-text-property="id"
                 value-property="id"
                 placeholder="Søk etter datasett"
                 v-on:select="selectApplicationDataset($event)">

@@ -16,7 +16,6 @@
                 v-bind:selected-options="selectedApplicationSectors"
                 v-bind:filterable-properties="['name']"
                 primary-text-property="name"
-                secondary-text-property="id"
                 value-property="id"
                 placeholder="Søk etter tjenesteområde"
                 v-on:select="selectApplicationSector($event)">
