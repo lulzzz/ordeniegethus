@@ -12,7 +12,6 @@
     <div v-else>
         <filter-select 
             v-bind:options="availableDatasets"
-            v-bind:selected-options="selectedApplicationDatasets"
             v-bind:filterable-properties="['name']"
             primary-text-property="name"
             value-property="id"

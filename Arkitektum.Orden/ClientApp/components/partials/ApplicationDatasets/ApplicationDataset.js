@@ -5,7 +5,7 @@ export default {
     name: 'ApplicationDataset',
     props: {
         applicationDataset: Object,
-        selectedApplicationDatasets: Array,
+        availableDatasets: Array,
         applicationId: String,
         saved: Boolean,
         writeAccess: {
@@ -19,22 +19,10 @@ export default {
     data() {
         return {
             editable: false,
-            data: this.applicationDataset !== undefined ? this.applicationDataset : { name: '' },
-            availableDatasets: []
-        }
-    },
-    mounted() {
-        if (!this.saved){
-            this.getAvailableDatasets();
+            data: this.applicationDataset !== undefined ? this.applicationDataset : { name: '' }
         }
     },
     methods: {
-        getAvailableDatasets() {
-            Promise.resolve(this.$root.getApiData(`/datasets/all`))
-            .then((apiData) => {
-                this.availableDatasets = apiData;
-            });
-        },
         selectApplicationDataset(applicationDataset) {
             this.data = applicationDataset;
         },

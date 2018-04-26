@@ -18,11 +18,17 @@ export default {
         return {
             apiData: null,            
             newDatasetApplication: false,
+            availableApplications: []
         }
     },
+    mounted() {
+        this.apiData = this.datasetApplications;
+    },
     watch: {
-        datasetApplications() {
-            this.apiData = this.datasetApplications;
+        apiData() {
+            if (this.apiData) {
+                this.getAvailableApplications();
+            }
         }
     },
     methods: {
@@ -38,6 +44,20 @@ export default {
                     this.apiData = apiData;
                 });
         },
+        getAvailableApplications() { 
+            let availableApplications = []; 
+            Promise.resolve(this.$root.getApiData(`/applications/all`)) 
+            .then((apiData) => { 
+                console.log("get available applications");
+                console.log(apiData);
+                apiData.forEach(application => { 
+                    if (!this.apiData.filter(a => a.id == application.id).length) { 
+                        availableApplications.push(application); 
+                    } 
+                }); 
+                this.availableApplications = availableApplications; 
+            }); 
+        }, 
         postDatasetApplication(data) {
             Promise.resolve(this.$root.postApiData(`/applications/dataset/`, { applicationId: data.id, datasetId: this.datasetId } ))
                 .then(() => {

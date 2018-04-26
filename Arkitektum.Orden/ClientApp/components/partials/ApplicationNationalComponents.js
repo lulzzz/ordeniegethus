@@ -18,10 +18,18 @@ export default {
         return {
             apiData: null,            
             newApplicationNationalComponent: false,
+            availableNationalComponents: []
         }
     },
     mounted() {
         this.apiData = this.applicationNationalComponents;
+    },
+    watch: {
+        apiData() {
+            if (this.apiData) {
+                this.getAvailableNationalComponents();
+            }
+        }
     },
     methods: {
         createNewApplicationNationalComponent() {
@@ -35,6 +43,18 @@ export default {
                 .then((apiData) => {
                     this.apiData = apiData;
                 });
+        },
+        getAvailableNationalComponents() {
+            let availableNationalComponents = [];
+            Promise.resolve(this.$root.getApiData(`/nationalcomponents/all`))
+            .then((apiData) => {
+                apiData.forEach(nationalComponent => {
+                    if (!this.apiData.filter(nC => nC.id == nationalComponent.id).length) {
+                        availableNationalComponents.push(nationalComponent);
+                    }
+                });
+                this.availableNationalComponents = availableNationalComponents;
+            });
         },
         postApplicationNationalComponent(data) {
             Promise.resolve(this.$root.postApiData(`/nationalcomponents/application/`, data))

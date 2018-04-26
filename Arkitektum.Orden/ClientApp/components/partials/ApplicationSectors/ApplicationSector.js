@@ -5,7 +5,7 @@ export default {
     name: 'ApplicationSector',
     props: {
         applicationSector: Object,
-        selectedApplicationSectors: Array,
+        availableSectors: Array,
         applicationId: String,
         saved: Boolean,
         writeAccess: {
@@ -19,22 +19,10 @@ export default {
     data() {
         return {
             editable: false,
-            data: this.applicationSector !== undefined ? this.applicationSector : { sectorName: '' },
-            availableSectors: []
-        }
-    },
-    mounted() {
-        if (!this.saved){
-            this.getAvailableSectors();
+            data: this.applicationSector !== undefined ? this.applicationSector : { sectorName: '' }
         }
     },
     methods: {
-        getAvailableSectors() {
-            Promise.resolve(this.$root.getApiData(`/sectors/all`))
-            .then((apiData) => {
-                this.availableSectors = apiData;
-            });
-        },
         selectApplicationSector(applicationSector) {
             this.data = applicationSector;
         },

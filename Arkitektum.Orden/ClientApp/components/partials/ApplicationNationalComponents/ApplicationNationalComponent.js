@@ -5,7 +5,7 @@ export default {
     name: 'ApplicationNationalComponent',
     props: {
         applicationNationalComponent: Object,
-        selectedApplicationNationalComponents: Array,
+        availableNationalComponents: Array,
         applicationId: String,
         saved: Boolean,
         writeAccess: {
@@ -19,22 +19,10 @@ export default {
     data() {
         return {
             editable: false,
-            data: this.applicationNationalComponent !== undefined ? this.applicationNationalComponent : { name: '' },
-            availableNationalComponents: []
-        }
-    },
-    mounted() {
-        if (!this.saved){
-            this.getAvailableNationalComponents();
+            data: this.applicationNationalComponent !== undefined ? this.applicationNationalComponent : { name: '' }
         }
     },
     methods: {
-        getAvailableNationalComponents() {
-            Promise.resolve(this.$root.getApiData(`/nationalcomponents/all`))
-            .then((apiData) => {
-                this.availableNationalComponents = apiData;
-            });
-        },
         selectApplicationNationalComponent(applicationNationalComponent) {
             this.data = applicationNationalComponent;
         },

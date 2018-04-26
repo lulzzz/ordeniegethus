@@ -18,10 +18,18 @@ export default {
         return {
             apiData: null,            
             newApplicationSector: false,
+            availableSectors: []
         }
     },
     mounted() {
         this.apiData = this.applicationSectors;
+    }, 
+    watch: { 
+        apiData() { 
+            if (this.apiData) {
+                this.getAvailableSectors(); 
+            }
+        }
     },
     methods: {
         createNewApplicationSector() {
@@ -36,6 +44,18 @@ export default {
                     this.apiData = apiData;
                 });
         },
+        getAvailableSectors() { 
+            let availableSectors = []; 
+            Promise.resolve(this.$root.getApiData(`/sectors/all`)) 
+            .then((apiData) => { 
+                apiData.forEach(sector => { 
+                    if (!this.apiData.filter(s => s.id == sector.id).length) { 
+                        availableSectors.push(sector); 
+                    } 
+                }); 
+                this.availableSectors = availableSectors; 
+            }); 
+        }, 
         postApplicationSector(data) {
             Promise.resolve(this.$root.postApiData(`/sectors/application/`, { sectorId: data.id, applicationId: this.applicationId }))
                 .then(() => {

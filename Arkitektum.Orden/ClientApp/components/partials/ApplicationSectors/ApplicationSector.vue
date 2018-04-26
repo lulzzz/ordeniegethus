@@ -12,7 +12,6 @@
     <div v-else>
         <filter-select 
             v-bind:options="availableSectors"
-            v-bind:selected-options="selectedApplicationSectors"
             v-bind:filterable-properties="['name']"
             primary-text-property="name"
             value-property="id"
