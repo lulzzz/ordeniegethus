@@ -1,0 +1,10 @@
+@import "../../../scss/abstracts/all";
+
+.field-icon {
+    display: inline-block;
+    width: 18px;
+    color: $primary-color;
+    &.disabled {
+        color: #ccc;
+    }
+}

@@ -35,7 +35,7 @@
                 <h3>Informasjonselementer</h3>
                 <hr/>
 
-                <dataset-fields v-bind:dataset-id="datasetId" write-access></dataset-fields>
+                <dataset-fields v-bind:dataset-id="datasetId" v-bind:dataset-fields="apiData.fields" v-bind:write-access="writeAccess"></dataset-fields>
             </div>
             <div class="col-lg-4">
                 <dataset-applications></dataset-applications>

@@ -11,8 +11,11 @@ export default {
     data() {
         return {
             editable: false,
-            data: this.datasetField !== undefined ? this.datasetField : {description: '', url: ''}
+            data: this.datasetField !== undefined ? this.datasetField : {name: '', description: '', isPersonalData: null, isSensitivePersonalData: null}
         }
+    },
+    mounted() {
+        jQuery(this.$el).find('[data-toggle="tooltip"]').tooltip();
     },
     methods: {
         update() {

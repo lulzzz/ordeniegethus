@@ -1,9 +1,10 @@
 /* Components */
-//import ResourceLink from './DatasetFields/DatasetField.vue';
+import DatasetField from './DatasetFields/DatasetField.vue';
 
 export default {
     name: 'DatasetFields',
     props: {
+        datasetFields: Array,
         datasetId: String,
         writeAccess: {
             type: Boolean,
@@ -11,7 +12,7 @@ export default {
         }
     },
     components: {
-  //      ResourceLink
+        DatasetField
     },
     data() {
         return {
@@ -19,8 +20,10 @@ export default {
             newDatasetField: false,
         }
     },
-    mounted() {
-        this.getDatasetFields();
+    watch: {
+        datasetFields() {
+            this.apiData = this.datasetFields;
+        }
     },
     methods: {
         getDatasetFields() {
@@ -30,10 +33,10 @@ export default {
                 });
         },
         createNewDatasetField() {
-            this.newDatsetField = true;
+            this.newDatasetField = true;
         },
         removeNewDatasetField() {
-            this.newDataset = false;
+            this.newDatasetField = false;
         },
         postDatasetField(data) {
             Promise.resolve(this.$root.postApiData(`/datasets/${this.datasetId}/fields`, data))
@@ -43,9 +46,9 @@ export default {
                 });
         },
         updateDatasetField(datasetFieldId, data) {
-            Promise.resolve(this.$root.putApiData(`/datasets/${this.datasetId}/fields/${datasetFieldId}`, data));
+            Promise.resolve(this.$root.putApiData(`/datasets/${this.datasetId}/fields`, data));
         },
-        removeResourceLink(datasetFieldId) {
+        removeDatasetField(datasetFieldId) {
             Promise.resolve(this.$root.deleteApiData(`/datasets/${this.datasetId}/fields/${datasetFieldId}`))
                 .then(() => {
                     this.getDatasetFields();
