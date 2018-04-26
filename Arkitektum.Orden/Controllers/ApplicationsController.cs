@@ -61,6 +61,16 @@ namespace Arkitektum.Orden.Controllers
             return View(model);
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> All()
+        {
+            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+                return Forbid();
+
+            var applications = await _applicationService.GetAllApplicationsForOrganization(CurrentOrganizationId());
+            return Json(new ApplicationApiViewModel().Map(applications));
+        }
+
         private async Task<List<SelectListItem>> GetSectorViewModel()
         {
             var sectors = await _sectorService.GetAll();
