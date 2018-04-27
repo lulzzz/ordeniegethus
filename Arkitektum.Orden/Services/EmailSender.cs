@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -22,14 +23,22 @@ namespace Arkitektum.Orden.Services
 
         public async Task SendEmailAsync(string email, string subject, string message)
         {
-            var client = new SendGridClient(_appSettings.EmailSettings.SendgridApiKey);
-            var from = new EmailAddress(_appSettings.EmailSettings.FromAddress);
-            var to = new EmailAddress(email);
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, message, message);
+            try
+            {
+                var client = new SendGridClient(_appSettings.EmailSettings.SendgridApiKey);
+                
+                var from = new EmailAddress(_appSettings.EmailSettings.FromAddress);
+                var to = new EmailAddress(email);
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, message, message);
 
-            Log.Information("Sending email to: {email} with subject: {subject}", email, subject);
+                Log.Information("Sending email to: {email} with subject: {subject}", email, subject);
 
-            await client.SendEmailAsync(msg);
+                await client.SendEmailAsync(msg);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Error while sending email: " + e.Message);
+            }
         }
     }
 }
