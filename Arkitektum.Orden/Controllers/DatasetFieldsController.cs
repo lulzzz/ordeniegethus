@@ -1,18 +1,21 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 
 namespace Arkitektum.Orden.Controllers
 {
     public class DatasetFieldsController : Controller
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IFieldService _fieldService;
 
         public DatasetFieldsController(IFieldService fieldService)
@@ -27,7 +30,6 @@ namespace Arkitektum.Orden.Controllers
             IEnumerable<DatasetFieldViewModel> viewModels = new DatasetFieldViewModel().MapToEnumerable(fields);
 
             return Json(viewModels);
-
         }
 
         [HttpPost]
@@ -43,8 +45,9 @@ namespace Arkitektum.Orden.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Log.Error(e, "Could not create field for dataset with id: {datasetId}", id);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
@@ -62,8 +65,9 @@ namespace Arkitektum.Orden.Controllers
 
                 return Json(new DatasetFieldViewModel().Map(field));
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Log.Error(e, "Could not update field {fieldId} on dataset {datasetId}", datasetFieldModel.Id, id);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
@@ -72,15 +76,22 @@ namespace Arkitektum.Orden.Controllers
         [Route("/datasets/{id}/fields/{fieldId}")]
         public async Task<IActionResult> Delete(int id,  int fieldId)
         {
-            if (id == 0 || fieldId == 0)
+            try
             {
-                return BadRequest();
+                if (id == 0 || fieldId == 0)
+                {
+                    return BadRequest();
+                }
+    
+                await _fieldService.Delete(fieldId);
+    
+                return Ok();
             }
-
-            await _fieldService.Delete(fieldId);
-
-            return Ok();
-
+            catch (Exception e)
+            {
+                Log.Error(e, "Could not delete field {fieldId} on dataset {datasetId}", fieldId, id);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
     }
