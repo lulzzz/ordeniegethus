@@ -181,7 +181,7 @@
     <value>Lokal server</value>
   </data>
   <data name="InsightDatasetOverview" xml:space="preserve">
-    <value>Oversikt over datasett</value>
+    <value>Oversikt over publiserte datasett</value>
   </data>
   <data name="InsightsApplicationCostsHeader" xml:space="preserve">
     <value>Oversikt over kostnader til applikasjoner</value>

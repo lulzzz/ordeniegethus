@@ -1,10 +1,14 @@
 ﻿@model Arkitektum.Orden.Models.ViewModels.DatasetsOverviewViewModel
 @{
-    ViewData["Title"] = "DatasetsPublishedStatusOverview";
+    ViewData["Title"] = UIResource.InsightDatasetOverview;
 }
 
-<h2>@UIResource.InsightDatasetOverview</h2>
-<h4>Publiserte dataset: @Model.PublishedDatasets.Count()</h4>
+<h2>@ViewData["Title"]</h2>
+<h4>Publiserte datasett: @Model.PublishedDatasets.Count()</h4>
+
+@if (Model.PublishedDatasets.Any())
+{
+    
 <table class="table">
     <thead>
         <tr>
@@ -28,8 +32,10 @@
         }
     </tbody>
 </table>
+}
 
-<h4>Ikke publiserte dataset: @Model.NotPublishedDatasets.Count()</h4>
+<h4>Ikke publiserte datasett: @Model.NotPublishedDatasets.Count()</h4>
+
 <table class="table">
     <thead>
     <tr>

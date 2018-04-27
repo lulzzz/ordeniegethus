@@ -243,7 +243,7 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oversikt over datasett.
+        ///   Looks up a localized string similar to Oversikt over publiserte datasett.
         /// </summary>
         public static string InsightDatasetOverview {
             get {
