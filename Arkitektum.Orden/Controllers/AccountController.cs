@@ -70,7 +70,7 @@ namespace Arkitektum.Orden.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation("User {email} logged in.", model.Email);
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -79,7 +79,7 @@ namespace Arkitektum.Orden.Controllers
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning("User account {email} locked out.", model.Email);
                     return RedirectToAction(nameof(Lockout));
                 }
                 else
