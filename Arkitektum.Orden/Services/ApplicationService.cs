@@ -225,6 +225,7 @@ namespace Arkitektum.Orden.Services
                 .ThenInclude(sa => sa.Sector)
                 .Include(a => a.ApplicationNationalComponent)
                 .ThenInclude(anc => anc.NationalComponent)
+                .Include(a => a.Vendor)
                 .Where(a => a.OrganizationId == orgId).OrderBy(a => a.Name)
                 .ToListAsync();
 
