@@ -20,7 +20,7 @@
                 
                 <h2>Beskrivelse</h2>
                 <hr/>
-                <p v-if="apiData.description" class="long-text">{{ apiData.description | formatText }}</p>
+                <p v-if="apiData.description" class="long-text">{{ apiData.description }}</p>
                 <p v-if="!apiData.description"><i>Ingen beskrivelse angitt.</i></p>
 
                 <h2>Formål</h2>
