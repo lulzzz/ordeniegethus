@@ -189,6 +189,18 @@ namespace Arkitektum.Orden.Models
             }
         }
 
+        public void RemoveApplicationStandard(int standardId)
+        {
+            foreach (var standard in ApplicationStandards)
+            {
+                if (standard.StandardId == standardId)
+                {
+                    ApplicationStandards.Remove(standard);
+                    break;
+                }
+            }
+        }
+
         public string DecimalToString(decimal inputDecimal)
         {
             string priceAsString = decimal.Round(inputDecimal, 0, MidpointRounding.AwayFromZero).ToString();
