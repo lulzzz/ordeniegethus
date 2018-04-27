@@ -8,7 +8,6 @@
         v-bind:selected-options="selectedApplication"
         v-bind:filterable-properties="['name']"
         primary-text-property="name"
-        secondary-text-property="id"
         value-property="id"
         placeholder="Søk etter applikasjon"
         v-on:select="selectApplication($event)">
