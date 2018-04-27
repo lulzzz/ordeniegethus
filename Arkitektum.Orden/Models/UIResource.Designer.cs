@@ -19,7 +19,7 @@ namespace Arkitektum.Orden.Models {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UIResource {
@@ -153,8 +153,7 @@ namespace Arkitektum.Orden.Models {
         /// <summary>
         ///   Looks up a localized string similar to &lt;h4&gt;Du kan nå logge på Orden i eget hus&lt;/h4&gt;
         ///&lt;p&gt;For å komme igang må du &lt;a href=&quot;{0}&quot;&gt;aktivere&lt;/a&gt; kontoen din.&lt;/p&gt;
-        ///&lt;p&gt;Følg lenken for å aktivere kontoen og registrere et nytt passord&lt;/p&gt;
-        ///&lt;p&gt;Kontoen må aktiveres innen 24 timer fra du mottok denne eposten.&lt;/p&gt;.
+        ///&lt;p&gt;Følg lenken for å aktivere kontoen og registrere et nytt passord.&lt;/p&gt;.
         /// </summary>
         public static string EmailConfirmationBody {
             get {
