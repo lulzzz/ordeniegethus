@@ -7,24 +7,28 @@
 <div class="row">
 
     <div class="col-md-6">
-        <h2>@ModelsResource.Sectors</h2>
-        <hr/>
-        @if (Model.Sectors == null || !Model.Sectors.Any())
+        @if (Model.Sectors.Any())
         {
-            <p>Ingen tjenesteområder er registrert.</p>
+            <h2>@ModelsResource.Sectors</h2>
+            <hr/>
+            foreach (var sector in Model.Sectors)
+            {
+                 <a asp-action="Index" asp-controller="Applications" asp-route-sectorid="@sector.SectorId">@sector.Name</a>
+                 <p>@sector.ApplicationCount applikasjoner</p>
+            }
         }
-        else
+        
+        @if (Model.MyApplications.Any())
         {
+            <h2>Mine applikasjoner</h2>
+            <hr/>
             <ul>
-                @foreach (var sector in Model.Sectors)
+                @foreach (var app in Model.MyApplications)
                 {
-                    
                     <li>
-                        <a asp-action="Details" asp-controller="Sectors" asp-route-id="@sector.SectorId">@sector.Name</a>
-                        <p>@sector.ApplicationCount applikasjoner</p>
+                        <a asp-action="Details" asp-controller="Applications" asp-route-id="@app.Id">@app.Name</a>
                     </li>
                 }
-
             </ul>
         }
     </div>

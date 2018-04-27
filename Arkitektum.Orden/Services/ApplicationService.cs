@@ -28,7 +28,7 @@ namespace Arkitektum.Orden.Services
         Task<int> GetApplicationCountForOrganization(int currentOrganizationId);
         Task<IEnumerable<Application>> GetApplicationsWithFilter(int currentOrganizationId, int sectorId, int nationalComponentId, string sortingOrder);
         InsightsViewModel GetApplicationsGroupedByNationalComponents(int currentOrganizationId);
-        
+        Task<List<Application>> GetApplicationsForUser(string currentUser, int currentOrganizationId);
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -204,7 +204,15 @@ namespace Arkitektum.Orden.Services
             return viewModel;
         }
 
-      
+        public async Task<List<Application>> GetApplicationsForUser(string currentUserId, int currentOrganizationId)
+        {
+            return await _context.Application
+                .Where(a => a.SystemOwnerId == currentUserId && a.OrganizationId == currentOrganizationId)
+                .Include(a => a.SystemOwner)
+                .OrderBy(a => a.Name)
+                .ToListAsync();
+        }
+
 
         public async Task<Application> GetAsync(int id)
         {

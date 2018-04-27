@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
@@ -30,8 +31,11 @@ namespace Arkitektum.Orden.Controllers
                 await _applicationService.GetApplicationCountForOrganization(CurrentOrganizationId());
             model.NumberOfDataset = await _datasetService.GetDatasetsCountForOrganization(CurrentOrganizationId());
             model.NumberOfPublishedDataset = 0; // TODO implement numberOfPublishedDataset
+            
+            model.Sectors =await _sectorService.GetSectorsWithApplicationsForOrganization(CurrentOrganizationId()); 
 
-            model.Sectors =await _sectorService.GetSectorsWithApplicationsForOrganization(CurrentOrganizationId());
+            model.MyApplications = new ApplicationViewModel().Map(await _applicationService.GetApplicationsForUser(CurrentUser().Id(), CurrentOrganizationId()));
+            
             return View(model);
         }
 
