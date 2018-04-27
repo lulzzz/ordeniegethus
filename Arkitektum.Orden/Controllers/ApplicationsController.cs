@@ -56,7 +56,7 @@ namespace Arkitektum.Orden.Controllers
             }
 
             model.Applications = new ApplicationListDetailViewModel().MapToEnumerable(applications);
-            model.Sectors = await GetSectorViewModel();
+            model.Sectors = await GetSectorViewModel(sectorId);
 
             return View(model);
         }
@@ -71,10 +71,10 @@ namespace Arkitektum.Orden.Controllers
             return Json(new ApplicationApiViewModel().Map(applications));
         }
 
-        private async Task<List<SelectListItem>> GetSectorViewModel()
+        private async Task<List<SelectListItem>> GetSectorViewModel(int? sectorId)
         {
             var sectors = await _sectorService.GetAll();
-            return new SectorViewModel().MapToSelectListItems(sectors);
+            return new SectorViewModel().MapToSelectListItems(sectors, sectorId);
         }
 
         private async Task<IEnumerable<ApplicationListDetailViewModel>> GetApplicationListViewModel(SimpleOrganization currentOrganization)

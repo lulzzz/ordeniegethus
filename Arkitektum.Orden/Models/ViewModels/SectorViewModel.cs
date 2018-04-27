@@ -44,16 +44,19 @@ namespace Arkitektum.Orden.Models.ViewModels
             };
         }
 
-        public List<SelectListItem> MapToSelectListItems(IEnumerable<Sector> sectors)
+        public List<SelectListItem> MapToSelectListItems(IEnumerable<Sector> sectors, int? sectorId)
         {
-            List<SelectListItem> sectorItems = new List<SelectListItem>();
+            var selectedId = sectorId ?? 0;
+            
+            var sectorItems = new List<SelectListItem>();
 
             foreach (var sector in sectors)
             {
                 sectorItems.Add(new SelectListItem
                 {
                     Text = sector.Name,
-                    Value = sector.Id.ToString()
+                    Value = sector.Id.ToString(),
+                    Selected = sector.Id == selectedId
                 });
             }
 
