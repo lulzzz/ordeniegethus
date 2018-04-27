@@ -210,6 +210,10 @@
   <data name="NationalComponentCreateNew" xml:space="preserve">
     <value>Registrer ny nasjonal felleskomponent</value>
   </data>
+  <data name="PersonalDataInDatasetTooltip" xml:space="preserve">
+    <value>Datasettet inneholder personopplysninger</value>
+  </data>
+  
   <data name="SectorCreateNew" xml:space="preserve">
     <value>Opprett nytt tjenesteområde</value>
   </data>
@@ -227,6 +231,9 @@
   </data>
   <data name="SensitivePersonalDataBadgeText" xml:space="preserve">
     <value>Sensitiv</value>
+  </data>
+  <data name="SensitivePersonalDataInDatasetTooltip" xml:space="preserve">
+    <value>Datasettet inneholder sensitive personopplysninger.</value>
   </data>
   <data name="SubmitApplicationToAppRegistry" xml:space="preserve">
     <value>Send inn forslag til felles applikasjonsregister</value>

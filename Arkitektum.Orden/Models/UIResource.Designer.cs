@@ -333,6 +333,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datasettet inneholder personopplysninger.
+        /// </summary>
+        public static string PersonalDataInDatasetTooltip {
+            get {
+                return ResourceManager.GetString("PersonalDataInDatasetTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opprett nytt tjenesteområde.
         /// </summary>
         public static string SectorCreateNew {
@@ -383,6 +392,15 @@ namespace Arkitektum.Orden.Models {
         public static string SensitivePersonalDataBadgeText {
             get {
                 return ResourceManager.GetString("SensitivePersonalDataBadgeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Datasettet inneholder sensitive personopplysninger..
+        /// </summary>
+        public static string SensitivePersonalDataInDatasetTooltip {
+            get {
+                return ResourceManager.GetString("SensitivePersonalDataInDatasetTooltip", resourceCulture);
             }
         }
         

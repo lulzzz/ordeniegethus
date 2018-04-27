@@ -5,35 +5,45 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<div class="card-deck">
+<div class="row">
 @foreach (var dataset in Model) 
 {
-    <div class="card">
-        <div class="card-header">
-            @dataset.Name
-            @if (dataset.HasSensitivePersonalData)
-            {
-                <span class="badge badge-danger">@UIResource.SensitivePersonalDataBadgeText</span>
-            }
-        </div>
-        <div class="card-body">
-            <strong>@ModelsResource.Fields:</strong>
-            <ul>
-            @foreach(var field in dataset.Fields)
-            {
-                <li>
-                    @field.Name
-                    @if (field.IsPersonalData)
-                    {
-                        <span class="badge badge-info" title="Personopplysning">P</span>
-                    }
-                    @if (field.IsSensitivePersonalData)
-                    {
-                    <span class="badge badge-danger" title="Sensitiv personopplysning">S</span>
-                    }
-                </li>
-            }
-            </ul>
+    <div class="col-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <a asp-action="Details" asp-controller="Datasets" asp-route-id="@dataset.Id">@dataset.Name</a>
+            </div>
+            <div class="card-body">
+                @if (dataset.HasPersonalData)
+                {
+                    <p><i class="fas fa-shield-alt" style="color: #007bff"></i> @UIResource.PersonalDataInDatasetTooltip</p>
+                }
+                @if (dataset.HasSensitivePersonalData)
+                {
+                    <p><i class="fas fa-lock" style="color: #007bff"></i> @UIResource.SensitivePersonalDataInDatasetTooltip</p>
+                }
+                
+                @if (dataset.Fields.Any())
+                {
+                    <strong>@ModelsResource.Fields:</strong>
+                    <ul>
+                        @foreach (var field in dataset.Fields)
+                        {
+                            <li>
+                                @field.Name
+                                @if (field.IsPersonalData)
+                                {
+                                    <span title="Personopplysning"><i class="fas fa-shield-alt" style="color: #007bff"></i></span>
+                                }
+                                @if (field.IsSensitivePersonalData)
+                                {
+                                    <span title="Sensitiv personopplysning"><i class="fas fa-lock" style="color: #007bff"></i></span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </div>
 }
