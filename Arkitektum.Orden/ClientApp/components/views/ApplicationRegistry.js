@@ -33,7 +33,7 @@ export default {
             Promise.resolve(this.$root.postApiData(this.apiUrls.create, 
                     { commonApplicationId: this.application.id, versionNumber: this.application.versions[0].versionNumber}))
                 .then((apiData) => {
-                    console.log(apiData);
+                    location.href = apiData.location;
                 });
         }
     },
