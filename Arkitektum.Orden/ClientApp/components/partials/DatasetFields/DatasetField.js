@@ -11,7 +11,7 @@ export default {
     data() {
         return {
             editable: false,
-            data: this.datasetField !== undefined ? this.datasetField : {name: '', description: '', isPersonalData: null, isSensitivePersonalData: null}
+            data: this.datasetField !== undefined ? this.datasetField : {name: '', description: '', isPersonalData: false, isSensitivePersonalData: false}
         }
     },
     mounted() {
