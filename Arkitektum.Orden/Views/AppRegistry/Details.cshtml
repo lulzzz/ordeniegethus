@@ -19,6 +19,21 @@
                 {
                     <li>@component.NationalComponent.Name</li>
                 }
+                @if (!version.SupportedNationalComponents.Any())
+                {
+                    <li><em>Ingen detaljer registrert.</em></li>
+                }
+             </ul>
+            <h3>@UIResource.Standards</h3>
+            <ul>
+                @foreach (var standard in version.SupportedStandards)
+                {
+                    <li>@standard.Standard.Name</li>
+                }
+                @if (!version.SupportedStandards.Any())
+                {
+                    <li><em>Ingen detaljer registrert.</em></li>
+                }
             </ul>
             <h3>@ModelsResource.Datasets</h3>
             <div class="card-deck">
@@ -45,6 +60,10 @@
                             </ul>
                         </div>
                     </div>
+                }
+                @if (!Model.CommonDatasets.Any())
+                {
+                    <p><em>Ingen detaljer registrert.</em></p>
                 }
             </div>
 
