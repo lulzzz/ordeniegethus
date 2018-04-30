@@ -213,7 +213,6 @@
   <data name="PersonalDataInDatasetTooltip" xml:space="preserve">
     <value>Datasettet inneholder personopplysninger</value>
   </data>
-  
   <data name="SectorCreateNew" xml:space="preserve">
     <value>Opprett nytt tjenesteområde</value>
   </data>
@@ -282,5 +281,8 @@
   </data>
   <data name="Subjects" xml:space="preserve">
     <value>Begrep</value>
+  </data>
+  <data name="Standards" xml:space="preserve">
+    <value>Standarder</value>
   </data>
 </root>
