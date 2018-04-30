@@ -1,6 +1,8 @@
 ﻿using System;
+using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
+using Arkitektum.Orden.Utils;
 using Microsoft.AspNetCore.Http;
 using Moq;
 
@@ -31,6 +33,12 @@ namespace Arkitektum.Orden.Test
         public Mock<ISecurityService> Mock()
         {
             return _mock;
+        }
+
+        public SecurityServiceMock SetAccessToApplication(Application application, AccessLevel accessLevel)
+        {
+            _mock.Setup(s => s.CurrrentUserHasAccessToApplication(application, accessLevel)).Returns(true);
+            return this;
         }
     }
 }
