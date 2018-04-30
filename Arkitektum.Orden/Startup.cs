@@ -88,6 +88,7 @@ namespace Arkitektum.Orden
             services.AddTransient<IApplicationDatasetService, ApplicationDatasetService>();
             services.AddTransient<IDatasetInsightsService, DatasetInsightsService>();
             services.AddTransient<IConceptService, ConceptService>();
+            services.AddTransient<IStandardService, StandardService>();
 
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new LocalizedDisplayMetadataProvider()));
