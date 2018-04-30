@@ -9,8 +9,7 @@
         public string Url { get; set; }
 
         public int ApplicationId { get; set; }
-
-        public int? DatasetContactPointsId { get; set; } 
+        
         public virtual Dataset DatasetConnectionPoints { get; set; }
 
         public int? DatasetResourceLinkId { get; set; }

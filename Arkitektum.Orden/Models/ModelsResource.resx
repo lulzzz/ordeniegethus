@@ -234,4 +234,7 @@
   <data name="Insight" xml:space="preserve">
     <value>Innsikt</value>
   </data>
+  <data name="AvailableConcepts" xml:space="preserve">
+    <value>Teamer</value>
+  </data>
 </root>

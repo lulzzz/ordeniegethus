@@ -97,6 +97,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teamer.
+        /// </summary>
+        public static string AvailableConcepts {
+            get {
+                return ResourceManager.GetString("AvailableConcepts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dataplassering.
         /// </summary>
         public static string DataLocation {

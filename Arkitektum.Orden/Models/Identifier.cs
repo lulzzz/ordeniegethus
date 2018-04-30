@@ -5,5 +5,7 @@
         public int Id { get; set; }
 
         public string IdentifierField { get; set; }
+
+        public int DatasetId { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace Arkitektum.Orden.Services
         Task Delete(int id);
         Task<IEnumerable<Dataset>> GetAllDatasetsForOrganization(int currentOrganizationId);
         Task UpdateAsync(int id, Dataset updatedDataset);
+        Task<Dataset> UpdateMetadataAsync(int id, Dataset updatedDataset);
         Task<int> GetDatasetsCountForOrganization(int currentOrganizationId);
     }
     /// <summary>
@@ -84,6 +85,23 @@ namespace Arkitektum.Orden.Services
             }
            
             await SaveChanges();
+        }
+
+        public async Task<Dataset> UpdateMetadataAsync(int id, Dataset updatedDataset)
+        {
+            var currentDataset = await GetAsync(id);
+
+            currentDataset.Keywords = updatedDataset.Keywords;
+            currentDataset.AccessRightComments = updatedDataset.AccessRightComments;
+            currentDataset.Concepts = updatedDataset.Concepts;
+            currentDataset.ContactPoints = updatedDataset.ContactPoints;
+            currentDataset.Description = updatedDataset.Description;
+            currentDataset.Distributions = updatedDataset.Distributions;
+            currentDataset.Subjects = updatedDataset.Subjects;
+
+            await SaveChanges();
+
+            return currentDataset;
         }
 
         public async Task<int> GetDatasetsCountForOrganization(int currentOrganizationId)

@@ -79,6 +79,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skjermingshjemmel.
+        /// </summary>
+        public static string AccessRightComments {
+            get {
+                return ResourceManager.GetString("AccessRightComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Du må velge en leverandør fra listen eller skrive inn navn på en ny leverandør..
         /// </summary>
         public static string ApplicationCreateModelVendorNotDefined {
@@ -106,6 +115,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Temaer.
+        /// </summary>
+        public static string AvailableConcepts {
+            get {
+                return ResourceManager.GetString("AvailableConcepts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lagre.
         /// </summary>
         public static string ButtonSave {
@@ -124,6 +142,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontaktpunkt.
+        /// </summary>
+        public static string ContactPoints {
+            get {
+                return ResourceManager.GetString("ContactPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Slett.
         /// </summary>
         public static string Delete {
@@ -133,11 +160,29 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse av dataset.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detaljer.
         /// </summary>
         public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Distribusjon.
+        /// </summary>
+        public static string Distributions {
+            get {
+                return ResourceManager.GetString("Distributions", resourceCulture);
             }
         }
         
@@ -244,6 +289,16 @@ namespace Arkitektum.Orden.Models {
         
         /// <summary>
         ///   Looks up a localized string similar to Oversikt over publiserte datasett.
+        ///   Looks up a localized string similar to Identifikator.
+        /// </summary>
+        public static string Identifiers {
+            get {
+                return ResourceManager.GetString("Identifiers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oversikt over datasett.
         /// </summary>
         public static string InsightDatasetOverview {
             get {
@@ -275,6 +330,15 @@ namespace Arkitektum.Orden.Models {
         public static string InsightsNationalComponentsUsageHeader {
             get {
                 return ResourceManager.GetString("InsightsNationalComponentsUsageHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emneord.
+        /// </summary>
+        public static string Keywords {
+            get {
+                return ResourceManager.GetString("Keywords", resourceCulture);
             }
         }
         
@@ -401,6 +465,15 @@ namespace Arkitektum.Orden.Models {
         public static string SensitivePersonalDataInDatasetTooltip {
             get {
                 return ResourceManager.GetString("SensitivePersonalDataInDatasetTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begrep.
+        /// </summary>
+        public static string Subjects {
+            get {
+                return ResourceManager.GetString("Subjects", resourceCulture);
             }
         }
         

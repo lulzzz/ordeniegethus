@@ -13,14 +13,31 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180426084806_DatasetDcatConceptConnectionAdded")]
+    partial class DatasetDcatConceptConnectionAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.0-preview1-28290")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.AccessRightComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AccessRightCommentField");
+
+                    b.Property<int?>("DatasetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DatasetId");
+
+                    b.ToTable("AccessRightComment");
+                });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.Application", b =>
                 {
@@ -301,12 +318,6 @@ namespace Arkitektum.Orden.Migrations
 
                     b.Property<int?>("AccessRight");
 
-                    b.Property<string>("AccessRightComments");
-
-                    b.Property<string>("Concepts");
-
-                    b.Property<string>("ContactPoints");
-
                     b.Property<DateTime?>("DateCreated");
 
                     b.Property<DateTime?>("DateModified");
@@ -314,8 +325,6 @@ namespace Arkitektum.Orden.Migrations
                     b.Property<int?>("DcatCatalogId");
 
                     b.Property<string>("Description");
-
-                    b.Property<string>("Distributions");
 
                     b.Property<bool>("HasMasterData");
 
@@ -325,10 +334,6 @@ namespace Arkitektum.Orden.Migrations
 
                     b.Property<int?>("HostingLocation");
 
-                    b.Property<string>("Identifiers");
-
-                    b.Property<string>("Keywords");
-
                     b.Property<string>("Name");
 
                     b.Property<int>("OrganizationId");
@@ -336,8 +341,6 @@ namespace Arkitektum.Orden.Migrations
                     b.Property<DateTime?>("PublishedToSharedDataCatalog");
 
                     b.Property<string>("Purpose");
-
-                    b.Property<string>("Subjects");
 
                     b.Property<string>("UserCreated");
 
@@ -383,6 +386,44 @@ namespace Arkitektum.Orden.Migrations
                     b.ToTable("DcatCatalog");
                 });
 
+            modelBuilder.Entity("Arkitektum.Orden.Models.DcatConcept", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<int>("DatasetId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DatasetId");
+
+                    b.ToTable("DcatConcept");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.Distribution", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("DatasetId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<int?>("LicenseId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DatasetId");
+
+                    b.HasIndex("LicenseId");
+
+                    b.ToTable("Distribution");
+                });
+
             modelBuilder.Entity("Arkitektum.Orden.Models.Field", b =>
                 {
                     b.Property<int>("Id")
@@ -405,6 +446,38 @@ namespace Arkitektum.Orden.Migrations
                     b.ToTable("Fields");
                 });
 
+            modelBuilder.Entity("Arkitektum.Orden.Models.Format", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("DistributionId");
+
+                    b.Property<string>("FormatField");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DistributionId");
+
+                    b.ToTable("Format");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.Identifier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("DatasetId");
+
+                    b.Property<string>("IdentifierField");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DatasetId");
+
+                    b.ToTable("Identifier");
+                });
+
             modelBuilder.Entity("Arkitektum.Orden.Models.Integration", b =>
                 {
                     b.Property<int>("Id")
@@ -413,6 +486,34 @@ namespace Arkitektum.Orden.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Integration");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.Keyword", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("DatasetId");
+
+                    b.Property<string>("KeywordField");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DatasetId");
+
+                    b.ToTable("Keyword");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.LicenseDocument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("LicenseType");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LicenseDocument");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.NationalComponent", b =>
@@ -476,13 +577,15 @@ namespace Arkitektum.Orden.Migrations
 
                     b.Property<int>("ApplicationId");
 
-                    b.Property<int?>("DatasetConnectionPointsId");
+                    b.Property<int?>("DatasetContactPointsId");
 
                     b.Property<int?>("DatasetLawReferenceId");
 
                     b.Property<int?>("DatasetResourceLinkId");
 
                     b.Property<string>("Description");
+
+                    b.Property<int?>("DistributionId");
 
                     b.Property<int?>("SectorId");
 
@@ -492,11 +595,13 @@ namespace Arkitektum.Orden.Migrations
 
                     b.HasIndex("ApplicationId");
 
-                    b.HasIndex("DatasetConnectionPointsId");
+                    b.HasIndex("DatasetContactPointsId");
 
                     b.HasIndex("DatasetLawReferenceId");
 
                     b.HasIndex("DatasetResourceLinkId");
+
+                    b.HasIndex("DistributionId");
 
                     b.HasIndex("SectorId");
 
@@ -537,7 +642,7 @@ namespace Arkitektum.Orden.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Standards");
+                    b.ToTable("Standard");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.SuperUser", b =>
@@ -678,6 +783,13 @@ namespace Arkitektum.Orden.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.AccessRightComment", b =>
+                {
+                    b.HasOne("Arkitektum.Orden.Models.Dataset")
+                        .WithMany("AccessRightComments")
+                        .HasForeignKey("DatasetId");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.Application", b =>
@@ -833,10 +945,50 @@ namespace Arkitektum.Orden.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Arkitektum.Orden.Models.DcatConcept", b =>
+                {
+                    b.HasOne("Arkitektum.Orden.Models.Dataset")
+                        .WithMany("Concepts")
+                        .HasForeignKey("DatasetId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.Distribution", b =>
+                {
+                    b.HasOne("Arkitektum.Orden.Models.Dataset", "Dataset")
+                        .WithMany("Distributions")
+                        .HasForeignKey("DatasetId");
+
+                    b.HasOne("Arkitektum.Orden.Models.LicenseDocument", "License")
+                        .WithMany()
+                        .HasForeignKey("LicenseId");
+                });
+
             modelBuilder.Entity("Arkitektum.Orden.Models.Field", b =>
                 {
                     b.HasOne("Arkitektum.Orden.Models.Dataset", "Dataset")
                         .WithMany("Fields")
+                        .HasForeignKey("DatasetId");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.Format", b =>
+                {
+                    b.HasOne("Arkitektum.Orden.Models.Distribution")
+                        .WithMany("Formats")
+                        .HasForeignKey("DistributionId");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.Identifier", b =>
+                {
+                    b.HasOne("Arkitektum.Orden.Models.Dataset")
+                        .WithMany("Identifiers")
+                        .HasForeignKey("DatasetId");
+                });
+
+            modelBuilder.Entity("Arkitektum.Orden.Models.Keyword", b =>
+                {
+                    b.HasOne("Arkitektum.Orden.Models.Dataset")
+                        .WithMany("Keywords")
                         .HasForeignKey("DatasetId");
                 });
 
@@ -874,8 +1026,8 @@ namespace Arkitektum.Orden.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Arkitektum.Orden.Models.Dataset", "DatasetConnectionPoints")
-                        .WithMany()
-                        .HasForeignKey("DatasetConnectionPointsId");
+                        .WithMany("ContactPoints")
+                        .HasForeignKey("DatasetContactPointsId");
 
                     b.HasOne("Arkitektum.Orden.Models.Dataset", "DatasetLawReference")
                         .WithMany("LawReferences")
@@ -884,6 +1036,10 @@ namespace Arkitektum.Orden.Migrations
                     b.HasOne("Arkitektum.Orden.Models.Dataset", "DatasetResourceLink")
                         .WithMany("ResourceLinks")
                         .HasForeignKey("DatasetResourceLinkId");
+
+                    b.HasOne("Arkitektum.Orden.Models.Distribution")
+                        .WithMany("Resources")
+                        .HasForeignKey("DistributionId");
 
                     b.HasOne("Arkitektum.Orden.Models.Sector")
                         .WithMany("LawReferences")

@@ -13,9 +13,10 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180427105642_DcatModelsRemoved")]
+    partial class DcatModelsRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -537,7 +538,7 @@ namespace Arkitektum.Orden.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Standards");
+                    b.ToTable("Standard");
                 });
 
             modelBuilder.Entity("Arkitektum.Orden.Models.SuperUser", b =>

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Reflection;
+using Nest;
 
 namespace Arkitektum.Orden.Models
 {
@@ -27,13 +31,15 @@ namespace Arkitektum.Orden.Models
         ///<summary>
         /// Inneholder emneord (eller tag) som beskriver datasettet
         /// </summary>
-        public virtual List<Keyword> Keywords { get; set; }
+        public string Keywords { get; set; }
+
+
 
         /// <summary>
         /// Hovedidentifikator for datasettet, for eksempel en URI 
         /// eller annen identifikator som er stabil og globalt unik
         /// </summary>
-        public virtual List<Identifier> Identifiers { get; set; }
+        public string Identifiers { get; set; }
 
         /// <summary>
         /// Dette feltet angir i hvilken grad datasettet kan bli gjort
@@ -65,7 +71,7 @@ namespace Arkitektum.Orden.Models
         ///  er anbefalt dersom «tilgangsnivå» har verdiene «restricted»
         ///  eller «non-public»
         /// </summary>
-        public virtual List<AccessRightComment> AccessRightComments { get; set; }
+        public string AccessRightComments { get; set; }
 
         /// <summary>
         ///     Personopplysninger
@@ -97,14 +103,19 @@ namespace Arkitektum.Orden.Models
         /// og internasjonale vokabular kan brukes om de oppfyller denne
         /// standardens krav til kontrollerte vokabular.
         /// </summary>
-        public virtual List<DcatConcept> Concepts { get; set; }
+        public string Concepts { get; set; }
 
         ///<summary>
         /// Referanse til kontaktpunktsobjekt med kontaktopplysninger. 
         /// Disse kan brukes til å sende kommentarer om datasettet.
         /// </summary>
-        public virtual List<ResourceLink> ContactPoints { get; set; }
+        public string ContactPoints { get; set; }
 
+        ///<summary>
+        /// Referanse til sentrale begrep som er viktige for å forstå og tolke
+        ///  datasettet. Representeres som URI-er
+        /// </summary>
+        public string Subjects { get; set; }
 
         /// <summary>
         /// Lenker til eksterne ressurser
@@ -146,20 +157,86 @@ namespace Arkitektum.Orden.Models
         /// <summary>
         /// Koblingen mellom datasettet og en tilgjengelig distribusjon
         /// </summary>
-        public virtual List<Distribution> Distributions { get; set; }
+        public string Distributions { get; set; }
 
         public Dataset()
         {
-            Keywords = new List<Keyword>();
-            Identifiers = new List<Identifier>();
-            AccessRightComments = new List<AccessRightComment>();
-            Concepts = new List<DcatConcept>();
-            ContactPoints = new List<ResourceLink>();
             ResourceLinks = new List<ResourceLink>();
             LawReferences = new List<ResourceLink>();
             Fields = new List<Field>();
-            ApplicationDatasets = new List<ApplicationDataset>();
-            Distributions = new List<Distribution>();
+            KeywordsAsList = new List<string>();
+            ConceptsAsList = new List<string>();
+            IdentifiersAsList = new List<string>();
+            ContactPointsAsList = new List<string>();
+            DistributionsAsList = new List<string>();
+            AccessRightCommentsAsList = new List<string>();
+            SubjectsAsList = new List<string>();
+        }
+
+
+        private List<string> SplitByPipe(string input)
+        {
+            if (input == null)
+                return new List<string>();
+
+            return input.Split('|').ToList();
+        }
+
+        private string JoinByPipe(List<string> input)
+        {
+            if (input == null)
+                return null;
+
+            return string.Join('|', input);
+        }
+
+       [NotMapped]
+        public  List<string> KeywordsAsList
+        {
+            get => SplitByPipe(Keywords);
+            set => Keywords = JoinByPipe(value);
+        }
+
+        [NotMapped]
+        public List<string> ConceptsAsList
+        {
+            get => SplitByPipe(Concepts);
+            set => Concepts = JoinByPipe(value);
+        }
+
+        [NotMapped]
+        public List<string> IdentifiersAsList
+        {
+            get => SplitByPipe(Identifiers);
+            set => Identifiers = JoinByPipe(value);
+        }
+
+        [NotMapped]
+        public List<string> ContactPointsAsList
+        {
+            get => SplitByPipe(ContactPoints);
+            set => ContactPoints = JoinByPipe(value);
+        }
+
+        [NotMapped]
+        public List<string> DistributionsAsList
+        {
+            get => SplitByPipe(Distributions);
+            set => Distributions = JoinByPipe(value);
+        }
+
+        [NotMapped]
+        public List<string> AccessRightCommentsAsList
+        {
+            get => SplitByPipe(AccessRightComments);
+            set => AccessRightComments = JoinByPipe(value);
+        }
+
+        [NotMapped]
+        public List<string> SubjectsAsList
+        {
+            get => SplitByPipe(Subjects);
+            set => Subjects = JoinByPipe(value);
         }
 
         public void UpdateApplicationRelation(List<ApplicationDataset> updateDatasetApplicationDatasets)
@@ -189,7 +266,8 @@ namespace Arkitektum.Orden.Models
             return ApplicationDatasets?.Select(sa => sa.Application);
         }
 
-        }
+    
+    }
 
 
     /// <summary>

@@ -1,0 +1,142 @@
+﻿@model Arkitektum.Orden.Models.ViewModels.DatasetMetadataViewModel
+
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h2>Registrering av metadata for @Model.DatasetName</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly" class="list-group"></div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AvailableConcepts" class="control-label">@UIResource.AvailableConcepts</label>
+                <select asp-for="AvailableConcepts" asp-items="@Model.AvailableConcepts" class="form-control" multiple="multiple">
+                    <option value="" disabled="disabled">Velg temaer fra listen</option>
+                </select>
+                <span asp-validation-for="AvailableConcepts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Identifiers" class="control-label">@UIResource.Identifiers</label>
+                @if (!Model.Identifiers.Any())
+                {
+                    <input asp-for="Identifiers" class="form-control" />
+                    <span asp-validation-for="Identifiers" class="text-danger"></span>
+                }
+                else
+                {
+                    foreach (var item in Model.Identifiers)
+                    {
+                        <input asp-for="Identifiers" value="@item" class="form-control" />
+                        <span asp-validation-for="Identifiers" class="text-danger"></span>
+                        <br>
+                    }
+                }
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactPoints" class="control-label">@UIResource.ContactPoints</label>
+                @if (!Model.ContactPoints.Any())
+                {
+                    <input asp-for="ContactPoints" class="form-control" />
+                    <span asp-validation-for="ContactPoints" class="text-danger"></span>
+                }
+                else
+                {
+                    foreach (var item in Model.ContactPoints)
+                    {
+                        <input asp-for="ContactPoints" value="@item" class="form-control" />
+                        <span asp-validation-for="ContactPoints" class="text-danger"></span>
+                        <br>
+                    }
+                }
+
+            </div>
+   
+            <div class="form-group">
+                <label asp-for="Distributions" class="control-label">@UIResource.Distributions</label>
+                @if (!Model.Distributions.Any())
+                {
+                    <input asp-for="Distributions" class="form-control" />
+                    <span asp-validation-for="Distributions" class="text-danger"></span>
+                }
+                else
+                {
+                    foreach (var item in Model.Distributions)
+                    {
+                        <input asp-for="Distributions" value="@item" class="form-control" />
+                        <span asp-validation-for="Distributions" class="text-danger"></span>
+                        <br>
+                    }
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Keywords" class="control-label">@UIResource.Keywords</label>
+                @if (!Model.Keywords.Any())
+                {
+                    <input asp-for="Keywords" class="form-control" />
+                    <span asp-validation-for="Keywords" class="text-danger"></span>
+                }
+                else
+                {
+                    foreach (var item in Model.Keywords)
+                    {
+                        <input asp-for="Keywords" value="@item" class="form-control" />
+                        <span asp-validation-for="Keywords" value="@item" class="text-danger"></span>
+                        <br>
+                    }
+                }
+            </div>
+      
+            <div class="form-group">
+                <label asp-for="AccessRightComments" class="control-label">@UIResource.AccessRightComments</label>
+                @if (!Model.AccessRightComments.Any())
+                {
+                    <input asp-for="AccessRightComments" class="form-control" />
+                    <span asp-validation-for="AccessRightComments" class="text-danger"></span>
+                }
+                else
+                {
+                    foreach (var item in Model.AccessRightComments)
+                    {
+                        <input asp-for="AccessRightComments" value="@item" class="form-control" />
+                        <span asp-validation-for="AccessRightComments" class="text-danger"></span>
+                        <br>
+                    }
+                }
+            </div>
+            <div class="form-group">
+                <label asp-for="Subjects" class="control-label">@UIResource.Subjects</label>
+                @if (!Model.Subjects.Any())
+                {
+                    <input asp-for="Subjects" class="form-control" />
+                    <span asp-validation-for="Subjects" class="text-danger"></span>
+                }
+                else
+                {
+                    foreach (var item in Model.Subjects)
+                    {
+                        <input asp-for="Subjects" value="@item" class="form-control" />
+                        <span asp-validation-for="Subjects" class="text-danger"></span>
+                        <br>
+                    }
+                }
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@UIResource.ButtonSave" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>

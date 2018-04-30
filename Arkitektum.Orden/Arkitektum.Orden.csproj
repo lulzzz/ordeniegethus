@@ -21,6 +21,8 @@
     <Compile Remove="Data\Migrations\20180305201150_UpdateBeforeDemoMeeting.Designer.cs" />
     <Compile Remove="Migrations\20180410103221_test.cs" />
     <Compile Remove="Migrations\20180410103221_test.Designer.cs" />
+    <Compile Remove="Migrations\20180426084138_ConnectionBetweenDatasetAndDcatConceptAdded.cs" />
+    <Compile Remove="Migrations\20180426084138_ConnectionBetweenDatasetAndDcatConceptAdded.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="ClientApp\components\views\Sector.js" />
