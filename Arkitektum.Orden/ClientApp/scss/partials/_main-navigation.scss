@@ -156,6 +156,9 @@
         left: 0;
         display: block;
         background-color: #fbfcfd;
+        &.collapse{
+            display: block;
+        }
         .main-navigation-content {
             width: 100%;
             margin: auto;
