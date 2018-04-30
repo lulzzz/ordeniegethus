@@ -13,10 +13,7 @@ namespace Arkitektum.Orden.Services
     }
     public class ConceptService : IConceptService
     {
-        public ConceptService()
-        {
-        }
-
+  
         public List<DcatConcept> GetConcepts()
         {
             List<DcatConcept> concepts = new List<DcatConcept>
