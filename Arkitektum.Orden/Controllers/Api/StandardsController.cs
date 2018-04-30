@@ -14,27 +14,34 @@ namespace Arkitektum.Orden.Controllers.Api
     [Route("api/standards")]
     public class StandardsController : BaseController
     {
-        public StandardsController(ISecurityService securityService, ApplicationDbContext context) : base(
+        private readonly IStandardService _standardService;
+
+        public StandardsController(ISecurityService securityService, IStandardService standardService) : base(
             securityService)
         {
+            _standardService = standardService;
         }
 
         [HttpGet("")]
         public async Task<IActionResult> All()
         {
-            List<Standard> standards = await _context.Standards.ToListAsync();
+            IEnumerable<Standard> standards = await _standardService.All();
             return Json(new StandardViewModel().Map(standards));
         }
 
         [HttpPost("application")]
         public async Task<IActionResult> AddStandardToApplication([FromBody] ApplicationStandardViewModel model)
         {
+            await _standardService.AddStandardToApplication(new ApplicationStandard().Map(model));
+            
             return NoContent();
         }
         
         [HttpDelete("{standardId}/application/{applicationId}")]
         public async Task<IActionResult> RemoveStandardFromApplication(int standardId, int applicationId)
         {
+            await _standardService.RemoveStandardFromApplication(
+                new ApplicationStandard() {StandardId = standardId, ApplicationId = applicationId});
             return NoContent();
         }
     }

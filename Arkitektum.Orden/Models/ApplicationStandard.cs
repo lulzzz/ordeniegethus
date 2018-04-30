@@ -1,4 +1,6 @@
-﻿namespace Arkitektum.Orden.Models
+﻿using Arkitektum.Orden.Models.Api;
+
+namespace Arkitektum.Orden.Models
 {
     /// <summary>
     ///     Many-to-many relation between Application and Standard
@@ -11,5 +13,12 @@
         public virtual Application Application { get; set; }
 
         public virtual Standard Standard { get; set; }
+
+        public ApplicationStandard Map(ApplicationStandardViewModel model)
+        {
+            ApplicationId = model.ApplicationId;
+            StandardId = model.StandardId;
+            return this;
+        }
     }
 }
