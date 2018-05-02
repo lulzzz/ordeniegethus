@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
@@ -29,6 +30,18 @@ namespace Arkitektum.Orden.Controllers.Api
         public async Task<IActionResult> All()
         {
             IEnumerable<Standard> standards = await _standardService.All();
+            return Json(new StandardViewModel().Map(standards));
+        }
+
+        [HttpGet("application/{applicationId}")]
+        public async Task<IActionResult> ApplicationStandards(int applicationId)
+        {
+            Application application = await _applicationService.GetAsync(applicationId);
+            if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Read))
+                return Forbid();
+
+            IEnumerable<Standard> standards = application.ApplicationStandards.Select(a => a.Standard);
+            
             return Json(new StandardViewModel().Map(standards));
         }
 

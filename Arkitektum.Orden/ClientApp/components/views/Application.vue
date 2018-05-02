@@ -71,6 +71,11 @@
                     <div class="card-header">Nasjonale felleskomponenter</div>
                     <application-national-components v-bind:application-national-components="apiData.nationalComponents" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-national-components>
                 </div>
+                <div class="mt-3"></div>
+                <div class="card">
+                    <div class="card-header">Standarder</div>
+                    <application-standards v-bind:application-standards="apiData.standards" v-bind:applicationId="applicationId" v-bind:write-access="writeAccess"></application-standards>
+                </div>
             </div>
         </div>
     </div>

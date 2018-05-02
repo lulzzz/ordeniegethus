@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Arkitektum.Orden.Models.Api;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Arkitektum.Orden.Models.ViewModels
@@ -68,6 +69,8 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public List<SelectListItem> AvailableVendors {get;set;}
 
+        public IEnumerable<StandardViewModel> Standards { get; set; }
+        
         public override IEnumerable<ApplicationViewModel> MapToEnumerable(IEnumerable<Application> inputs)
         {
             var viewModels = new List<ApplicationViewModel>();
@@ -100,8 +103,21 @@ namespace Arkitektum.Orden.Models.ViewModels
                DateCreated = input.DateCreated,
                DateModified = input.DateModified,
                UserCreated = input.UserCreated,
-               UserModified = input.UserModified
+               UserModified = input.UserModified,
+               Standards = Map(input.ApplicationStandards)
            };
+        }
+
+        private IEnumerable<StandardViewModel> Map(List<ApplicationStandard> input)
+        {
+            var output = new List<StandardViewModel>();
+
+            foreach (var item in input)
+            {
+                output.Add(new StandardViewModel().Map(item.Standard));
+            }
+            
+            return output;
         }
 
         public static string TranslateHostingLocation(HostingLocation? location)

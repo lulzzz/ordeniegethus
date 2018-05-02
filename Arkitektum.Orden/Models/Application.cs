@@ -72,6 +72,14 @@ namespace Arkitektum.Orden.Models
                 });
             }
 
+            foreach (var standard in ApplicationStandards)
+            {
+                currentVersionDetails.SupportedStandards.Add(new CommonApplicationVersionStandard()
+                {
+                    StandardId = standard.StandardId
+                });
+            }
+
             return commonApp;
         }
 

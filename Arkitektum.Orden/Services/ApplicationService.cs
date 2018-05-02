@@ -220,6 +220,7 @@ namespace Arkitektum.Orden.Services
                 .Include(a => a.SystemOwner)
                 .Include(a => a.Organization)
                 .Include(a => a.ApplicationNationalComponent).ThenInclude(anc => anc.NationalComponent)
+                .Include(a => a.ApplicationStandards).ThenInclude(s => s.Standard)
                 .Include(a => a.SectorApplications).ThenInclude(sa => sa.Sector)
                 .Include(a => a.ApplicationDatasets).ThenInclude(ad => ad.Dataset)
                 .Include(a => a.Vendor)
