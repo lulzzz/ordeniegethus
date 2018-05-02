@@ -19,7 +19,7 @@ namespace Arkitektum.Orden.Models {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class UIResource {
@@ -288,7 +288,6 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oversikt over publiserte datasett.
         ///   Looks up a localized string similar to Identifikator.
         /// </summary>
         public static string Identifiers {
@@ -298,7 +297,7 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oversikt over datasett.
+        ///   Looks up a localized string similar to Oversikt over publiserte datasett.
         /// </summary>
         public static string InsightDatasetOverview {
             get {
@@ -330,6 +329,15 @@ namespace Arkitektum.Orden.Models {
         public static string InsightsNationalComponentsUsageHeader {
             get {
                 return ResourceManager.GetString("InsightsNationalComponentsUsageHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Innlogging feilet..
+        /// </summary>
+        public static string InvalidLoginAttempt {
+            get {
+                return ResourceManager.GetString("InvalidLoginAttempt", resourceCulture);
             }
         }
         
@@ -469,20 +477,20 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Begrep.
-        /// </summary>
-        public static string Subjects {
-            get {
-                return ResourceManager.GetString("Subjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Standarder.
         /// </summary>
         public static string Standards {
             get {
                 return ResourceManager.GetString("Standards", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begrep.
+        /// </summary>
+        public static string Subjects {
+            get {
+                return ResourceManager.GetString("Subjects", resourceCulture);
             }
         }
         

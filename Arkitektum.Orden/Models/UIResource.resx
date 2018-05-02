@@ -285,4 +285,7 @@
   <data name="Standards" xml:space="preserve">
     <value>Standarder</value>
   </data>
+  <data name="InvalidLoginAttempt" xml:space="preserve">
+    <value>Innlogging feilet.</value>
+  </data>
 </root>
