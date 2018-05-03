@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Arkitektum.Orden.Models.AppRegistry;
 
 namespace Arkitektum.Orden.Models
 {
@@ -13,6 +15,14 @@ namespace Arkitektum.Orden.Models
         public virtual List<CommonDataset> CommonDatasets { get; set; } = new List<CommonDataset>();
         public int OriginalApplicationId { get; set; }
 
+        public AppRegistryStatus Status { get; set; } = AppRegistryStatus.Submitted;
+        
+        public int? SubmittedByOrganizationId { get; set; }
+        public virtual Organization SubmittedByOrganization { get; set; }
+        public string SubmittedByUserId { get; set; }
+        public virtual ApplicationUser SubmittedByUser { get; set; }
+        public DateTime? SubmittedDateTime { get; set; } = DateTime.Now;
+        
         public Application CreateApplicationForOrganization(int organizationId, string versionNumber)
         {
             var application = new Application

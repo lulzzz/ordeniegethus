@@ -10,7 +10,7 @@ namespace Arkitektum.Orden.Services.AppRegistry
     public interface IAppRegistry
     {
         Task<List<CommonApplication>> GetApplicationsAsync();
-        Task SubmitApplication(int applicationId);
+        Task SubmitApplication(int applicationId, int submittedOrganizationId, string submittedUserId);
         Task<Application> CreateApplicationForOrganization(int commonApplicationId, string versionNumber, int organizationId);
         Task<CommonApplication> Get(int id);
     }
@@ -44,6 +44,8 @@ namespace Arkitektum.Orden.Services.AppRegistry
                 .Include(a => a.Versions).ThenInclude(v => v.SupportedNationalComponents).ThenInclude(c => c.NationalComponent)
                 .Include(a => a.CommonDatasets).ThenInclude(d => d.Fields)
                 .Include(a => a.Vendor)
+                .Include(a => a.SubmittedByOrganization)
+                .Include(a => a.SubmittedByUser)
                 .SingleOrDefaultAsync(a => a.Id == id);
         }
 
@@ -52,16 +54,20 @@ namespace Arkitektum.Orden.Services.AppRegistry
             return _context.CommonApplications
                 .Include(a => a.Vendor)
                 .Include(a => a.Versions)
+                .Include(a => a.SubmittedByOrganization)
+                .Include(a => a.SubmittedByUser)
                 .OrderBy(a => a.Name)
                 .ToListAsync();
         }
 
-        public async Task SubmitApplication(int applicationId)
+        public async Task SubmitApplication(int applicationId, int submittedOrganizationId, string submittedUserId)
         {
             var application = await _context.Application
                 .SingleOrDefaultAsync(a => a.Id == applicationId);
             
             CommonApplication commonApplication = application.CopyToCommonApplication();
+            commonApplication.SubmittedByOrganizationId = submittedOrganizationId;
+            commonApplication.SubmittedByUserId = submittedUserId;
 
             _context.CommonApplications.Add(commonApplication);
             await _context.SaveChangesAsync();

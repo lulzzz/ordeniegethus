@@ -337,7 +337,7 @@ namespace Arkitektum.Orden.Controllers
             if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
                 return Forbid();
 
-            await _appRegistry.SubmitApplication(id);
+            await _appRegistry.SubmitApplication(id, CurrentOrganizationId(), CurrentUser().Id());
 
             FlashSuccess(UIResource.FlashApplicationSubmittedToAppRegistry);
 

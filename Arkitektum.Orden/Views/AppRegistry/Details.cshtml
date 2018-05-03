@@ -3,8 +3,22 @@
 @{
     ViewData["Title"] = UIResource.AppRegistry;
 }
-
+<h1>@UIResource.AppRegistry</h1>
 <h2>@Model.Name</h2>
+@if (Model.SubmittedByUser != null)
+{
+    <p>
+        Sendt inn av @Model.SubmittedByUser.FullName
+        @if (Model.SubmittedByOrganization != null)
+        {
+            <span> fra @Model.SubmittedByOrganization.Name</span>
+        }
+        @if (Model.SubmittedDateTime != null)
+        {
+            <span> - @Model.SubmittedDateTime.Value</span>
+        }
+    </p>
+}
 <p><strong>@ModelsResource.Vendor:</strong> @Model.Vendor.Name</p>
 
 @foreach (var version in Model.Versions)
@@ -36,7 +50,7 @@
                 }
             </ul>
             <h3>@ModelsResource.Datasets</h3>
-            <div class="card-deck">
+            <div class="col-4">
                 @foreach (var dataset in Model.CommonDatasets)
                 {
                     <div class="card">
