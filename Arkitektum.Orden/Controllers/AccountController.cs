@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.AccountViewModels;
 using Arkitektum.Orden.Services;
 using Arkitektum.Orden.Utils;
+using Serilog;
 
 namespace Arkitektum.Orden.Controllers
 {
@@ -16,23 +17,22 @@ namespace Arkitektum.Orden.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
+        
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        private readonly ILogger _logger;
         private readonly IUserService _userService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger,
             IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
-            _logger = logger;
             _userService = userService;
         }
 
@@ -63,16 +63,17 @@ namespace Arkitektum.Orden.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User {email} logged in.", model.Email);
+                    Log.Information("User {email} logged in.", model.Email);
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account {email} locked out.", model.Email);
+                    Log.Warning("User account {email} locked out.", model.Email);
                     return RedirectToAction(nameof(Lockout));
                 }
                 else
                 {
+                    Log.Debug("Invalid login attempt for {user}", model.Email);
                     ModelState.AddModelError(string.Empty, UIResource.InvalidLoginAttempt);
                     return View(model);
                 }
@@ -108,7 +109,7 @@ namespace Arkitektum.Orden.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            Log.Debug("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -125,8 +126,23 @@ namespace Arkitektum.Orden.Controllers
             {
                 throw new ApplicationException($"Unable to load user with ID '{userId}'.");
             }
+            Log.Debug("Loading confirm email page for {user}", userId);
+            
             var result = await _userManager.ConfirmEmailAsync(user, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+
+            string viewName;
+            if (result.Succeeded)
+            {
+                Log.Debug("Confirmation of email succeded.");
+                viewName = "ConfirmEmail";
+            }
+            else
+            {
+                Log.Debug("Confirmation of email failed: " + result.ToString());
+                viewName = "Error";
+            }
+            
+            return View(viewName);
         }
 
         [HttpGet]
@@ -143,6 +159,8 @@ namespace Arkitektum.Orden.Controllers
         {
             if (ModelState.IsValid)
             {
+                Log.Debug("Forgot password request for {user}", model.Email);
+                
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
@@ -150,12 +168,11 @@ namespace Arkitektum.Orden.Controllers
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));
                 }
 
-                // For more information on how to enable account confirmation and password reset please
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailAsync(model.Email, "Reset Password",
                    $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+                
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 
@@ -187,6 +204,7 @@ namespace Arkitektum.Orden.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -197,6 +215,8 @@ namespace Arkitektum.Orden.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction(nameof(ResetPasswordConfirmation));
             }
+            
+            Log.Debug("Resetting password for {user}", model.Email);
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
