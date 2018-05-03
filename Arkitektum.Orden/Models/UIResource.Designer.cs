@@ -441,11 +441,20 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Velg driftsplassering fra listen - .
+        ///   Looks up a localized string similar to - Velg driftsplassering fra listen -.
         /// </summary>
         public static string SelectHostingLocationFromList {
             get {
                 return ResourceManager.GetString("SelectHostingLocationFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - Velg person fra listen -.
+        /// </summary>
+        public static string SelectSystemOwnerFromList {
+            get {
+                return ResourceManager.GetString("SelectSystemOwnerFromList", resourceCulture);
             }
         }
         

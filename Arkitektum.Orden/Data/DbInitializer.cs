@@ -44,7 +44,7 @@ namespace Arkitektum.Orden.Data
             {
                 UserName = email,
                 Email = email,
-                FullName = "Administrator"
+                FullName = ApplicationUser.AdministratorFullName
             };
             IdentityResult result = userManager.CreateAsync(adminUser, "Test123").Result;
             if (result.Succeeded) await userManager.AddToRolesAsync(adminUser, Roles.All);

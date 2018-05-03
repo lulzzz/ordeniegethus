@@ -12,9 +12,9 @@
               <p v-if="apiData.userModified">Sist endret av {{ apiData.userModified }} - {{ apiData.dateModified | formatDate }}</p>
               <p v-if="apiData.userCreated">Opprettet av: {{ apiData.userCreated }} - {{ apiData.dateCreated | formatDate }}</p>
               <p>Leverandør: {{ apiData.vendor.name }}</p>
-              <p>Systemansvarlig: <span class="badge badge-info"><i class="fas fa-user"></i> {{ apiData.systemOwner }}</span></p>
+              <p v-if="apiData.systemOwnerName">Systemansvarlig: <span class="badge badge-info"><i class="fas fa-user"></i> {{ apiData.systemOwnerName }}</span></p>
 
-              <h2>Kostnader</h2>
+              <h2 v-if="apiData.annualFee != 0 || apiData.initialCost != 0">Kostnader</h2>
               <hr />
               <p>{{apidata}}</p>
               <p>Årlige kostnad: {{ apiData.annualFee }}</p>

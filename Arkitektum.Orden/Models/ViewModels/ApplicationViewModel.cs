@@ -31,7 +31,8 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public List<SelectListItem> AvailableSystemOwners { get; set; }
 
-        public string SystemOwner { get; set; }
+        public string SystemOwnerId { get; set; }
+        public string SystemOwnerName { get; set; }
 
         [Range(0, double.MaxValue)]
         [DataType(DataType.Currency, ErrorMessage = "Du kan bruke kun tall")]
@@ -87,7 +88,8 @@ namespace Arkitektum.Orden.Models.ViewModels
                Id = input.Id,
                Name = input.Name,
                AnnualFee = input.DecimalToString(input.AnnualFee),
-               SystemOwner = input.SystemOwner?.FullName,
+               SystemOwnerId = input.SystemOwnerId,
+               SystemOwnerName = input.SystemOwner?.FullName,
                Vendor = Map(input.Vendor),
                VendorId = input.VendorId,
                Version = input.Version,
@@ -202,7 +204,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 Id = input.Id,
                 Name = input.Name,
                 AnnualFee = System.Convert.ToDecimal(input.AnnualFee),
-                SystemOwnerId = input.SystemOwner,
+                SystemOwnerId = input.SystemOwnerId,
                 Version = input.Version,
                 InitialCost = System.Convert.ToDecimal(input.InitialCost),
                 HostingVendor = input.HostingVendor,

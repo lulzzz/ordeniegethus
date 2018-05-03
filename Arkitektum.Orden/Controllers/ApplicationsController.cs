@@ -129,20 +129,23 @@ namespace Arkitektum.Orden.Controllers
 
             var model = new ApplicationViewModel();
             model.OrganizationId = CurrentOrganizationId();
-            model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
+            model.AvailableSystemOwners = await GetAvailableSystemOwners();
             model.AvailableVendors = await GetAvailableVendors();
             return View(model);
         }
 
-        private async Task<List<SelectListItem>> GetAvailableSystemOwners(ApplicationViewModel model)
+        private async Task<List<SelectListItem>> GetAvailableSystemOwners(string systemOwnerId = null)
         {
             var availableSystemOwners = new List<SelectListItem>();
-            foreach (var applicationUser in await _userService.GetAll())
+            availableSystemOwners.Add(new SelectListItem { Text = UIResource.SelectSystemOwnerFromList, Value = "" });
+
+            foreach (var applicationUser in await _userService.GetSystemOwners(CurrentOrganizationId()))
             {
                 availableSystemOwners.Add(new SelectListItem()
                 {
                     Text = applicationUser.FullName,
-                    Value = applicationUser.Id
+                    Value = applicationUser.Id,
+                    Selected = applicationUser.Id == systemOwnerId
                 });
             }
             return availableSystemOwners;
@@ -199,7 +202,7 @@ namespace Arkitektum.Orden.Controllers
 
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwner,Sectors,NationalComponents")] ApplicationViewModel model)
+        public async Task<IActionResult> Create([Bind("Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwnerId,Sectors,NationalComponents")] ApplicationViewModel model)
         {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
                 return Forbid();
@@ -213,7 +216,7 @@ namespace Arkitektum.Orden.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
+            model.AvailableSystemOwners = await GetAvailableSystemOwners(model.SystemOwnerId);
             model.AvailableVendors = await GetAvailableVendors();
             return View(model);
         }
@@ -233,14 +236,14 @@ namespace Arkitektum.Orden.Controllers
 
             var model = new ApplicationViewModel().Map(application);
 
-            model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
+            model.AvailableSystemOwners = await GetAvailableSystemOwners(model.SystemOwnerId);
             model.AvailableVendors = await GetAvailableVendors(model.VendorId);
             return View(model);
         }
 
         [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwner,Sectors,NationalComponents")] ApplicationViewModel model)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwnerId,Sectors,NationalComponents")] ApplicationViewModel model)
         {
             if (id == 0)
                 return NotFound();
@@ -266,7 +269,7 @@ namespace Arkitektum.Orden.Controllers
                 return RedirectToAction(nameof(Details), new { id });
             }
 
-            model.AvailableSystemOwners = await GetAvailableSystemOwners(model);
+            model.AvailableSystemOwners = await GetAvailableSystemOwners(model.SystemOwnerId);
             model.AvailableVendors = await GetAvailableVendors(model.VendorId);
             return View(model);
         }

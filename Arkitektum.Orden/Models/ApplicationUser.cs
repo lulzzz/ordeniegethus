@@ -9,6 +9,8 @@ namespace Arkitektum.Orden.Models
     /// </summary>
     public class ApplicationUser : IdentityUser
     {
+        public const string AdministratorFullName = "Administrator";
+        
         /// <summary>
         /// Full name of the user
         /// </summary>

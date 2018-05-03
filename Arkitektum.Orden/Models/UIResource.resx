@@ -223,7 +223,7 @@
     <value>Tjenesteområder</value>
   </data>
   <data name="SelectHostingLocationFromList" xml:space="preserve">
-    <value>- Velg driftsplassering fra listen - </value>
+    <value>- Velg driftsplassering fra listen -</value>
   </data>
   <data name="SelectVendorFromList" xml:space="preserve">
     <value>- Velg leverandør fra listen -</value>
@@ -287,5 +287,8 @@
   </data>
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Innlogging feilet.</value>
+  </data>
+  <data name="SelectSystemOwnerFromList" xml:space="preserve">
+    <value>- Velg person fra listen -</value>
   </data>
 </root>

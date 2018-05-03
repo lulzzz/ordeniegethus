@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ public interface IUserService
         Task SaveChangesAsync();
         Task Delete(string id);
         Task AddOrganizationRolesAsync(List<OrganizationApplicationUser> organizationMembership);
+        Task<IEnumerable<ApplicationUser>> GetSystemOwners(int organizationId);
     }
 
     /// <summary>
@@ -101,6 +103,17 @@ public interface IUserService
                 _context.Add(item);
             }
             await SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ApplicationUser>> GetSystemOwners(int organizationId)
+        {
+            IQueryable<ApplicationUser> query = from user in _context.ApplicationUser
+                from org in user.Organizations.Where(o => o.OrganizationId == organizationId)
+                select user;
+
+            query = query.Where(u => u.UserName != ApplicationUser.AdministratorFullName);
+
+            return await query.ToListAsync();
         }
     }
 }
