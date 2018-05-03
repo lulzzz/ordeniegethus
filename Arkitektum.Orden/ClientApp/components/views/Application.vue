@@ -41,7 +41,7 @@
 -->
               <h2>Lenker</h2>
                 <hr />
-                <resource-links v-bind:application-id="applicationId" v-bind:write-access="writeAccess"></resource-links>
+                <resource-links v-bind:parent-id="applicationId" api-path="/ResourceLinks/Application" v-bind:write-access="writeAccess"></resource-links>
 
 <!--                
                 <h2>Avtale</h2>

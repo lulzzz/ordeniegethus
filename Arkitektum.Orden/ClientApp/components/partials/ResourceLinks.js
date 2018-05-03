@@ -4,7 +4,8 @@ import ResourceLink from './ResourceLinks/ResourceLink.vue';
 export default {
     name: 'ResourceLinks',
     props: {
-        applicationId: String,
+        parentId: String,
+        apiPath: String,
         writeAccess: {
             type: Boolean,
             default: false
@@ -24,7 +25,7 @@ export default {
     },
     methods: {
         getResourceLinks() {
-            Promise.resolve(this.$root.getApiData(`/ResourceLinks/Application/${this.applicationId}`))
+            Promise.resolve(this.$root.getApiData(`${this.apiPath}/${this.parentId}`))
                 .then((apiData) => {
                     this.apiData = apiData;
                 });
@@ -36,14 +37,14 @@ export default {
             this.newResourceLink = false;
         },
         postResourceLink(data) {
-            Promise.resolve(this.$root.postApiData(`/ResourceLinks/Application/${this.applicationId}`, data))
+            Promise.resolve(this.$root.postApiData(`${this.apiPath}/${this.parentId}`, data))
                 .then(() => {
                     this.getResourceLinks();
                     this.removeNewResourceLink();
                 });
         },
         updateResourceLink(resourceLinkId, data) {
-            Promise.resolve(this.$root.putApiData(`/ResourceLinks/Application/${this.applicationId}/${resourceLinkId}`, data));
+            Promise.resolve(this.$root.putApiData(`${this.apiPath}/${this.parentId}/${resourceLinkId}`, data));
         },
         removeResourceLink(resourceLinkId) {
             Promise.resolve(this.$root.postApiData(`/ResourceLinks/Delete`, { id: resourceLinkId }))
