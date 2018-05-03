@@ -33,17 +33,26 @@ namespace Arkitektum.Orden.Models.ViewModels
         }
 
 
-        public ResourceLink Map(ResourceLinkViewModel resourceLink, int applicationId)
+        public ResourceLink Map(ResourceLinkViewModel viewModel, int applicationId)
         {
             var model = new ResourceLink
             {
-                Id = resourceLink.Id,
-                Description = resourceLink.Description,
-                Url = resourceLink.Url,
+                Id = viewModel.Id,
+                Description = viewModel.Description,
+                Url = viewModel.Url,
                 ApplicationId = applicationId
             };
             return model;
         }
-
+        
+        public ResourceLink Map(ResourceLinkViewModel viewModel)
+        {
+            return new ResourceLink
+            {
+                Id = viewModel.Id,
+                Description = viewModel.Description,
+                Url = viewModel.Url,
+            };
+        }
     }
 }

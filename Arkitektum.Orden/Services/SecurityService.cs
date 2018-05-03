@@ -10,6 +10,7 @@ using Arkitektum.Orden.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Nest;
 
 namespace Arkitektum.Orden.Services
 {
@@ -23,6 +24,7 @@ namespace Arkitektum.Orden.Services
         SimpleOrganization GetCurrentOrganization(HttpContext httpContext);
         bool CurrrentUserHasAccessToApplication(Application application, AccessLevel accessLevel);
         bool CurrrentUserHasAccessToOrganization(int organizationId, AccessLevel accessLevel);
+        bool CurrrentUserHasAccessToDataset(int datasetId, AccessLevel read, int currentOrganizationId);
     }
     
     public class SecurityService : ISecurityService
@@ -116,6 +118,18 @@ namespace Arkitektum.Orden.Services
         {
             CurrentUser currentUser = GetCurrentUser();
             return currentUser.HasAccessToOrganization(organizationId, accessLevel);
+        }
+
+        public bool CurrrentUserHasAccessToDataset(int datasetId, AccessLevel accessLevel, int currentOrganizationId)
+        {
+            var hasAccessToOrganization = GetCurrentUser().HasAccessToOrganization(currentOrganizationId, accessLevel);
+
+            return hasAccessToOrganization && DatasetBelongsToOrganization(datasetId, currentOrganizationId);
+        }
+
+        private bool DatasetBelongsToOrganization(int datasetId, int organizationId)
+        {
+            return _context.Dataset.Any(d => d.Id == datasetId && d.OrganizationId == organizationId);
         }
     }
 
