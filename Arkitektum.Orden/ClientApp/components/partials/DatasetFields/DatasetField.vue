@@ -18,13 +18,13 @@
             <div class="form-group">
                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
                     <input v-model="data.isPersonalData" type="checkbox" v-bind:id="'dataset-field-is-personal-data-' + datasetField.id" placeholder="Beskrivelse" class="custom-control-input" />
-                    <label v-bind:for="'dataset-field-is-personal-data-' + datasetField.id" class="custom-control-label">Har personopplysninger</label>
+                    <label v-bind:for="'dataset-field-is-personal-data-' + datasetField.id" class="custom-control-label">Er personopplysning</label>
                 </div>
             </div>
             <div class="form-group">
                 <div class="custom-control custom-checkbox my-1 mr-sm-2">
                     <input v-model="data.isSensitivePersonalData" type="checkbox" v-bind:id="'dataset-field-is-sensitive-personal-data-' + datasetField.id" placeholder="Beskrivelse" class="custom-control-input" />
-                    <label v-bind:for="'dataset-field-is-sensitive-personal-data-' + datasetField.id" class="custom-control-label">Har sensitive personopplysninger</label>
+                    <label v-bind:for="'dataset-field-is-sensitive-personal-data-' + datasetField.id" class="custom-control-label">Er sensitive personopplysning</label>
                 </div>
             </div>
             <div class="float-right">
