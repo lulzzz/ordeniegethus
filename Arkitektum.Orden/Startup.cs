@@ -120,7 +120,7 @@ namespace Arkitektum.Orden
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseMiddleware<SerilogMiddleware>();
+           // app.UseMiddleware<SerilogMiddleware>();
             
             app.UseSession();
 
