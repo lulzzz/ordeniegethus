@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +11,7 @@ using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.AccountViewModels;
 using Arkitektum.Orden.Services;
 using Arkitektum.Orden.Utils;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Serilog;
 
 namespace Arkitektum.Orden.Controllers
@@ -226,6 +229,37 @@ namespace Arkitektum.Orden.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Authorize(Roles=Roles.Admin)]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ImpersonateUser(string id)
+        {
+            var appUser = await _userManager.FindByIdAsync(id);
+            var userPrincipal = await _signInManager.CreateUserPrincipalAsync(appUser);
+            userPrincipal.Identities.First().AddClaim(new Claim("OriginalUserId", User.FindFirst(x=>x.Type == ClaimTypes.NameIdentifier).Value));
+
+            await _signInManager.SignOutAsync(); //sign out the current user
+
+            await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, userPrincipal); //impersonate the new user
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [Authorize(Roles=Roles.User)]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StopImpersonation()
+        {
+            var originalUserId = User.Claims.FirstOrDefault(x => x.Type == "OriginalUserId");
+            if (originalUserId != null)
+            {
+                var appUser = await _userManager.FindByIdAsync(originalUserId.Value);
+                await _signInManager.SignInAsync(appUser, false);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+        
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()

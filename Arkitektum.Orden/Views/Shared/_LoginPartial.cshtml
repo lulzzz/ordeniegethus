@@ -38,6 +38,7 @@
                 </div>
             </div>
         }
+        
         <div class="navbar-account-menu-item dropdown-box-toggle">
             <div class="navbar-icon">
                 <span class="fas fa-user fa-2x"></span>
@@ -46,9 +47,20 @@
                 <div class="dropdown-box-content">
                     <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">@UserManager.GetUserName(User)</a>
 
-                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                        <button type="submit" class="btn">Logg ut</button>
-                    </form>
+                    @if (User.Claims.Any(x => x.Type == "OriginalUserId"))
+                    {
+                        <form asp-area="" asp-controller="Account" asp-action="StopImpersonation" method="post">
+                            <button type="submit" class="btn">Avslutt sesjonen</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                            <button type="submit" class="btn">Logg ut</button>
+                        </form>    
+                    }                
+                    
+                    
                 </div>
             </div>
         </div>
