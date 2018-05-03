@@ -32,10 +32,14 @@
                 <hr/>
                 <p v-if="apiData.hostingLocationText">Driftsplassering: {{ apiData.hostingLocationText }}</p>
                 
-                <h3>Informasjonselementer</h3>
+                <h2>Informasjonselementer</h2>
                 <hr/>
-
                 <dataset-fields v-bind:dataset-id="datasetId" v-bind:dataset-fields="apiData.fields" v-bind:write-access="writeAccess"></dataset-fields>
+
+                <h2>Lenker</h2>
+                <hr />
+                <resource-links v-bind:parent-id="datasetId" api-path="/ResourceLinks/Dataset" v-bind:write-access="writeAccess"></resource-links>
+
             </div>
             <div class="col-lg-4">
                 <div class="card">
