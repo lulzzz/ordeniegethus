@@ -38,7 +38,7 @@
 
                 <h2>Lenker</h2>
                 <hr />
-                <resource-links v-bind:parent-id="datasetId" api-path="/ResourceLinks/Dataset" v-bind:write-access="writeAccess"></resource-links>
+                <resource-links v-bind:parent-id="datasetId" api-path="/api/ResourceLinks/Dataset" v-bind:write-access="writeAccess"></resource-links>
 
             </div>
             <div class="col-lg-4">
