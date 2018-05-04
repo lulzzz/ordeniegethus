@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using Arkitektum.Orden.Models.Api;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Arkitektum.Orden.Models
@@ -258,6 +259,39 @@ namespace Arkitektum.Orden.Models
             updatedListOfNationalComponents.AddRange(updatedApplicationNationalComponent);
 
             ApplicationNationalComponent = updatedListOfNationalComponents;
+        }
+
+        public void AddSuperUser(SuperUser superUser)
+        {
+            if (!SuperUserExists(superUser.Id))
+            {
+                SuperUsers.Add(new ApplicationSuperUser() { SuperUser = superUser });
+            }
+        }
+
+        private bool SuperUserExists(int superUserId)
+        {
+            foreach (var superUser in SuperUsers)
+            {
+                if (superUser.SuperUserId == superUserId)
+                    return true;
+            }
+            return false;
+        }
+
+        public void RemoveSuperUser(int superUserId)
+        {
+            if (SuperUserExists(superUserId))
+            {
+                foreach (var superUser in SuperUsers)
+                {
+                    if (superUser.SuperUserId == superUserId)
+                    {
+                        SuperUsers.Remove(superUser);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

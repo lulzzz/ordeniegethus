@@ -7,5 +7,7 @@
     {
         public int ApplicationId { get; set; }
         public int SuperUserId { get; set; }
+
+        public virtual SuperUser SuperUser { get; set; }
     }
 }

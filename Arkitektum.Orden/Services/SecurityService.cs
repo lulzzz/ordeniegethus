@@ -25,6 +25,7 @@ namespace Arkitektum.Orden.Services
         bool CurrrentUserHasAccessToApplication(Application application, AccessLevel accessLevel);
         bool CurrrentUserHasAccessToOrganization(int organizationId, AccessLevel accessLevel);
         bool CurrrentUserHasAccessToDataset(int datasetId, AccessLevel read, int currentOrganizationId);
+        bool CurrrentUserHasAccessToApplication(int applicationId, AccessLevel accessLevel, int organizationId);
     }
     
     public class SecurityService : ISecurityService
@@ -50,10 +51,15 @@ namespace Arkitektum.Orden.Services
         /// <returns></returns>
         public CurrentUser GetCurrentUser()
         {
-            ApplicationUser user = _userService.Get(_userManager.GetUserId(new ClaimsPrincipal(_principal))).Result;
+            ApplicationUser user = _userService.Get(GetCurrentUserId()).Result;
             return new CurrentUser(_principal, user);
         }
 
+        public string GetCurrentUserId()
+        {
+            return _userManager.GetUserId(new ClaimsPrincipal(_principal));
+        }
+        
         /// <summary>
         /// Returns a list of roles which the current logged in user has permission to give other users.
         /// </summary>
@@ -125,6 +131,17 @@ namespace Arkitektum.Orden.Services
             var hasAccessToOrganization = GetCurrentUser().HasAccessToOrganization(currentOrganizationId, accessLevel);
 
             return hasAccessToOrganization && DatasetBelongsToOrganization(datasetId, currentOrganizationId);
+        }
+
+        public bool CurrrentUserHasAccessToApplication(int applicationId, AccessLevel accessLevel, int organizationId)
+        {
+            var hasAccessToOrganization = GetCurrentUser().HasAccessToOrganization(organizationId, accessLevel);
+            return hasAccessToOrganization && ApplicationBelongsToOrganization(applicationId, organizationId);
+        }
+
+        private bool ApplicationBelongsToOrganization(int applicationId, int organizationId)
+        {
+            return _context.Application.Any(a => a.Id == applicationId && a.OrganizationId == organizationId);
         }
 
         private bool DatasetBelongsToOrganization(int datasetId, int organizationId)

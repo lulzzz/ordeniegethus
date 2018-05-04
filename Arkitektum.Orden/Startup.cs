@@ -114,6 +114,7 @@ namespace Arkitektum.Orden
                 });
                 app.UseBrowserLink();
                 app.UseDatabaseErrorPage();
+                app.UseStatusCodePages();
             }
             else
             {

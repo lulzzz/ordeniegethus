@@ -40,5 +40,11 @@ namespace Arkitektum.Orden.Test
             _mock.Setup(s => s.CurrrentUserHasAccessToApplication(application, accessLevel)).Returns(true);
             return this;
         }
+        
+        public SecurityServiceMock SetAccessToApplication(int applicationId, AccessLevel accessLevel, int organizationId)
+        {
+            _mock.Setup(s => s.CurrrentUserHasAccessToApplication(applicationId, accessLevel, organizationId)).Returns(true);
+            return this;
+        }
     }
 }

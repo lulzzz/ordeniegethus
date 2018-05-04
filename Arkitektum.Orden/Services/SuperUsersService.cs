@@ -18,6 +18,9 @@ namespace Arkitektum.Orden.Services
         Task<SuperUser> UpdateSuperUser(SuperUser superUser);
 
         Task DeleteSuperUser(int superUserId);
+        Task<List<SuperUser>> GetSuperUsersForApplication(int applicationId);
+        Task AddSuperUserToApplication(int applicationId, int superUserId);
+        Task RemoveSuperUserFromApplication(int applicationId, int superUserId);
     }
 
     public class SuperUsersService : ISuperUsersService
@@ -61,6 +64,39 @@ namespace Arkitektum.Orden.Services
         {
             var superUser = await Get(superUserId);
             _context.SuperUser.Remove(superUser);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<SuperUser>> GetSuperUsersForApplication(int applicationId)
+        {
+            List<SuperUser> result = await _context.Application
+                .Where(a => a.Id == applicationId)
+                .SelectMany(a => a.SuperUsers)
+                .Select(s => s.SuperUser)
+                .ToListAsync();
+
+            return result;
+        }
+
+        public async Task AddSuperUserToApplication(int applicationId, int superUserId)
+        {
+            var application = await _context.Application
+                .Include(a => a.SuperUsers)
+                .SingleAsync(a => a.Id == applicationId);
+
+            var superUser = await _context.SuperUser.SingleAsync(s => s.Id == superUserId);
+            
+            application.AddSuperUser(superUser);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveSuperUserFromApplication(int applicationId, int superUserId)
+        {
+            var application = await _context.Application
+                .Include(a => a.SuperUsers)
+                .SingleAsync(a => a.Id == applicationId);
+
+            application.RemoveSuperUser(superUserId);
             await _context.SaveChangesAsync();
         }
     }
