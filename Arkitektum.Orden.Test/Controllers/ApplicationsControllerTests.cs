@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Controllers;
 using Arkitektum.Orden.Models;
@@ -8,8 +6,6 @@ using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Arkitektum.Orden.Services.AppRegistry;
 using Arkitektum.Orden.Utils;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -71,44 +67,39 @@ namespace Arkitektum.Orden.Test.Controllers
         }
 
         [Fact]
-        public async Task DetailsJsonShouldReturnNotFoundWhenIdIsNull()
+        public void DetailsJsonShouldReturnNotFoundWhenIdIsNull()
         {
             UserHasAccessToOrganization(AccessLevel.Read, true);
 
-            var result = await CreateController().DetailsJson(null);
+            var result = CreateController().Details(null);
             Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
-        public async Task DetailsJsonShouldReturnNotFoundWhenNoApplicationWithGivenIdExists()
+        public void DetailsJsonShouldReturnNotFoundWhenNoApplicationWithGivenIdExists()
         {
             UserHasAccessToOrganization(AccessLevel.Read, true);
 
-            var result = await CreateController().DetailsJson(12345);
+            var result = CreateController().Details(12345);
             Assert.IsType<NotFoundResult>(result);
         }
 
         [Fact]
-        public async Task DetailsJsonShouldReturnApplicationWithGivenId()
+        public void DetailsJsonShouldReturnApplicationWithGivenId()
         {
             UserHasAccessToOrganization(AccessLevel.Read, true);
 
             var applicationId = 12345;
-            _applicationServiceMock.Setup(m => m.GetAsync(applicationId)).ReturnsAsync(new Application()
-            {
-                Id = applicationId
-            });
-            
-            var result = await CreateController().DetailsJson(applicationId);
+            var result = CreateController().Details(applicationId);
 
-            var viewResult = Assert.IsType<JsonResult>(result);
+            Assert.IsType<JsonResult>(result);
         }
 
         [Fact]
-        public async Task DetailsJsonShouldReturnForbiddenWhenUserDontHaveAccess()
+        public void DetailsJsonShouldReturnForbiddenWhenUserDontHaveAccess()
         {
             UserHasAccessToOrganization(AccessLevel.Read, false);
-            var result = await CreateController().DetailsJson(1);
+            var result = CreateController().Details(1);
             Assert.IsType<ForbidResult>(result);
         }
 
