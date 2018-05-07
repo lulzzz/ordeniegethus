@@ -67,43 +67,6 @@ namespace Arkitektum.Orden.Test.Controllers
         }
 
         [Fact]
-        public void DetailsJsonShouldReturnNotFoundWhenIdIsNull()
-        {
-            UserHasAccessToOrganization(AccessLevel.Read, true);
-
-            var result = CreateController().Details(null);
-            Assert.IsType<NotFoundResult>(result);
-        }
-
-        [Fact]
-        public void DetailsJsonShouldReturnNotFoundWhenNoApplicationWithGivenIdExists()
-        {
-            UserHasAccessToOrganization(AccessLevel.Read, true);
-
-            var result = CreateController().Details(12345);
-            Assert.IsType<NotFoundResult>(result);
-        }
-
-        [Fact]
-        public void DetailsJsonShouldReturnApplicationWithGivenId()
-        {
-            UserHasAccessToOrganization(AccessLevel.Read, true);
-
-            var applicationId = 12345;
-            var result = CreateController().Details(applicationId);
-
-            Assert.IsType<JsonResult>(result);
-        }
-
-        [Fact]
-        public void DetailsJsonShouldReturnForbiddenWhenUserDontHaveAccess()
-        {
-            UserHasAccessToOrganization(AccessLevel.Read, false);
-            var result = CreateController().Details(1);
-            Assert.IsType<ForbidResult>(result);
-        }
-
-        [Fact]
         public async Task CreateShouldReturnForbiddenWhenUserDontHaveAccess()
         {
             UserHasAccessToOrganization(AccessLevel.Write, false);
