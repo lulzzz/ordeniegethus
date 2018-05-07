@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Arkitektum.Orden.Controllers
 {
     [Authorize]
-    [Route("/datasets/application")]
+    [Route("/api/datasets/application")]
     public class DatasetsApplicationController : BaseController
     {
         private readonly IApplicationService _applicationService;
