@@ -61,16 +61,6 @@ namespace Arkitektum.Orden.Controllers
             return View(model);
         }
 
-        [HttpGet("all")]
-        public async Task<IActionResult> All()
-        {
-            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
-                return Forbid();
-
-            var applications = await _applicationService.GetAllApplicationsForOrganization(CurrentOrganizationId());
-            return Json(new ApplicationApiViewModel().Map(applications));
-        }
-
         private async Task<List<SelectListItem>> GetSectorViewModel(int? sectorId)
         {
             var sectors = await _sectorService.GetAll();
@@ -101,25 +91,7 @@ namespace Arkitektum.Orden.Controllers
             return View(new ApplicationDetailsViewModel() { ApplicationId = id.Value, HasWriteAccess = hasWriteAccess});
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> DetailsJson(int? id)
-        {
-            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
-                return Forbid();
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var application = await _applicationService.GetAsync(id.Value);
-            if (application == null)
-            {
-                return NotFound();
-            }
-
-            return Json(new ApplicationViewModel().Map(application));
-        }
+        
 
         [HttpGet("create")]
         public async Task<IActionResult> Create()

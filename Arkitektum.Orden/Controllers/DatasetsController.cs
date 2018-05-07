@@ -37,15 +37,7 @@ namespace Arkitektum.Orden.Controllers
             return View(new DatasetViewModel().MapToEnumerable(datasets));
         }
 
-        [HttpGet("all")]
-        public async Task<IActionResult> All()
-        {
-            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
-                return Forbid();
-
-            var datasets = await _datasetService.GetAllDatasetsForOrganization(CurrentOrganizationId());
-            return Json(new DatasetApiViewModel().Map(datasets));
-        }
+        
 
         [HttpGet("details/{id}")]
         public async Task<IActionResult> Details(int? id)
@@ -64,21 +56,7 @@ namespace Arkitektum.Orden.Controllers
             return View(new DatasetViewModel().Map(dataset));
         }
         
-        [HttpGet("{id}")]
-        public async Task<IActionResult> DetailsJson(int? id)
-        {
-            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
-                return Forbid();
-
-            if (id == null)
-                return NotFound();
-
-            var dataset = await _datasetService.GetAsync(id.Value);
-            if (dataset == null)
-                return NotFound();
-
-            return Json(new DatasetViewModel().Map(dataset));
-        }
+        
         
         [HttpGet("create")]
         public IActionResult Create()

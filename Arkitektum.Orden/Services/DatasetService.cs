@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Arkitektum.Orden.Data;
 using Arkitektum.Orden.Models;
@@ -25,6 +26,7 @@ namespace Arkitektum.Orden.Services
         Task UpdateAsync(int id, Dataset updatedDataset);
         Task<Dataset> UpdateMetadataAsync(int id, Dataset updatedDataset);
         Task<int> GetDatasetsCountForOrganization(int currentOrganizationId);
+        Task<IEnumerable<Application>> GetApplicationsForDataset(int datasetId);
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -123,8 +125,6 @@ namespace Arkitektum.Orden.Services
 
         }
 
-
-
         public async Task<IEnumerable<Dataset>> GetAllDatasetsForOrganisation(int orgId)
         {
             return await _context.Dataset.ToListAsync();
@@ -136,7 +136,14 @@ namespace Arkitektum.Orden.Services
             await _context.SaveChangesAsync(username);
         }
 
-  
+        public async Task<IEnumerable<Application>> GetApplicationsForDataset(int datasetId)
+        {
+            return await _context.Dataset
+                .Where(d => d.Id == datasetId)
+                .SelectMany(d => d.ApplicationDatasets)
+                .Select(d => d.Application)
+                .ToListAsync();
+        }  
 
     }
 }

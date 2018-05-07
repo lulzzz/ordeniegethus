@@ -39,14 +39,14 @@ export default {
             this.newDatasetApplication = false;
         },
         getDatasetApplications() {
-            Promise.resolve(this.$root.getApiData(`/applications/dataset/${this.datasetId}`))
+            Promise.resolve(this.$root.getApiData(`/api/datasets/${this.datasetId}/applications`))
                 .then((apiData) => {
                     this.apiData = apiData;
                 });
         },
         getAvailableApplications() { 
             let availableApplications = []; 
-            Promise.resolve(this.$root.getApiData(`/applications/all`)) 
+            Promise.resolve(this.$root.getApiData(`/api/applications/all`)) 
             .then((apiData) => { 
                 console.log("get available applications");
                 console.log(apiData);
@@ -59,14 +59,14 @@ export default {
             }); 
         }, 
         postDatasetApplication(data) {
-            Promise.resolve(this.$root.postApiData(`/applications/dataset/`, { applicationId: data.id, datasetId: this.datasetId } ))
+            Promise.resolve(this.$root.postApiData(`/api/dataset-application/`, { applicationId: data.id, datasetId: this.datasetId } ))
                 .then(() => {
                     this.getDatasetApplications();
                     this.removeNewDatasetApplication();
                 });
         },
         removeDatasetApplication(applicationId) {
-            Promise.resolve(this.$root.deleteApiData(`/applications/dataset/${applicationId}/${this.datasetId}`))
+            Promise.resolve(this.$root.deleteApiData(`/api/dataset-application/${this.datasetId}/${applicationId}`))
                 .then(() => {
                     this.getDatasetApplications();
                 });

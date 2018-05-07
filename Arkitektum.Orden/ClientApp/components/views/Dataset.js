@@ -17,7 +17,7 @@ export default {
     data() {
         return {
             apiUrls: {
-                get: `/datasets/${this.datasetId}`,
+                get: `/api/datasets/${this.datasetId}`,
                 edit: `/datasets/edit/${this.datasetId}`
             },
             apiData: {}
