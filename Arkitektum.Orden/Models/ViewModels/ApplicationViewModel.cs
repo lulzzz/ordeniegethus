@@ -61,7 +61,7 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public List<NationalComponentApiViewModel> NationalComponents { get; set; }
 
-        public List<DatasetApiViewModel> Datasets { get;set; }
+        public IEnumerable<DatasetApiViewModel> Datasets { get;set; }
 
         public DateTime? DateCreated { get; set; }
         public string UserCreated { get; set; }
@@ -109,7 +109,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                OrganizationId = input.OrganizationId,
                Sectors = Map(input.SectorApplications),
                NationalComponents = Map(input.ApplicationNationalComponent),
-               Datasets = Map(input.ApplicationDatasets),
+               Datasets = new DatasetApiViewModel().Map(input.ApplicationDatasets),
                DateCreated = input.DateCreated,
                DateModified = input.DateModified,
                UserCreated = input.UserCreated,

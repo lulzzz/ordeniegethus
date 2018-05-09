@@ -17,7 +17,7 @@ namespace Arkitektum.Orden.Models.ViewModels
         public List<SelectListItem> AvailableAccessRights { get; set; }
         public AccessRight? AccessRight { get; set; }
         public List<SelectListItem> AvailableApplications { get; set; }
-        public IEnumerable<ApplicationViewModel> Applications { get; set; }
+        public IEnumerable<ApplicationApiViewModel> Applications { get; set; }
         public int Application { get; set; }
         public DateTime? PublishedToSharedDataCatalog { get; set; }
         public HostingLocation? HostingLocation { get; set; }
@@ -61,7 +61,7 @@ namespace Arkitektum.Orden.Models.ViewModels
                 HostingLocation = input.HostingLocation,
                 HostingLocationText = ApplicationViewModel.TranslateHostingLocation(input.HostingLocation),
                 OrganizationId = input.OrganizationId,
-                Applications = new ApplicationViewModel().MapToEnumerable(input.ApplicationsAsEnumerable()),
+                Applications = new ApplicationApiViewModel().Map(input.ApplicationDatasets),
                 Fields = new DatasetFieldViewModel().Map(input.Fields),
                 DateCreated = input.DateCreated,
                 UserCreated = input.UserCreated,

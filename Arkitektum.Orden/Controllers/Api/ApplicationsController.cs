@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Arkitektum.Orden.Models;
 using Arkitektum.Orden.Models.ViewModels;
 using Arkitektum.Orden.Services;
 using Arkitektum.Orden.Utils;
@@ -66,8 +68,9 @@ namespace Arkitektum.Orden.Controllers.Api
             if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Read))
                 return Forbid();
 
-            var datasets = await _applicationDatasetService.GetDatasetsForApplication(id);
-            return Json(new DatasetApiViewModel().Map(datasets));
+            IEnumerable<ApplicationDataset> datasetsForApplication = await _applicationDatasetService.GetDatasetsForApplication(id);
+            
+            return Json(new DatasetApiViewModel().Map(datasetsForApplication));
         }
     }
 }

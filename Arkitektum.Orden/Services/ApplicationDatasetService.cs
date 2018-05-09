@@ -9,8 +9,8 @@ namespace Arkitektum.Orden.Services
 {
     public interface IApplicationDatasetService
     {
-        Task<IEnumerable<Dataset>> GetDatasetsForApplication(int applicationId);
-        Task CreateApplicationDataset(int applicationId, int datasetId);
+        Task<IEnumerable<ApplicationDataset>> GetDatasetsForApplication(int applicationId);
+        Task CreateApplicationDataset(int applicationId, int datasetId, string roleName);
         Task DeleteApplicationDataset(int applicationId, int datasetId);
     }
 
@@ -23,10 +23,10 @@ namespace Arkitektum.Orden.Services
             _context = context;
         }
 
-        public async Task CreateApplicationDataset(int applicationId, int datasetId)
+        public async Task CreateApplicationDataset(int applicationId, int datasetId, string roleName)
         {
             var application = await GetApplication(applicationId);
-            application.ApplicationDatasets.Add(new ApplicationDataset { ApplicationId = applicationId, DatasetId = datasetId});
+            application.ApplicationDatasets.Add(new ApplicationDataset { ApplicationId = applicationId, DatasetId = datasetId, RoleName = roleName});
             await _context.SaveChangesAsync();
         }
 
@@ -37,12 +37,12 @@ namespace Arkitektum.Orden.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Dataset>> GetDatasetsForApplication(int applicationId)
+        public async Task<IEnumerable<ApplicationDataset>> GetDatasetsForApplication(int applicationId)
         {
             return await _context.ApplicationDataset
                 .Where(sa => sa.ApplicationId == applicationId)
-                .Select(sa => sa.Dataset)
-                .OrderBy(sa => sa.Name)
+                .Include(sa => sa.Dataset)
+                .OrderBy(sa => sa.Dataset.Name)
                 .ToListAsync();
         }
 

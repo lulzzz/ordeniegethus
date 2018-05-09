@@ -26,7 +26,7 @@ namespace Arkitektum.Orden.Services
         Task UpdateAsync(int id, Dataset updatedDataset);
         Task<Dataset> UpdateMetadataAsync(int id, Dataset updatedDataset);
         Task<int> GetDatasetsCountForOrganization(int currentOrganizationId);
-        Task<IEnumerable<Application>> GetApplicationsForDataset(int datasetId);
+        Task<IEnumerable<ApplicationDataset>> GetApplicationsForDataset(int datasetId);
     }
     /// <summary>
     /// Handles operations on Dataset Entity
@@ -136,14 +136,14 @@ namespace Arkitektum.Orden.Services
             await _context.SaveChangesAsync(username);
         }
 
-        public async Task<IEnumerable<Application>> GetApplicationsForDataset(int datasetId)
+        public async Task<IEnumerable<ApplicationDataset>> GetApplicationsForDataset(int datasetId)
         {
-            return await _context.Dataset
-                .Where(d => d.Id == datasetId)
-                .SelectMany(d => d.ApplicationDatasets)
-                .Select(d => d.Application)
+            return await _context.ApplicationDataset
+                .Where(sa => sa.DatasetId == datasetId)
+                .Include(sa => sa.Application)
+                .OrderBy(sa => sa.Application.Name)
                 .ToListAsync();
         }  
-
+        
     }
 }

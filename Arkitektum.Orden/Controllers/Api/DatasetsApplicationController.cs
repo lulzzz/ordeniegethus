@@ -39,7 +39,7 @@ namespace Arkitektum.Orden.Controllers
             if (!_securityService.CurrrentUserHasAccessToApplication(application, AccessLevel.Write))
                 return Forbid();
 
-            await _applicationDatasetService.CreateApplicationDataset(model.ApplicationId, model.DatasetId);
+            await _applicationDatasetService.CreateApplicationDataset(model.ApplicationId, model.DatasetId, model.RoleName);
             return StatusCode(HttpStatusCode.NoContent);
         }
 

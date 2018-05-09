@@ -54,7 +54,7 @@ namespace Arkitektum.Orden.Controllers.Api
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
                 return Forbid();
 
-            IEnumerable<Application> applicationsForDataset = await _datasetService.GetApplicationsForDataset(id);
+            IEnumerable<ApplicationDataset> applicationsForDataset = await _datasetService.GetApplicationsForDataset(id);
             
             return Json(new ApplicationApiViewModel().Map(applicationsForDataset));
         }
