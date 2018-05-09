@@ -81,14 +81,16 @@ namespace Arkitektum.Orden.Controllers
             if (id == null)
                 return NotFound();
 
-            if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Read))
+            int currentOrganizationId = CurrentOrganizationId();
+            
+            if (!_securityService.CurrrentUserHasAccessToOrganization(currentOrganizationId, AccessLevel.Read))
                 return Forbid();
 
             bool hasWriteAccess =
-                _securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write);
+                _securityService.CurrrentUserHasAccessToOrganization(currentOrganizationId, AccessLevel.Write);
 
 
-            return View(new ApplicationDetailsViewModel() { ApplicationId = id.Value, HasWriteAccess = hasWriteAccess});
+            return View(new ApplicationDetailsViewModel() { ApplicationId = id.Value, OrganizationId = currentOrganizationId, HasWriteAccess = hasWriteAccess});
         }
 
         
