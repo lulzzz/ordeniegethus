@@ -72,6 +72,14 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public IEnumerable<StandardViewModel> Standards { get; set; }
         
+//        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? AgreementDateStart { get; set; }
+        public string AgreementDescription { get; set; }
+        public string AgreementTerminationClauses { get; set; }
+        public string AgreementResponsibleRole { get; set; }
+        public string AgreementDocumentUrl { get; set; }
+        
         public override IEnumerable<ApplicationViewModel> MapToEnumerable(IEnumerable<Application> inputs)
         {
             var viewModels = new List<ApplicationViewModel>();
@@ -106,7 +114,12 @@ namespace Arkitektum.Orden.Models.ViewModels
                DateModified = input.DateModified,
                UserCreated = input.UserCreated,
                UserModified = input.UserModified,
-               Standards = Map(input.ApplicationStandards)
+               Standards = Map(input.ApplicationStandards),
+               AgreementDateStart = input.Agreement?.DateStart,
+               AgreementDescription = input.Agreement?.Description,
+               AgreementDocumentUrl = input.Agreement?.DocumentUrl,
+               AgreementResponsibleRole = input.Agreement?.ResponsibleRole,
+               AgreementTerminationClauses = input.Agreement?.TerminationClauses
            };
         }
 
@@ -199,7 +212,7 @@ namespace Arkitektum.Orden.Models.ViewModels
 
         public Application Map(ApplicationViewModel input)
         {
-            return new Application
+            var application = new Application
             {
                 Id = input.Id,
                 Name = input.Name,
@@ -214,6 +227,25 @@ namespace Arkitektum.Orden.Models.ViewModels
                 VendorId = input.VendorId,
                 Vendor = CreateNewVendor(input.VendorId, input.VendorName)
             };
+
+            if (input.AgreementDateStart != null ||
+                input.AgreementDescription != null ||
+                input.AgreementDocumentUrl != null ||
+                input.AgreementResponsibleRole != null ||
+                input.AgreementTerminationClauses != null)
+            {
+                var agreement = new Agreement()
+                {
+                    DateStart = input.AgreementDateStart,
+                    Description = input.AgreementDescription,
+                    DocumentUrl = input.AgreementDocumentUrl,
+                    ResponsibleRole = input.AgreementResponsibleRole,
+                    TerminationClauses = input.AgreementTerminationClauses
+                };
+                application.Agreement = agreement;
+            }
+            
+            return application;
         }
 
         private HostingLocation GetEnumHostingLocation(string input)

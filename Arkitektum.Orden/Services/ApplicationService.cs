@@ -79,6 +79,7 @@ namespace Arkitektum.Orden.Services
 
             _context.Entry(currentApplication).CurrentValues.SetValues(updatedApplication);
 
+            currentApplication.Agreement = updatedApplication.Agreement;
             currentApplication.UpdateSectorRelations(updatedApplication.SectorApplications);
 
             currentApplication.UpdateNationalComponentsRelations(updatedApplication.ApplicationNationalComponent);

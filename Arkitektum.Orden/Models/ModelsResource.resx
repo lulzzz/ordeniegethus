@@ -237,4 +237,19 @@
   <data name="AvailableConcepts" xml:space="preserve">
     <value>Teamer</value>
   </data>
+  <data name="AgreementDateStart" xml:space="preserve">
+    <value>Avtale inngått dato</value>
+  </data>
+  <data name="AgreementDescription" xml:space="preserve">
+    <value>Beskrivelse</value>
+  </data>
+  <data name="AgreementTerminationClauses" xml:space="preserve">
+    <value>Oppsigelsesbetingelser</value>
+  </data>
+  <data name="AgreementResponsibleRole" xml:space="preserve">
+    <value>Avtaleansvarlig (rolle)</value>
+  </data>
+  <data name="AgreementDocumentUrl" xml:space="preserve">
+    <value>Lenke til avtale (url)</value>
+  </data>
 </root>

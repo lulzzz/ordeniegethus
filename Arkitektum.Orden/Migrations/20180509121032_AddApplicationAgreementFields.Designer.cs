@@ -14,9 +14,10 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 namespace Arkitektum.Orden.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180509121032_AddApplicationAgreementFields")]
+    partial class AddApplicationAgreementFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -710,7 +711,7 @@ namespace Arkitektum.Orden.Migrations
                         {
                             b1.Property<int?>("ApplicationId");
 
-                            b1.Property<DateTime?>("DateStart");
+                            b1.Property<DateTime>("DateStart");
 
                             b1.Property<string>("Description");
 

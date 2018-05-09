@@ -153,6 +153,8 @@ namespace Arkitektum.Orden.Models
         /// </summary>
         public int? CreatedFromCommonApplicationId { get; set; }
 
+        public Agreement Agreement { get; set; }
+        
         public Application()
         {
             ApplicationStandards = new List<ApplicationStandard>();

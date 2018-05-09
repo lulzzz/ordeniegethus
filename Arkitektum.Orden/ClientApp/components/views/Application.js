@@ -43,12 +43,21 @@ export default {
                     this.apiData = apiData;
                 });
         },
-
+        hasAgreementDetails() {
+            if (this.apiData && 
+                (this.apiData.agreementDateStart || this.apiData.agreementDescription || this.apiData.agreementTerminationClauses || this.apiData.agreementResponsibleRole || this.apiData.agreementDocumentUrl ))
+                return true;
+            return false;
+        }
     },
     filters: {
-        formatDate: function (value) {
+        formatDateTime: function (value) {
             if (!value) return ''
             return format(value, 'D. MMMM YYYY HH:mm:ss')
+        },
+        formatDate: function (value) {
+            if (!value) return ''
+            return format(value, 'D. MMMM YYYY')
         }
     }
 }

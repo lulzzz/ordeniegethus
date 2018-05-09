@@ -61,14 +61,37 @@
                 <select asp-for="SystemOwnerId" class="form-control" asp-items="Model.AvailableSystemOwners"></select>
                 <span asp-validation-for="SystemOwnerId" class="text-danger"></span>
             </div>
-
+            
+            <h2>Avtale</h2>
+            <div class="form-group">
+                <label asp-for="AgreementDateStart" class="control-label"></label>
+                <input type="date" asp-for="AgreementDateStart" class="form-control" />
+                <span asp-validation-for="AgreementDateStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementDescription" class="control-label"></label>
+                <textarea asp-for="AgreementDescription" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="AgreementDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementTerminationClauses" class="control-label"></label>
+                <textarea asp-for="AgreementTerminationClauses" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="AgreementTerminationClauses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementResponsibleRole" class="control-label"></label>
+                <input asp-for="AgreementResponsibleRole" class="form-control" />
+                <span asp-validation-for="AgreementResponsibleRole" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgreementDocumentUrl" class="control-label"></label>
+                <input asp-for="AgreementDocumentUrl" class="form-control" />
+                <span asp-validation-for="AgreementDocumentUrl" class="text-danger"></span>
+            </div>
+            
             <div class="form-group">
                 <input type="submit" value="Lagre" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Tilbake til liste</a>
 </div>

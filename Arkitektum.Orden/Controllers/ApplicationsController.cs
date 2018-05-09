@@ -215,7 +215,10 @@ namespace Arkitektum.Orden.Controllers
 
         [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwnerId,Sectors,NationalComponents")] ApplicationViewModel model)
+        public async Task<IActionResult> Edit(int id, 
+            [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers," +
+                  "SystemOwnerId,Sectors,NationalComponents,AgreementDateStart,AgreementDescription,AgreementDocumentUrl," +
+                  "AgreementResponsibleRole,AgreementTerminationClauses")] ApplicationViewModel model)
         {
             if (id == 0)
                 return NotFound();

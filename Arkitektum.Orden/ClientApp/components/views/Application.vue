@@ -9,8 +9,8 @@
                 <a v-bind:href="apiUrls.submitAppRegistry" class="btn btn-sm btn-outline-primary"><i class="fas fa-warehouse"></i> Send inn til felles applikasjonsregister</a>
               </div>
               
-              <p v-if="apiData.userModified">Sist endret av {{ apiData.userModified }} - {{ apiData.dateModified | formatDate }}</p>
-              <p v-if="apiData.userCreated">Opprettet av: {{ apiData.userCreated }} - {{ apiData.dateCreated | formatDate }}</p>
+              <p v-if="apiData.userModified">Sist endret av {{ apiData.userModified }} - {{ apiData.dateModified | formatDateTime }}</p>
+              <p v-if="apiData.userCreated">Opprettet av: {{ apiData.userCreated }} - {{ apiData.dateCreated | formatDateTime }}</p>
               <p>Leverandør: {{ apiData.vendor.name }}</p>
               <p v-if="apiData.systemOwnerName">Systemansvarlig: <span class="badge badge-info"><i class="fas fa-user"></i> {{ apiData.systemOwnerName }}</span></p>
 
@@ -25,6 +25,16 @@
               <p>Driftsleverandør: {{ apiData.hostingVendor }}</p>
               <p>Driftsplassering: {{ apiData.hostingLocationText }}</p>
               <p>Antall brukere: {{ apiData.numberOfUsers }}</p>
+              
+              <div v-if="hasAgreementDetails()">
+                  <h2>Avtale</h2>
+                  <hr/>
+                  <p v-if="apiData.agreementDateStart">Dato inngått: {{ apiData.agreementDateStart | formatDate }}</p>
+                  <p v-if="apiData.agreementDescription">Beskrivelse: {{ apiData.agreementDescription }}</p>
+                  <p v-if="apiData.agreementTerminationClauses">Oppsigelsesbetingelser: {{ apiData.agreementTerminationClauses }}</p>
+                  <p v-if="apiData.agreementResponsibleRole">Avtaleansvarlig (rolle): {{ apiData.agreementResponsibleRole }}</p>
+                  <p v-if="apiData.agreementDocumentUrl"><a v-bind:href="apiData.agreementDocumentUrl">Lenke til avtale</a></p>
+              </div>
 <!--
               <p>
                 Superbrukere:

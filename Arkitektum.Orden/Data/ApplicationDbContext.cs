@@ -54,6 +54,8 @@ namespace Arkitektum.Orden.Data
                 .HasForeignKey(lr => lr.DatasetLawReferenceId);
             builder.Entity<Dataset>().HasMany(d => d.ResourceLinks).WithOne(rl => rl.DatasetResourceLink)
                 .HasForeignKey(rl => rl.DatasetResourceLinkId);
+
+            builder.Entity<Application>().OwnsOne(a => a.Agreement);
             
             builder.Entity<ApplicationDataset>().HasKey("ApplicationId", "DatasetId");
             builder.Entity<ApplicationNationalComponent>().HasKey("ApplicationId", "NationalComponentId");

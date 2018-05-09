@@ -19,7 +19,7 @@ namespace Arkitektum.Orden.Models {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ModelsResource {
@@ -66,6 +66,51 @@ namespace Arkitektum.Orden.Models {
         public static string AccessRight {
             get {
                 return ResourceManager.GetString("AccessRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avtale inngått dato.
+        /// </summary>
+        public static string AgreementDateStart {
+            get {
+                return ResourceManager.GetString("AgreementDateStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beskrivelse.
+        /// </summary>
+        public static string AgreementDescription {
+            get {
+                return ResourceManager.GetString("AgreementDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lenke til avtale (url).
+        /// </summary>
+        public static string AgreementDocumentUrl {
+            get {
+                return ResourceManager.GetString("AgreementDocumentUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avtaleansvarlig (rolle).
+        /// </summary>
+        public static string AgreementResponsibleRole {
+            get {
+                return ResourceManager.GetString("AgreementResponsibleRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oppsigelsesbetingelser.
+        /// </summary>
+        public static string AgreementTerminationClauses {
+            get {
+                return ResourceManager.GetString("AgreementTerminationClauses", resourceCulture);
             }
         }
         
