@@ -13,7 +13,7 @@ export default {
     return {
       filterResults: [],
       inputValue: "",
-      active: false
+        active: false,
     };
   },
   watch: {
@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     updateFilterResult(filterValue) {
-      let filterResults = [];
+        let filterResults = [];
+        this.$emit("user-input-change", filterValue);
       let minSearchLength =
         this.minSearchLength !== undefined ? this.minSearchLength : 0;
       if (!filterValue.length) {

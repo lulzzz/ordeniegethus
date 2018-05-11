@@ -28,6 +28,10 @@
                 <p v-if="apiData.purpose" class="long-text">{{ apiData.purpose }}</p>
                 <p v-if="!apiData.purpose"><i>Ingen formål angitt.</i></p>
 
+        <dataset-fields v-bind:dataset-id="datasetId" v-bind:dataset-fields="apiData.fields" v-bind:write-access="writeAccess"></dataset-fields>
+        
+        <h3>Metadata</h3>
+        <dataset-metadata v-bind:write-access="writeAccess" v-bind:dataset-id="datasetId" v-bind:lists="metadataLists"></dataset-metadata>
                 <h2>Drift</h2>
                 <hr/>
                 <p v-if="apiData.hostingLocationText">Driftsplassering: {{ apiData.hostingLocationText }}</p>

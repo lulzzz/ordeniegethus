@@ -5,5 +5,43 @@
 }
 
 <div id="app-root">
-    <dataset dataset-id="@Model.Id" write-access></dataset>
+    <dataset dataset-id="@Model.Id"
+             v-bind:metadata-lists="[
+                {
+                    name: 'AccessRightComments',
+                    propertyName: 'accessRightComments',
+                    listTitle: '@Html.Raw(UIResource.AccessRightComments)'
+                },
+                {
+                    name: 'ContactPoints',
+                    propertyName: 'contactPoints',
+                    listTitle: '@Html.Raw(UIResource.ContactPoints)'
+                },
+                {
+                    name: 'Keywords',
+                    propertyName: 'keywords',
+                    listTitle: '@Html.Raw(UIResource.Keywords)'
+                },
+                 {
+                    name: 'Distributions',
+                    propertyName: 'distributions',
+                    listTitle: '@Html.Raw(UIResource.Distributions)'
+                },
+                 {
+                    name: 'Subjects',
+                    propertyName: 'subjects',
+                    listTitle: '@Html.Raw(UIResource.Subjects)'
+                },
+                {
+                    name: 'Identifiers',
+                    propertyName: 'identifiers',
+                    listTitle: '@Html.Raw(UIResource.Identifiers)'
+                },
+                {
+                    name: 'ContactPoints',
+                    propertyName: 'contactPoints',
+                    listTitle: '@Html.Raw(UIResource.ContactPoints)'
+                },
+             ]"
+             write-access></dataset>
 </div>

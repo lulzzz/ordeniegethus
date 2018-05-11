@@ -12,7 +12,8 @@ export default {
         writeAccess: {
             type: Boolean,
             default: false
-        }
+        },
+        metadataLists: Array
     }, 
     data() {
         return {

@@ -10,8 +10,9 @@ export default {
             },
             application: {},
             availableApplications: [],
-            url: {}
-        }
+            url: {},
+            applicationQuery: ""
+    }
     },
     components: {
         FilterSelect
@@ -35,6 +36,10 @@ export default {
                 .then((apiData) => {
                     location.href = apiData.location;
                 });
+        },
+        updateApplicationQuery(inputValue) {
+            console.log(inputValue);
+            this.applicationQuery = inputValue;
         }
     },
 }

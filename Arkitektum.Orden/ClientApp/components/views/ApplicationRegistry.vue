@@ -10,7 +10,8 @@
         primary-text-property="name"
         value-property="id"
         placeholder="Søk etter applikasjon"
-        v-on:select="selectApplication($event)">
+        v-on:select="selectApplication($event)"
+        v-on:user-input-change="updateApplicationQuery($event)">
       </filter-select>
     </div>
     <div class="form-group">
@@ -21,7 +22,7 @@
     </div>
     
     <div class="form-group">
-      Fant du ikke det du lette etter? <a href="/applications/create">Registrer ny applikasjon her</a>
+      Fant du ikke det du lette etter? <a v-bind:href="'/applications/create?applicationQuery=' + applicationQuery">Registrer ny applikasjon her</a>
     </div>
   </div>
 
