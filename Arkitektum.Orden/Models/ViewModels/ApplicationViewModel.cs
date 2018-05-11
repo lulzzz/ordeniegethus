@@ -225,25 +225,16 @@ namespace Arkitektum.Orden.Models.ViewModels
                 NumberOfUsers = input.NumberOfUsers,
                 OrganizationId = input.OrganizationId,
                 VendorId = input.VendorId,
-                Vendor = CreateNewVendor(input.VendorId, input.VendorName)
-            };
-
-            if (input.AgreementDateStart != null ||
-                input.AgreementDescription != null ||
-                input.AgreementDocumentUrl != null ||
-                input.AgreementResponsibleRole != null ||
-                input.AgreementTerminationClauses != null)
-            {
-                var agreement = new Agreement()
+                Vendor = CreateNewVendor(input.VendorId, input.VendorName),
+                Agreement = new Agreement()
                 {
                     DateStart = input.AgreementDateStart,
                     Description = input.AgreementDescription,
                     DocumentUrl = input.AgreementDocumentUrl,
                     ResponsibleRole = input.AgreementResponsibleRole,
                     TerminationClauses = input.AgreementTerminationClauses
-                };
-                application.Agreement = agreement;
-            }
+                }
+            };
             
             return application;
         }
