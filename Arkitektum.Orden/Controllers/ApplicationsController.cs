@@ -186,8 +186,8 @@ namespace Arkitektum.Orden.Controllers
 
             if (ModelState.IsValid)
             {
-                var createApplication = await _applicationService.Create(new ApplicationViewModel().Map(model));
-                return RedirectToAction(nameof(Index));
+                Application createdApplication = await _applicationService.Create(new ApplicationViewModel().Map(model));
+                return RedirectToAction(nameof(Details), new { createdApplication.Id });
             }
 
             model.AvailableSystemOwners = await GetAvailableSystemOwners(model.SystemOwnerId);
