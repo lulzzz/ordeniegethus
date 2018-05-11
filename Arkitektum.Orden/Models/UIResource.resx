@@ -124,7 +124,7 @@
     <value>Du har ikke tilgang til denne ressursen. Ta kontakt med systemansvarlig dersom dette er feil. </value>
   </data>
   <data name="ApplicationCreateModelVendorNotDefined" xml:space="preserve">
-    <value>Du må velge en leverandør fra listen eller skrive inn navn på en ny leverandør.</value>
+    <value>Velg en produsent fra listen eller skrive inn navn på en ny produsent.</value>
   </data>
   <data name="AppRegistry" xml:space="preserve">
     <value>Felles applikasjonsregister</value>
@@ -226,7 +226,7 @@
     <value>- Velg driftsplassering fra listen -</value>
   </data>
   <data name="SelectVendorFromList" xml:space="preserve">
-    <value>- Velg leverandør fra listen -</value>
+    <value>- Velg produsent fra listen -</value>
   </data>
   <data name="SensitivePersonalDataBadgeText" xml:space="preserve">
     <value>Sensitiv</value>
@@ -253,10 +253,7 @@
     <value>Brukere</value>
   </data>
   <data name="VendorHelp" xml:space="preserve">
-    <value>Velg leverandør fra listen eller opprett ny leverandør nedenfor.</value>
-  </data>
-  <data name="VendorNameHelp" xml:space="preserve">
-    <value>Skriv inn navn på leverandør dersom du ønsker å opprette en ny leverandør.</value>
+    <value>Velg produsent fra listen eller opprett ny produsent nedenfor.</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Beskrivelse av dataset</value>
@@ -290,5 +287,8 @@
   </data>
   <data name="SelectSystemOwnerFromList" xml:space="preserve">
     <value>- Velg person fra listen -</value>
+  </data>
+  <data name="HostingVendorHelp" xml:space="preserve">
+    <value>Virksomheten som har ansvar for daglig drift og support.</value>
   </data>
 </root>

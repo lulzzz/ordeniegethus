@@ -88,7 +88,7 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Du må velge en leverandør fra listen eller skrive inn navn på en ny leverandør..
+        ///   Looks up a localized string similar to Velg en produsent fra listen eller skrive inn navn på en ny produsent..
         /// </summary>
         public static string ApplicationCreateModelVendorNotDefined {
             get {
@@ -288,6 +288,15 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virksomheten som har ansvar for daglig drift og support..
+        /// </summary>
+        public static string HostingVendorHelp {
+            get {
+                return ResourceManager.GetString("HostingVendorHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Identifikator.
         /// </summary>
         public static string Identifiers {
@@ -459,7 +468,7 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to - Velg leverandør fra listen -.
+        ///   Looks up a localized string similar to - Velg produsent fra listen -.
         /// </summary>
         public static string SelectVendorFromList {
             get {
@@ -558,20 +567,11 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg leverandør fra listen eller opprett ny leverandør nedenfor..
+        ///   Looks up a localized string similar to Velg produsent fra listen eller opprett ny produsent nedenfor..
         /// </summary>
         public static string VendorHelp {
             get {
                 return ResourceManager.GetString("VendorHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Skriv inn navn på leverandør dersom du ønsker å opprette en ny leverandør..
-        /// </summary>
-        public static string VendorNameHelp {
-            get {
-                return ResourceManager.GetString("VendorNameHelp", resourceCulture);
             }
         }
     }

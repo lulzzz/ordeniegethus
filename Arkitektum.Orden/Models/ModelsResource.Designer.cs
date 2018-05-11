@@ -115,7 +115,7 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Årlig kostnad.
+        ///   Looks up a localized string similar to Årlig kostnad (NOK).
         /// </summary>
         public static string AnnualFee {
             get {
@@ -250,7 +250,7 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Innkjøpskostnad.
+        ///   Looks up a localized string similar to Innkjøpskostnad (NOK).
         /// </summary>
         public static string InitialCost {
             get {
@@ -439,7 +439,7 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leverandør.
+        ///   Looks up a localized string similar to Produsent.
         /// </summary>
         public static string Vendor {
             get {
@@ -448,7 +448,7 @@ namespace Arkitektum.Orden.Models {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leverandørnavn.
+        ///   Looks up a localized string similar to Ny produsent.
         /// </summary>
         public static string VendorName {
             get {

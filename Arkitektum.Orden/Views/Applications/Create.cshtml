@@ -13,17 +13,17 @@
             <input type="hidden" asp-for="OrganizationId" />
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group required">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group required">
                 <label asp-for="Version" class="control-label"></label>
                 <input asp-for="Version" class="form-control" />
                 <span asp-validation-for="Version" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group required">
                 <label class="control-label">@ModelsResource.Vendor</label>
                 <select asp-for="VendorId" asp-items="Model.AvailableVendors" class="form-control"></select>
                 <small class="form-text text-muted">@UIResource.VendorHelp</small>
@@ -32,7 +32,6 @@
             <div class="form-group">
                 <label asp-for="VendorName" class="control-label"></label>
                 <input asp-for="VendorName" class="form-control" />
-                <small class="form-text text-muted">@UIResource.VendorNameHelp</small>
                 <span asp-validation-for="VendorName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -48,6 +47,7 @@
             <div class="form-group">
                 <label asp-for="HostingVendor" class="control-label"></label>
                 <input asp-for="HostingVendor" class="form-control" />
+                <small class="form-text text-muted">@UIResource.HostingVendorHelp</small>
                 <span asp-validation-for="HostingVendor" class="text-danger"></span>
             </div>
             <div class="form-group">

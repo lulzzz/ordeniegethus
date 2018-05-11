@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AnnualFee" xml:space="preserve">
-    <value>Årlig kostnad</value>
+    <value>Årlig kostnad (NOK)</value>
   </data>
   <data name="Application" xml:space="preserve">
     <value>Applikasjon</value>
@@ -139,7 +139,7 @@
     <value>Driftsplassering</value>
   </data>
   <data name="InitialCost" xml:space="preserve">
-    <value>Innkjøpskostnad</value>
+    <value>Innkjøpskostnad (NOK)</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Navn</value>
@@ -175,7 +175,7 @@
     <value>Systemansvarlig</value>
   </data>
   <data name="Vendor" xml:space="preserve">
-    <value>Leverandør</value>
+    <value>Produsent</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Versjon</value>
@@ -229,7 +229,7 @@
     <value>Driftsleverandør</value>
   </data>
   <data name="VendorName" xml:space="preserve">
-    <value>Leverandørnavn</value>
+    <value>Ny produsent</value>
   </data>
   <data name="Insight" xml:space="preserve">
     <value>Innsikt</value>
