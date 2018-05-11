@@ -252,4 +252,7 @@
   <data name="AgreementDocumentUrl" xml:space="preserve">
     <value>Lenke til avtale (url)</value>
   </data>
+  <data name="PurchaseDate" xml:space="preserve">
+    <value>Anskaffelsesdato</value>
+  </data>
 </root>
