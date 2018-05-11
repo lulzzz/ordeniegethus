@@ -176,7 +176,7 @@ namespace Arkitektum.Orden.Controllers
 
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers,SystemOwnerId,Sectors,NationalComponents")] ApplicationViewModel model)
+        public async Task<IActionResult> Create([Bind("Name,Version,VendorId,VendorName,AnnualFee,InitialCost,PurchaseDate,HostingVendor,HostingLocation,NumberOfUsers,SystemOwnerId,Sectors,NationalComponents")] ApplicationViewModel model)
         {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
                 return Forbid();
@@ -218,7 +218,7 @@ namespace Arkitektum.Orden.Controllers
         [HttpPost("edit/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, 
-            [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,HostingVendor,HostingLocation,NumberOfUsers," +
+            [Bind("Id,Name,Version,VendorId,VendorName,AnnualFee,InitialCost,PurchaseDate,HostingVendor,HostingLocation,NumberOfUsers," +
                   "SystemOwnerId,Sectors,NationalComponents,AgreementDateStart,AgreementDescription,AgreementDocumentUrl," +
                   "AgreementResponsibleRole,AgreementTerminationClauses")] ApplicationViewModel model)
         {

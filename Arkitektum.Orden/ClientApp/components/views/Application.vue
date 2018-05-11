@@ -14,11 +14,13 @@
               <p>Produsent: {{ apiData.vendor.name }}</p>
               <p v-if="apiData.systemOwnerName">Systemansvarlig: <span class="badge badge-info"><i class="fas fa-user"></i> {{ apiData.systemOwnerName }}</span></p>
 
-              <h2 v-if="apiData.annualFee != 0 || apiData.initialCost != 0">Kostnader</h2>
-              <hr />
-              <p>{{apidata}}</p>
-              <p>Årlige kostnad: {{ apiData.annualFee }}</p>
-              <p>Innkjøpskostnad: {{ apiData.initialCost }}</p>
+              <div v-if="apiData.annualFee != 0 || apiData.initialCost != 0 || apiData.purchaseDate ">
+                  <h2>Kostnader</h2>
+                  <hr />
+                  <p v-if="apiData.annualFee != 0">Årlige kostnad: {{ apiData.annualFee }}</p>
+                  <p v-if="apiData.initialCost != 0">Innkjøpskostnad: {{ apiData.initialCost }}</p>
+                  <p v-if="apiData.purchaseDate">Anskaffelsesdato: {{ apiData.purchaseDate | formatDate }}</p>
+              </div>
               
               <h2>Drift</h2>
               <hr />

@@ -97,6 +97,11 @@ namespace Arkitektum.Orden.Models
         public decimal InitialCost { get; set; }
 
         /// <summary>
+        ///     Anskaffelsesdato
+        /// </summary>
+        public DateTime? PurchaseDate { get; set; }
+        
+        /// <summary>
         ///     Systemeier
         /// </summary>
         public virtual ApplicationUser SystemOwner { get; set; }

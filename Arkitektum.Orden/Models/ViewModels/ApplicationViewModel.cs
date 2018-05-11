@@ -80,6 +80,9 @@ namespace Arkitektum.Orden.Models.ViewModels
         public string AgreementResponsibleRole { get; set; }
         public string AgreementDocumentUrl { get; set; }
         
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? PurchaseDate { get; set; }
+        
         public override IEnumerable<ApplicationViewModel> MapToEnumerable(IEnumerable<Application> inputs)
         {
             var viewModels = new List<ApplicationViewModel>();
@@ -119,7 +122,8 @@ namespace Arkitektum.Orden.Models.ViewModels
                AgreementDescription = input.Agreement?.Description,
                AgreementDocumentUrl = input.Agreement?.DocumentUrl,
                AgreementResponsibleRole = input.Agreement?.ResponsibleRole,
-               AgreementTerminationClauses = input.Agreement?.TerminationClauses
+               AgreementTerminationClauses = input.Agreement?.TerminationClauses,
+               PurchaseDate = input.PurchaseDate
            };
         }
 
@@ -233,7 +237,8 @@ namespace Arkitektum.Orden.Models.ViewModels
                     DocumentUrl = input.AgreementDocumentUrl,
                     ResponsibleRole = input.AgreementResponsibleRole,
                     TerminationClauses = input.AgreementTerminationClauses
-                }
+                },
+                PurchaseDate = input.PurchaseDate
             };
             
             return application;
