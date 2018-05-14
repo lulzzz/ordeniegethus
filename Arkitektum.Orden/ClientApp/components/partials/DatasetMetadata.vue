@@ -1,7 +1,7 @@
 <template>
   <div>
-      <!--<list v-bind:list-elements="apiData.concepts" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="Temaer"  v-bind:dataset-id="datasetId"></list>-->
-      <!--<list v-bind:list-elements="apiData.accessRightComments" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="AccessRightComments"  v-bind:dataset-id="datasetId">
+    <!--<list v-bind:list-elements="apiData.concepts" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="Temaer"  v-bind:dataset-id="datasetId"></list>-->
+    <!--<list v-bind:list-elements="apiData.accessRightComments" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="AccessRightComments"  v-bind:dataset-id="datasetId">
       </list>
       <list v-bind:list-elements="apiData.contactPoints" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="ContactPoints"  v-bind:dataset-id="datasetId"></list>
       <list v-bind:list-elements="apiData.distributions" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="Distributions"  v-bind:dataset-id="datasetId"></list>
@@ -9,8 +9,13 @@
       <list v-bind:list-elements="apiData.subjects" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="Subjects"  v-bind:dataset-id="datasetId"></list>
       <list v-bind:list-elements="apiData.keywords" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="Keywords"  v-bind:dataset-id="datasetId"></list>-->
 
-    <list v-bind:list-elements="apiData[list.propertyName]" v-bind:listTitle="list.listTitle" v-bind:apiUrl="url" v-bind:write-access="writeAccess" v-bind:name="list.name"  v-bind:dataset-id="datasetId" v-for="list in lists"></list>
-    <concepts></concepts>
+    <list v-bind:list-elements="apiData[list.propertyName]" v-bind:listTitle="list.listTitle" v-bind:apiUrl="url"
+          v-bind:write-access="writeAccess" v-bind:name="list.name"  v-bind:dataset-id="datasetId" v-for="list in lists">
+    </list>
+
+    <dataset-metadata-concepts  v-bind:dataset-id="datasetId" v-bind:dataset-metadata-concepts="apiData.concepts" v-bind:write-access="writeAccess">
+    </dataset-metadata-concepts>
+
   </div>
 </template>
 

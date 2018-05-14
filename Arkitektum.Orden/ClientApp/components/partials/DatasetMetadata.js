@@ -1,5 +1,6 @@
 /* Components */
 import List from '../modules/List.vue';
+import DatasetMetadataConcepts from '../partials/DatasetMetadataConcepts.vue';
 
 export default {
     name: 'DatasetMetadata',
@@ -12,7 +13,8 @@ export default {
         lists: Array
     },
     components: {
-        List
+        List,
+        DatasetMetadataConcepts
     },
     data() {
         return {
@@ -20,7 +22,7 @@ export default {
             apiUrls: {
                 getMetadata: `/dataset/metadata/${this.datasetId}`,
                 getConcepts: `/api/concepts`
-    }
+            }
         }
     },
     mounted() {
@@ -32,11 +34,11 @@ export default {
                 .then((apiData) => {
                     this.apiData = apiData;
                 });
-            //Promise.resolve(this.$root.getApiData(this.apiUrls.getConcepts))
-            //    .then((apiData) => {
-            //            this.apiData.concepts = apiData;
-            //        }
-            //    );
+            Promise.resolve(this.$root.getApiData(this.apiUrls.getConcepts))
+                .then((apiData) => {
+                    this.apiData.concepts = apiData;
+                }
+                );
 
 
         }
