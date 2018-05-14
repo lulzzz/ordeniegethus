@@ -20,10 +20,8 @@ export default {
             newDatasetField: false,
         }
     },
-    watch: {
-        datasetFields() {
-            this.apiData = this.datasetFields;
-        }
+    mounted() {
+        this.apiData = this.datasetFields;
     },
     methods: {
         getDatasetFields() {
