@@ -1,6 +1,19 @@
 ﻿body {
     background: #f2f2f2;
+    position: relative;
 }
+
+.app-content {
+    position: fixed;
+    width: 100%;
+    overflow-y: scroll;
+    height: calc(100% - 49px);
+    @media (min-width: $screen-sm) {
+        height: calc(100% - 91px);
+        margin-top: 42px;
+    }
+}
+
 .body-content {
     background: white;
     padding-top: 24px;
@@ -10,6 +23,9 @@
 
 @media (min-width: $screen-sm) {
     .body-content {
-      margin-top: 42px;
+        max-width: 960px;
+    }
+    .container {
+        max-width: 960px;
     }
 }

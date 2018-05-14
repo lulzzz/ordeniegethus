@@ -88,9 +88,11 @@
 
 
 
-    <div class="container body-content">
-        @Html.Partial("_FlashMessage")
-        @RenderBody()
+    <div class="app-content">
+        <div class="container body-content">
+            @Html.Partial("_FlashMessage")
+            @RenderBody()
+        </div>
     </div>
     <script src="~/dist/vendor.js" asp-append-version="true"></script>
     <script src="~/dist/main.js" asp-append-version="true"></script>
