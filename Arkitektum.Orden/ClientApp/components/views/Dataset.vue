@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="apiData">
     <h1>{{ apiData.name }}</h1>
     <hr/>
     <div class="row">

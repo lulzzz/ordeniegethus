@@ -22,7 +22,7 @@ export default {
                 get: `/api/datasets/${this.datasetId}`,
                 edit: `/datasets/edit/${this.datasetId}`
             },
-            apiData: {}
+            apiData: null
         }
     },
     components: {

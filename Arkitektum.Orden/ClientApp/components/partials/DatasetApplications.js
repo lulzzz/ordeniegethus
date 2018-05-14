@@ -17,8 +17,8 @@ export default {
     data() {
         return {
             apiData: null,            
-            newDatasetApplication: false,
-            availableApplications: []
+            availableApplications: [],
+            newDatasetApplication: false
         }
     },
     mounted() {
@@ -48,8 +48,6 @@ export default {
             let availableApplications = []; 
             Promise.resolve(this.$root.getApiData(`/api/applications/all`)) 
             .then((apiData) => { 
-                console.log("get available applications");
-                console.log(apiData);
                 apiData.forEach(application => { 
                     if (!this.apiData.filter(a => a.id == application.id).length) { 
                         availableApplications.push(application); 
