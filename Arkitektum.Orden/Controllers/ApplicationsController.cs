@@ -95,8 +95,8 @@ namespace Arkitektum.Orden.Controllers
 
         
 
-        [HttpGet("create")]
-        public async Task<IActionResult> Create()
+        [HttpGet("create/{applicationQuery?}")]
+        public async Task<IActionResult> Create([FromQuery] string applicationQuery)
         {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
                 return Forbid();
@@ -105,6 +105,11 @@ namespace Arkitektum.Orden.Controllers
             model.OrganizationId = CurrentOrganizationId();
             model.AvailableSystemOwners = await GetAvailableSystemOwners();
             model.AvailableVendors = await GetAvailableVendors();
+
+            if (applicationQuery != null)
+            {
+                model.Name = applicationQuery;
+            }
             return View(model);
         }
 

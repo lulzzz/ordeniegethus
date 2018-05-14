@@ -38,8 +38,7 @@ export default {
                 });
         },
         updateApplicationQuery(inputValue) {
-            console.log(inputValue);
-            this.applicationQuery = inputValue;
+           this.applicationQuery = inputValue;
         }
     },
 }
