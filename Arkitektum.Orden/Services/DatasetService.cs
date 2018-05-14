@@ -24,7 +24,7 @@ namespace Arkitektum.Orden.Services
         Task Delete(int id);
         Task<IEnumerable<Dataset>> GetAllDatasetsForOrganization(int currentOrganizationId);
         Task UpdateAsync(int id, Dataset updatedDataset);
-        Task<Dataset> UpdateMetadataAsync(int id, Dataset updatedDataset);
+        Task<Dataset> UpdateMetadataAsync(int id, Dataset updatedDataset, List<string> fieldNames);
         Task<int> GetDatasetsCountForOrganization(int currentOrganizationId);
         Task<IEnumerable<ApplicationDataset>> GetApplicationsForDataset(int datasetId);
     }
@@ -85,21 +85,42 @@ namespace Arkitektum.Orden.Services
             {
                 currentDataset.UpdateApplicationRelation(updatedDataset.ApplicationDatasets);
             }
-           
+
             await SaveChanges();
         }
 
-        public async Task<Dataset> UpdateMetadataAsync(int id, Dataset updatedDataset)
+        public async Task<Dataset> UpdateMetadataAsync(int id, Dataset updatedDataset, List<string> fieldNames)
         {
             var currentDataset = await GetAsync(id);
 
-            currentDataset.Keywords = updatedDataset.Keywords;
-            currentDataset.AccessRightComments = updatedDataset.AccessRightComments;
-            currentDataset.Concepts = updatedDataset.Concepts;
-            currentDataset.ContactPoints = updatedDataset.ContactPoints;
-            currentDataset.Description = updatedDataset.Description;
-            currentDataset.Distributions = updatedDataset.Distributions;
-            currentDataset.Subjects = updatedDataset.Subjects;
+            switch (fieldNames[0])
+            {
+                case "Keywords":
+                    currentDataset.Keywords = updatedDataset.Keywords;
+                    break;
+                case "Concepts":
+                    currentDataset.Concepts = updatedDataset.Concepts;
+                    break;
+                case "AccessRightComments":
+                    currentDataset.AccessRightComments = updatedDataset.AccessRightComments;
+                    break;
+                case "ContactPoints":
+                    currentDataset.ContactPoints = updatedDataset.ContactPoints;
+                    break;
+                case "Description":
+                    currentDataset.Description = updatedDataset.Description;
+                    break;
+                case "Distributions":
+                    currentDataset.Distributions = updatedDataset.Distributions;
+                    break;
+                case "Subjects":
+                    currentDataset.Subjects = updatedDataset.Subjects;
+                    break;
+                case "Identifiers":
+                    currentDataset.Identifiers = updatedDataset.Identifiers;
+                    break;
+
+            }
 
             await SaveChanges();
 

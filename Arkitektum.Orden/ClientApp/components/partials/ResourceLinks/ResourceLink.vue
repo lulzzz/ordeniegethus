@@ -20,6 +20,9 @@
                 <span class="btn btn-outline-success" v-on:click="update()"><span class="fas fa-check"></span> Oppdater</span>
             </div>
         </div>
+      
+      
+
         <div v-show="!editable" v-bind:class="{'d-flex justify-content-between align-items-center': !editable}">
             <a v-bind:href="resourceLink.url">{{ resourceLink.description}}</a>
             <div class="float-right" v-if="writeAccess">

@@ -37,7 +37,7 @@ export default {
             this.newResourceLink = false;
         },
         postResourceLink(data) {
-            Promise.resolve(this.$root.postApiData(`${this.apiPath}/${this.parentId}`, data))
+          Promise.resolve(this.$root.postApiData(`${this.apiPath}/${this.parentId}`, data))
                 .then(() => {
                     this.getResourceLinks();
                     this.removeNewResourceLink();

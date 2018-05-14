@@ -27,8 +27,9 @@ namespace Arkitektum.Orden.Controllers
         public async Task<IActionResult> Index()
         {
             var model = new HomeViewModel();
+
             model.NumberOfApplications =
-                await _applicationService.GetApplicationCountForOrganization(CurrentOrganizationId());
+               await _applicationService.GetApplicationCountForOrganization(CurrentOrganizationId());
             model.NumberOfDataset = await _datasetService.GetDatasetsCountForOrganization(CurrentOrganizationId());
             model.NumberOfPublishedDataset = 0; // TODO implement numberOfPublishedDataset
             

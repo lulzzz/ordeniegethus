@@ -32,26 +32,26 @@ namespace Arkitektum.Orden.Controllers
             model.AvailableConcepts = new MultiSelectList(_conceptService.GetConcepts(), "Code", "Name");
 
             var dataset = await _datasetService.GetAsync(id);
-         
-            return View(model.Map(dataset));
+
+            return Json(model.Map(dataset));
         }
 
 
 
-        // POST: DatasetMetadata/Create
-        [HttpPost("{id}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, [Bind("Id,Description,Concepts,Identifiers,ContactPoints,Distributions,Keywords," +
-                                         "AccessRightComments,Subjects")] DatasetMetadataViewModel model)
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] DatasetMetadataViewModel model)
         {
             var dataset = new Dataset();
+            dataset.Id = id;
 
             if (ModelState.IsValid)
             {
-                dataset = await _datasetService.UpdateMetadataAsync(id, new DatasetMetadataViewModel().Map(model));
+                var fieldName = model.FindOutChangedFieldName(model);
+                dataset = await _datasetService.UpdateMetadataAsync(id, new DatasetMetadataViewModel().Map(model), fieldName);
             }
 
-            return View(new DatasetMetadataViewModel().Map(dataset));
+            return Json(new DatasetMetadataViewModel().Map(dataset));
         }
 
 

@@ -17,7 +17,9 @@
     },
     methods: {
         update() {
+            
             this.$parent.updateResourceLink(this.resourceLink.id, this.data);
+            
             this.editable = false;
         }
     }

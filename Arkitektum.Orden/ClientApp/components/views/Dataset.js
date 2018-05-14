@@ -2,6 +2,7 @@
 import ResourceLinks from '../partials/ResourceLinks.vue';
 import DatasetApplications from '../partials/DatasetApplications.vue';
 import DatasetFields from '../partials/DatasetFields.vue';
+import DatasetMetadata from '../partials/DatasetMetadata.vue';
 import { format } from 'date-fns';
 
 
@@ -27,7 +28,8 @@ export default {
     components: {
         ResourceLinks,
         DatasetApplications,
-        DatasetFields
+        DatasetFields,
+        DatasetMetadata
     },
     mounted() {
         this.getApiData();

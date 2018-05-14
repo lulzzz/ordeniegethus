@@ -291,4 +291,7 @@
   <data name="HostingVendorHelp" xml:space="preserve">
     <value>Virksomheten som har ansvar for daglig drift og support.</value>
   </data>
+  <data name="Concepts" xml:space="preserve">
+    <value>Tema</value>
+  </data>
 </root>

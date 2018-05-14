@@ -171,6 +171,7 @@ namespace Arkitektum.Orden.Models
             DistributionsAsList = new List<string>();
             AccessRightCommentsAsList = new List<string>();
             SubjectsAsList = new List<string>();
+            DescriptionsAsList = new List<string>();
         }
 
 
@@ -184,7 +185,7 @@ namespace Arkitektum.Orden.Models
 
         private string JoinByPipe(List<string> input)
         {
-            if (input == null)
+            if (input == null || input.Count == 0)
                 return null;
 
             return string.Join('|', input);
@@ -195,6 +196,13 @@ namespace Arkitektum.Orden.Models
         {
             get => SplitByPipe(Keywords);
             set => Keywords = JoinByPipe(value);
+        }
+
+        [NotMapped]
+        public List<string> DescriptionsAsList
+        {
+            get => SplitByPipe(Description);
+            set => Description = JoinByPipe(value);
         }
 
         [NotMapped]

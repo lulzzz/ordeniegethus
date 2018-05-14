@@ -2,7 +2,7 @@
     <div>
         <div class="list-group list-group-flush">
             <!-- Saved dataset field -->
-            <dataset-field v-bind:dataset-field="datasetField" v-bind:write-access="writeAccess" v-bind:saved="true" v-on:remove="removeDatasetField(datasetField.id)" v-for="datasetField in apiData" :key="datasetField.id"></dataset-field>
+            <dataset-field v-bind:dataset-field="datasetField"  v-bind:write-access="writeAccess" v-bind:saved="true" v-on:remove="removeDatasetField(datasetField.id)" v-for="datasetField in apiData" :key="datasetField.id"></dataset-field>
             
             <!-- New dataset field -->
             <dataset-field v-if="newDatasetField" v-bind:selected-dataset-fields="apiData" v-bind:dataset-id="datasetId" v-bind:saved="false" v-on:remove="removeNewDatasetField()"></dataset-field>
