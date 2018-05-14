@@ -47,23 +47,20 @@
         <h2>Drift</h2>
         <hr/>
         <p v-if="apiData.hostingLocationText">Driftsplassering: {{ apiData.hostingLocationText }}</p>
-        
-        <h2>Metadata</h2>
-        <dataset-metadata v-bind:write-access="writeAccess" v-bind:dataset-id="datasetId" v-bind:lists="metadataLists"></dataset-metadata>
-        
-        <h2>Drift</h2>
+
+        <h3>Informasjonselementer</h3>
         <hr/>
-        <p v-if="apiData.hostingLocationText">Driftsplassering: {{ apiData.hostingLocationText }}</p>
-        
-        <h2>Informasjonselementer</h2>
-        <hr/>
+
         <dataset-fields v-bind:dataset-id="datasetId" v-bind:dataset-fields="apiData.fields" v-bind:write-access="writeAccess"></dataset-fields>
+
+        <h3>Metadata</h3>
+        <dataset-metadata v-bind:write-access="writeAccess" v-bind:dataset-id="datasetId" v-bind:lists="metadataLists"></dataset-metadata>
 
         <h2>Lenker</h2>
         <hr />
         <resource-links v-bind:parent-id="datasetId" api-path="/api/ResourceLinks/Dataset" v-bind:write-access="writeAccess"></resource-links>
-      </div>
 
+      </div>
       <div class="col-lg-4">
         <div class="card">
           <div class="card-header">Applikasjoner</div>
@@ -71,8 +68,10 @@
         </div>
       </div>
     </div>
-    
+
   </div>
+  </div>
+
 </template>
 
 

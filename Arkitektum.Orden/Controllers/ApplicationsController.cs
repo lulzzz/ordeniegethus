@@ -96,7 +96,7 @@ namespace Arkitektum.Orden.Controllers
         
 
         [HttpGet("create/{applicationQuery?}")]
-        public async Task<IActionResult> Create([FromQuery] string applicationQuery)
+        public async Task<IActionResult> Create([FromQuery] string applicationQuery = null)
         {
             if (!_securityService.CurrrentUserHasAccessToOrganization(CurrentOrganizationId(), AccessLevel.Write))
                 return Forbid();
