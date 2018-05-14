@@ -51,7 +51,12 @@
                 </a>
               </p>
 -->
-              <h2>Lenker</h2>
+
+                <h2>Superbrukere</h2>
+                <hr/>
+                <application-super-users v-bind:organization-id="organizationId" v-bind:application-id="applicationId" route="/api/applications" v-bind:write-access="writeAccess"></application-super-users>
+
+                <h2>Lenker</h2>
                 <hr />
                 <resource-links v-bind:parent-id="applicationId" api-path="/ResourceLinks/Application" v-bind:write-access="writeAccess"></resource-links>
 

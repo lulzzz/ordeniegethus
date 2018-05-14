@@ -1,5 +1,6 @@
 ﻿/* Components */
 import ResourceLinks from '../partials/ResourceLinks.vue';
+import ApplicationSuperUsers from '../partials/ApplicationSuperUsers.vue';
 import ApplicationSectors from '../partials/ApplicationSectors.vue';
 import ApplicationDatasets from '../partials/ApplicationDatasets.vue';
 import ApplicationNationalComponents from '../partials/ApplicationNationalComponents.vue';
@@ -11,6 +12,7 @@ export default {
     name: 'Application',
     props: {
         applicationId: String,
+        organizationId: String,
         writeAccess: {
             type: Boolean,
             default: false
@@ -28,6 +30,7 @@ export default {
     },
     components: {
         ResourceLinks,
+        ApplicationSuperUsers,
         ApplicationSectors,
         ApplicationDatasets,
         ApplicationNationalComponents,
