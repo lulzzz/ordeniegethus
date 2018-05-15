@@ -1,9 +1,12 @@
 /* Components */
+import SidebarNavigation from '../modules/SidebarNavigation.vue';
 import ResourceLinks from '../partials/ResourceLinks.vue';
 import DatasetApplications from '../partials/DatasetApplications.vue';
 import DatasetFields from '../partials/DatasetFields.vue';
 import DatasetMetadata from '../partials/DatasetMetadata.vue';
-import { format } from 'date-fns';
+import {
+    format
+} from 'date-fns';
 
 
 export default {
@@ -15,17 +18,47 @@ export default {
             default: false
         },
         metadataLists: Array
-    }, 
+    },
     data() {
         return {
             apiUrls: {
                 get: `/api/datasets/${this.datasetId}`,
                 edit: `/datasets/edit/${this.datasetId}`
             },
-            apiData: null
+            apiData: null,
+            navigationItems: [{
+                    name: 'Beskrivelse',
+                    id: 'description'
+                },
+                {
+                    name: 'Formål',
+                    id: 'purpose'
+                },
+                {
+                    name: 'Drift',
+                    id: 'hosting'
+                },
+                {
+                    name: 'Informasjonselementer',
+                    id: 'fields'
+                },
+                {
+                    name: 'Metadata',
+                    id: 'metadata'
+                },
+                {
+                    name: 'Lenker',
+                    id: 'resource-links'
+                },
+                {
+                    name: 'Applikasjoner',
+                    id: 'applications'
+                }
+            ]
         }
     },
     components: {
+        SidebarNavigation,
         ResourceLinks,
         DatasetApplications,
         DatasetFields,
@@ -49,11 +82,10 @@ export default {
             return format(value, 'D. MMMM YYYY HH:mm:ss');
         },
         formatBoolean: function (value) {
-            if (value) 
+            if (value)
                 return 'Ja';
-            else 
+            else
                 return 'Nei';
-        }        
+        }
     }
 }
-
