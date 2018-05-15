@@ -15,10 +15,9 @@
 }
 
 .body-content {
-    background: white;
     padding-top: 24px;
     padding-bottom: 24px;
-    @include raised(1);
+    
 }
 
 @media (min-width: $screen-sm) {
@@ -28,4 +27,13 @@
     .container {
         max-width: 960px;
     }
+}
+
+
+
+.section {
+    padding: 12px 16px;
+    margin: 12px 0;
+    background: white;
+    @include raised(1);
 }

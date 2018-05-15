@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h2>Applikasjoner</h2>
+<h1>Applikasjoner</h1>
 <form asp-action="Index" method="get">
     <div class="form-group filterApplicationsBySectorDropdown">
         <select name="sectorId" asp-items="@Model.Sectors" class="form-control" onchange="this.form.submit()">
@@ -15,48 +15,50 @@
     <a asp-action="Create" asp-controller="AppRegistry">Registrer en ny applikasjon</a>
 </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @ModelsResource.Name
-            </th>
-            <th>
-                @ModelsResource.Version
-            </th>
-            <th>
-                @ModelsResource.Vendor
-            </th>
-            <th>
-                @ModelsResource.AnnualFee
-            </th>
-            <th>
-                @ModelsResource.SystemOwner
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Applications)
-        {
+<div class="section">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Version)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Vendor)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AnnualFee)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SystemOwner)
-                </td>
+                <th>
+                    @ModelsResource.Name
+                </th>
+                <th>
+                    @ModelsResource.Version
+                </th>
+                <th>
+                    @ModelsResource.Vendor
+                </th>
+                <th>
+                    @ModelsResource.AnnualFee
+                </th>
+                <th>
+                    @ModelsResource.SystemOwner
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Applications)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Version)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vendor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AnnualFee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SystemOwner)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
