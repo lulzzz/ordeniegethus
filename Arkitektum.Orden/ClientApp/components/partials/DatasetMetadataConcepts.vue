@@ -4,7 +4,7 @@
       <!-- Saved concepts -->
       <dataset-metadata-concept v-bind:dataset-metadata-concept="datasetMetadataConcept" v-bind:write-access="writeAccess" v-bind:saved="true" 
                                 v-on:remove="removeDatasetMetadataConcept(datasetMetadataConcept.code)" 
-                                v-for="datasetMetadataConcept in apiData" :key="datasetApplication.code">
+                                v-for="datasetMetadataConcept in apiData">
 
       </dataset-metadata-concept>
 

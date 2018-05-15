@@ -18,7 +18,8 @@ export default {
     },
     data() {
         return {
-            apiData: null,
+            concepts: null,
+            metadata: null,
             apiUrls: {
                 getMetadata: `/dataset/metadata/${this.datasetId}`,
                 getConcepts: `/api/concepts`
@@ -33,11 +34,11 @@ export default {
             this.apiData = {};
             Promise.resolve(this.$root.getApiData(this.apiUrls.getMetadata))
                 .then((apiData) => {
-                    this.apiData.metadata = apiData;
+                    this.metadata = apiData;
                 });
             Promise.resolve(this.$root.getApiData(this.apiUrls.getConcepts))
                 .then((apiData) => {
-                    this.apiData.concepts = apiData;
+                    this.concepts = apiData;
                 }
                 );
 

@@ -9,16 +9,15 @@
       <list v-bind:list-elements="apiData.subjects" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="Subjects"  v-bind:dataset-id="datasetId"></list>
       <list v-bind:list-elements="apiData.keywords" v-bind:apiUrl="url" v-bind:write-access="writeAccess" name="Keywords"  v-bind:dataset-id="datasetId"></list>-->
 
-    <list v-bind:list-elements="apiData.metadata[list.propertyName]"
+    <list v-bind:list-elements="metadata[list.propertyName]"
           v-bind:listTitle="list.listTitle" v-bind:apiUrl="url"
           v-bind:write-access="writeAccess" v-bind:name="list.name"
           v-bind:dataset-id="datasetId" v-for="list in lists">
-    </list>
+   </list>
 
 
-    <dataset-metadata-concepts v-bind:dataset-metadata-concepts="apiData.concepts"
-                               v-bind:write-access="writeAccess" v-bind:dataset-id="datasetId"
-                               v-bind:name="concept.name" v-for="concept in concepts">
+    <dataset-metadata-concepts v-bind:dataset-metadata-concepts="concepts"
+                               v-bind:write-access="writeAccess" v-bind:dataset-id="datasetId">
     </dataset-metadata-concepts>
 
 
