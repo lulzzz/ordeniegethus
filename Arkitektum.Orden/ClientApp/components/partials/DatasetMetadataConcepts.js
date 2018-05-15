@@ -1,7 +1,7 @@
 import DatasetMetadataConcept from './DatasetMetadataConcepts/DatasetMetadataConcept.vue';
 
 export default {
-    name: 'datasetMetadataConcepts',
+    name: 'DatasetMetadataConcepts',
 
     props: {
         datasetMetadataConcepts: Array,
@@ -24,10 +24,24 @@ export default {
         }
     },
 
-
+    mounted() {
+        this.apiData = this.datasetMetadataConcepts;
+    },
 
     methods: {
         removeDatasetMetadataConcept(id) {
+
+        },
+
+        removeNewDatasetMetadataConcept(id) {
+
+        },
+
+        createNewDatasetMetadataConcept() {
+
+        },
+
+        postDatasetMetadataConcept(data) {
 
         }
     }

@@ -23,6 +23,8 @@ export default {
         }
     },
     methods: {
-        
+        selectDatasetMetadataConcept(datasetMetadataConcept) {
+            this.data = datasetMetadataConcept;
+        }
     }
 }

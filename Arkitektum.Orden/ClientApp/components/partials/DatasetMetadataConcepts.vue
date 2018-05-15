@@ -9,12 +9,15 @@
       </dataset-metadata-concept>
 
       <!-- New concepts -->
-      <dataset-metadata-concept v-if="newDatasetApplication" v-bind:available-applications="availableApplications" 
-                                v-bind:dataset-id="datasetId" v-bind:saved="false" v-on:remove="removeNewDatasetApplication()">
+      <dataset-metadata-concept v-if="newDatasetMetadataConcept" v-bind:available-concepts="availableConcepts" 
+                                v-bind:dataset-id="datasetId" v-bind:saved="false" 
+                                v-on:remove="removeNewDatasetMetadataConcept(datasetMetdataConcept.code)">
 
       </dataset-metadata-concept>
 
-      <button v-if="writeAccess" v-show="!newDatasetApplication && availableApplications.length" v-on:click="createNewDatasetApplication()" class="float-right btn btn-outline-primary list-group-item-button">
+      <button v-if="writeAccess" v-show="!newDatasetMetadataConcept && availableConcepts.length"
+              v-on:click="createNewDatasetMetadataConcept()"
+              class="float-right btn btn-outline-primary list-group-item-button">
         <span class="fas fa-plus"></span> Legg til tema
       </button>
     </div>

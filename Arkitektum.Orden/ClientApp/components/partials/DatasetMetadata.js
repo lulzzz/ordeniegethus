@@ -30,9 +30,10 @@ export default {
     },
     methods: {
         getApiData() {
+            this.apiData = {};
             Promise.resolve(this.$root.getApiData(this.apiUrls.getMetadata))
                 .then((apiData) => {
-                    this.apiData = apiData;
+                    this.apiData.metadata = apiData;
                 });
             Promise.resolve(this.$root.getApiData(this.apiUrls.getConcepts))
                 .then((apiData) => {
